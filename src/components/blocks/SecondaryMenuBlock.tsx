@@ -50,12 +50,32 @@ export function SecondaryMenuBlock({
             aria-label="Toggle menu"
           >
             {isOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
             )}
           </button>
@@ -68,7 +88,7 @@ export function SecondaryMenuBlock({
                   <Link
                     key={`g-${String(item.id ?? item.label)}-${item.url}`}
                     href={item.url || "#"}
-                    className="text-base font-medium text-gray-800 hover:text-blue-500 transition"
+                    className="font-agenda-medium text-[#242A2E] hover:text-blue-500 transition"
                     onClick={() => setIsOpen(false)}
                   >
                     {item.label}
@@ -86,7 +106,10 @@ export function SecondaryMenuBlock({
               <Link
                 key={String(item.id ?? item.label)}
                 href={item.url || "#"}
-                className={`transition-colors duration-300 ${isActivePage ? "text-black font-semibold" : ""}`}
+                className={`transition-colors text-[#242A2E]/50 font-agenda-regular duration-300 ${
+                  isActivePage ? "text-[#242A2E]/100 font-agenda-regular" : ""
+                }`}
+                style={{ fontSize: "20px" }}
               >
                 {item.label}
               </Link>
@@ -94,7 +117,9 @@ export function SecondaryMenuBlock({
           })}
 
           {/* Separator */}
-          {aboutInfoBlocks.length > 0 && <span className="text-gray-400">|</span>}
+          {aboutInfoBlocks.length > 0 && (
+            <span className="text-gray-400">|</span>
+          )}
 
           {/* In-page scrollspy links */}
           {aboutInfoBlocks.map((info) => {
@@ -104,7 +129,11 @@ export function SecondaryMenuBlock({
               <a
                 key={info.id}
                 href={`#${id}`}
-                className={`transition-colors duration-300 ${isActive ? "text-blue-500 font-semibold" : ""}`}
+                className={[
+                  "transition-colors font-agenda-regular duration-300",
+                  isActive ? "text-[#1E9BFB]" : "text-[#242A2E]/50",
+                ].join(" ")}
+                style={{ fontSize: "20px" }}
               >
                 {info.heading}
               </a>

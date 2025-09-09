@@ -50,8 +50,8 @@ export function Header({ data }: HeaderProps) {
               key={item.id}
               href={item.href}
               target={item.isExternal ? "_blank" : "_self"}
-              className="text-sm font-medium hover:text-blue-500 transition navigationDesk"
-              style = {{ fontFamily: "agenda", fontStyle: "normal", fontSize: "18px"}}
+              className="navigationDesk text-[#23292E] font-agenda-medium hover:text-blue-500 transition"
+              style={{ fontSize: "22px" }}
             >
               {item.text}
             </Link>

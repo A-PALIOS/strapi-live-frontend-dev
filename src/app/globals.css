@@ -56,9 +56,15 @@ body {
       transform: translateX(-50%);
     }
   }
-
+ 
   .animate-infinite-scroll {
     animation: infinite-scroll 25s linear infinite;
+  }
+   .marquee-track {
+    display: flex;
+    width: max-content;                  /* track grows to content width */
+    animation: infinite-scroll var(--duration, 60s) linear infinite;
+    will-change: transform;
   }
 }
 
