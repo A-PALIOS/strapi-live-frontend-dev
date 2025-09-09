@@ -1,0 +1,237 @@
+@import "tailwindcss";
+html {
+  scroll-behavior: smooth;
+}
+.customgray {
+  color: rgb(36 42 46 / 25%)
+}
+.customnumber{
+  color:rgb(239 239 239 / 25%);
+}
+.customnumber2{
+  color:rgb(36 42 46/ 75%);
+}
+
+
+.custom-gradient {
+  background: linear-gradient(
+    to right,
+    #0090FE 13%,
+    #B4D3EF 100%
+  );
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans); /* Roboto */
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+}
+
+/* 👇 Add this for the infinite carousel scroll animation */
+@layer utilities {
+  @keyframes infinite-scroll {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-infinite-scroll {
+    animation: infinite-scroll 25s linear infinite;
+  }
+}
+
+
+
+/* ===== Agenda Font Classes ===== */
+
+/* Thin */
+.font-agenda-thin {
+  font-family: "agenda", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.font-agenda-thin-italic {
+  font-family: "agenda", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+/* Light */
+.font-agenda-light {
+  font-family: "agenda", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.font-agenda-light-italic {
+  font-family: "agenda", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* Regular */
+.font-agenda-regular {
+  font-family: "agenda", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-agenda-regular-italic {
+  font-family: "agenda", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* Medium */
+.font-agenda-medium {
+  font-family: "agenda", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.font-agenda-medium-italic {
+  font-family: "agenda", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* Semibold */
+.font-agenda-semibold {
+  font-family: "agenda", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.font-agenda-semibold-italic {
+  font-family: "agenda", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* Bold */
+.font-agenda-bold {
+  font-family: "agenda", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.font-agenda-bold-italic {
+  font-family: "agenda", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* Black */
+.font-agenda-black {
+  font-family: "agenda", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.font-agenda-black-italic {
+  font-family: "agenda", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+/* Condensed Bold Italic */
+.font-agenda-condensed-bold-italic {
+  font-family: "agenda-condensed", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+
+
+
+/* ===== IvyPresto Headline Font Classes ===== */
+
+/* Thin */
+.font-ivypresto-thin {
+  font-family: "ivypresto-headline", serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.font-ivypresto-thin-italic {
+  font-family: "ivypresto-headline", serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+/* Light */
+.font-ivypresto-light {
+  font-family: "ivypresto-headline", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.font-ivypresto-light-italic {
+  font-family: "ivypresto-headline", serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* Regular */
+.font-ivypresto-regular {
+  font-family: "ivypresto-headline", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-ivypresto-regular-italic {
+  font-family: "ivypresto-headline", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* SemiBold */
+.font-ivypresto-semibold {
+  font-family: "ivypresto-headline", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.font-ivypresto-semibold-italic {
+  font-family: "ivypresto-headline", serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* Bold */
+.font-ivypresto-bold {
+  font-family: "ivypresto-headline", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.font-ivypresto-bold-italic {
+  font-family: "ivypresto-headline", serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+
