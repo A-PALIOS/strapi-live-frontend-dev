@@ -49,11 +49,27 @@ export async function ContentList({
 
   return (
     <section className="w-full max-w-7xl mx-auto px-4 py-10">
-      <h3 className={`text-3xl font-bold mb-8 ${alignmentClass}`}>
+      <div>
+      <h3 className={`text-3xl font-bold mb-8 ${alignmentClass} font-agenda-regular `}>
         {headline || "Featured Articles"}
       </h3>
 
-      {showSearch && (<div><Search /><br></br></div>)}
+      {showSearch ? (
+        <div className="flex justify-between items-end  mb-6">
+          <Search />
+          {showPagination && <PaginationComponent pageCount={pageCount} />}
+
+        </div>)
+      
+      :(<div className="flex align-end justify-end mb-6">
+      {showPagination && <PaginationComponent pageCount={pageCount} />}
+
+      </div>)}
+      
+
+      </div>
+
+      
 
       <div
         className={
@@ -67,7 +83,8 @@ export async function ContentList({
         ))}
       </div>
 
-      {showPagination && <PaginationComponent pageCount={pageCount} />}
+      {/* {showPagination && <PaginationComponent pageCount={pageCount} />} */}
     </section>
   );
 }
+

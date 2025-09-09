@@ -63,7 +63,7 @@ export default async function BlogRoute({ searchParams }: PageProps) {
   {/* Category filters */}
       <CategoryFilter categories={categoryList} />
 
-    <ContentList
+    {/* <ContentList
   headline="Check out our latest  + +articles"
   path="/api/articles"
   component={BlogCard}
@@ -73,6 +73,18 @@ export default async function BlogRoute({ searchParams }: PageProps) {
   query={query}
   showPagination
   page={page}
+/> */}
+<ContentList
+  headline="Check out our latest articles"
+  path="/api/articles"
+  component={BlogCard}
+  featured
+  showSearch
+  category={category}
+  query={query}
+  showPagination={false}   // pagination generally not needed for carousels
+  page={page}
+  layout="grid"        // ⬅️ enable carousel mode
 />
 
   </div>;
