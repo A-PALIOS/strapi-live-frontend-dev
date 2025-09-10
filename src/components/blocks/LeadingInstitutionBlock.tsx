@@ -27,23 +27,23 @@ export function LeadingInstitutionBlock({
     .filter(Boolean);
 
   return (
-    <div className="bg-white py-12 px-6">
+    <div className="bg-white py-7 px-3 mx-auto max-w-7xl sm:px-6 sm:py-10 md:py-12">
       <span
-        className="font-agenda-medium text-3xl font-medium tracking-widest uppercase"
-        style={{ marginLeft: "300px" }}
+        className="block font-agenda-medium text-2xl sm:text-3xl font-medium tracking-widest uppercase text-center md:text-left md:ml-10"
+        // style={{ marginLeft: "300px" }}
       >
         {Title}
       </span>
       <br />
       <div className="border-t border-gray-200 py-4" />
       <div className="flex flex-col md:flex-row md:items-center mt-8 space-y-8 md:space-y-0 md:space-x-12">
-        <div className="md:w-1/2" style={{ marginLeft: "300px" }} >
-          <span className="text-6xl font-agenda-medium font-extralight leading-tight tracking-wide text-gray-900 block">
+        <div className="tracking-widest uppercase text-center md:text-left md:ml-10">
+          <span className="text-6xl font-agenda-medium font-extralight leading-tight tracking-wide text-gray-900">
             {beforeDiff}
           </span>
-          <span className="text-6xl font-agenda-medium font-extralight leading-tight tracking-wide text-gray-900 block">
-            {middle}{" "}
-            <span className="font-ivypresto-regular font-medium text-6xl">
+          <span className="text-6xl font-agenda-medium font-extralight leading-tight tracking-wide text-gray-900 ">
+            {" "} {middle} {" "}
+            <span className="font-ivypresto-regular tracking-wide font-medium text-6xl">
               {lastWord}
             </span>
           </span>

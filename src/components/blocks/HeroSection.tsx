@@ -65,7 +65,7 @@ export function HeroSection({
 
           {/* Lead paragraph (optional) */}
         
-            <p className="mt-6 text-base/7 sm:text-lg/8 text-white/90 w-2xl">
+            <p className="mt-6 text-base/7 sm:text-lg/8 text-white/90 w-2xl font-agenda-regular">
             {subheader}            
             </p>
         
