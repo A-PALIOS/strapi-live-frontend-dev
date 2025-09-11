@@ -72,28 +72,34 @@ export function HeroSection({
 
           {/* CTA (optional) */}
           {cta && (
-            <div className="mt-8">
-              <Link
-                href={cta.href}
-                target={cta.isExternal ? "_blank" : "_self"}
-                className="inline-flex items-center gap-3 rounded-md bg-[#1E9BFB] px-6 py-3 text-sm font-semibold text-white shadow hover:bg-[#0f8ed6] transition"
-              >
-                {cta.text}
-                <span className="flex h-7 w-7 items-center justify-center rounded-md bg-white">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 text-[#1E9BFB]"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M7 7h10v10" />
-                  </svg>
-                </span>
-              </Link>
-            </div>
-          )}
+  <Link
+    href={cta.href}
+    target={cta.isExternal ? "_blank" : "_self"}
+    className="group ml-auto inline-flex items-center gap-3 text-slate-300 hover:text-white mt-16"
+    aria-label={cta.text ?? "Learn more"}
+  >
+    <span className="text-sm md:text-base font-agenda-semibold">
+      {cta.text ?? "Learn More"}
+    </span>
+
+    {/* orange square */}
+    <span
+      className="mr-3 sm:mr-6 grid place-items-center w-7 h-7 md:w-8 md:h-8
+                 rounded-md bg-[#FF8A00] text-white
+                 transition-transform duration-200 group-hover:translate-y-0.5"
+    >
+      {/* FULL down arrow (filled) */}
+      <svg
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden="true"
+        className="w-4 h-4"
+      >
+        <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />
+      </svg>
+    </span>
+  </Link>
+)}
         </div>
       </div>
     </section>

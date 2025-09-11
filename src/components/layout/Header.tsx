@@ -41,7 +41,7 @@ export function Header({ data }: HeaderProps) {
           />
         </Link>
  
-        <span className="text-sm font-medium text-gray-700 seperation" style={{color: "black", fontFamily: "agenda", fontStyle: "normal", fontSize: "25px", marginLeft: "12px", marginRight: "12px"}}>|</span>
+        <span className="text-sm font-medium text-gray-700 seperation" style={{color: "#73777A", fontFamily: "agenda", fontStyle: "normal", fontSize: "25px", marginLeft: "12px", marginRight: "12px"}}>|</span>
  
         {/* Desktop Nav */}
         <nav className="hidden md:flex gap-8  navbar navbar-expand-lg navbar-light" >

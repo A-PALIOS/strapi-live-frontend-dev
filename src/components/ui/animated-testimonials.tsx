@@ -385,7 +385,7 @@ export const AnimatedTestimonials = ({
             <AnimatePresence initial={false}>
               {testimonials.map((t, index) => {
                 const src = getStrapiMedia(t.src);
-                console.log("Image src:",t);
+                console.log("Image src:", t);
                 if (!src) return null;
                 const rotateSeed = seededRotates[index];
                 const isActive = index === active;
@@ -440,7 +440,11 @@ export const AnimatedTestimonials = ({
                   key={i}
                   initial={false}
                   animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2, ease: "easeInOut", delay: 0.02 * i }}
+                  transition={{
+                    duration: 0.2,
+                    ease: "easeInOut",
+                    delay: 0.02 * i,
+                  }}
                   className="inline-block"
                 >
                   {word}&nbsp;
@@ -450,7 +454,7 @@ export const AnimatedTestimonials = ({
             </motion.p>
           </motion.div>
 
-          <div className="flex items-center gap-3 pt-12 md:pt-0">
+          {/* <div className="flex items-center gap-3 pt-12 md:pt-0">
             {testimonials.map((_, index) => (
               <button
                 key={`dot-${index}`}
@@ -463,6 +467,26 @@ export const AnimatedTestimonials = ({
                 }`}
               />
             ))}
+          </div> */}
+
+          <div className="flex items-center gap-3 pt-12 md:pt-0">
+            {/* Prev button */}
+            <button
+              onClick={() => setActive((active - 1 + len) % len)}
+              aria-label="Previous testimonial"
+              className="flex items-center justify-center w-10 h-10 rounded-md bg-gray-200 text-gray-600 hover:bg-gray-300 transition dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600"
+            >
+              ←
+            </button>
+
+            {/* Next button */}
+            <button
+              onClick={() => setActive((active + 1) % len)}
+              aria-label="Next testimonial"
+              className="flex items-center justify-center w-10 h-10 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition dark:bg-blue-400 dark:hover:bg-blue-500"
+            >
+              →
+            </button>
           </div>
 
           <div className="sr-only">

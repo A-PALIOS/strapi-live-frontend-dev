@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { TestimonialsBlockProps } from "@/types";
 // import Image from "next/image";
 import { StrapiImage } from "../StrapiImage";
@@ -15,13 +16,43 @@ function resolveMediaUrl(m: any): string | null {
   return typeof nested === "string" ? nested : null;
 }
 
-export function TestimonialsBlock({ items }: TestimonialsBlockProps) {
+export function TestimonialsBlock({ items, heading, cta }: TestimonialsBlockProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const active = items[activeIndex];
 
   return (
     <section className="py-12 flex justify-center">
+
+      <div className="max-w-6xl mx-auto px-4">
+  {/* Heading + CTA on one line */}
+  <div className="flex items-center justify-between mb-6 ml-4">
+    <h3 className="text-3xl font-agenda-medium">{heading}</h3>
+    {cta && (
+      <Link
+        href={cta.href}
+        target={cta.isExternal ? "_blank" : "_self"}
+        className="inline-flex items-center font-agenda-regular text-xl font-medium text-gray-900 hover:opacity-80 transition"
+        style={{color: "#323C43"}}
+      >
+        {cta.text}
+        <div
+          style={{ marginLeft: "10px" }}
+          className="flex items-center justify-center rounded"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+            className="w-5 h-5 transform -rotate-135"
+            style={{ color: "#221D1D" }}
+          >
+            <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />
+          </svg>
+        </div>
+      </Link>
+    )}
+  </div>
 
 
       {/* <div className="max-w-5xl w-full px-4 flex flex-col md:flex-row items-center justify-between gap-8">
@@ -81,6 +112,7 @@ export function TestimonialsBlock({ items }: TestimonialsBlockProps) {
     .filter(t => !!t.src) // optional: drop entries without an image
   }
 />
+</div>
 
 
       
