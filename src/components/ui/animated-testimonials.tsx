@@ -377,7 +377,8 @@ export const AnimatedTestimonials = ({
   if (!mounted || len === 0) return null;
 
   return (
-    <div className="mx-auto max-w-sm px-4 py-20 font-sans antialiased md:max-w-4xl md:px-8 lg:px-12">
+    <div className="mx-auto max-w-7xl px-4 py-20 font-sans antialiased md:max-w-7xl md:px-8 lg:px-12">
+    
       <div className="relative grid grid-cols-1 gap-20 md:grid-cols-2">
         <div>
           <div className="relative h-80 w-full">
@@ -420,39 +421,48 @@ export const AnimatedTestimonials = ({
           </div>
         </div>
 
-        <div className="flex flex-col justify-between py-4">
-          <motion.div
-            key={active}
-            initial={false}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
-          >
-            <h3 className="text-2xl font-bold text-black dark:text-white">
-              {testimonials[active].name}
-            </h3>
-            <p className="text-sm text-gray-500 dark:text-neutral-500">
-              {testimonials[active].designation}
-            </p>
-            <motion.p className="text-2xl text-gray-600 italic">
-              “
-              {testimonials[active].quote.split(" ").map((word, i) => (
-                <motion.span
-                  key={i}
-                  initial={false}
-                  animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.2,
-                    ease: "easeInOut",
-                    delay: 0.02 * i,
-                  }}
-                  className="inline-block"
-                >
-                  {word}&nbsp;
-                </motion.span>
-              ))}
-              ”
-            </motion.p>
-          </motion.div>
+       <div className="flex flex-col justify-between py-4">
+  <motion.div
+    key={active}
+    initial={false}
+    animate={{ y: 0, opacity: 1 }}
+    transition={{ duration: 0.2, ease: "easeInOut" }}
+  >
+    <h3 className="text-4xl font-agenda-medium">
+      {testimonials[active].name}
+    </h3>
+
+    <p className="mt-2 text-lg text-[#242a2e80] dark:text-neutral-500">
+      {testimonials[active].designation}
+    </p>
+
+    {/* Quote block */}
+    <div className="relative mt-3 max-w-[740px] isolation-auto">
+      {/* background quotation marks */}
+      <span
+        aria-hidden
+        className="pointer-events-none select-none absolute -top-18 -left-2 text-[160px] leading-none text-[#221D1D]/10"
+      style={{fontFamily:"fantasy",fontSize:"309px"}}
+      >
+        “
+      </span>
+    
+
+      {/* the quote text */}
+      <motion.p
+        className="
+          mt-11
+          relative z-10
+          text-2xl leading-[1.35]
+          text-[#221D1D]/50
+          font-agenda-regular
+          line-clamp-6
+        "
+      >
+        {testimonials[active].quote}
+      </motion.p>
+    </div>
+  </motion.div>
 
           {/* <div className="flex items-center gap-3 pt-12 md:pt-0">
             {testimonials.map((_, index) => (

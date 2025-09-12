@@ -50,7 +50,7 @@ export async function ContentList({
   return (
     <section className="w-full max-w-7xl mx-auto px-4 py-10">
       <div>
-      <h3 className={`text-3xl font-bold mb-8 ${alignmentClass} font-agenda-regular `}>
+      <h3 className={`text-3xl font-bold mb-8 ${alignmentClass} font-agenda-medium`}>
         {headline || "Featured Articles"}
       </h3>
 

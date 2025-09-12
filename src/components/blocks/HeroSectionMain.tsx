@@ -45,12 +45,12 @@ export function HeroSectionMain({
               <StrapiImage
                 src={logo.image.url}
                 alt={logo.image.alternativeText || "Logo"}
-                className="h-5 w-auto"
+                className="h-10 w-auto"
                 width={24}
                 height={24}
               />
             )}
-            <span className="text-sm text-white md:text-base">Welcome to CMT Prooptiki</span>
+            <span className="text-sm text-white md:text-3xl font-agenda-medium">Welcome to CMT Prooptiki</span>
           </div>
 
           {/* Headline block */}
