@@ -71,8 +71,10 @@ import { TimeLineProps } from "@/types";
 import ReactMarkdown from "react-markdown";
 import FlickityTimeline, { TimelineItem as UITimelineItem } from "../ui/FlickityTimeline";
 
+console.log("NEXT_PUBLIC_STRAPI_URL:", process.env.NEXT_PUBLIC_STRAPI_API_URL);
+
 // Make relative Strapi URLs absolute
-const STRAPI_BASE = (process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337").replace(/\/$/, "");
+const STRAPI_BASE = (process.env.NEXT_PUBLIC_STRAPI_API_URL ?? "http://localhostnew:1337").replace(/\/$/, "");
 const toAbs = (u?: string | null) => (u && u.startsWith("http") ? u : `${STRAPI_BASE}${u ?? ""}`);
 
 // Your JSON shape: images is an array of files with { url, alternativeText }

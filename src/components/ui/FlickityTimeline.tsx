@@ -524,6 +524,7 @@ const sz = presets[size ?? "md"];
             elementType="div"
           >
             {items.map((item) => {
+              {console.log(item)}
               const variant: TimelineItem["variant"] =
                 item.variant ?? (item.images.length >= 2 ? "double" : "single");
 
