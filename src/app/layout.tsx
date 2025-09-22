@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { Geist_Mono } from "next/font/google";
+import "flickity/css/flickity.css";
 
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
@@ -44,6 +45,13 @@ export default async function RootLayout({
       <link rel="stylesheet" href="https://use.typekit.net/wtb8azc.css"/>
       <link rel="stylesheet" href="https://use.typekit.net/vfu6mno.css"/>
  
+       <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:ital,wght@1,400;1,600&display=swap"
+          rel="stylesheet"
+        />
+        <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
             </head>
 
       <body

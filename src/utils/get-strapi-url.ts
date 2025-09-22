@@ -5,6 +5,7 @@
 //  return process.env.STRAPI_API_URL ?? "http://localhost:1337";
 // }
 
+//******Code for Production ************************** */
 export function getStrapiURL(path: string = ""): string {
   // console.log("[Strapi PATH at runtime] :",path);
   // console.log("[Strapi PATH at runtime] :",process.env.STRAPI_API_URL );
@@ -22,6 +23,13 @@ export function getStrapiURL2(path: string = ""): string {
   // return path;
 
 }
+//******Code for Production ************************** */
+
+
+
+
+//******Code for Localhost ************************** */
+
 
 // export function getStrapiURL(path: string = ""): string {
 //   const baseUrl = process.env.STRAPI_API_URL || "http://localhost:1337";
@@ -32,3 +40,5 @@ export function getStrapiURL2(path: string = ""): string {
 //   const base = (process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337").trim();
 //   return base.replace(/\/+$/, "");
 // }
+
+//******Code for Localhost ************************** */

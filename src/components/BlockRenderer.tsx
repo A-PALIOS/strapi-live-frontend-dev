@@ -95,6 +95,7 @@ import { FeaturesBlock } from "@/components/blocks/FeatureBlocks";
 import { FeaturedArticle } from "@/components/blocks/FeaturedArticle";
 import { AboutSection } from "@/components/blocks/AboutSection";
 import { AboutInfo } from "@/components/blocks/AboutInfo";
+import { TimeLine } from "@/components/blocks/TimeLine";
 import { FullImage } from "@/components/blocks/FullImage";
 import { Heading } from "@/components/blocks/Heading";
 import { Paragraph } from "@/components/blocks/Paragraph";
@@ -135,6 +136,9 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
         return <AboutSection {...block} key={index} />;
     case "blocks.about-info":
         return <AboutInfo {...block} key={index} />;
+    case "blocks.timeline-block":
+        return <TimeLine {...block} key={index} />;
+      
     case "blocks.heading":
       return <Heading {...block} key={index} />;
     case "blocks.paragraph-with-image":

@@ -93,6 +93,7 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
                  | "blocks.testimonials-block" | "blocks.features-block" 
                  | "blocks.featured-article"
                  | "blocks.about-info"
+                 | "blocks.timeline-block"
                  | "blocks.about-section"
                  | "blocks.leading-institution-block"
                  | "blocks.heading"
@@ -120,7 +121,7 @@ interface Base<
 export type Block = HeroSectionMainProps | HeroSectionProps | InfoBlockProps | MilestonesBlockProps
  | VerticalAccordionBlockProps | ServicesAccordionBlockProps 
  | LogoCarouselBlockProps | TestimonialsBlockProps 
- | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps
+ | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | TimeLineProps
    | HeadingProps
   | ParagraphWithImageProps
   | LeadingInstitutionBlockProps
@@ -297,7 +298,38 @@ export interface AboutSectionProps extends Base<"blocks.about-section"> {
   description: string;
   infographic: ImageProps;
 }
- 
+
+
+
+export interface StrapiUploadFileAttributes {
+  url: string;
+  alternativeText?: string | null;
+}
+export interface StrapiImageEntity {
+  id: number;
+  attributes: StrapiUploadFileAttributes;
+}
+export interface StrapiMediaMulti { data: StrapiImageEntity[] | null; }
+
+export interface StrapiTimelineItem {
+  id: number;
+  year?: number | null;
+  variant?: "single" | "double" | "tall" | null;
+  caption?: string | null;
+  images: StrapiMediaMulti;
+}
+
+
+
+
+
+
+export interface TimeLineProps extends Base<"blocks.timeline-block"> {
+  title: string;
+  content: string;
+  heading: string;
+  items: StrapiTimelineItem[]; // <-- add this
+}
 export interface AboutInfoProps extends Base<"blocks.about-info"> {
   title: string;
   content: string;

@@ -292,6 +292,16 @@ const pageBySlugQuery = (slug: string) =>
               },
             },
             "blocks.about-info": true,
+            // loaders.ts – inside "blocks.on"
+            "blocks.timeline-block": {
+              populate: {
+                items: {
+                  populate: {
+                    images: { fields: ["url", "alternativeText"] },
+                  },
+                },
+              },
+            },
 
             "blocks.team-grid": {
               populate: {
