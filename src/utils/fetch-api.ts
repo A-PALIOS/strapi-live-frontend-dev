@@ -31,6 +31,7 @@ export async function fetchAPI(url: string, options: FetchAPIOptions) {
       contentType.includes("application/json") &&
       response.ok
     ) {
+      console.log("Response OK:", response);
       return await response.json();
     } else {
       return { status: response.status, statusText: response.statusText };

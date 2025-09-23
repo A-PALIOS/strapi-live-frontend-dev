@@ -22,7 +22,7 @@ export function HeroSectionMain({
   darken = true,
 }: Readonly<HeroSectionMainProps>) {
   return (
-    <section className="relative">
+    <section id="hero" data-header="dark" className="relative">
       {/* Background */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <StrapiImage

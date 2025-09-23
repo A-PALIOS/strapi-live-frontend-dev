@@ -1,0 +1,79 @@
+/* Gooey, animated background blobs that live BEHIND the header.
+   The header uses backdrop-filter to get the frosted glass look. */
+
+.blobLayer {
+  position: fixed;
+  inset: -20vmax;       /* extend beyond edges so animation never shows seams */
+  z-index: 10;          /* header sits above at z-50 */
+  pointer-events: none;
+  filter: url(#goo);    /* apply the goo filter defined in the SVG */
+  opacity: 0.9;         /* tweak to taste */
+}
+
+/* Two big gradient blobs that move on different paths */
+.blobLayer::before,
+.blobLayer::after {
+  content: "";
+  position: absolute;
+  width: 40vmax;
+  height: 40vmax;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(120,170,255,0.60), rgba(120,170,255,0) 60%),
+    radial-gradient(circle at 70% 70%, rgba(147,197,253,0.60), rgba(147,197,253,0) 60%);
+  mix-blend-mode: screen;
+  animation: float1 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+.blobLayer::after {
+  width: 55vmax;
+  height: 55vmax;
+  background:
+    radial-gradient(circle at 40% 40%, rgba(99,102,241,0.50), rgba(99,102,241,0) 65%),
+    radial-gradient(circle at 60% 60%, rgba(56,189,248,0.45), rgba(56,189,248,0) 65%);
+  animation: float2 28s ease-in-out infinite;
+}
+
+/* Keep the filter node out of layout flow */
+.gooSvg {
+  position: fixed;
+  width: 0;
+  height: 0;
+  z-index: 0;
+}
+
+/* Gentle lift on hover/scroll for the glass container (optional) */
+.glassElevate {
+  transition: transform 300ms ease, box-shadow 300ms ease, background-color 300ms ease;
+}
+.glassElevate:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 12px 32px rgba(0,0,0,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.28);
+}
+
+/* Animations */
+@keyframes float1 {
+  0%   { transform: translate(10vw, 0vh) scale(1); }
+  25%  { transform: translate(40vw, 15vh) scale(1.1); }
+  50%  { transform: translate(20vw, 40vh) scale(0.9) rotate(10deg); }
+  75%  { transform: translate(-10vw, 20vh) scale(1.05); }
+  100% { transform: translate(10vw, 0vh) scale(1); }
+}
+
+@keyframes float2 {
+  0%   { transform: translate(-20vw, 30vh) scale(1.05); }
+  25%  { transform: translate(0vw, 0vh) scale(0.95); }
+  50%  { transform: translate(30vw, 25vh) scale(1.15) rotate(-8deg); }
+  75%  { transform: translate(10vw, 50vh) scale(1); }
+  100% { transform: translate(-20vw, 30vh) scale(1.05); }
+}
+
+/* Motion-safe: tone down for people who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .blobLayer { opacity: 0.5; }
+  .blobLayer::before,
+  .blobLayer::after { animation: none; }
+}

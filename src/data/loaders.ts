@@ -146,64 +146,43 @@ export async function getHomePage() {
 
 
 const globalSettingQuery = qs.stringify({
-  populate: {
-    header: {
-      populate: {
-        logo: {
-          populate: {
-            image: {
-              fields: ["url", "alternativeText"],
+    populate: {
+      header: {
+        populate: {
+          logo: {
+            populate: {
+              image: { fields: ["url", "alternativeText"] },
             },
           },
+          // 👇 add this
+          logoWhite: {
+            populate: {
+              image: { fields: ["url", "alternativeText"] },
+            },
+          },
+
+          navigation: true,
+          cta: true,
         },
-        navigation: true,
-        cta: true,
       },
-    },
-    footer: {
-      populate: {
-        logo: {
-          populate: {
-            image: {
-              fields: ["url", "alternativeText"],
+      footer: {
+        populate: {
+          logo: {
+            populate: {
+              image: { fields: ["url", "alternativeText"] },
             },
           },
-        },
-         column: {
-          populate: {
-            link: true,
-          },
-        },
-        socialLink: true,
-        bottomLink: true,
-          // 👇 NEW: background image behind the dark section
-        contactBackground: {
-          fields: ["url", "alternativeText"],
+          column: { populate: { link: true } },
+          socialLink: true,
+          bottomLink: true,
+          contactBackground: { fields: ["url", "alternativeText"] },
         },
       },
     },
-    // footer: {
-    //   populate: {
-    //     logo: {
-    //       populate: {
-    //         image: {
-    //           fields: ["url", "alternativeText"],
-    //         },
-    //       },
-    //     },
-    //      column: {
-    //       populate: {
-    //         link: true,
-    //       },
-    //     },
-    //     socialLink: true,
-    //     bottomLink: true,
-    //   },
-    // },
-
-
   },
-});
+  { encodeValuesOnly: true }
+
+);
 
 
 export async function getGlobalSettings() {
@@ -211,6 +190,7 @@ export async function getGlobalSettings() {
   console.log(BASE_URL);
   const url = new URL(path, BASE_URL);
   url.search = globalSettingQuery;
+  console.log("url.search",url.search);
   return fetchAPI(url.href, { method: "GET" });
 }
 

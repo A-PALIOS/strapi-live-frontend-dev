@@ -86,7 +86,7 @@ export function Footer({ data }: { data: FooterProps }) {
   } = data;
 
   return (
-    <footer className="text-gray-800 mt-16">
+    <footer  id="footer" data-header="dark" className="text-gray-800 mt-16">
       {/* HERO STRIP */}
       <div
         className="px-6 md:px-10 py-20 md:py-28 text-white shadow-lg"

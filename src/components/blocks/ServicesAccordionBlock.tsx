@@ -14,7 +14,7 @@ export function ServicesAccordionBlock({
   const toggleIndex = (index: number) => setOpenIndex((prev) => (prev === index ? null : index));
 
   return (
-    <section className="relative">
+    <section id="services" data-header="dark" className="relative">
       {/* Background */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <StrapiImage
