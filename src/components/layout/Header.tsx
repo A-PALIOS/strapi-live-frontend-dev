@@ -27,21 +27,23 @@ export function Header({ data }: HeaderProps) {
 const [onDark, setOnDark] = useState(false);
 
 useEffect(() => {
-  const zones = Array.from(
-    document.querySelectorAll<HTMLElement>('[data-header="dark"]')
-  );
-  if (zones.length === 0) return;
-
   let raf = 0;
+
   const calc = () => {
-    const hh = headerRef.current?.offsetHeight ?? 80; // header height
-    // Are we overlapping ANY dark zone at the top of the viewport?
-    const isOver = zones.some((el) => {
+    const hh = headerRef.current?.offsetHeight ?? 80;
+
+    // Re-query zones each time to avoid stale elements after navigation
+    const zones = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-header="dark"]')
+    );
+
+    const isOverAnyDark = zones.some((el) => {
       const r = el.getBoundingClientRect();
-      // header occupies [0, hh] since it's fixed at top
+      // header occupies [0, hh] since it's fixed at the top
       return r.top < hh && r.bottom > 0;
     });
-    setOnDark(isOver);
+
+    setOnDark(isOverAnyDark);
   };
 
   const onScroll = () => {
@@ -49,15 +51,26 @@ useEffect(() => {
     raf = requestAnimationFrame(calc);
   };
 
+  // Run immediately, and again on the next frame to catch newly mounted page content
   calc();
+  raf = requestAnimationFrame(calc);
+
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", calc);
+  window.addEventListener("orientationchange", calc);
+  window.addEventListener("pageshow", calc);         // bfcache restores
+  document.addEventListener("visibilitychange", calc);
+
   return () => {
     window.removeEventListener("scroll", onScroll);
     window.removeEventListener("resize", calc);
+    window.removeEventListener("orientationchange", calc);
+    window.removeEventListener("pageshow", calc);
+    document.removeEventListener("visibilitychange", calc);
     cancelAnimationFrame(raf);
   };
-}, []);
+}, [pathname]); // 👈 re-run after each client navigation
+
 
   if (!data) return null;
   const { logo, logoWhite, navigation, cta } = data;

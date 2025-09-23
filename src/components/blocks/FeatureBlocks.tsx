@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import type { FeaturesBlockProps } from "@/types";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { usePathname } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,50 +13,65 @@ export function FeaturesBlock({
 }: FeaturesBlockProps) {
   const descRef = useRef<HTMLParagraphElement | null>(null);
 
-  useEffect(() => {
-    const el = descRef.current;
-    if (!el || (el as any).__animated) return; // guard (StrictMode)
-    (el as any).__animated = true;
+const pathname = usePathname();
 
-    // 1) take visible text
-    const combined = el.innerText || "";
+useEffect(() => {
+  const el = descRef.current;
+  if (!el) return;
 
-    // 2) tokenize into words and whitespace (keeps wrapping intact)
-    const tokens = combined.match(/\S+|\s+/g) || [];
+  // Reset to plain text (idempotent across client navigations / StrictMode)
+  const original = (el.textContent ?? "").trim() || (description ?? "");
+  el.textContent = original;
 
-    // 3) wrap only words; keep whitespace as-is
-    const html = tokens
-      .map((t) => (/\S/.test(t) ? `<span class="desc-word">${t}</span>` : t))
-      .join("");
+  // Tokenize into words + whitespace and wrap only words
+  const tokens = original.match(/\S+|\s+/g) || [];
+  el.innerHTML = tokens
+    .map((t) => (/\S/.test(t) ? `<span class="desc-word">${t}</span>` : t))
+    .join("");
 
-    // 4) inject back
-    el.innerHTML = html;
-
-    // 5) select words
+  // Scope GSAP work to this element
+  const ctx = gsap.context(() => {
     const words = el.querySelectorAll<HTMLSpanElement>(".desc-word");
 
-    // 6) animate word-by-word
+    // deterministic base styles
+    gsap.set(words, { color: "#D1D5DB" });
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: el,
         start: "top 70%",
         end: "bottom 30%",
         scrub: true,
+        // markers: true,
       },
     });
 
-    // start light gray → end near-black
-    tl.fromTo(
-      words,
-      { color: "#D1D5DB" },
-      { color: "#111827", stagger: 0.08, duration: 0.8, ease: "none" }
-    );
+    tl.to(words, {
+      color: "#111827",
+      stagger: 0.08,
+      duration: 0.8,
+      ease: "none",
+    });
+  }, el);
 
-    return () => {
-      tl.kill();
-      ScrollTrigger.getAll().forEach((st) => st.kill());
-    };
-  }, []);
+  // Refresh ScrollTrigger after mount & on bfcache restore/resize
+  const refresh = () => ScrollTrigger.refresh();
+  const raf = requestAnimationFrame(refresh);
+  window.addEventListener("pageshow", refresh);
+  window.addEventListener("resize", refresh);
+
+  return () => {
+    cancelAnimationFrame(raf);
+    window.removeEventListener("pageshow", refresh);
+    window.removeEventListener("resize", refresh);
+
+    // Revert everything created within this effect (animations, inline styles)
+    ctx?.revert();
+
+    // Restore clean text so we can safely re-init next time
+    el.textContent = original;
+  };
+}, [pathname, description]);
 
   const [left, right = ""] = (heading || "").split(" ");
 

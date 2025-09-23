@@ -23,7 +23,7 @@ export function HeroSection({
 
   return (
     // <section className="relative bg-white">
-       <section className="relative min-h-[78vh]">
+       <section id="heropage" data-header="dark" className="relative min-h-[78vh]">
       {/* Background image */}
       <div className="absolute inset-0 -z-10">
         <StrapiImage

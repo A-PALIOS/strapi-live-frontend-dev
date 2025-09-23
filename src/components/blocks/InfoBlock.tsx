@@ -6,6 +6,7 @@ import type { InfoBlockProps } from "@/types";
 import { StrapiVideo } from "../StrapiVideo";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { usePathname } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,50 +18,66 @@ export function InfoBlock({
 }: Readonly<InfoBlockProps>) {
   const descRef = useRef<HTMLParagraphElement | null>(null);
 
-  useEffect(() => {
-    const el = descRef.current;
-    if (!el || (el as any).__animated) return;
-    (el as any).__animated = true;
+  const pathname = usePathname();
 
-// 1) take the visible text
-const combined = el.innerText || "";
 
-// 2) tokenize into words and whitespace (keeps spaces intact)
-const tokens = combined.match(/\S+|\s+/g) || [];
+ useEffect(() => {
+  const el = descRef.current;
+  if (!el) return;
 
-// 3) wrap only the words; keep whitespace as-is
-const html = tokens
-  .map((t) => (/\S/.test(t) ? `<span class="desc-word">${t}</span>` : t))
-  .join("");
+  // 0) reset content to plain text to avoid double-wrapping after nav
+  const original = (el.textContent ?? "").trim() || (description ?? "");
+  el.textContent = original;
 
-// 4) inject back
-el.innerHTML = html;
+  // 1) split into words + whitespace (idempotent)
+  const tokens = original.match(/\S+|\s+/g) || [];
+  el.innerHTML = tokens
+    .map((t) => (/\S/.test(t) ? `<span class="desc-word">${t}</span>` : t))
+    .join("");
 
-// 5) select words
-const words = el.querySelectorAll<HTMLSpanElement>(".desc-word");
+  // 2) build animation in a gsap context scoped to this element
+  const ctx = gsap.context(() => {
+    const words = el.querySelectorAll<HTMLSpanElement>(".desc-word");
 
-// 6) animate word-by-word
-const tl = gsap.timeline({
-  scrollTrigger: {
-    trigger: el,
-    start: "top 70%",
-    end: "bottom 30%",
-    scrub: true,
-  },
-});
+    // set initial styles so it's deterministic after back/forward
+    gsap.set(words, { color: "#D1D5DB" });
 
-// color fade per word (stagger controls speed)
-tl.fromTo(
-  words,
-  { color: "#D1D5DB" },
-  { color: "#111827", stagger: 0.08, duration: 0.8, ease: "none" }
-);
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: el,
+        start: "top 70%",
+        end: "bottom 30%",
+        scrub: true,
+        // markers: true, // uncomment to debug
+      },
+    });
 
-    return () => {
-      tl.kill();
-      ScrollTrigger.getAll().forEach((st) => st.kill());
-    };
-  }, []);
+    tl.to(words, {
+      color: "#111827",
+      stagger: 0.08,
+      duration: 0.8,
+      ease: "none",
+    });
+  }, el);
+
+  // 3) refresh ScrollTrigger AFTER this tick and on bfcache restore
+  const refresh = () => ScrollTrigger.refresh();
+  const raf = requestAnimationFrame(refresh);
+  window.addEventListener("pageshow", refresh); // back/forward cache
+  window.addEventListener("resize", refresh);
+
+  return () => {
+    cancelAnimationFrame(raf);
+    window.removeEventListener("pageshow", refresh);
+    window.removeEventListener("resize", refresh);
+
+    // revert only what we created here (timelines + inline styles)
+    ctx.revert();
+
+    // put the DOM back to clean text so we can safely re-init later
+    el.textContent = original;
+  };
+}, [pathname, description]);
 
 //another useEffect showing pixelbypixel logic
   /*
