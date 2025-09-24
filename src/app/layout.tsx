@@ -7,6 +7,8 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { getGlobalSettings } from "@/data/loaders";
+import { NavProgressProvider } from '../components/NavProgressProvider';
+import DapperTransition from '../components/DapperTransition';
 // import { StickyMenu } from "@/components/StickyMenu";
 
 const roboto = Roboto({
@@ -57,9 +59,12 @@ export default async function RootLayout({
       <body
         className={`${roboto.variable} ${geistMono.variable} antialiased`}
       >
+        <NavProgressProvider>
         <Header data={header} />
+        <DapperTransition />
         {/* <StickyMenu /> */}
         {children}
+        </NavProgressProvider>
         <Footer data={footer} />
       </body>
     </html>

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { StrapiImage } from "../StrapiImage";
 // import { useState } from "react";
 import { useState, useEffect, useRef } from "react";
+import NavLink from "../NavLink";
 
 interface HeaderProps {
   data: {
@@ -127,7 +128,7 @@ const logoAlt =
          {/* Desktop Nav */}
 <nav className="hidden md:flex gap-8">
   {navigation.map((item) => (
-    <Link
+    <NavLink
       key={item.id}
       href={item.href}
       target={item.isExternal ? "_blank" : "_self"}
@@ -135,7 +136,7 @@ const logoAlt =
       style={{ fontSize: 22 }}
     >
       {item.text}
-    </Link>
+    </NavLink>
   ))}
 </nav>
 
