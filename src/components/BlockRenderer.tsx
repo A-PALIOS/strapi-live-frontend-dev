@@ -105,7 +105,8 @@ import { TeamGrid } from "@/components/blocks/TeamGrid";
 import { HeroSectionMain } from "@/components/blocks/HeroSectionMain";
 import { SecondaryMenuBlock } from "@/components/blocks/SecondaryMenuBlock";
 import { mapSecondaryMenu } from "@/utils/mapSecondaryMenu";
-
+import { MagicBentoBlock } from "@/components/blocks/MagicBentoBlock";
+import { HeroSectionDigital } from "./blocks/HeroSectionDigital";
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
     
@@ -114,6 +115,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <HeroSectionMain {...block} key={index} />;
     case "blocks.hero-section":
       return <HeroSection {...block} key={index} />;
+     case "blocks.hero-section-digital":
+      return <HeroSectionDigital {...block} key={index} />;
     case "blocks.info-block":
       return <InfoBlock {...block} key={index} />;
     case "blocks.milestones-block":
@@ -138,6 +141,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
         return <AboutInfo {...block} key={index} />;
     case "blocks.timeline-block":
         return <TimeLine {...block} key={index} />;
+    case "blocks.magic-bento-block":
+        return <MagicBentoBlock {...block} key={index} />;
       
     case "blocks.heading":
       return <Heading {...block} key={index} />;

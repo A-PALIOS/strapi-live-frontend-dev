@@ -234,6 +234,22 @@ const pageBySlugQuery = (slug: string) =>
               },
             },
 
+             "blocks.hero-section-digital": {
+              populate: {
+                image: {
+                  fields: ["url", "alternativeText"],
+                },
+                logo: {
+                  populate: {
+                    image: {
+                      fields: ["url", "alternativeText"],
+                    },
+                  },
+                },
+                cta: true,
+              },
+            },
+
             "blocks.sticky-menu": {
               populate: {
                 logo: {
@@ -272,7 +288,7 @@ const pageBySlugQuery = (slug: string) =>
               },
             },
             "blocks.about-info": true,
-            // loaders.ts – inside "blocks.on"
+            "blocks.magic-bento-block": true,
             "blocks.timeline-block": {
               populate: {
                 items: {

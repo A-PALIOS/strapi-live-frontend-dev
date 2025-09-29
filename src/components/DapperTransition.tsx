@@ -80,7 +80,7 @@ export default function DapperTransition() {
             animate={{ opacity: 1, scale: 1, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
           >
             <Image
-              src="http://localhost:1337/uploads/logo_3c09ed6dc2.svg" // (tip: serve from /public for speed)
+              src="http://localhost:1337/uploads/Logo_White_15d9c84aff.svg" // (tip: serve from /public for speed)
               width={640}
               height={220}
               alt="CMT"

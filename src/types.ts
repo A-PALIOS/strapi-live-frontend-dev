@@ -87,12 +87,13 @@ export interface ArticleProps {
 
 
 
-type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks.info-block"   
+type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks.hero-section-digital" | "blocks.info-block"   
                 | "blocks.milestones-block" | "blocks.vertical-accordion-block" 
                 | "blocks.services-accordion-block" | "blocks.logo-carousel-block"
                  | "blocks.testimonials-block" | "blocks.features-block" 
                  | "blocks.featured-article"
                  | "blocks.about-info"
+                 | "blocks.magic-bento-block"
                  | "blocks.timeline-block"
                  | "blocks.about-section"
                  | "blocks.leading-institution-block"
@@ -118,10 +119,10 @@ interface Base<
   data?: D;
 }
 
-export type Block = HeroSectionMainProps | HeroSectionProps | InfoBlockProps | MilestonesBlockProps
+export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigitalProps | InfoBlockProps | MilestonesBlockProps
  | VerticalAccordionBlockProps | ServicesAccordionBlockProps 
  | LogoCarouselBlockProps | TestimonialsBlockProps 
- | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | TimeLineProps
+ | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | MagicBentoProps | TimeLineProps
    | HeadingProps
   | ParagraphWithImageProps
   | LeadingInstitutionBlockProps
@@ -154,6 +155,20 @@ export interface HeroSectionProps extends Base<"blocks.hero-section"> {
   author?: string;
   darken?: boolean;
 }
+
+
+
+export interface HeroSectionDigitalProps extends Base<"blocks.hero-section-digital"> {
+  theme: "black" | "blue";
+  heading: string;
+  subheader?:string;
+  image: ImageProps;
+  cta?: LinkProps;
+  logo?: LogoProps;
+  author?: string;
+  darken?: boolean;
+}
+
 
 export interface InfoBlockProps extends Base<"blocks.info-block"> {
   theme: "black" | "red";
@@ -335,6 +350,14 @@ export interface AboutInfoProps extends Base<"blocks.about-info"> {
   content: string;
   heading:string;
 }
+
+
+export interface MagicBentoProps extends Base<"blocks.magic-bento-block"> {
+  title: string;
+  content: string;
+  heading:string;
+}
+
 
 export interface HeadingProps extends Base<"blocks.heading"> {
   heading: string;
