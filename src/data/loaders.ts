@@ -289,6 +289,7 @@ const pageBySlugQuery = (slug: string) =>
             },
             "blocks.about-info": true,
             "blocks.magic-bento-block": true,
+            "blocks.service-info": true,
             "blocks.timeline-block": {
               populate: {
                 items: {

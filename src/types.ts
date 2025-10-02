@@ -93,6 +93,7 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
                  | "blocks.testimonials-block" | "blocks.features-block" 
                  | "blocks.featured-article"
                  | "blocks.about-info"
+                 | "blocks.service-info"
                  | "blocks.magic-bento-block"
                  | "blocks.timeline-block"
                  | "blocks.about-section"
@@ -122,7 +123,7 @@ interface Base<
 export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigitalProps | InfoBlockProps | MilestonesBlockProps
  | VerticalAccordionBlockProps | ServicesAccordionBlockProps 
  | LogoCarouselBlockProps | TestimonialsBlockProps 
- | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | MagicBentoProps | TimeLineProps
+ | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | ServiceInfoProps | MagicBentoProps | TimeLineProps
    | HeadingProps
   | ParagraphWithImageProps
   | LeadingInstitutionBlockProps
@@ -351,7 +352,11 @@ export interface AboutInfoProps extends Base<"blocks.about-info"> {
   heading:string;
 }
 
-
+export interface ServiceInfoProps extends Base<"blocks.service-info"> {
+  title: string;
+  content: string;
+  heading:string;
+}
 export interface MagicBentoProps extends Base<"blocks.magic-bento-block"> {
   title: string;
   content: string;
