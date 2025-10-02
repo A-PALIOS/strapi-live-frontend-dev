@@ -12,6 +12,7 @@ import { BlogCard } from "@/components/BlogCard";
 import NewCategoryFilter from "@/components/NewCategoryFilter";
 import {getPageBySlug,getCategories2 } from "@/data/loaders";
 import { notFound } from "next/navigation";
+// import ProfileCard from "../ui/profileCard";
 
 // async function loader(slug: string) {
 //   const { data } = await getPageBySlug(slug);
@@ -36,15 +37,31 @@ export  function TeamGrid({ Title, team_members, page, query, category }: Readon
     startIndex + membersPerPage
   );
 
-  useEffect(() =>
-  {
-    async function getCat()
-    {
-      const cat = await getCategories2()
-      setCategoryList(cat)
+  useEffect(() => {
+  let ignore = false;
+
+  async function getCat() {
+    try {
+      const cat = await getCategories2();
+      if (!ignore) setCategoryList(cat);
+    } catch (e) {
+      console.error("Failed to load categories", e);
     }
-    getCat()
-  })
+  }
+  getCat();
+
+  return () => { ignore = true; };
+}, []); // ← run once
+
+  // useEffect(() =>
+  // {
+  //   async function getCat()
+  //   {
+  //     const cat = await getCategories2()
+  //     setCategoryList(cat)
+  //   }
+  //   getCat()
+  // })
 
   // const categoryList = await getCategories();
 
@@ -53,6 +70,20 @@ export  function TeamGrid({ Title, team_members, page, query, category }: Readon
  
   return (
     <div>
+      {/* <ProfileCard
+  name="Javi A. Torres"
+  title="Software Engineer"
+  handle="javicodes"
+  status="Online"
+  contactText="Contact Me"
+  avatarUrl="http://localhost:1337/uploads/Rectangle_25_bffbc46ab2.png"
+  iconUrl="https://reactbits.dev/assets/iconpattern.png"
+  // grainUrl="https://reactbits.dev/assets/grain.webp"
+  showUserInfo={true}
+  enableTilt={true}
+  enableMobileTilt={false}
+  onContactClick={() => console.log('Contact clicked')}
+/> */}
     <section className="py-12 px-4 md:px-8 max-w-7xl mx-auto">
       {/* Optional Title */}
       {/* {Title && <h2 className="text-2xl font-bold mb-8 text-center">{Title}</h2>} */}
@@ -209,7 +240,7 @@ export  function TeamGrid({ Title, team_members, page, query, category }: Readon
       query={query}
       showPagination
     />
-    
+  
 
     </div>
   );

@@ -117,7 +117,7 @@ const logoAlt =
 
        {/* separator */}
 <span
-  className={`hidden md:inline ${
+  className={`hidden xl:inline ${
     onDark ? "text-white/70" : "text-[#73777A]"
   }`}
   style={{ fontFamily: "agenda", fontStyle: "normal", fontSize: "25px", marginLeft: 12, marginRight: 12 }}
@@ -126,7 +126,7 @@ const logoAlt =
 </span>
 
          {/* Desktop Nav */}
-<nav className="hidden md:flex gap-8">
+<nav className="hidden xl:flex gap-8">
   {navigation.map((item) => (
     <NavLink
       key={item.id}
@@ -141,7 +141,7 @@ const logoAlt =
 </nav>
 
           {/* CTA Button */}
-          <div className="hidden md:block ml-auto">
+          <div className="hidden xl:block ml-auto">
             <Link href={cta.href} target={cta.isExternal ? "_blank" : "_self"}>
               <button
                 className="flex items-center gap-3 rounded-xl px-6 py-3 text-base text-white transition shadow"
@@ -187,7 +187,7 @@ const logoAlt =
         {/* Mobile button icon color */}
 <button
   onClick={() => setIsOpen((v) => !v)}
-  className={`${onDark ? "text-white/90 hover:text-white" : "text-gray-900/80 hover:text-gray-900"} md:hidden focus:outline-none`}
+  className={`${onDark ? "text-white/90 hover:text-white" : "text-gray-900/80 hover:text-gray-900"} xl:hidden focus:outline-none`}
   aria-label="Toggle menu"
 >
             {isOpen ? (
@@ -225,7 +225,7 @@ const logoAlt =
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden px-6 pb-6">
+        <div className="xl:hidden px-6 pb-6">
           <div
             className="
               rounded-2xl px-5 py-4 space-y-4

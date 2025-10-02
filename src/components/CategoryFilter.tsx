@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 
+
 interface Category {
   id: number;
   name: string;
@@ -58,12 +59,27 @@ export default function CategoryFilter({ categories }: Props) {
         </div>
 
         {/* Right: Dropdown */}
-        <select
+        {/* <select
           onChange={(e) =>
             handleFilter(e.target.value === "all" ? null : e.target.value)
           }
           value={selected || "all"}
           className="px-4 py-2 border rounded-full text-sm text-gray-600"
+        >
+          <option value="all">Choose Category</option>
+          {categories.map((cat) => (
+            <option key={cat.id} value={cat.name}>
+              {cat.name}
+            </option>
+          ))}
+        </select> */}
+
+        <select
+          onChange={(e) =>
+            handleFilter(e.target.value === "all" ? null : e.target.value)
+          }
+          value={selected || "all"}
+          className="px-5 py-2 border border-gray-400 rounded-full text-sm text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 appearance-none relative"
         >
           <option value="all">Choose Category</option>
           {categories.map((cat) => (

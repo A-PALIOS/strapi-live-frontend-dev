@@ -69,30 +69,31 @@ export function LogoCarouselBlock({
       <div className="max-w-6xl mx-auto px-4">
         {/* Tabs */}
         <div
-          className="mb-6 flex flex-wrap gap-2"
-          role="tablist"
-          aria-label="Logo categories"
-        >
-          {types.map((t) => {
-            const isActive = t === activeType;
-            return (
-              <button
-                key={t}
-                role="tab"
-                aria-selected={isActive}
-                onClick={() => setActiveType(t)}
-                className={[
-                  "px-4 py-2 rounded text-2xl font-medium transition font-agenda-medium",
-                  isActive
-                    ? "bg-[#1e9bfb] shadow text-white"
-                    : "bg-white/30 hover:bg-white/50 backdrop-blur",
-                ].join(" ")}
-              >
-                {t}
-              </button>
-            );
-          })}
-        </div>
+  className="mb-6 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap"
+  role="tablist"
+  aria-label="Logo categories"
+>
+  {types.map((t) => {
+    const isActive = t === activeType;
+    return (
+      <button
+        key={t}
+        role="tab"
+        aria-selected={isActive}
+        onClick={() => setActiveType(t)}
+        className={[
+          "px-4 py-2 rounded text-lg sm:text-2xl font-medium transition font-agenda-medium cursor-pointer text-center w-full sm:w-auto",
+          isActive
+            ? "bg-[#1e9bfb] shadow text-white"
+            : "bg-white/30 hover:bg-white/50 backdrop-blur",
+        ].join(" ")}
+      >
+        {t}
+      </button>
+    );
+  })}
+</div>
+
 
         {/* Infinite Logo Carousel */}
         {/* Infinite Logo Carousel (single track, duplicated content) */}

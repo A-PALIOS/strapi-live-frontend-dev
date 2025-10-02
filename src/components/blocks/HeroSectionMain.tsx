@@ -40,18 +40,21 @@ export function HeroSectionMain({
         {/* left rail container */}
         <div className="w-full text-left pl-6 sm:pl-12 lg:pl-24 xl:pl-28">
           {/* tiny welcome row */}
-          <div className="mb-6 flex items-center gap-3 text-slate-300">
-            {logo && (
-              <StrapiImage
-                src={logo.image.url}
-                alt={logo.image.alternativeText || "Logo"}
-                className="h-10 w-auto"
-                width={24}
-                height={24}
-              />
-            )}
-            <span className="text-sm text-white md:text-3xl font-agenda-medium">Welcome to CMT Prooptiki</span>
-          </div>
+          <div className="mb-6 mt-16 sm:mt-6 flex items-center gap-3 text-slate-300">
+  {logo && (
+    <StrapiImage
+      src={logo.image.url}
+      alt={logo.image.alternativeText || "Logo"}
+      className="h-10 w-auto"
+      width={24}
+      height={24}
+    />
+  )}
+  <span className="text-sm text-white md:text-3xl font-agenda-medium">
+    Welcome to CMT Prooptiki
+  </span>
+</div>
+
 
           {/* Headline block */}
           {/* line 1 – typewriter */}

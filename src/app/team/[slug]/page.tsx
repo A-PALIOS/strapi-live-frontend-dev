@@ -6,7 +6,7 @@ import { ContentList } from "@/components/ContentList";
 import { BlogCard } from "@/components/BlogCard";
 import CategoryFilter from "@/components/CategoryFilter";
 import Link from "next/link";
-
+// import ProjectsShowcase from "@/components/ProjectsShowcase";
 interface PageProps {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ page: string; query: string; category: string }>;
@@ -94,6 +94,8 @@ export default async function MemberPage({ params, searchParams }: PageProps) {
           )}
         </div>
       </div>
+
+      {/* <ProjectsShowcase /> */}
 
       <CategoryFilter categories={categoryList} />
 

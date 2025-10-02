@@ -1,5 +1,5 @@
 "use client";
-
+ 
 import React, { useState, useRef } from "react";
 import {
   motion,
@@ -8,7 +8,7 @@ import {
   useMotionValue,
   useSpring,
 } from "motion/react";
-
+ 
 export const AnimatedTooltip = ({
   items,
 }: {
@@ -23,7 +23,7 @@ export const AnimatedTooltip = ({
   const springConfig = { stiffness: 100, damping: 15 };
   const x = useMotionValue(0);
   const animationFrameRef = useRef<number | null>(null);
-
+ 
   const rotate = useSpring(
     useTransform(x, [-100, 100], [-45, 45]),
     springConfig,
@@ -32,21 +32,21 @@ export const AnimatedTooltip = ({
     useTransform(x, [-100, 100], [-50, 50]),
     springConfig,
   );
-
+ 
   const handleMouseMove = (event: any) => {
     if (animationFrameRef.current) {
       cancelAnimationFrame(animationFrameRef.current);
     }
-
+ 
     animationFrameRef.current = requestAnimationFrame(() => {
       const halfWidth = event.target.offsetWidth / 2;
       x.set(event.nativeEvent.offsetX - halfWidth);
     });
   };
-
+ 
   return (
     <>
-      {items.map((item, idx) => (
+      {items.slice(0, 3).map((item, idx) => (
         <div
           className="group relative -mr-4"
           key={item.name}
