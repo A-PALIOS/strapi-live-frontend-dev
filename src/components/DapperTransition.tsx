@@ -14,7 +14,7 @@ export default function DapperTransition() {
   const prevPathRef = useRef(pathname);
   const [phase, setPhase] = useState<'idle' | 'cover' | 'reveal'>('idle');
   const [visible, setVisible] = useState(false);
-const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337";
+const API_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL ?? "http://localhost:1337";
 
   // ✅ Start cover ONCE when navigation begins
   useEffect(() => {
@@ -41,6 +41,7 @@ const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337";
   }, [visible, phase]);
 
   const onExitAll = () => {
+
     setVisible(false);
     setPhase('idle');
     stop();
