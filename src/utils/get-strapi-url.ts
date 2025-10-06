@@ -37,7 +37,7 @@ export function getStrapiURL2(path: string = ""): string {
 // }
 // export function getStrapiURL2() {
 //   // Absolute, with protocol, no trailing slash
-//   const base = (process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337").trim();
+//   const base = (process.env.NEXT_PUBLIC_STRAPI_URL || "http://").trim();
 //   return base.replace(/\/+$/, "");
 // }
 

@@ -7,12 +7,14 @@ import { usePathname } from 'next/navigation';
 import { useNavProgress } from './NavProgressProvider';
 import Image from 'next/image';
 
+
 export default function DapperTransition() {
   const { isNavigating, stop } = useNavProgress();
   const pathname = usePathname();
   const prevPathRef = useRef(pathname);
   const [phase, setPhase] = useState<'idle' | 'cover' | 'reveal'>('idle');
   const [visible, setVisible] = useState(false);
+const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337";
 
   // ✅ Start cover ONCE when navigation begins
   useEffect(() => {
@@ -79,8 +81,9 @@ export default function DapperTransition() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } }}
           >
+            
             <Image
-              src="http://localhost:1337/uploads/Logo_White_15d9c84aff.svg" // (tip: serve from /public for speed)
+              src={`${API_URL}/uploads/Logo_White_15d9c84aff.svg`}
               width={640}
               height={220}
               alt="CMT"
