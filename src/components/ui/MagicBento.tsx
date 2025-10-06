@@ -1,4 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { useReducedMotion } from "framer-motion";
+
 import { gsap } from 'gsap';
 
 export interface BentoCardProps {
@@ -39,6 +41,8 @@ const cardData: BentoCardProps[] = [
   { color: '#0F2740', title: 'Automations',     description: 'We automate everyday proccess!',label: 'Inovation'},
 
 ];
+
+
 
 
 const createParticleElement = (x: number, y: number, color: string = DEFAULT_GLOW_COLOR): HTMLDivElement => {
@@ -488,6 +492,23 @@ const useMobileDetection = () => {
   return isMobile;
 };
 
+const useInteractionCapabilities = () => {
+  const [caps, setCaps] = useState({ canHover: true, hasFine: true });
+  useEffect(() => {
+    const mqHover = window.matchMedia("(hover: hover)");
+    const mqFine = window.matchMedia("(pointer: fine)");
+    const update = () => setCaps({ canHover: mqHover.matches, hasFine: mqFine.matches });
+    update();
+    mqHover.addEventListener?.("change", update);
+    mqFine.addEventListener?.("change", update);
+    return () => {
+      mqHover.removeEventListener?.("change", update);
+      mqFine.removeEventListener?.("change", update);
+    };
+  }, []);
+  return caps;
+};
+
 const MagicBento: React.FC<BentoProps> = ({
   textAutoHide = true,
   enableStars = true,
@@ -502,8 +523,24 @@ const MagicBento: React.FC<BentoProps> = ({
   enableMagnetism = true
 }) => {
   const gridRef = useRef<HTMLDivElement>(null);
-  const isMobile = useMobileDetection();
-  const shouldDisableAnimations = disableAnimations || isMobile;
+  // const isMobile = useMobileDetection();
+
+
+
+  // const shouldDisableAnimations = disableAnimations || isMobile;
+
+  const prefersReduced = useReducedMotion() ?? false;
+const { canHover, hasFine } = useInteractionCapabilities();
+const isTouchOnly = !canHover || !hasFine;
+
+// Disable only if explicitly requested or user prefers reduced motion
+const shouldDisableAnimations = Boolean(disableAnimations) || prefersReduced;
+
+// Lighten particle load on touch-only devices
+const effectiveParticleCount =
+  isTouchOnly ? Math.min(40, particleCount ?? DEFAULT_PARTICLE_COUNT)
+              : (particleCount ?? DEFAULT_PARTICLE_COUNT);
+
 
   return (
     <>
@@ -638,6 +675,8 @@ const MagicBento: React.FC<BentoProps> = ({
       text-overflow: ellipsis;
     }
 
+    
+
     @media (max-width: 599px) {
       .card-responsive {
         grid-template-columns: 1fr;
@@ -689,8 +728,8 @@ const MagicBento: React.FC<BentoProps> = ({
                   className={baseClassName}
                   style={cardStyle}
                   disableAnimations={shouldDisableAnimations}
-                  particleCount={particleCount}
-                  glowColor={glowColor}
+                  particleCount={effectiveParticleCount}               
+                    glowColor={glowColor}
                   enableTilt={enableTilt}
                   clickEffect={clickEffect}
                   enableMagnetism={enableMagnetism}

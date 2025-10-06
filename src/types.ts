@@ -92,6 +92,8 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
                 | "blocks.services-accordion-block" | "blocks.logo-carousel-block"
                  | "blocks.testimonials-block" | "blocks.features-block" 
                  | "blocks.featured-article"
+                   | "blocks.what-believe"
+
                  | "blocks.about-info"
                  | "blocks.service-info"
                  | "blocks.magic-bento-block"
@@ -123,7 +125,7 @@ interface Base<
 export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigitalProps | InfoBlockProps | MilestonesBlockProps
  | VerticalAccordionBlockProps | ServicesAccordionBlockProps 
  | LogoCarouselBlockProps | TestimonialsBlockProps 
- | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | ServiceInfoProps | MagicBentoProps | TimeLineProps
+ | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | ServiceInfoProps | MagicBentoProps | TimeLineProps | WhatWeBelieveProps
    | HeadingProps
   | ParagraphWithImageProps
   | LeadingInstitutionBlockProps
@@ -346,6 +348,30 @@ export interface TimeLineProps extends Base<"blocks.timeline-block"> {
   heading: string;
   items: StrapiTimelineItem[]; // <-- add this
 }
+
+export type IconKey = "beaker" | "users2" | "cog" | "cpu";
+
+
+// Repeatable item inside the block (Strapi component: blocks.belief-item)
+export interface BeliefItem {
+  id: number;
+  title: string;
+  blurb: string;
+  iconKey: IconKey;
+  sortOrder?: number | null;
+}
+
+// The Dynamic Zone block (Strapi component: blocks.what-we-believe)
+export interface WhatWeBelieveProps extends Base<"blocks.what-believe"> {
+  heading?: string;
+  title?: string;
+  content?: string;
+
+  items: BeliefItem[];
+}
+
+
+
 export interface AboutInfoProps extends Base<"blocks.about-info"> {
   title: string;
   content: string;

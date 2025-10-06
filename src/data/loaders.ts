@@ -288,6 +288,9 @@ const pageBySlugQuery = (slug: string) =>
               },
             },
             "blocks.about-info": true,
+            "blocks.what-believe": {
+              populate: { items: { fields: ["title", "blurb", "iconKey", "sortOrder"] } },
+            },
             "blocks.magic-bento-block": true,
             "blocks.service-info": true,
             "blocks.timeline-block": {

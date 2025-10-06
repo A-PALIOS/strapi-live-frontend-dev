@@ -236,7 +236,7 @@ const logoAlt =
             "
           >
             <nav className="flex flex-col gap-4">
-              {navigation.map((item) => (
+              {/* {navigation.map((item) => (
                 <Link
                   key={item.id}
                   href={item.href}
@@ -245,8 +245,23 @@ const logoAlt =
                 >
                   {item.text}
                 </Link>
-              ))}
+              ))} */}
+          {navigation.map((item) => (
+    <NavLink
+      key={item.id}
+      href={item.href}
+      target={item.isExternal ? "_blank" : "_self"}
+      className={`${onDark ? "text-white/90 hover:text-white" : "text-[#23292E] hover:text-gray-900"} font-agenda-medium transition`}
+      style={{ fontSize: 22 }}
+    >
+      {item.text}
+    </NavLink>
+  ))}
+
             </nav>
+
+
+    
             <Link href={cta.href} target={cta.isExternal ? "_blank" : "_self"}>
               <button className="w-full rounded-xl px-4 py-3 text-sm font-medium transition border border-white/30 bg-white/20 hover:bg-white/30 text-white">
                 {cta.text} <span className="ml-1">→</span>

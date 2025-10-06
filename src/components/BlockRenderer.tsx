@@ -108,6 +108,7 @@ import { mapSecondaryMenu } from "@/utils/mapSecondaryMenu";
 import { MagicBentoBlock } from "@/components/blocks/MagicBentoBlock";
 import { HeroSectionDigital } from "@/components/blocks/HeroSectionDigital";
 import { ServiceInfo } from "@/components/blocks/ServiceInfo";
+import { WhatWeBelieve } from "@/components/blocks/WhatWeBelieve";
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
     
@@ -140,6 +141,9 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
         return <AboutSection {...block} key={index} />;
     case "blocks.about-info":
         return <AboutInfo {...block} key={index} />;
+
+    case "blocks.what-believe":
+        return <WhatWeBelieve {...block} key={index} />;
     case "blocks.timeline-block":
         return <TimeLine {...block} key={index} />;
     case "blocks.service-info":
