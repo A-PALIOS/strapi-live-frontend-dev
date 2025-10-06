@@ -84,7 +84,7 @@ const API_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL ?? "http://localhost:1337
           >
             
             <Image
-              src={`${API_URL}/uploads/Logo_White_15d9c84aff.svg`}
+              src={`${API_URL}/uploads/Logo_White_e00b6e49d1.svg`}
               width={640}
               height={220}
               alt="CMT"
