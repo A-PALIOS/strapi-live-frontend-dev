@@ -49,19 +49,25 @@ export default function ServicesShowcase({
 }) {
   const data = items ?? defaultData;
 
+// at top of ServicesShowcase
+const isTouch = typeof window !== "undefined"
+  ? window.matchMedia?.("(hover:none)").matches
+  : false;
+
   return (
-    <section className="relative mx-auto max-w-7xl px-6 py-16">
+    <section className="relative mx-auto max-w-7xl px-6">
       {/* Section header */}
 
 
       {/* Grid */}
-      <motion.ul
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={containerStagger}
-        className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-      >
+
+<motion.ul
+  initial={isTouch ? "show" : "hidden"}
+  whileInView={isTouch ? undefined : "show"}
+  viewport={isTouch ? undefined : { once: true, amount: 0.2 }}
+  variants={containerStagger}
+  className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+>
         {data.map((item, idx) => (
           <li key={item.title}>
             <TiltCard index={idx} item={item} />

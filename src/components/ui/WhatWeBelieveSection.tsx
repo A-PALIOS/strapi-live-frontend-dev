@@ -35,7 +35,7 @@ function PinBadge() {
     >
       <span className="absolute -inset-6" />
       <span className="relative h-2.5 w-2.5 rounded-full bg-gradient-to-tr from-sky-400 to-blue-500 ring-4 ring-sky-300/30" />
-      <span className="relative text-xs font-medium tracking-wide text-slate-800">Our Core Beliefs</span>
+      <span className="relative font-agenda-regular text-lg font-medium tracking-wide text-slate-800">Our Core Beliefs</span>
     </motion.div>
   );
 }
@@ -123,12 +123,12 @@ function PinBadge() {
         <div className="grid h-11 w-11 place-items-center rounded-xl bg-white/15 ring-1 ring-white/20">
           <Icon className="h-5 w-5 text-white" />
         </div>
-        <h3 className="text-lg sm:text-xl font-semibold tracking-tight text-white">
+        <h3 className="font-agenda-semibold text-lg sm:text-2xl font-semibold tracking-tight text-white">
           {title}
         </h3>
       </div>
 
-      <p className="relative text-sm leading-6 text-white/90">
+      <p className="font-agenda-regular relative text-lg leading-6 text-white/90">
         {blurb}
       </p>
 
@@ -159,10 +159,10 @@ export default function WhatWeBelieveSection({ title, content, heading, items }:
       <div className="relative mx-auto px-4 sm:px-6 sm:py-20">
         <div className="mb-8 sm:mb-12 flex flex-col items-start gap-4">
           <PinBadge />
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-slate-900">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-agenda-medium tracking-tight text-slate-900">
             {title}
           </h2>
-          <p className="max-w-2xl text-base sm:text-lg text-slate-600">
+          <p className="max-w-2xl font-agenda-regular text-base sm:text-lg text-slate-600">
             {content ||
               "Our work is guided by a set of core beliefs that shape how we think, collaborate, and deliver value."}
           </p>
@@ -188,5 +188,3 @@ export default function WhatWeBelieveSection({ title, content, heading, items }:
     </section>
   );
 }
-
-

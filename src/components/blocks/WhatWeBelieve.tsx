@@ -34,8 +34,8 @@ export function WhatWeBelieve({ title, content, heading ,items}: Readonly<WhatWe
       </div>
 
       {/* halo accents */}
-      <div className="pointer-events-none absolute -top-24 left-1/2 h-72 w-[800px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(56,189,248,0.18),transparent)] blur-2xl" />
-      <div className="pointer-events-none absolute bottom-0 right-0 h-40 w-60 translate-x-1/4 translate-y-1/4 rounded-full bg-[radial-gradient(closest-side,rgba(30,155,251,0.12),transparent)] blur-2xl" />
+      <div className="pointer-events-none absolute -top-24 left-1/2 h-72 translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(56,189,248,0.18),transparent)] blur-2xl" />
+      <div className="pointer-events-none absolute bottom-0 right-0 h-40 translate-x-1/4 translate-y-1/4 rounded-full bg-[radial-gradient(closest-side,rgba(30,155,251,0.12),transparent)] blur-2xl" />
       </div>
     </section>
   );

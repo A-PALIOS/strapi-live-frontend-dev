@@ -42,7 +42,7 @@ export function SecondaryMenuBlock({
 
       {/* Row 2: burger (left) + inline page links + '|' + section anchors */}
       <div className="flex items-center justify-between max-w-7xl mx-auto">
-        <div className="flex gap-4 text-lg text-gray-700">
+        <div className="flex flex-wrap gap-4 text-lg text-gray-700">
           {/* Burger (visible on desktop too) */}
           <button
             onClick={() => setIsOpen((v) => !v)}

@@ -23,7 +23,7 @@ export function HeroSection({
 
   return (
     // <section className="relative bg-white">
-       <section id="heropage" data-header="dark" className="relative min-h-[78vh]">
+       <section id="heropage" data-header="dark" className="relative min-h-[78vh] overflow-hidden">
       {/* Background image */}
       <div className="absolute inset-0 -z-10">
         <StrapiImage
@@ -65,7 +65,7 @@ export function HeroSection({
 
           {/* Lead paragraph (optional) */}
         
-            <p className="mt-6 text-base/7 sm:text-lg/8 text-white/90 w-2xl font-agenda-regular">
+            <p className="mt-6 text-base/7 sm:text-lg/8 text-white/90 font-agenda-regular">
             {subheader}            
             </p>
         
