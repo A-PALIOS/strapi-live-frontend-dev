@@ -1,6 +1,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { useMemo } from "react";
+import { useMemo,useState } from "react";
 import { CheckCircle2, Brain, Users, Repeat, Award, HeartHandshake } from "lucide-react";
 
 export type ValueItem = {
@@ -219,7 +219,8 @@ function CircleCard({
   dark: string;
 }) {
   const prefersReducedMotion = useReducedMotion();
-  const floatDelay = (index % 6) * 0.6;               // stagger so they don't move in sync
+  const [open, setOpen] = useState(false); // ← mobile/tap state
+  const floatDelay = (index % 6) * 0.6;
   const gradient = "linear-gradient(90deg,#1E9BFB 0%,#156DB0 100%)";
 
   const iconForId: Record<string, React.ComponentType<{ size?: number; strokeWidth?: number; className?: string; style?: React.CSSProperties }>> = {
@@ -238,17 +239,8 @@ function CircleCard({
       <motion.article
         className="group relative aspect-square w-48 sm:w-44 md:w-48 lg:w-40 xl:w-44 2xl:w-48 select-none"
         initial={{ y: 0 }}
-        animate={
-          prefersReducedMotion
-            ? undefined
-            : { y: [0, -6, 0, 4, 0] }          // gentle float loop
-        }
-        transition={{
-          duration: 6 + (index % 5),
-          repeat: Infinity,
-          delay: floatDelay,
-          ease: "easeInOut",
-        }}
+        animate={prefersReducedMotion ? undefined : { y: [0, -6, 0, 4, 0] }}
+        transition={{ duration: 6 + (index % 5), repeat: Infinity, delay: floatDelay, ease: "easeInOut" }}
       >
         {/* Gradient ring wrapper */}
         <div className="h-full w-full rounded-full p-[2px]" style={{ background: gradient }}>
@@ -257,6 +249,15 @@ function CircleCard({
             className="relative h-full w-full rounded-full bg-white shadow-sm transition-transform duration-300 group-hover:scale-[1.03]"
             style={{ outline: `1px solid ${accent}22` }}
           >
+            {/* Invisible button to capture taps / keyboard focus */}
+            <button
+              type="button"
+              className="absolute inset-0 rounded-full focus:outline-none"
+              aria-label={`Show ${title}`}
+              aria-expanded={open}
+              onClick={() => setOpen((o) => !o)}
+            />
+
             {/* Local SVG defs for gradient stroke */}
             <svg className="absolute h-0 w-0" aria-hidden>
               <defs>
@@ -272,27 +273,34 @@ function CircleCard({
               <Icon size={36} strokeWidth={2.4} style={{ stroke: `url(#gradIcon-${index})` }} />
             </div>
 
-            {/* Hover panel stays centered; only fades in */}
+            {/* Hover/tap reveal panel */}
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
               <div
-                className="max-w-[230px] rounded-2xl border bg-white/95 p-4 text-center shadow-xl opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100"
-                style={{ borderColor: accent + "33", transform: "translateY(0)" }}
+                className={[
+                  "max-w-[230px] rounded-2xl border bg-white/95 p-4 text-center shadow-xl transition-opacity duration-200",
+                  // Hover on desktop:
+                  "group-hover:opacity-100 group-focus-within:opacity-100",
+                  // Tap on mobile:
+                  open ? "opacity-100" : "opacity-0",
+                ].join(" ")}
+                style={{ borderColor: accent + "33" }}
                 role="tooltip"
               >
                 <h3
-                  className="font-agenda-semibold text-2xl"
+                  className="text-sm font-semibold"
                   style={{ background: gradient, WebkitBackgroundClip: "text", color: "transparent" as any }}
                 >
                   {title}
                 </h3>
-                <p className="mt-2 font-agenda-regular text-lg leading-relaxed text-slate-600">{body}</p>
+                <p className="mt-2 text-xs leading-relaxed text-slate-600">{body}</p>
               </div>
             </div>
           </div>
         </div>
       </motion.article>
 
-      <p className="mt-3 line-clamp-1 text-center font-agenda-semibold text-2xl" style={{ color: dark }}>
+      {/* Caption under the circle */}
+      <p className="mt-3 line-clamp-1 text-center text-sm font-medium" style={{ color: dark }}>
         {title}
       </p>
     </div>

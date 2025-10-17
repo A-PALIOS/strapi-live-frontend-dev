@@ -387,9 +387,9 @@ export interface AboutInfoProps extends Base<"blocks.about-info"> {
 }
 
 export interface MissionProps extends Base<"blocks.mission-section"> {
-  title: string;
-  content: string;
-  heading:string;
+  title?: string;
+  content?: string;
+  heading?:string;
   values: ValueItem[];
 
 }

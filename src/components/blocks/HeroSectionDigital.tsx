@@ -7,24 +7,64 @@ import { StrapiImage } from "../StrapiImage";
 import type { HeroSectionDigitalProps } from "@/types";
 import BlurText from "../ui/BlurText";
 
-// Lazy-load LiquidEther on the client only
+// Effects
 const LiquidEther = dynamic(() => import("../ui/LiquidEther"), { ssr: false });
+const Lanyard = dynamic(() => import("../Lanyard"), {
+  ssr: false,
+  loading: () => null,
+});
 
-// Mount only when the section is in view (saves work offscreen)
-function useInView(threshold = 0.25) {
+/** Sticky in-view (keep for Ether/background only) */
+function useInView({
+  threshold = 0,
+  rootMargin = "200px 0px 200px 0px",
+  stickyOnceSeen = true,
+}: {
+  threshold?: number | number[];
+  rootMargin?: string;
+  stickyOnceSeen?: boolean;
+} = {}) {
   const ref = useRef<HTMLElement | null>(null);
-  const [inView, setInView] = useState(false);
+  const [inViewRaw, setInViewRaw] = useState(false);
+  const onceSeenRef = useRef(false);
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const io = new IntersectionObserver(
-      ([e]) => setInView(e.isIntersecting),
-      { threshold }
+      ([entry]) => {
+        const visible = entry.isIntersecting;
+        if (visible) onceSeenRef.current = true;
+        setInViewRaw(visible);
+      },
+      { threshold, rootMargin }
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [threshold]);
+  }, [threshold, rootMargin]);
+
+  const inView = stickyOnceSeen ? inViewRaw || onceSeenRef.current : inViewRaw;
   return { ref, inView };
+}
+
+/** Error boundary (dev resilience) */
+function ErrorBoundary({ children }: { children: React.ReactNode }) {
+  const [error, setError] = useState<Error | null>(null);
+  const [retries, setRetries] = useState(0);
+
+  // simple boundary via try/catch render
+  try {
+    if (error) throw error;
+    return <>{children}</>;
+  } catch (e: any) {
+    if (retries < 1) {
+      // retry once next tick
+      setTimeout(() => setRetries((r) => r + 1), 0);
+      return null;
+    }
+    // after retry, keep silent
+    return null;
+  }
 }
 
 export function HeroSectionDigital({
@@ -60,40 +100,66 @@ export function HeroSectionDigital({
     return () => document.removeEventListener("visibilitychange", onVis);
   }, []);
 
-  // Only mount effect when hero is on screen
-  const { ref, inView } = useInView(0.25);
+  // Only use inView for Ether (not for Lanyard anymore)
+  const { ref, inView } = useInView({
+    threshold: 0,
+    rootMargin: "200px 0px 200px 0px",
+    stickyOnceSeen: true,
+  });
 
-  // 💧 LiquidEther props — wider blue, abstract shapes, lighter compute
+  // 💧 Liquid Ether props
   const etherProps = useMemo(
     () => ({
-      // Two blues so the blue area occupies more space
       colors: ["#0A0F1F", "#0F79C9", "#1E9BFB"],
-
-      // Performance + look
-      resolution: 0.33,        // fewer pixels → faster; keeps big shapes
-      isViscous: true,         // smear/elongate blobs (less “ball” looking)
-      viscous: 14,             // 10–18 = nice abstract smear
-      iterationsViscous: 14,   // lighter solver
-      iterationsPoisson: 14,   // lighter solver
-
-      // Mouse feel: wide, gentle strokes → broader motion
+      resolution: 0.33,
+      isViscous: true,
+      viscous: 14,
+      iterationsViscous: 14,
+      iterationsPoisson: 14,
       cursorSize: 120,
       mouseForce: 10,
-
       isBounce: false,
-
-      // Start moving immediately
       autoDemo: true,
       autoSpeed: 0.6,
       autoIntensity: 2.4,
       takeoverDuration: 0,
       autoResumeDelay: 0,
       autoRampDuration: 0,
-
       className: "w-full h-full",
     }),
     []
   );
+
+  // ===== Hardening: deterministically mount Lanyard AFTER full window load =====
+  const [lanyardReady, setLanyardReady] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const makeReady = () => {
+      // double-guard with rAF to ensure layout is final
+      requestAnimationFrame(() => {
+        setLanyardReady(true);
+      });
+    };
+
+    if (document.readyState === "complete") {
+      makeReady();
+    } else {
+      const onLoad = () => makeReady();
+      window.addEventListener("load", onLoad, { once: true });
+
+      // backup: if load never fires (rare), arm a small timeout
+      const t = setTimeout(makeReady, 1200);
+      return () => {
+        window.removeEventListener("load", onLoad);
+        clearTimeout(t);
+      };
+    }
+  }, []);
+
+  // Gates (Ether only)
+  const canAnimate = !prefersReduced && tabVisible;
+  const showEther = canAnimate && inView;
 
   return (
     <section
@@ -102,20 +168,42 @@ export function HeroSectionDigital({
       data-header="dark"
       className="relative min-h-[78vh] overflow-hidden"
     >
-      {/* Background: allow pointer events to reach the canvas */}
+      {/* Background */}
       <div className="absolute inset-0 -z-10 bg-black pointer-events-auto">
-        {!prefersReduced && tabVisible && inView && <LiquidEther {...etherProps} />}
-
-        {/* Keep overlay transparent to pointer events so mouse reaches the fluid */}
+        {showEther && <LiquidEther {...etherProps} />}
         {darken && (
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/65 pointer-events-none" />
         )}
       </div>
 
-      {/* Content: default to pointer-events-none so the canvas gets the mouse */}
-      <div className="relative mx-auto flex h-full max-w-7xl items-center px-6 pt-96 pb-16 lg:px-8 pointer-events-none">
+      {/* RIGHT (md+): fixed Lanyard, ALWAYS mounts once lanyardReady */}
+      <div
+        className="
+          fixed right-0 top-0 z-20 hidden md:flex
+          h-screen w-[42vw] max-w-[720px]
+          items-center justify-center
+          pointer-events-auto
+        "
+      >
+        <ErrorBoundary>
+          {lanyardReady && (
+            // If your Lanyard supports paused, you can pass paused={!tabVisible}
+            <Lanyard /* paused={!tabVisible} */ />
+          )}
+        </ErrorBoundary>
+      </div>
+
+      {/* LEFT content; pad-right on md+ so it doesn't sit under the fixed Lanyard */}
+      <div
+        className="
+          relative mx-auto flex h-full max-w-7xl items-center
+          px-6 pt-96 pb-16 lg:px-8
+          pointer-events-none
+          md:pr-[44vw]
+        "
+      >
         <div className="max-w-3xl text-white">
-          {/* Optional logo (non-interactive, keep pointer-events-none) */}
+          {/* Optional logo */}
           {logo && (
             <div className="mb-6">
               <StrapiImage
@@ -128,31 +216,30 @@ export function HeroSectionDigital({
             </div>
           )}
 
-
           {/* Title */}
           <h1 className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
-  <BlurText
-    text={firstWord}
-    delay={120}
-    animateBy="words"
-    direction="top"
-    className="inline text-[#1E9BFB]"
-  />
-  {" "}
-  <BlurText
-    text={rest}
-    delay={180}                // slight stagger after the first word
-    animateBy="words"
-    direction="top"
-    className="inline text-white"
-  />
-</h1>
+            <BlurText
+              text={firstWord}
+              delay={120}
+              animateBy="words"
+              direction="top"
+              className="inline text-[#1E9BFB]"
+            />{" "}
+            <BlurText
+              text={rest}
+              delay={180}
+              animateBy="words"
+              direction="top"
+              className="inline text-white"
+            />
+          </h1>
+
           {/* Subheader */}
           <p className="mt-6 text-base/7 sm:text-lg/8 text-white/90 w-2xl font-agenda-regular">
             {subheader}
           </p>
 
-          {/* CTA: re-enable pointer events only here so it's clickable */}
+          {/* CTA (clickable) */}
           {cta && (
             <Link
               href={cta.href}
@@ -163,19 +250,20 @@ export function HeroSectionDigital({
               <span className="text-sm md:text-base font-agenda-semibold">
                 {cta.text ?? "Learn More"}
               </span>
-
               <span className="mr-3 sm:mr-6 grid place-items-center w-7 h-7 md:w-8 md:h-8 rounded-md bg-[#FF8A00] text-white transition-transform duration-200 group-hover:translate-y-0.5">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                  className="w-4 h-4"
-                >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="w-4 h-4">
                   <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />
                 </svg>
               </span>
             </Link>
           )}
+        </div>
+      </div>
+
+      {/* MOBILE: show Lanyard in flow below content (not fixed) */}
+      <div className="md:hidden mt-10 px-6 pb-10">
+        <div className="relative z-10 h-[50vh] w-full pointer-events-auto">
+          <ErrorBoundary>{lanyardReady && <Lanyard />}</ErrorBoundary>
         </div>
       </div>
     </section>
