@@ -11,6 +11,7 @@ export function MagicBentoBlock({ title, content, heading }: Readonly<MagicBento
       id={id}
       className="scroll-mt-24 w-full py-16 px-6 md:px-12 lg:px-24 bg-black"
     >
+      
         <MagicBento 
   textAutoHide={true}
   enableStars={true}

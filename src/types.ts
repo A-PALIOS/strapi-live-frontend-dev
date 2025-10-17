@@ -93,7 +93,7 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
                  | "blocks.testimonials-block" | "blocks.features-block" 
                  | "blocks.featured-article"
                    | "blocks.what-believe"
-
+                  | "blocks.mission-section"
                  | "blocks.about-info"
                  | "blocks.service-info"
                  | "blocks.magic-bento-block"
@@ -125,7 +125,7 @@ interface Base<
 export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigitalProps | InfoBlockProps | MilestonesBlockProps
  | VerticalAccordionBlockProps | ServicesAccordionBlockProps 
  | LogoCarouselBlockProps | TestimonialsBlockProps 
- | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | ServiceInfoProps | MagicBentoProps | TimeLineProps | WhatWeBelieveProps
+ | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | ServiceInfoProps | MissionProps | MagicBentoProps | TimeLineProps | WhatWeBelieveProps
    | HeadingProps
   | ParagraphWithImageProps
   | LeadingInstitutionBlockProps
@@ -319,6 +319,8 @@ export interface AboutSectionProps extends Base<"blocks.about-section"> {
 
 
 
+
+
 export interface StrapiUploadFileAttributes {
   url: string;
   alternativeText?: string | null;
@@ -361,6 +363,12 @@ export interface BeliefItem {
   sortOrder?: number | null;
 }
 
+export type ValueItem = {
+  key: "integrity"|"evidence"|"collab"|"adapt"|"quality"|"social";
+  title: string;
+  body: string; // Strapi rich text returns HTML by default; if you use Markdown plugin, it’s markdown
+};
+
 // The Dynamic Zone block (Strapi component: blocks.what-we-believe)
 export interface WhatWeBelieveProps extends Base<"blocks.what-believe"> {
   heading?: string;
@@ -376,6 +384,14 @@ export interface AboutInfoProps extends Base<"blocks.about-info"> {
   title: string;
   content: string;
   heading:string;
+}
+
+export interface MissionProps extends Base<"blocks.mission-section"> {
+  title: string;
+  content: string;
+  heading:string;
+  values: ValueItem[];
+
 }
 
 export interface ServiceInfoProps extends Base<"blocks.service-info"> {

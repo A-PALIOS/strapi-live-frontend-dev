@@ -288,6 +288,14 @@ const pageBySlugQuery = (slug: string) =>
               },
             },
             "blocks.about-info": true,
+           "blocks.mission-section": {
+  fields: ["title", "content", "heading"],     // parent fields
+  populate: {
+    values: {
+      fields: ["key", "title", "body"]         // repeatable component fields
+    }
+  }
+},
             "blocks.what-believe": {
               populate: { items: { fields: ["title", "blurb", "iconKey", "sortOrder"] } },
             },
