@@ -14,7 +14,7 @@ const Lanyard = dynamic(() => import("../Lanyard"), {
   loading: () => null,
 });
 
-/** Sticky in-view (keep for Ether/background only) */
+/** Sticky in-view (used only for Ether) */
 function useInView({
   threshold = 0,
   rootMargin = "200px 0px 200px 0px",
@@ -47,22 +47,14 @@ function useInView({
   return { ref, inView };
 }
 
-/** Error boundary (dev resilience) */
+/** Simple ErrorBoundary */
 function ErrorBoundary({ children }: { children: React.ReactNode }) {
   const [error, setError] = useState<Error | null>(null);
-  const [retries, setRetries] = useState(0);
-
-  // simple boundary via try/catch render
+  if (error) return null;
   try {
-    if (error) throw error;
     return <>{children}</>;
   } catch (e: any) {
-    if (retries < 1) {
-      // retry once next tick
-      setTimeout(() => setRetries((r) => r + 1), 0);
-      return null;
-    }
-    // after retry, keep silent
+    setError(e);
     return null;
   }
 }
@@ -77,11 +69,10 @@ export function HeroSectionDigital({
   publishedAt,
   darken = false,
 }: Readonly<HeroSectionDigitalProps>) {
-  // Split heading so first word is blue, rest is white
   const [firstWord, ...restWords] = (heading ?? "").split(" ");
   const rest = restWords.join(" ");
 
-  // Respect reduced-motion
+  // Reduced motion
   const [prefersReduced, setPrefersReduced] = useState(false);
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -92,7 +83,7 @@ export function HeroSectionDigital({
     return () => mq.removeEventListener?.("change", update);
   }, []);
 
-  // Pause when tab is hidden
+  // Tab visibility
   const [tabVisible, setTabVisible] = useState(true);
   useEffect(() => {
     const onVis = () => setTabVisible(document.visibilityState === "visible");
@@ -100,14 +91,14 @@ export function HeroSectionDigital({
     return () => document.removeEventListener("visibilitychange", onVis);
   }, []);
 
-  // Only use inView for Ether (not for Lanyard anymore)
+  // For LiquidEther only
   const { ref, inView } = useInView({
     threshold: 0,
     rootMargin: "200px 0px 200px 0px",
     stickyOnceSeen: true,
   });
 
-  // 💧 Liquid Ether props
+  // Liquid Ether props
   const etherProps = useMemo(
     () => ({
       colors: ["#0A0F1F", "#0F79C9", "#1E9BFB"],
@@ -130,34 +121,33 @@ export function HeroSectionDigital({
     []
   );
 
-  // ===== Hardening: deterministically mount Lanyard AFTER full window load =====
+  // Ensure Lanyard only loads after window is ready
   const [lanyardReady, setLanyardReady] = useState(false);
   useEffect(() => {
     if (typeof window === "undefined") return;
-
-    const makeReady = () => {
-      // double-guard with rAF to ensure layout is final
-      requestAnimationFrame(() => {
-        setLanyardReady(true);
-      });
-    };
-
+    const makeReady = () => requestAnimationFrame(() => setLanyardReady(true));
     if (document.readyState === "complete") {
       makeReady();
     } else {
-      const onLoad = () => makeReady();
-      window.addEventListener("load", onLoad, { once: true });
-
-      // backup: if load never fires (rare), arm a small timeout
+      window.addEventListener("load", makeReady, { once: true });
       const t = setTimeout(makeReady, 1200);
       return () => {
-        window.removeEventListener("load", onLoad);
+        window.removeEventListener("load", makeReady);
         clearTimeout(t);
       };
     }
   }, []);
 
-  // Gates (Ether only)
+  // Track screen size (to hide Lanyard on small phones)
+  const [isTabletOrLarger, setIsTabletOrLarger] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const check = () => setIsTabletOrLarger(window.innerWidth >= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   const canAnimate = !prefersReduced && tabVisible;
   const showEther = canAnimate && inView;
 
@@ -176,24 +166,23 @@ export function HeroSectionDigital({
         )}
       </div>
 
-      {/* RIGHT (md+): fixed Lanyard, ALWAYS mounts once lanyardReady */}
-      <div
-        className="
-          fixed right-0 top-0 z-20 hidden md:flex
-          h-screen w-[42vw] max-w-[720px]
-          items-center justify-center
-          pointer-events-auto
-        "
-      >
-        <ErrorBoundary>
-          {lanyardReady && (
-            // If your Lanyard supports paused, you can pass paused={!tabVisible}
+      {/* RIGHT: show only on tablets & up (≥768px) */}
+      {lanyardReady && isTabletOrLarger && (
+        <div
+          className="
+            fixed right-0 top-0 z-20 flex
+            h-screen w-[42vw] max-w-[720px]
+            items-center justify-center
+            pointer-events-auto
+          "
+        >
+          <ErrorBoundary>
             <Lanyard /* paused={!tabVisible} */ />
-          )}
-        </ErrorBoundary>
-      </div>
+          </ErrorBoundary>
+        </div>
+      )}
 
-      {/* LEFT content; pad-right on md+ so it doesn't sit under the fixed Lanyard */}
+      {/* LEFT CONTENT */}
       <div
         className="
           relative mx-auto flex h-full max-w-7xl items-center
@@ -203,7 +192,6 @@ export function HeroSectionDigital({
         "
       >
         <div className="max-w-3xl text-white">
-          {/* Optional logo */}
           {logo && (
             <div className="mb-6">
               <StrapiImage
@@ -216,7 +204,6 @@ export function HeroSectionDigital({
             </div>
           )}
 
-          {/* Title */}
           <h1 className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
             <BlurText
               text={firstWord}
@@ -234,12 +221,10 @@ export function HeroSectionDigital({
             />
           </h1>
 
-          {/* Subheader */}
           <p className="mt-6 text-base/7 sm:text-lg/8 text-white/90 w-2xl font-agenda-regular">
             {subheader}
           </p>
 
-          {/* CTA (clickable) */}
           {cta && (
             <Link
               href={cta.href}
@@ -251,19 +236,17 @@ export function HeroSectionDigital({
                 {cta.text ?? "Learn More"}
               </span>
               <span className="mr-3 sm:mr-6 grid place-items-center w-7 h-7 md:w-8 md:h-8 rounded-md bg-[#FF8A00] text-white transition-transform duration-200 group-hover:translate-y-0.5">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="w-4 h-4">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                  className="w-4 h-4"
+                >
                   <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />
                 </svg>
               </span>
             </Link>
           )}
-        </div>
-      </div>
-
-      {/* MOBILE: show Lanyard in flow below content (not fixed) */}
-      <div className="md:hidden mt-10 px-6 pb-10">
-        <div className="relative z-10 h-[50vh] w-full pointer-events-auto">
-          <ErrorBoundary>{lanyardReady && <Lanyard />}</ErrorBoundary>
         </div>
       </div>
     </section>
