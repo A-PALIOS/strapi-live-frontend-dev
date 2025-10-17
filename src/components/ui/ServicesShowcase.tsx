@@ -85,7 +85,9 @@ const isTouch = typeof window !== "undefined"
 export type ServiceItem = {
   title: string;
   blurb: string;
-  icon: React.ElementType;
+  // Icon components from lucide-react are SVG components that accept SVG props.
+  // Use a more specific component type so JSX props like `className` are allowed.
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   stats?: { label: string; value: string }[];
   bullets?: string[];
   cta?: { label: string; href: string }[];
