@@ -27,7 +27,7 @@ interface TeamGridPropsExtended extends TeamGridProps {
  
 export  function TeamGrid({ Title, team_members, page, query, category }: Readonly<TeamGridPropsExtended>) {
   const [currentPage2, setCurrentPage2] = useState(1);
-  const membersPerPage = 3;
+  const membersPerPage = 9;
   const [categoryList, setCategoryList] = useState<any[]>([]);
   const totalPages = Math.ceil(team_members.length / membersPerPage);
  

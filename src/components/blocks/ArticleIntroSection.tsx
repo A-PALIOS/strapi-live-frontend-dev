@@ -14,9 +14,9 @@ export function ArticleIntroSection({
   publishedAt,
 }: Readonly<ArticleProps>){
   return (
-    <section className="max-w-6xl mx-auto px-4 py-10">
+    <section className="max-w-6xl mx-auto px-4 py-31">
       {/* Top row with title and author info */}
-      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-6">
+      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-11">
         <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 max-w-3xl leading-snug">
           {title}
         </h1>
