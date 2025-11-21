@@ -3,16 +3,22 @@
 import { useState } from "react";
 import type { ServicesAccordionBlockProps } from "@/types";
 import { StrapiImage } from "../StrapiImage";
+import { AnimatePresence, motion, useReducedMotion, type Transition } from "framer-motion";
 
 export function ServicesAccordionBlock({
-  heading,       // use as the small eyebrow text (left)
+  heading,
   items,
-  cta,           // { href, text, isExternal }
+  cta,
   image,
 }: ServicesAccordionBlockProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const toggleIndex = (index: number) => setOpenIndex((prev) => (prev === index ? null : index));
-
+  const prefersReducedMotion = useReducedMotion();
+  const toggleIndex = (index: number) =>
+    setOpenIndex((prev) => (prev === index ? null : index));
+  const bezier = [0.22, 0.61, 0.36, 1] as const; // keep tuple type
+  const transition: Transition = prefersReducedMotion
+    ? { duration: 0 }
+    : { duration: 0.45, ease: bezier };
   return (
     <section id="services" data-header="dark" className="relative">
       {/* Background */}
@@ -24,10 +30,7 @@ export function ServicesAccordionBlock({
           width={1920}
           height={1080}
         />
-        {/* Dark veil for readability */}
         <div className="absolute inset-0" />
-                {/* <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black/70" /> */}
-
       </div>
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-10 md:py-12 text-white">
@@ -61,6 +64,8 @@ export function ServicesAccordionBlock({
                 {/* Row button */}
                 <button
                   onClick={() => toggleIndex(index)}
+                  aria-expanded={isOpen}
+                  aria-controls={`svc-desc-${item.id}`}
                   className="group w-full text-left"
                 >
                   <div className="flex items-center justify-between gap-4 py-2">
@@ -87,7 +92,9 @@ export function ServicesAccordionBlock({
                     <div
                       className={[
                         "grid place-items-center h-8 w-8 rounded-full border transition-colors",
-                        isOpen ? "border-white/60 text-white/90" : "border-white/50 text-white/70 group-hover:border-white/80 group-hover:text-white",
+                        isOpen
+                          ? "border-white/60 text-white/90"
+                          : "border-white/50 text-white/70 group-hover:border-white/80 group-hover:text-white",
                       ].join(" ")}
                       aria-hidden
                     >
@@ -95,14 +102,31 @@ export function ServicesAccordionBlock({
                     </div>
                   </div>
 
-                  {/* Description (open row) */}
-                  {isOpen && (
-                    <div className="pl-[4.25rem] sm:pl-[5.25rem] md:pl-[5.25rem] pr-1 pb-4">
-                      <p className="font-agenda-light max-w-2xl text-sm sm:text-[18px] leading-6 text-white/85">
-                        {item.description}
-                      </p>
-                    </div>
-                  )}
+                  {/* Description (animated) */}
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        id={`svc-desc-${item.id}`}
+                        key="content"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={transition}
+                        style={{ overflow: "hidden" }}
+                        className="pl-[4.25rem] sm:pl-[5.25rem] md:pl-[5.25rem] pr-1"
+                      >
+                        <motion.p
+                          initial={{ y: 6, opacity: 0 }}
+                          animate={{ y: 0, opacity: 1 }}
+                          exit={{ y: 6, opacity: 0 }}
+                          transition={transition}
+                          className="font-agenda-light max-w-2xl text-sm sm:text-[18px] leading-6 text-white/85 py-3"
+                        >
+                          {item.description}
+                        </motion.p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </button>
               </div>
             );

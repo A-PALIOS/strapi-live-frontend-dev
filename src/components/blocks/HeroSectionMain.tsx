@@ -21,6 +21,10 @@ export function HeroSectionMain({
   publishedAt,
   darken = true,
 }: Readonly<HeroSectionMainProps>) {
+   const [firstLine, secondLine] = heading
+    ? heading.split("THE EXPERIENCE IN").map((part) => part.trim())
+    : ["WE HAVE THE KNOW HOW AND |", "THE EXPERIENCE IN"];
+    console.log("firstLine:", firstLine)
   return (
     <section id="hero" data-header="dark" className="relative">
       {/* Background */}
@@ -57,21 +61,31 @@ export function HeroSectionMain({
  
           {/* Headline block */}
           {/* line 1 – typewriter */}
-          <TypewriterEffectSmooth
-            className="font-agenda-semibold text-slate-100 !my-0 leading-[0.95]
-                       text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
-            words={[{ text: heading || "We have the know how and" }]}
-          />
+          <span className="font-agenda-semibold text-slate-100 !my-0 leading-[0.95]
+                       text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+              {firstLine || "WE HAVE THE KNOW HOW AND |"}
+            </span>
+
+            
+
+            {/* {secondLine || "the experience in"} */}
+            
+          
  
           {/* line 2 – 'the experience in' + flipping word */}
           <motion.div
-            initial={{ opacity: 0, y: 6 }}
+            // initial={{ opacity: 0, y: 6 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 3, duration: 0.35 }}
+            // transition={{ delay: 3, duration: 0.35 }}
             className="mt-2"
           >
-            <h1
+            <span className="font-agenda-semibold text-slate-100 !my-0 leading-[0.95]
+                       text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+              {secondLine || "THE EXPERIENCE IN"}
+            </span>
+            
+            <span
               className="text-slate-100 font-ivypresto-light tracking-tight leading-[0.92]
                             text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
             >
@@ -82,7 +96,7 @@ export function HeroSectionMain({
                   words={words}
                 />
               </span>
-            </h1>
+            </span>
           </motion.div>
  
           {/* Milestones + Learn More row */}

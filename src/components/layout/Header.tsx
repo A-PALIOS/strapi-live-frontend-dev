@@ -105,7 +105,7 @@ const logoAlt =
   style={{ marginTop: 20 }}
 >
           {/* Logo */}
-<Link href="/" className="flex items-center shrink-0">
+<NavLink href="/" className="flex items-center shrink-0">
   <StrapiImage
     src={activeLogo.image.url}
     alt={logoAlt}
@@ -113,7 +113,7 @@ const logoAlt =
     height={120}
     className="h-10 w-auto transition-opacity duration-200"
   />
-</Link>
+</NavLink>
 
        {/* separator */}
 <span
@@ -253,6 +253,7 @@ const logoAlt =
       target={item.isExternal ? "_blank" : "_self"}
       className={`${onDark ? "text-white/90 hover:text-white" : "text-[#23292E] hover:text-gray-900"} font-agenda-medium transition`}
       style={{ fontSize: 22 }}
+      onClick={() => setIsOpen((v) => !v)}
     >
       {item.text}
     </NavLink>

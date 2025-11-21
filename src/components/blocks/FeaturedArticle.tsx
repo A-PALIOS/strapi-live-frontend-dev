@@ -214,7 +214,7 @@ export function FeaturedArticle({
   publishedAt,
 }: Readonly<FeaturedArticleProps>) {
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 " style={{paddingTop:"124px"}}>
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-[124px]">
       <article className="relative w-full h-auto rounded overflow-hidden">
         {/* Image */}
         {image && (
@@ -223,49 +223,88 @@ export function FeaturedArticle({
             alt={image.alternativeText || "Article Image"}
             width={1200}
             height={600}
-            className="w-full object-cover h-full rounded"
+            className="
+              w-full object-cover rounded
+              h-[380px] sm:h-[420px] md:h-[520px]
+              lg:h-[580px] xl:h-full
+              max-[1132px]:lg:h-[520px]
+            "
           />
         )}
 
         {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/20 text-white p-6 md:p-10 flex flex-col justify-between">
+        <div
+          className="
+            absolute inset-0 text-white
+            p-4 sm:p-6 md:p-8 lg:p-10
+            max-[1132px]:lg:p-8
+            flex flex-col justify-between
+            bg-gradient-to-t from-black/80 via-black/30 to-transparent
+            sm:bg-gradient-to-r sm:from-black/80 sm:to-black/20
+          "
+        >
           {/* Top content */}
-          <div className="space-y-4 max-w-2xl">
-            <h3 className="text-3xl sm:text-4xl font-bold leading-tight">
+          <div className="space-y-3 sm:space-y-4 md:space-y-5 max-w-2xl">
+            <h3
+              className="
+                font-bold leading-tight
+                text-2xl sm:text-3xl md:text-4xl lg:text-4xl
+                max-[1132px]:lg:text-[2.25rem]
+              "
+            >
               <span className="text-[#1E9BFB]">Article</span> of the Day
             </h3>
 
-            <p className="italic text-lg">
-             {title}{" "}
-              <span className="text-[#1E9BFB] font-medium"></span>
+            <p
+              className="
+                italic
+                text-base sm:text-lg md:text-xl lg:text-lg
+                max-[1132px]:lg:text-[1.05rem]
+              "
+            >
+              {title} <span className="text-[#1E9BFB] font-medium"></span>
             </p>
 
-            <div className="text-sm text-white leading-relaxed max-w-xl">
+            <div
+              className="
+                text-sm sm:text-base md:text-base lg:text-sm
+                max-w-xl text-white leading-relaxed
+                line-clamp-4 sm:line-clamp-5 md:line-clamp-6 lg:line-clamp-none
+                max-[1132px]:lg:text-base
+              "
+            >
               <ReactMarkdown>{excerpt}</ReactMarkdown>
             </div>
           </div>
 
           {/* Bottom content */}
-          <div className="flex justify-between items-end mt-8">
+          <div className="flex flex-col gap-4 mt-6 sm:mt-8 md:flex-row md:items-end md:justify-between">
             {/* Author pill */}
-            <div className="flex items-center bg-white text-black rounded-full px-4 py-2 shadow-lg">
+            <div className="flex items-center bg-white text-black rounded-full px-3 py-2 md:px-4 md:py-2 shadow-lg w-fit sm:w-auto">
               <div
-                className="w-9 h-9 rounded-full mr-3 overflow-hidden"
-                style={{
-                  boxShadow: "-2.54px 0px 3.8px 0px #1E9BFB",
-                }}
+                className="
+                  rounded-full mr-3 overflow-hidden
+                  w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10
+                  max-[1132px]:lg:w-10 max-[1132px]:lg:h-10
+                "
+                style={{ boxShadow: "-2.54px 0px 3.8px 0px #1E9BFB" }}
               >
                 {author.imageAuthor?.url && (
                   <StrapiImage
                     src={author.imageAuthor.url}
                     alt={author.imageAuthor.alternativeText || "Author"}
-                    width={36}
-                    height={36}
+                    width={40}
+                    height={40}
                     className="object-cover w-full h-full"
                   />
                 )}
               </div>
-              <div className="text-xs">
+              <div
+                className="
+                  text-[11px] sm:text-xs md:text-sm
+                  max-[1132px]:lg:text-sm
+                "
+              >
                 <p className="font-semibold text-[#1E9BFB]">{author.name}</p>
                 <p className="text-gray-600">{formatDate(publishedAt)}</p>
               </div>
@@ -274,7 +313,14 @@ export function FeaturedArticle({
             {/* CTA button */}
             <Link
               href={link.href}
-              className="bg-white text-[#1E9BFB] font-medium text-sm px-6 py-2 rounded shadow hover:bg-gray-100 transition inline-flex items-center"
+              className="
+                bg-white text-[#1E9BFB] font-medium
+                inline-flex items-center justify-center
+                rounded shadow hover:bg-gray-100 transition
+                w-full sm:w-auto
+                text-sm px-5 py-2
+                md:px-6 md:py-2.5
+              "
             >
               {link.text}
               <span className="ml-2">➜</span>

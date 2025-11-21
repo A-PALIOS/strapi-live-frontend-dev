@@ -9,7 +9,7 @@ export function ParagraphWithImage({
   return (
     <div className="flex flex-col items-left gap-6 my-8">
       {/* Text Block */}
-      <div className="prose max-w-none text-base leading-relaxed text-gray-800 my-6">
+      <div className="prose max-w-none text-base leading-relaxed text-gray-800 my-6 article-body">
         <ReactMarkdown>{content}</ReactMarkdown>
       </div>
 
