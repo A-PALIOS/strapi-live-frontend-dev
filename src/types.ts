@@ -106,7 +106,9 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
                   | "blocks.full-image"
                   | "blocks.sticky-menu"
 				  | "blocks.secondary-menu"
-		   
+          | "blocks.ai-cards"
+          | "blocks.use-cases-section"
+          | "blocks.case-highlight"
                   |"blocks.team-grid";
 
 interface Base<
@@ -133,6 +135,9 @@ export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigital
   | FullImageProps
   | StickyMenuProps
   | SecondaryMenuProps
+  | AICardsBlockProps
+  | UseCasesSectionProps
+  | CaseHighlightProps
   |TeamGridProps;
 
 export interface HeroSectionMainProps extends Base<"blocks.hero-section-main"> {
@@ -184,6 +189,32 @@ export interface InfoBlockProps extends Base<"blocks.info-block"> {
 }
 
 
+// Use Case Item (blocks.use-case-item)
+export interface UseCaseItem {
+  id: number;
+  text: string;
+  icon?: "check" | "dot" | "none";
+}
+
+// Use Cases Section (blocks.use-cases-section)
+export interface UseCasesSectionProps extends Base<"blocks.use-cases-section"> {
+  eyebrow?: string;
+  title: string;
+  items: UseCaseItem[];
+  cta?: LinkProps;     // uses your existing LinkProps
+  image: ImageProps;   // uses your existing ImageProps
+}
+
+// Case Highlight (Strapi component: blocks.case-highlight)
+
+export interface CaseHighlightProps extends Base<"blocks.case-highlight"> {
+  eyebrow?: string;
+  title: string;
+  description: string;
+  cta?: LinkProps;      // uses your existing LinkProps
+  image: ImageProps;    // uses your existing ImageProps
+}
+
 
 // ✅ Milestone structure
 export interface Milestone {
@@ -231,6 +262,18 @@ export interface VerticalAccordionBlockProps extends Base<"blocks.vertical-accor
   items: AccordionItem[];
     cta?: LinkProps;
 
+}
+
+export interface AICardItem {
+  id: number;
+  title: string;
+  description: string;
+  Icon_Image?: ImageProps; // name matches your Strapi field: Icon_Image
+}
+
+export interface AICardsBlockProps extends Base<"blocks.ai-cards"> {
+  Title: string;        // matches your Strapi field: Title
+  Cards: AICardItem[];  // matches your Strapi field: Cards
 }
 
 
@@ -399,12 +442,24 @@ export interface ServiceInfoProps extends Base<"blocks.service-info"> {
   content: string;
   heading:string;
 }
-export interface MagicBentoProps extends Base<"blocks.magic-bento-block"> {
+export type BentoVariant = "sm" | "md" | "lg" | "xl";
+
+export interface BentoItemProps {
+  id: number;
+  eyebrow: string;
   title: string;
-  content: string;
-  heading:string;
+  subtitle?: string;
+  variant: BentoVariant;
+  order?: number;
+  link?: LinkProps;
 }
 
+export interface MagicBentoProps extends Base<"blocks.magic-bento-block"> {
+  title?: string;
+  content?: string;
+  heading?: string;
+  items: BentoItemProps[];
+}
 
 export interface HeadingProps extends Base<"blocks.heading"> {
   heading: string;

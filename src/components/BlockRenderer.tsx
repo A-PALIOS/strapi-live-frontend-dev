@@ -110,6 +110,9 @@ import { HeroSectionDigital } from "@/components/blocks/HeroSectionDigital";
 import { ServiceInfo } from "@/components/blocks/ServiceInfo";
 import { WhatWeBelieve } from "@/components/blocks/WhatWeBelieve";
 import { Mission } from "@/components/blocks/Mission";
+import {AICardsBlock} from "@/components/blocks/AICardsBlock"
+import { UseCasesSection } from "./blocks/UseCasesSection";
+import { CaseHighlight } from "./blocks/CaseHighlight";
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
     
@@ -164,6 +167,12 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <Paragraph {...block} key={index} />;
     case "blocks.full-image":
       return <FullImage {...block} key={index} />;
+    case "blocks.ai-cards":
+      return <AICardsBlock {...block} key={index} />;
+    case "blocks.use-cases-section":
+      return <UseCasesSection data={block} key={index} />;
+    case "blocks.case-highlight":
+      return <CaseHighlight data={block} key={index} />;
     case "blocks.sticky-menu": {
       const aboutInfoBlocks = allBlocks.filter(
         (b): b is Block & { __component: "blocks.about-info" } =>

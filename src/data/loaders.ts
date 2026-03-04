@@ -299,7 +299,14 @@ const pageBySlugQuery = (slug: string) =>
             "blocks.what-believe": {
               populate: { items: { fields: ["title", "blurb", "iconKey", "sortOrder"] } },
             },
-            "blocks.magic-bento-block": true,
+            "blocks.magic-bento-block": {
+                populate: {
+                  items: {
+                    sort: ["order:asc"],
+                    populate: { link: true },
+                  },
+                },
+              },
             "blocks.service-info": true,
             "blocks.timeline-block": {
               populate: {
@@ -325,11 +332,40 @@ const pageBySlugQuery = (slug: string) =>
                 },
                 },
               },
-
+              "blocks.ai-cards": {
+                populate: {
+                  Cards: {
+                    populate: {
+                      Icon_Image: {
+                        fields: ["url", "alternativeText"],
+                      },
+                    },
+                  },
+                },
+              },
+              "blocks.use-cases-section": {
+                populate: {
+                  items: {
+                    fields: ["text", "icon"],
+                  },
+                  image:{
+                    fields: ["url", "alternativeText"],
+                  },
+                  cta: true,
+                },
+              },
+              "blocks.case-highlight": {
+                populate: {
+                  image: {
+                    fields: ["url", "alternativeText"],
+                  },
+                  cta: true,
+                },
+              },
+            },
           },
         },
       },
-    },
     { encodeValuesOnly: true }
   );
 
