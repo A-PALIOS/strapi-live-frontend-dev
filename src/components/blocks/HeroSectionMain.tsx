@@ -90,12 +90,17 @@ export function HeroSectionMain({
                             text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
             >
               {" "}
+
+
               <span className="inline-flex align-baseline">
-                <FlipWords
-                  className="text-slate-100 leading-[0.92] uppercase"
-                  words={words}
-                />
-              </span>
+  <span className="relative inline-block overflow-hidden align-baseline">
+    <FlipWords
+      className="text-slate-100 leading-[0.92] uppercase"
+      words={words}
+    />
+  </span>
+</span>
+           
             </span>
           </motion.div>
  
