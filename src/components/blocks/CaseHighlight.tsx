@@ -8,7 +8,9 @@ type Props = {
 };
 
 export function CaseHighlight({ data }: Props) {
-  const { eyebrow, title, description, cta, image } = data;
+  const { Eyebrow, title, description, cta, image } = data;
+
+  console.log("eyebrow:", data);
 
   return (
     <section className="relative overflow-hidden  bg-[#071426] text-white">
@@ -18,8 +20,8 @@ export function CaseHighlight({ data }: Props) {
       <div className="relative mx-auto grid container gap-10 px-6 py-10 md:grid-cols-2 md:items-center">
         {/* LEFT */}
         <div>
-          {eyebrow ? (
-            <p className="text-sm font-medium text-white/70">{eyebrow}</p>
+          {Eyebrow ? (
+            <p className="text-sm font-medium text-white/70">{Eyebrow}</p>
           ) : null}
 
           <h2 className="mt-3 text-2xl font-semibold leading-tight md:text-3xl">

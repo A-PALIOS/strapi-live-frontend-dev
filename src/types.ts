@@ -209,7 +209,7 @@ export interface UseCasesSectionProps extends Base<"blocks.use-cases-section"> {
 // Case Highlight (Strapi component: blocks.case-highlight)
 
 export interface CaseHighlightProps extends Base<"blocks.case-highlight"> {
-  eyebrow?: string;
+  Eyebrow?: string;
   title: string;
   description: string;
   cta?: LinkProps;      // uses your existing LinkProps
