@@ -1,14 +1,14 @@
 'use client';
-import { AboutInfoProps } from "@/types";
+import { InfoBoxProps } from "@/types";
 import ReactMarkdown from "react-markdown";
 
-export function AboutInfo({ title, content, heading }: Readonly<AboutInfoProps>) {
+export function InfoBox({ title, content, heading }: Readonly<InfoBoxProps>) {
   const id = heading?.toLowerCase().replace(/\s+/g, "-") || "";
 
   return (
     <section
       id={id}
-      className="scroll-mt-24 w-full pt-10 px-6 md:px-12 lg:px-24 sr-only"
+      className="scroll-mt-24 w-full pt-10 px-6 md:px-12 lg:px-24"
     >
       
 

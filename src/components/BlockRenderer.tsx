@@ -113,6 +113,7 @@ import { Mission } from "@/components/blocks/Mission";
 import {AICardsBlock} from "@/components/blocks/AICardsBlock"
 import { UseCasesSection } from "./blocks/UseCasesSection";
 import { CaseHighlight } from "./blocks/CaseHighlight";
+import { InfoBox } from "./blocks/InfoBox";
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
     
@@ -145,6 +146,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
         return <AboutSection {...block} key={index} />;
     case "blocks.about-info":
         return <AboutInfo {...block} key={index} />;
+    case "blocks.info-box":
+        return <InfoBox {...block} key={index} />;
 
     case "blocks.what-believe":
         return <WhatWeBelieve {...block} key={index} />;

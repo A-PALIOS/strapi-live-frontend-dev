@@ -95,6 +95,7 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
                    | "blocks.what-believe"
                   | "blocks.mission-section"
                  | "blocks.about-info"
+                 | "blocks.info-box"
                  | "blocks.service-info"
                  | "blocks.magic-bento-block"
                  | "blocks.timeline-block"
@@ -127,7 +128,7 @@ interface Base<
 export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigitalProps | InfoBlockProps | MilestonesBlockProps
  | VerticalAccordionBlockProps | ServicesAccordionBlockProps 
  | LogoCarouselBlockProps | TestimonialsBlockProps 
- | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | ServiceInfoProps | MissionProps | MagicBentoProps | TimeLineProps | WhatWeBelieveProps
+ | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | InfoBoxProps | ServiceInfoProps | MissionProps | MagicBentoProps | TimeLineProps | WhatWeBelieveProps
    | HeadingProps
   | ParagraphWithImageProps
   | LeadingInstitutionBlockProps
@@ -424,6 +425,12 @@ export interface WhatWeBelieveProps extends Base<"blocks.what-believe"> {
 
 
 export interface AboutInfoProps extends Base<"blocks.about-info"> {
+  title: string;
+  content: string;
+  heading:string;
+}
+
+export interface InfoBoxProps extends Base<"blocks.info-box"> {
   title: string;
   content: string;
   heading:string;
