@@ -3,6 +3,8 @@ import { ServiceInfoProps } from "@/types";
 import ReactMarkdown from "react-markdown";
 import ServicesShowcase from "../ui/ServicesShowcase";
 import { motion} from "framer-motion";
+import { CoverflowShowcaseDemo } from "../ui/CoverflowShowCaseDemo";
+import { CoverflowShowcaseAppleTVDemo } from "../ui/CoverflowShocaseAppleTVDemo";
 
 export function ServiceInfo({ title, content, heading }: Readonly<ServiceInfoProps>) {
   const id = heading?.toLowerCase().replace(/\s+/g, "-") || "";
@@ -35,6 +37,8 @@ export function ServiceInfo({ title, content, heading }: Readonly<ServiceInfoPro
          {content}
         </motion.p>
 </div>
+{/* <CoverflowShowcaseDemo /> */}
+<CoverflowShowcaseAppleTVDemo/>
      <ServicesShowcase/>
 
       </div>

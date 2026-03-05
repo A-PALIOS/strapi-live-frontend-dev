@@ -1,4 +1,32 @@
+export interface BadgeItem {
+  id: number;
+  label: string;
+}
 
+export interface ShowcaseItemProps {
+  id: number;
+  title: string;
+  subtitle?: string;
+  url: string;
+  description?: string; // Rich text (Markdown) returns string
+  thumb: ImageProps;
+  screenshots?: ImageProps[];
+  tags?: BadgeItem[];
+  stack?: BadgeItem[];
+}
+
+export interface CoverflowShowcaseProps extends Base<"blocks.coverflow-showcase"> {
+  sectionId?: string;
+  heading?: string;
+  subheading?: string;
+  buttonText?: string;
+
+  items: ShowcaseItemProps[];
+
+  autoplay?: boolean;
+  autoplayDelayMs?: number;
+  startIndex?: number;
+}
 
 export interface LinkProps {
   id: number;
@@ -110,7 +138,8 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
           | "blocks.ai-cards"
           | "blocks.use-cases-section"
           | "blocks.case-highlight"
-                  |"blocks.team-grid";
+          | "blocks.coverflow-showcase"
+           |"blocks.team-grid";
 
 interface Base<
   T extends ComponentType,
@@ -138,6 +167,7 @@ export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigital
   | SecondaryMenuProps
   | AICardsBlockProps
   | UseCasesSectionProps
+  | CoverflowShowcaseProps
   | CaseHighlightProps
   |TeamGridProps;
 

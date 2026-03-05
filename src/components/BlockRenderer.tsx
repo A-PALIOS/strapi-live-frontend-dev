@@ -114,6 +114,7 @@ import {AICardsBlock} from "@/components/blocks/AICardsBlock"
 import { UseCasesSection } from "./blocks/UseCasesSection";
 import { CaseHighlight } from "./blocks/CaseHighlight";
 import { InfoBox } from "./blocks/InfoBox";
+import { CoverflowShowcase } from "@/components/blocks/CoverflowShowcase";
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
     
@@ -176,6 +177,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <UseCasesSection data={block} key={index} />;
     case "blocks.case-highlight":
       return <CaseHighlight data={block} key={index} />;
+    case "blocks.coverflow-showcase":
+      return <CoverflowShowcase {...(block as any)} key={index} />;
     case "blocks.sticky-menu": {
       const aboutInfoBlocks = allBlocks.filter(
         (b): b is Block & { __component: "blocks.about-info" } =>

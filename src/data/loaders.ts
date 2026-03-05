@@ -355,6 +355,26 @@ const pageBySlugQuery = (slug: string) =>
                   cta: true,
                 },
               },
+              "blocks.coverflow-showcase": {
+                  populate: {
+                    items: {
+                      populate: {
+                        thumb: {
+                          fields: ["url", "alternativeText"],
+                        },
+                        screenshots: {
+                          fields: ["url", "alternativeText"],
+                        },
+                        tags: {
+                          fields: ["label"],
+                        },
+                        stack: {
+                          fields: ["label"],
+                        },
+                      },
+                    },
+                  },
+                },
               "blocks.case-highlight": {
                 populate: {
                   image: {
