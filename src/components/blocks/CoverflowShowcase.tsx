@@ -6,7 +6,7 @@ import { CoverflowShowcaseAppleTVDemo } from "@/components/ui/CoverflowShocaseAp
 // 👆 import from wherever your AppleTV component currently lives
 // If you kept it in the same file, we can adjust.
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL ?? "http://localhost:1337";
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL ?? "http://localhost:1337";
 
 const mediaUrl = (u?: string) => {
   if (!u) return "";
