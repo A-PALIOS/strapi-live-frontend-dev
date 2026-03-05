@@ -22,13 +22,13 @@ export function AICardsBlock({ Title, Cards }: AICardsBlockProps) {
                   {iconUrl ? (
                     <StrapiImage
                       src={iconUrl}
-                      alt={card.Icon_Image?.alternativeText || card?.title || "Card icon"}
+                      alt={card.Icon_Image?.alternativeText || card?.Title || "Card icon"}
                       width={50}
                       height={28}
                     />
                   ) : null}
 
-                  <h3 className="text-lg font-medium">{card.title}</h3>
+                  <h3 className="text-lg font-medium">{card.Title}</h3>
                 </div>
 
                 <p className="text-sm opacity-80">{card.description}</p>

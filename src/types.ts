@@ -267,7 +267,7 @@ export interface VerticalAccordionBlockProps extends Base<"blocks.vertical-accor
 
 export interface AICardItem {
   id: number;
-  title: string;
+  Title: string;
   description: string;
   Icon_Image?: ImageProps; // name matches your Strapi field: Icon_Image
 }
