@@ -186,7 +186,7 @@ export function CoverflowShowcaseAppleTVDemo({
   {/* main body */}
   <span
     className="
-      relative z-10 inline-flex items-center gap-3
+      relative z-auto inline-flex items-center gap-3
       rounded-[21px]
       px-7 py-4
       bg-[linear-gradient(180deg,rgba(15,23,42,0.92),rgba(7,20,38,0.96))]
@@ -248,7 +248,7 @@ export function CoverflowShowcaseAppleTVDemo({
     />
 
     {/* text block */}
-    <span className="relative z-10 flex flex-col items-start leading-none">
+    <span className="relative z-auto flex flex-col items-start leading-none">
       <span className="text-[15px] font-semibold tracking-[0.03em]">
         {buttonText}
       </span>
@@ -260,7 +260,7 @@ export function CoverflowShowcaseAppleTVDemo({
     {/* icon capsule */}
     <span
       className="
-        relative z-10 flex h-10 w-10 items-center justify-center
+        relative z-auto flex h-10 w-10 items-center justify-center
         rounded-full
         bg-white/8
         border border-white/10
