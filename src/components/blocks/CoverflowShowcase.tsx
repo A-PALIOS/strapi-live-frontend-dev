@@ -7,32 +7,7 @@ import { CoverflowShowcaseAppleTVDemo } from "@/components/ui/CoverflowShocaseAp
 // If you kept it in the same file, we can adjust.
 import CardSwap, { Card } from '../ui/CardSwap'
 import Link from "next/link";
-const cards = [
-  {
-    tag: "Smooth",
-    image:
-      "/uploads/swapimage1_61da3b189e.png",
-    alt: "Smooth digital experience",
-  },
-  {
-    tag: "Customizable",
-    image:
-      "/uploads/swap2_7c7c3ec22c.png",
-    alt: "Customizable digital experience",
-  },
-  {
-    tag: "Health Sec",
-    image:
-      "/uploads/swap4_0c1b2adf9b.png",
-    alt: "Reliable digital experience",
-  },
-  {
-    tag: "EU",
-    image:
-      "/uploads/swap3_83c0c78a32.png",
-    alt: "Eu",
-  },
-];
+
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL ?? "http://localhost:1337";
 
 const mediaUrl = (u?: string) => {
@@ -43,6 +18,35 @@ const mediaUrl = (u?: string) => {
   // handle spaces in filenames
   return `${STRAPI_URL}${path}`.replace(/ /g, "%20");
 };
+
+
+const cards = [
+  {
+    tag: "Smooth",
+    image:
+      process.env.NEXT_PUBLIC_STRAPI_API_URL+"/uploads/swapimage1_61da3b189e.png",
+    alt: "Smooth digital experience",
+  },
+  {
+    tag: "Customizable",
+    image:
+      process.env.NEXT_PUBLIC_STRAPI_API_URL+"/uploads/swap2_7c7c3ec22c.png",
+    alt: "Customizable digital experience",
+  },
+  {
+    tag: "Health Sec",
+    image:
+      process.env.NEXT_PUBLIC_STRAPI_API_URL+"/uploads/swap4_0c1b2adf9b.png",
+    alt: "Reliable digital experience",
+  },
+  {
+    tag: "EU",
+    image:
+      process.env.NEXT_PUBLIC_STRAPI_API_URL+"/uploads/swap3_83c0c78a32.png",
+    alt: "Eu",
+  },
+];
+
 
 function toSite(item: ShowcaseItemProps) {
   return {
