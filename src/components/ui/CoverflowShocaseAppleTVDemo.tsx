@@ -152,11 +152,139 @@ export function CoverflowShowcaseAppleTVDemo({
   return (
     <div className="w-full flex items-center gap-3">
       <button
-        onClick={() => setOpen(true)}
-        className="rounded-2xl px-5 py-3 bg-black text-white font-medium shadow-lg hover:opacity-90 transition"
-      >
+  onClick={() => setOpen(true)}
+  className="
+    group relative inline-flex items-center justify-center
+    rounded-[22px] p-[1px]
+    overflow-hidden
+    transition-all duration-500
+    cursor-pointer
+    hover:scale-[1.04] hover:-translate-y-1
+    active:scale-[0.985]
+  "
+>
+  {/* outer glow */}
+  <span
+    className="
+      absolute inset-0 rounded-[22px]
+      bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500
+      opacity-70 blur-xl
+      transition-all duration-500
+      group-hover:opacity-100 group-hover:blur-2xl
+    "
+  />
+
+  {/* animated border layer */}
+  <span
+    className="
+      absolute inset-0 rounded-[22px]
+      bg-[conic-gradient(from_180deg_at_50%_50%,#22d3ee_0deg,#3b82f6_90deg,#8b5cf6_180deg,#3b82f6_270deg,#22d3ee_360deg)]
+      animate-[spin_6s_linear_infinite]
+    "
+  />
+
+  {/* main body */}
+  <span
+    className="
+      relative z-10 inline-flex items-center gap-3
+      rounded-[21px]
+      px-7 py-4
+      bg-[linear-gradient(180deg,rgba(15,23,42,0.92),rgba(7,20,38,0.96))]
+      backdrop-blur-xl
+      border border-white/10
+      text-white
+      shadow-[0_20px_50px_rgba(0,0,0,0.45)]
+    "
+  >
+    {/* aurora animated background */}
+    <span
+      className="
+        absolute inset-0 rounded-[21px] overflow-hidden
+        pointer-events-none
+      "
+    >
+      <span
+        className="
+          absolute -left-10 top-0 h-full w-[40%]
+          bg-cyan-400/20 blur-2xl
+          animate-[pulse_4s_ease-in-out_infinite]
+        "
+      />
+      <span
+        className="
+          absolute right-0 top-0 h-full w-[35%]
+          bg-blue-500/20 blur-2xl
+          animate-[pulse_5s_ease-in-out_infinite]
+        "
+      />
+      <span
+        className="
+          absolute left-1/3 top-0 h-full w-[25%]
+          bg-violet-500/20 blur-2xl
+          animate-[pulse_6s_ease-in-out_infinite]
+        "
+      />
+    </span>
+
+    {/* top highlight */}
+    <span
+      className="
+        absolute inset-x-4 top-0 h-px
+        bg-gradient-to-r from-transparent via-white/60 to-transparent
+        pointer-events-none
+      "
+    />
+
+    {/* moving shine */}
+    <span
+      className="
+        absolute left-[-30%] top-0 h-full w-[28%]
+        skew-x-[-20deg]
+        bg-gradient-to-r from-transparent via-white/20 to-transparent
+        transition-all duration-1000
+        group-hover:left-[120%]
+        pointer-events-none
+      "
+    />
+
+    {/* text block */}
+    <span className="relative z-10 flex flex-col items-start leading-none">
+      <span className="text-[15px] font-semibold tracking-[0.03em]">
         {buttonText}
-      </button>
+      </span>
+      <span className="mt-1 text-[11px] font-medium uppercase tracking-[0.22em] text-cyan-300/80">
+        Interactive showcase
+      </span>
+    </span>
+
+    {/* icon capsule */}
+    <span
+      className="
+        relative z-10 flex h-10 w-10 items-center justify-center
+        rounded-full
+        bg-white/8
+        border border-white/10
+        shadow-inner shadow-white/5
+        transition-all duration-300
+        group-hover:bg-white/12 group-hover:translate-x-1
+      "
+    >
+      <svg
+        className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-0.5"
+        viewBox="0 0 20 20"
+        fill="none"
+      >
+        <path
+          d="M4.167 10h11.666M10.833 5l5 5-5 5"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
+  </span>
+</button>
 
       <AppleTVCoverflowModal
         open={open}

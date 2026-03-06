@@ -40,10 +40,10 @@ export function CoverflowShowcase({ ...block }: CoverflowShowcaseProps) {
   const startIndex = block.startIndex ?? 0;
 
   return (
-    <section id={block.sectionId || undefined} className="relative w-full py-14">
+    <section id={block.sectionId || undefined} className="relative w-full py-14 bg-[#071426]">
       <div className="w-full max-w-7xl mx-auto px-4 md:px-8">
         {block.heading ? (
-          <h2 className="text-3xl md:text-4xl font-semibold text-gray-900">
+          <h2 className="text-3xl md:text-4xl font-semibold text-white">
             {block.heading}
           </h2>
         ) : null}
