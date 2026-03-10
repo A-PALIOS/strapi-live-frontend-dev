@@ -115,6 +115,12 @@ import { UseCasesSection } from "./blocks/UseCasesSection";
 import { CaseHighlight } from "./blocks/CaseHighlight";
 import { InfoBox } from "./blocks/InfoBox";
 import { CoverflowShowcase } from "@/components/blocks/CoverflowShowcase";
+import DashboardSection1 from "./blocks/DashboardSection1";
+import DashboardSection2 from "./blocks/DashboardSection2";
+import DashboardSection3 from "./blocks/DashboardSection3";
+import DashboardSection4 from "./blocks/DashboardSection4";
+import DashboardSection5 from "./blocks/DashboardSection5";
+
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
     
@@ -179,6 +185,16 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <CaseHighlight data={block} key={index} />;
     case "blocks.coverflow-showcase":
       return <CoverflowShowcase {...(block as any)} key={index} />;
+    case "blocks.dashboard-section1":
+      return <DashboardSection1 {...block} key={index} />;
+    case "blocks.dashboard-section2":
+      return <DashboardSection2 {...block} key={index} />;
+    case "blocks.dashboard-section3":
+      return <DashboardSection3 {...block} key={index} />;
+    case "blocks.dashboard-section4":
+      return <DashboardSection4 {...block} key={index} />;
+    case "blocks.dashboard-section5":
+      return <DashboardSection5 {...block} key={index} />;
     case "blocks.sticky-menu": {
       const aboutInfoBlocks = allBlocks.filter(
         (b): b is Block & { __component: "blocks.about-info" } =>

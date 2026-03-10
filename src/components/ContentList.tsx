@@ -48,8 +48,8 @@ export async function ContentList({
   }[headlineAlignment];
 
   return (
-    <section className="w-full max-w-7xl mx-auto px-4 py-10">
-      <div>
+    <section className="w-full py-10">
+      <div className="px-6 md:px-10 lg:px-16 xl:px-20">
       <h3 className={`text-3xl font-bold mb-8 ${alignmentClass} font-agenda-medium`}>
         {headline || "Featured Articles"}
       </h3>
@@ -74,7 +74,7 @@ export async function ContentList({
       <div
         className={
           layout === "grid"
-            ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+            ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-6 md:px-10 lg:px-16 xl:px-20"
             : "flex flex-col gap-6"
         }
       >

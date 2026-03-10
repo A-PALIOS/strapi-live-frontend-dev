@@ -139,6 +139,11 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
           | "blocks.use-cases-section"
           | "blocks.case-highlight"
           | "blocks.coverflow-showcase"
+          | "blocks.dashboard-section1"
+          | "blocks.dashboard-section2"
+          | "blocks.dashboard-section3"
+          | "blocks.dashboard-section4"
+          | "blocks.dashboard-section5"
            |"blocks.team-grid";
 
 interface Base<
@@ -169,6 +174,11 @@ export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigital
   | UseCasesSectionProps
   | CoverflowShowcaseProps
   | CaseHighlightProps
+  | DashboardSection1Props
+  | DashboardSection2Props
+  | DashboardSection3Props
+  | DashboardSection4Props
+  | DashboardSection5Props
   |TeamGridProps;
 
 export interface HeroSectionMainProps extends Base<"blocks.hero-section-main"> {
@@ -393,6 +403,26 @@ export interface AboutSectionProps extends Base<"blocks.about-section"> {
 
 
 
+export interface DashboardSection1Props extends Base<"blocks.dashboard-section1"> {
+  title: string;
+
+}
+export interface DashboardSection2Props extends Base<"blocks.dashboard-section2"> {
+  title: string;
+
+}
+export interface DashboardSection3Props extends Base<"blocks.dashboard-section3"> {
+  title: string;
+
+}
+export interface DashboardSection4Props extends Base<"blocks.dashboard-section4"> {
+  title: string;
+
+}
+export interface DashboardSection5Props extends Base<"blocks.dashboard-section5"> {
+  title: string;
+
+}
 
 
 export interface StrapiUploadFileAttributes {

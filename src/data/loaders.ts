@@ -118,7 +118,7 @@ const homePageQuery = qs.stringify(
   { encodeValuesOnly: true }
 );
 
-const BLOG_PAGE_SIZE = 3;
+const BLOG_PAGE_SIZE = 4;
 const BASE_URL = getStrapiURL();
 const BASE_URL2 = getStrapiURL2()
 
@@ -333,6 +333,12 @@ const pageBySlugQuery = (slug: string) =>
                 },
                 },
               },
+              "blocks.dashboard-section1": true,
+              "blocks.dashboard-section2": true,
+              "blocks.dashboard-section3": true,
+              "blocks.dashboard-section4": true,
+              "blocks.dashboard-section5": true,
+
               "blocks.ai-cards": {
                 populate: {
                   Cards: {
