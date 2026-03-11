@@ -7,7 +7,7 @@ import { CoverflowShowcaseDemo } from "../ui/CoverflowShowCaseDemo";
 import { CoverflowShowcaseAppleTVDemo } from "../ui/CoverflowShocaseAppleTVDemo";
 import CardSwap, { Card } from '../ui/CardSwap'
 import { StrapiImage } from "../StrapiImage";
-import DashboardPageInteractiveMockup from "../ui/dashboard_page_interactive_mockup";
+// import DashboardPageInteractiveMockup from "../ui/dashboard_page_interactive_mockup";
 import Link from "next/link";
 
 
@@ -22,7 +22,7 @@ export function ServiceInfo({ title, content, heading }: Readonly<ServiceInfoPro
     >
 
 
-      <DashboardPageInteractiveMockup />
+      {/* <DashboardPageInteractiveMockup /> */}
 
 
 

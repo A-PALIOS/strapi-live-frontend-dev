@@ -38,7 +38,7 @@ export default async function BlogRoute({ searchParams }: PageProps) {
   title={featured.title}
   excerpt={featured.description}
   image={featured.image}
-    link={{ id:featured.id,href: `/blog/${featured.slug}`,text: "Read more" ,isExternal:false}}  
+    link={{ id:featured.id,href: `/insights/${featured.slug}`,text: "Read more" ,isExternal:false}}  
     author={{
     name: featured.author,
     imageAuthor: featured.imageAuthor,

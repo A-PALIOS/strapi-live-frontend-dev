@@ -39,7 +39,7 @@ interface PageProps {
   searchParams: Promise <{ page?:string; query?:string}>
 }
 
-const BlogCard = (props: Readonly<CardProps>) => <Card {...props} basePath="blog" />;
+const BlogCard = (props: Readonly<CardProps>) => <Card {...props} basePath="insights" />;
 
 export default async function SingleBlogRoute({ params,searchParams }: PageProps) {
   const slug = (await params).slug;
@@ -79,7 +79,7 @@ export default async function SingleBlogRoute({ params,searchParams }: PageProps
           {/* Right - Related content list */}
           <div className="w-full lg:w-1/3 space-y-6">
             <ContentList
-              headline="More from our blog"
+              headline="More from our insights"
               path="/api/articles"
               component={BlogCard}
               featured={true}

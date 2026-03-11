@@ -36,7 +36,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "http",
-        hostname: "192.168.0.130",
+        hostname: "5.77.39.26",
         port: "1337",
         pathname: "/uploads/**", // ✅ Fix: added slash and corrected wildcard
       },

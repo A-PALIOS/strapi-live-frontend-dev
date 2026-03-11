@@ -401,9 +401,11 @@ export async function getPageBySlug(slug: string) {
   const path = "/api/pages";
   const url = new URL(path, BASE_URL);
   url.search = pageBySlugQuery(slug);
+
+  console.log("getPageBySlug URL:", url.toString());
+
   return await fetchAPI(url.href, { method: "GET" });
 }
-
 
 
 export async function getContent(path: string, featured?: boolean, query?: string, page?: string, category?: string) {
