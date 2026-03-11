@@ -33,7 +33,7 @@ export function ServicesAccordionBlock({
         <div className="absolute inset-0" />
       </div>
 
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-10 md:py-12 text-white">
+      <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20 text-white">
         {/* Top bar */}
         <div className="flex items-center justify-between text-[11px] sm:text-xs uppercase tracking-[0.16em]">
           <span className="opacity-80">{heading}</span>

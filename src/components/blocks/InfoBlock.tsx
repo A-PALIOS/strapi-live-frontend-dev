@@ -140,7 +140,7 @@ export function InfoBlock({
 
   return (
     <section className="bg-white overflow-x-clip"> {/* clip any tiny overflow */}
-      <div className="mx-auto max-w-7xl px-6 py-16 md:py-20">
+      <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20">
         {/* Top bar */}
         <div className="flex items-start justify-between">
           <div className="inline-flex max-w-full items-center gap-3 flex-wrap">

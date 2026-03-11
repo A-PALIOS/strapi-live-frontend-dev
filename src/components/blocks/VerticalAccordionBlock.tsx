@@ -15,8 +15,8 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
   const visibleItems = getVisibleItems();
 
   return (
-    <section className="w-full max-w-7xl mx-auto py-12 px-4 sm:px-8">
-  <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-10 md:py-12 ">
+    <section className="w-full py-12">
+  <div className="w-full px-[65px] py-8 sm:py-10 md:py-12">
     <div className="flex items-center justify-between text-[24px] uppercase ">
       <span className="font-agenda-medium opacity-80">{title}</span>
 
@@ -72,7 +72,7 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
     </div>
 
     {/* ===== Desktop: your existing accordion with visibleItems ===== */}
-    <div className="mt-8 hidden xl:flex h-[500px] w-full max-w-7xl gap-3 transition-all duration-500 ease-in-out overflow-hidden">
+    <div className="mt-8 hidden xl:flex justify-center h-[500px] w-full max-w-8xl gap-3 transition-all duration-500 ease-in-out overflow-hidden">
       {visibleItems.map((item) => {
         const globalIndex = items.findIndex((i) => i === item);
         const isActive = globalIndex === activeIndex;

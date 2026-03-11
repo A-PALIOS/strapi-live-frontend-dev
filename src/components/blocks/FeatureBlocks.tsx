@@ -73,7 +73,7 @@ export function FeaturesBlock({
   return (
     <section className="w-full">
       {/* Full-width grid, responsive paddings and gaps */}
-      <div className="grid w-full grid-cols-1 md:grid-cols-12 gap-8 sm:gap-10 md:gap-12 px-4 sm:px-6 md:px-10 lg:px-24 xl:px-32 border-b border-gray-200">
+      <div className="grid w-full grid-cols-1 md:grid-cols-12 gap-8 sm:gap-10 md:gap-12 px-[65px] border-b border-gray-200">
         {/* Left column: stacked heading + decorative SVG */}
         <div className="
             md:col-span-4
