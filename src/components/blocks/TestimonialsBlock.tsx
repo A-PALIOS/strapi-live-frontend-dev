@@ -22,11 +22,11 @@ export function TestimonialsBlock({ items, heading, cta }: TestimonialsBlockProp
   const active = items[activeIndex];
 
   return (
-    <section className="py-12 flex justify-center">
+    <section className="w-full py-12">
 
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20">
   {/* Heading + CTA on one line */}
-  <div className="flex items-center justify-between mb-6 ml-4">
+  <div className="flex items-center justify-between mb-6 ">
     <h3 className="text-3xl font-agenda-medium">{heading}</h3>
     {cta && (
       <Link

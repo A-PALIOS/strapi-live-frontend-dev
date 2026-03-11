@@ -377,11 +377,11 @@ export const AnimatedTestimonials = ({
   if (!mounted || len === 0) return null;
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-20 font-sans antialiased md:max-w-7xl md:px-8 lg:px-12">
+    <div className="w-full mx-auto max-w-7xl px-6 md:px-10 lg:px-16 xl:px-20 py-20 font-sans antialiased">
     
-      <div className="relative grid grid-cols-1 gap-20 md:grid-cols-2">
+      <div className="relative grid grid-cols-1  md:grid-cols-2">
         <div>
-          <div className="relative h-80 w-full">
+          <div className="relative aspect-square w-full max-w-[400px]">
             {/* No SSR for this subtree; we mount it client-side only via the hydration gate above */}
             <AnimatePresence initial={false}>
               {testimonials.map((t, index) => {

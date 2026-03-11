@@ -27,9 +27,9 @@ export function LeadingInstitutionBlock({
     .filter(Boolean);
 
   return (
-    <div className="bg-white py-7 px-3 mx-auto max-w-7xl sm:px-6 sm:py-10 md:py-12">
+    <div className="bg-white w-full px-[65px] py-7 sm:py-10 md:py-12">
       <span
-        className="block font-agenda-medium text-2xl sm:text-3xl font-medium tracking-widest uppercase text-center md:text-left md:ml-10"
+        className="block font-agenda-medium text-2xl sm:text-3xl font-medium tracking-widest uppercase text-center md:text-left"
         // style={{ marginLeft: "300px" }}
       >
         {Title}

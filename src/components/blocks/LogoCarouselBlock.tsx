@@ -66,7 +66,7 @@ export function LogoCarouselBlock({
         background: "white",
       }}
     >
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20">
         {/* Tabs */}
         <div
   className="mb-6 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap"

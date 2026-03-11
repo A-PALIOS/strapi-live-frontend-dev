@@ -26,7 +26,7 @@ export function HeroSectionMain({
     : ["WE HAVE THE KNOW HOW AND |", "THE EXPERIENCE IN"];
     console.log("firstLine:", firstLine)
   return (
-    <section id="hero" data-header="dark" className="relative">
+    <section id="hero" data-header="dark" className="relative lg:min-h-screen">
       {/* Background */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <StrapiImage
@@ -40,7 +40,7 @@ export function HeroSectionMain({
       </div>
  
       {/* Content (no horizontal centering) */}
-      <div className="relative isolate pt-16 md:pt-52 lg:pt-62 pb-20 md:pb-28">
+      <div className="relative isolate pt-16 md:pt-52 lg:pt-60 pb-20 md:pb-28 lg:h-screen lg:flex lg:items-center">
         {/* left rail container */}
         <div className="w-full text-left pl-6 sm:pl-12 lg:pl-24 xl:pl-28">
           {/* tiny welcome row */}
