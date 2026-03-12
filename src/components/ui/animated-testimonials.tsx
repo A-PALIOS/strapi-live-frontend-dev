@@ -379,7 +379,7 @@ export const AnimatedTestimonials = ({
   return (
     <div className="w-full mx-auto max-w-7xl px-6 md:px-10 lg:px-16 xl:px-20 py-20 font-sans antialiased">
     
-      <div className="relative grid grid-cols-1  md:grid-cols-2">
+      <div className="relative grid grid-cols-1  xl:grid-cols-2">
         <div>
           <div className="relative aspect-square w-full max-w-[400px]">
             {/* No SSR for this subtree; we mount it client-side only via the hydration gate above */}
