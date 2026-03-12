@@ -686,7 +686,8 @@ const atEnd = selectedIndex >= Math.max(0, items.length - 1);
 .arrow-minimal__svg {
   width: 22px;
   height: 22px;
-  color: #111;
+  display: block;
+  flex-shrink: 0;
 }
         .image-button {
           display: block;
@@ -877,13 +878,15 @@ function ArrowMinimal({ direction }: { direction: "left" | "right" }) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
+      width="22"
+      height="22"
       fill="none"
       className="arrow-minimal__svg"
       aria-hidden="true"
     >
       <path
         d={isLeft ? "M14.5 5L7.5 12L14.5 19" : "M9.5 5L16.5 12L9.5 19"}
-        stroke="currentColor"
+        stroke="#111111"
         strokeWidth="2.2"
         strokeLinecap="round"
         strokeLinejoin="round"
