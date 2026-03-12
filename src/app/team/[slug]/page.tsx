@@ -95,7 +95,7 @@ export default async function MemberPage({ params, searchParams }: PageProps) {
       </div>
 
 
-      <CategoryFilter categories={categoryList} />
+      {/* <CategoryFilter categories={categoryList} /> */}
 
       <ContentList
         headline="Recent Insights"

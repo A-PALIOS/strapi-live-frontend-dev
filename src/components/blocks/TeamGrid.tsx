@@ -228,7 +228,7 @@ export  function TeamGrid({ Title, team_members, page, query, category }: Readon
       )}
     </section>
     
-    <NewCategoryFilter categories={categoryList} />
+    {/* <NewCategoryFilter categories={categoryList} /> */}
     
         <NewContentList
       headline="Recent Insights"

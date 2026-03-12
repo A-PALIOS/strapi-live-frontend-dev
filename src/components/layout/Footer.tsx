@@ -179,7 +179,7 @@ export function Footer({ data }: { data: FooterProps }) {
       {/* Right: Form */}
       <form className="w-full max-w-xl md:ml-auto space-y-5">
         {/* Company size */}
-        <div className="relative">
+        {/* <div className="relative">
           <label className="sr-only" htmlFor="company-size">Company size</label>
           <select
             id="company-size"
@@ -191,6 +191,16 @@ export function Footer({ data }: { data: FooterProps }) {
             <option value="large" className="text-black">Large</option>
           </select>
           <span className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 pr-1">▾</span>
+        </div> */}
+          {/* Name */}
+        <div>
+          <label className="sr-only" htmlFor="footer-name">Name</label>
+          <input
+            id="footer-name"
+            type="text"
+            placeholder="Your Name"
+            className="w-full bg-transparent border-b border-white/70 placeholder-white text-white outline-none pb-2"
+          />
         </div>
 
         {/* Email */}
@@ -199,7 +209,7 @@ export function Footer({ data }: { data: FooterProps }) {
           <input
             id="footer-email"
             type="email"
-            placeholder="Email"
+            placeholder="Your Email"
             className="w-full bg-transparent border-b border-white/70 placeholder-white text-white outline-none pb-2"
           />
         </div>
