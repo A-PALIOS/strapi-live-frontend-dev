@@ -216,20 +216,16 @@ export function Footer({ data }: { data: FooterProps }) {
 
         {/* CTA input bar */}
         <div className="relative">
-          <label className="sr-only" htmlFor="footer-message">Message</label>
-          <input
-            id="footer-message"
-            type="text"
-            placeholder="Let’s talk"
-            className="h-12 sm:h-14 md:h-16 w-full rounded-md bg-white text-black font-agenda-regular text-lg sm:text-xl placeholder-black/70 pl-4 sm:pl-5 pr-14 sm:pr-16 outline-none"
-          />
           <button
-            type="submit"
-            aria-label="Submit"
-            className="absolute right-1.5 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-md bg-[#1E9BFB] hover:bg-[#156DB0] transition flex items-center justify-center"
-          >
-            <span className="text-white text-xl leading-none">→</span>
-          </button>
+  type="button"
+  className="w-full h-12 sm:h-14 md:h-16 rounded-md bg-white text-black font-agenda-regular text-lg sm:text-xl flex items-center justify-between px-4 sm:px-5 hover:bg-gray-100 transition cursor-pointer" 
+>
+  <span className="opacity-70">Let’s talk</span>
+
+  <span className="w-10 h-10 sm:w-11 sm:h-11 rounded-md bg-[#1E9BFB] hover:bg-[#156DB0] transition flex items-center justify-center text-white text-xl">
+    →
+  </span>
+</button>
         </div>
       </form>
     </div>
