@@ -17,25 +17,23 @@ import * as THREE from "three";
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
-/**
- * Lanyard (3D, draggable + bouncy)
- * Loads assets from /public/assets/lanyard/:
- *   - /assets/lanyard/card.glb
- *   - /assets/lanyard/lanyard.png
- */
+type LanyardProps = {
+  position?: [number, number, number];
+  gravity?: [number, number, number];
+  fov?: number;
+  transparent?: boolean;
+  onRevealChange?: (revealed: boolean) => void;
+};
+
 export default function Lanyard({
   position = [0, 0, 20],
   gravity = [0, -40, 0],
   fov = 20,
   transparent = true,
-}: {
-  position?: [number, number, number];
-  gravity?: [number, number, number];
-  fov?: number;
-  transparent?: boolean;
-}) {
+  onRevealChange,
+}: LanyardProps) {
   return (
-    <div className="relative z-0 w-full h-screen flex justify-center items-center">
+    <div className="relative z-0 flex h-screen w-full items-center justify-center">
       <Canvas
         camera={{ position, fov }}
         gl={{ alpha: transparent }}
@@ -45,10 +43,9 @@ export default function Lanyard({
       >
         <ambientLight intensity={Math.PI} />
         <Physics gravity={gravity} timeStep={1 / 60}>
-          <Band />
+          <Band onRevealChange={onRevealChange} />
         </Physics>
 
-        {/* Bright studio-like lighting, similar to the ReactBits demo */}
         <Environment blur={0.75}>
           <Lightformer
             intensity={2}
@@ -84,8 +81,16 @@ export default function Lanyard({
   );
 }
 
-function Band({ maxSpeed = 50, minSpeed = 0 }: { maxSpeed?: number; minSpeed?: number }) {
-const band = useRef<any>(null);
+function Band({
+  maxSpeed = 50,
+  minSpeed = 0,
+  onRevealChange,
+}: {
+  maxSpeed?: number;
+  minSpeed?: number;
+  onRevealChange?: (revealed: boolean) => void;
+}) {
+  const band = useRef<any>(null);
   const fixed = useRef<any>(null);
   const j1 = useRef<any>(null);
   const j2 = useRef<any>(null);
@@ -104,7 +109,6 @@ const band = useRef<any>(null);
     linearDamping: 4,
   };
 
-  // ⬇️ Load from /public path (no import statement)
   const { nodes, materials } = useGLTF("/assets/lanyard/card.glb") as any;
   const texture = useTexture("/assets/lanyard/lanyard.png");
 
@@ -124,7 +128,8 @@ const band = useRef<any>(null);
     () => typeof window !== "undefined" && window.innerWidth < 1024
   );
 
-  // Rope + spherical joints to mimic the demo
+  const revealedRef = useRef(false);
+
   useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1]);
   useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1]);
   useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1]);
@@ -136,7 +141,9 @@ const band = useRef<any>(null);
   useEffect(() => {
     if (!hovered) return;
     document.body.style.cursor = dragged ? "grabbing" : "grab";
-    return () => void (document.body.style.cursor = "auto");
+    return () => {
+      document.body.style.cursor = "auto";
+    };
   }, [hovered, dragged]);
 
   useEffect(() => {
@@ -147,13 +154,11 @@ const band = useRef<any>(null);
 
   useFrame((state, delta) => {
     if (dragged && card.current) {
-      // project pointer onto a plane in front of camera
       const dir = new THREE.Vector3();
       vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera);
       dir.copy(vec).sub(state.camera.position).normalize();
       vec.add(dir.multiplyScalar(state.camera.position.length()));
 
-      // wake bodies and move kinematic card towards pointer
       [card, j1, j2, j3, fixed].forEach((ref) => ref.current?.wakeUp());
       card.current.setNextKinematicTranslation({
         x: vec.x - dragged.x,
@@ -162,31 +167,40 @@ const band = useRef<any>(null);
       });
     }
 
-    if (!fixed.current) return;
+    if (!fixed.current || !card.current || !j1.current || !j2.current || !j3.current) return;
 
-    // smooth rope interpolation for nicer motion
     [j1, j2].forEach((ref) => {
-      if (!ref.current.lerped)
+      if (!ref.current.lerped) {
         ref.current.lerped = new THREE.Vector3().copy(ref.current.translation());
-      const clamped =
-        Math.max(0.1, Math.min(1, ref.current.lerped.distanceTo(ref.current.translation())));
+      }
+      const clamped = Math.max(
+        0.1,
+        Math.min(1, ref.current.lerped.distanceTo(ref.current.translation()))
+      );
       ref.current.lerped.lerp(
         ref.current.translation(),
         delta * (minSpeed + clamped * (maxSpeed - minSpeed))
       );
     });
 
-    // update strap curve from joint positions
     curve.points[0].copy(j3.current.translation());
     curve.points[1].copy(j2.current.lerped);
     curve.points[2].copy(j1.current.lerped);
     curve.points[3].copy(fixed.current.translation());
     band.current.geometry.setPoints(curve.getPoints(32));
 
-    // mild yaw stabilization (keeps spin tidy)
     ang.copy(card.current.angvel());
     rot.copy(card.current.rotation());
     card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z });
+
+    // Reveal logic
+    const cardPos = card.current.translation();
+    const shouldReveal = cardPos.y < -2.2;
+
+    if (shouldReveal !== revealedRef.current) {
+      revealedRef.current = shouldReveal;
+      onRevealChange?.(shouldReveal);
+    }
   });
 
   curve.curveType = "chordal";
@@ -195,10 +209,8 @@ const band = useRef<any>(null);
   return (
     <>
       <group position={[0, 4, 0]}>
-        {/* fixed ceiling anchor */}
         <RigidBody ref={fixed} {...segmentProps} type="fixed" />
 
-        {/* rope beads */}
         <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
@@ -209,7 +221,6 @@ const band = useRef<any>(null);
           <BallCollider args={[0.1]} />
         </RigidBody>
 
-        {/* card body (dynamic while idle, kinematic while dragging) */}
         <RigidBody
           position={[2, 0, 0]}
           ref={card}
@@ -220,31 +231,27 @@ const band = useRef<any>(null);
           <group
             scale={2.25}
             position={[0, -1.2, -0.05]}
-           // inside the <group> that you drag
-onPointerOver={() => setHovered(true)}
-onPointerOut={() => setHovered(false)}
-onPointerDown={(e) => {
-  // tell TS this is an Element so we can call pointer capture APIs
-  (e.target as unknown as Element)?.setPointerCapture?.(e.pointerId);
-
-  // start dragging: store offset between click point and body position
-  const bodyPos = card.current!.translation();
-  setDragged(
-    new THREE.Vector3().copy(e.point).sub(vec.set(bodyPos.x, bodyPos.y, bodyPos.z))
-  );
-}}
-onPointerUp={(e) => {
-  (e.target as unknown as Element)?.releasePointerCapture?.(e.pointerId);
-  setDragged(false);
-}}
-onPointerLeave={() => setDragged(false)}
+            onPointerOver={() => setHovered(true)}
+            onPointerOut={() => setHovered(false)}
+            onPointerDown={(e) => {
+              (e.target as unknown as Element)?.setPointerCapture?.(e.pointerId);
+              const bodyPos = card.current!.translation();
+              setDragged(
+                new THREE.Vector3().copy(e.point).sub(
+                  vec.set(bodyPos.x, bodyPos.y, bodyPos.z)
+                )
+              );
+            }}
+            onPointerUp={(e) => {
+              (e.target as unknown as Element)?.releasePointerCapture?.(e.pointerId);
+              setDragged(false);
+            }}
+            onPointerLeave={() => setDragged(false)}
           >
-            {/* These node/material names match the demo GLB.
-               If your GLB differs, swap this group for a <primitive object={scene}/> centered+scaled. */}
             <mesh geometry={nodes.card.geometry}>
               <meshPhysicalMaterial
                 map={materials.base?.map}
-                // @ts-ignore — three texture property
+                // @ts-ignore
                 map-anisotropy={16}
                 clearcoat={1}
                 clearcoatRoughness={0.15}
@@ -252,13 +259,16 @@ onPointerLeave={() => setDragged(false)}
                 metalness={0.8}
               />
             </mesh>
-            <mesh geometry={nodes.clip.geometry} material={materials.metal} material-roughness={0.3} />
+            <mesh
+              geometry={nodes.clip.geometry}
+              material={materials.metal}
+              material-roughness={0.3}
+            />
             <mesh geometry={nodes.clamp.geometry} material={materials.metal} />
           </group>
         </RigidBody>
       </group>
 
-      {/* strap */}
       <mesh ref={band}>
         {/* @ts-expect-error extended by meshline */}
         <meshLineGeometry />

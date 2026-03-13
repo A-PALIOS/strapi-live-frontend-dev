@@ -7,14 +7,16 @@ import { StrapiImage } from "../StrapiImage";
 import type { HeroSectionDigitalProps } from "@/types";
 import BlurText from "../ui/BlurText";
 
-// Effects
 const LiquidEther = dynamic(() => import("../ui/LiquidEther"), { ssr: false });
 const Lanyard = dynamic(() => import("../Lanyard"), {
   ssr: false,
   loading: () => null,
 });
+const DigitalChatbot = dynamic(() => import("./DigitalChatbot"), {
+  ssr: false,
+  loading: () => null,
+});
 
-/** Sticky in-view (used only for Ether) */
 function useInView({
   threshold = 0,
   rootMargin = "200px 0px 200px 0px",
@@ -31,6 +33,7 @@ function useInView({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
     const io = new IntersectionObserver(
       ([entry]) => {
         const visible = entry.isIntersecting;
@@ -39,24 +42,13 @@ function useInView({
       },
       { threshold, rootMargin }
     );
+
     io.observe(el);
     return () => io.disconnect();
   }, [threshold, rootMargin]);
 
   const inView = stickyOnceSeen ? inViewRaw || onceSeenRef.current : inViewRaw;
   return { ref, inView };
-}
-
-/** Simple ErrorBoundary */
-function ErrorBoundary({ children }: { children: React.ReactNode }) {
-  const [error, setError] = useState<Error | null>(null);
-  if (error) return null;
-  try {
-    return <>{children}</>;
-  } catch (e: any) {
-    setError(e);
-    return null;
-  }
 }
 
 export function HeroSectionDigital({
@@ -72,8 +64,17 @@ export function HeroSectionDigital({
   const [firstWord, ...restWords] = (heading ?? "").split(" ");
   const rest = restWords.join(" ");
 
-  // Reduced motion
   const [prefersReduced, setPrefersReduced] = useState(false);
+  const [tabVisible, setTabVisible] = useState(true);
+  const [lanyardReady, setLanyardReady] = useState(false);
+  const [isTabletOrLarger, setIsTabletOrLarger] = useState(false);
+
+  // only used as gesture signal
+  const [lanyardRevealed, setLanyardRevealed] = useState(false);
+
+  // actual chat visibility
+  const [chatOpen, setChatOpen] = useState(false);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -83,22 +84,18 @@ export function HeroSectionDigital({
     return () => mq.removeEventListener?.("change", update);
   }, []);
 
-  // Tab visibility
-  const [tabVisible, setTabVisible] = useState(true);
   useEffect(() => {
     const onVis = () => setTabVisible(document.visibilityState === "visible");
     document.addEventListener("visibilitychange", onVis);
     return () => document.removeEventListener("visibilitychange", onVis);
   }, []);
 
-  // For LiquidEther only
   const { ref, inView } = useInView({
     threshold: 0,
     rootMargin: "200px 0px 200px 0px",
     stickyOnceSeen: true,
   });
 
-  // Liquid Ether props
   const etherProps = useMemo(
     () => ({
       colors: ["#0A0F1F", "#0F79C9", "#1E9BFB"],
@@ -121,11 +118,11 @@ export function HeroSectionDigital({
     []
   );
 
-  // Ensure Lanyard only loads after window is ready
-  const [lanyardReady, setLanyardReady] = useState(false);
   useEffect(() => {
     if (typeof window === "undefined") return;
+
     const makeReady = () => requestAnimationFrame(() => setLanyardReady(true));
+
     if (document.readyState === "complete") {
       makeReady();
     } else {
@@ -138,8 +135,6 @@ export function HeroSectionDigital({
     }
   }, []);
 
-  // Track screen size (to hide Lanyard on small phones)
-  const [isTabletOrLarger, setIsTabletOrLarger] = useState(false);
   useEffect(() => {
     if (typeof window === "undefined") return;
     const check = () => setIsTabletOrLarger(window.innerWidth >= 768);
@@ -147,6 +142,13 @@ export function HeroSectionDigital({
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
+
+  // Open chat only when the pull gesture becomes true
+  useEffect(() => {
+    if (lanyardRevealed) {
+      setChatOpen(true);
+    }
+  }, [lanyardRevealed]);
 
   const canAnimate = !prefersReduced && tabVisible;
   const showEther = canAnimate && inView;
@@ -158,7 +160,6 @@ export function HeroSectionDigital({
       data-header="dark"
       className="relative min-h-[78vh] overflow-hidden"
     >
-      {/* Background */}
       <div className="absolute inset-0 -z-10 bg-black pointer-events-auto">
         {showEther && <LiquidEther {...etherProps} />}
         {darken && (
@@ -166,23 +167,16 @@ export function HeroSectionDigital({
         )}
       </div>
 
-      {/* RIGHT: show only on tablets & up (≥768px) */}
       {lanyardReady && isTabletOrLarger && (
-        <div
-          className="
-            fixed right-0 top-0 z-20 flex
-            h-screen w-[42vw] max-w-[720px]
-            items-center justify-center
-            pointer-events-auto
-          "
-        >
-          <ErrorBoundary>
-            <Lanyard /* paused={!tabVisible} */ />
-          </ErrorBoundary>
+        <div className="fixed right-0 top-0 z-20 flex h-screen w-[42vw] max-w-[720px] items-center justify-center pointer-events-auto">
+          <Lanyard onRevealChange={setLanyardRevealed} />
+          <DigitalChatbot
+            isOpen={chatOpen}
+            onClose={() => setChatOpen(false)}
+          />
         </div>
       )}
 
-      {/* LEFT CONTENT */}
       <div
         className="
           relative mx-auto flex h-full max-w-7xl items-center
@@ -221,7 +215,7 @@ export function HeroSectionDigital({
             />
           </h1>
 
-          <p className="mt-6 text-base/7 sm:text-lg/8 text-white/90 w-2xl font-agenda-regular">
+          <p className="mt-6 w-2xl text-base/7 font-agenda-regular text-white/90 sm:text-lg/8">
             {subheader}
           </p>
 
@@ -229,18 +223,18 @@ export function HeroSectionDigital({
             <Link
               href={cta.href}
               target={cta.isExternal ? "_blank" : "_self"}
-              className="pointer-events-auto group ml-auto inline-flex items-center gap-3 text-slate-300 hover:text-white mt-16"
+              className="pointer-events-auto group ml-auto mt-16 inline-flex items-center gap-3 text-slate-300 hover:text-white"
               aria-label={cta.text ?? "Learn more"}
             >
-              <span className="text-sm md:text-base font-agenda-semibold">
+              <span className="text-sm font-agenda-semibold md:text-base">
                 {cta.text ?? "Learn More"}
               </span>
-              <span className="mr-3 sm:mr-6 grid place-items-center w-7 h-7 md:w-8 md:h-8 rounded-md bg-[#FF8A00] text-white transition-transform duration-200 group-hover:translate-y-0.5">
+              <span className="mr-3 grid h-7 w-7 place-items-center rounded-md bg-[#FF8A00] text-white transition-transform duration-200 group-hover:translate-y-0.5 sm:mr-6 md:h-8 md:w-8">
                 <svg
                   viewBox="0 0 24 24"
                   fill="currentColor"
                   aria-hidden="true"
-                  className="w-4 h-4"
+                  className="h-4 w-4"
                 >
                   <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />
                 </svg>
