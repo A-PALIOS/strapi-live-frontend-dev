@@ -674,6 +674,15 @@ const memberPopulate = {
   ProfileImage: {
     fields: ["url", "alternativeText"],
   },
+  secondary_menus: {
+    populate: {
+      items: {
+        populate: {
+          icon: true,
+        },
+      },
+    },
+  },
   LinkedInUrl: true,
   Bio: true,
 };
@@ -686,7 +695,7 @@ export async function getTeamMemberBySlug(slug: string) {
           $eq: slug,
         },
       },
-      populate: memberPopulate,
+      populate: {memberPopulate}
     },
     { encodeValuesOnly: true }
   );
@@ -702,6 +711,15 @@ export async function fetchTeamMember(slug: string) {
       populate: {
         ProfileImage: { fields: ["url", "alternativeText"] },
         CoverImage: { fields: ["url", "alternativeText"] },
+        secondary_menus: {
+    populate: {
+      items: {
+        populate: {
+          icon: true,
+        },
+      },
+    },
+  },
       },
     },
     { encodeValuesOnly: true }

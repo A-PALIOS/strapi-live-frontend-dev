@@ -4,8 +4,9 @@ import { SocialIcon } from "react-social-icons";
 import { fetchTeamMember, getCategories } from "@/data/loaders";
 import { ContentList } from "@/components/ContentList";
 import { BlogCard } from "@/components/BlogCard";
-import CategoryFilter from "@/components/CategoryFilter";
 import Link from "next/link";
+import { TeamMemberSecondaryMenuBlock } from "@/components/blocks/TeamMemberSecondaryMenuBlock";
+
 interface PageProps {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ page: string; query: string; category: string }>;
@@ -13,9 +14,14 @@ interface PageProps {
 
 export default async function MemberPage({ params, searchParams }: PageProps) {
   const { page, query, category } = await searchParams;
-  const categoryList = await getCategories();
+  await getCategories();
   const member = await fetchTeamMember((await params).slug);
   if (!member) return notFound();
+
+  const secondaryMenus = member.secondary_menus ?? [];
+  const menuItems = secondaryMenus[0]?.items ?? [];
+
+  const globalMenu = secondaryMenus[1] ?? null;
 
   const firstName = member.FullName.split(" ")[0];
 
@@ -63,9 +69,14 @@ export default async function MemberPage({ params, searchParams }: PageProps) {
           </div>
         </div>
 
-        <div className="max-w-5xl mx-auto px-6 py-12">
+  <TeamMemberSecondaryMenuBlock items={menuItems} global={globalMenu} />
+
+        <div id="about" className="max-w-5xl mx-auto px-6 py-12 scroll-mt-40">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-6">
-            <h2 className="text-2xl italic text-[#2196f3] font-semibold">About {firstName}</h2>
+            <h2 className="text-2xl italic text-[#2196f3] font-semibold">
+              About {firstName}
+            </h2>
+
             <div className="flex flex-col items-start sm:items-end gap-3">
               <Link
                 href="/contact"
@@ -73,6 +84,7 @@ export default async function MemberPage({ params, searchParams }: PageProps) {
               >
                 Get in Touch →
               </Link>
+
               <div className="flex items-center gap-2">
                 <span className="text-gray-700 text-sm">Social:</span>
                 {member.LinkedInUrl && (
@@ -92,22 +104,22 @@ export default async function MemberPage({ params, searchParams }: PageProps) {
             </p>
           )}
         </div>
+      
+
+      <div id="insights" className="scroll-mt-40">
+        <ContentList
+          headline="Recent Insights"
+          path="/api/articles"
+          component={BlogCard}
+          featured
+          showSearch
+          category={category}
+          query={query}
+          showPagination
+          page={page}
+        />
       </div>
-
-
-      {/* <CategoryFilter categories={categoryList} /> */}
-
-      <ContentList
-        headline="Recent Insights"
-        path="/api/articles"
-        component={BlogCard}
-        featured
-        showSearch
-        category={category}
-        query={query}
-        showPagination
-        page={page}
-      />
+      </div>
     </div>
   );
 }
