@@ -100,12 +100,12 @@ export function TeamMemberSecondaryMenuBlock({
 
       <div
         ref={wrapperRef}
-        className={`left-0 right-0 z-[70] bg-white border-b ${
+        className={`left-0 right-0 z-[70] bg-white  ${
           isPinned ? "fixed top-0" : "relative"
         }`}
       >
         {/* Top row */}
-        <div className="px-4 py-3 border-b">
+        <div className="px-4 py-3 ">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-wrap items-center gap-4 text-lg text-gray-700">
               <button
@@ -154,7 +154,7 @@ export function TeamMemberSecondaryMenuBlock({
                     key={String(item.id ?? `${item.label}-${item.url}`)}
                     href={item.url || "#"}
                     className={`transition-colors text-[#242A2E]/50 font-agenda-regular duration-300 ${
-                      isActivePage ? "text-[#242A2E]" : "hover:text-blue-500"
+                      isActivePage ? "text-[#242A2E]" : ""
                     }`}
                     style={{ fontSize: "20px" }}
                   >

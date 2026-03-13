@@ -25,7 +25,7 @@ export function LeadingInstitutionBlock({
     <div className="bg-white w-full px-[65px] py-7 sm:py-10 md:py-12">
       {Title && (
         <span className="block font-agenda-medium text-2xl sm:text-3xl font-medium tracking-widest uppercase text-center md:text-left">
-          {Title}pao
+          {Title}
         </span>
       )}
 
