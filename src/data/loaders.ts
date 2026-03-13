@@ -272,6 +272,12 @@ const pageBySlugQuery = (slug: string) =>
                 cta: true,
               },
             },
+              "blocks.leading-institution-block":{
+              populate:
+              {
+                cta: true,
+              }
+            },
             "blocks.featured-article": {
               populate: {
                 image: {

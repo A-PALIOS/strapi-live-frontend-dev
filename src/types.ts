@@ -225,7 +225,7 @@ export interface InfoBlockProps extends Base<"blocks.info-block"> {
   headline: string;
   description:string;
   content: string;
-  image: ImageProps;
+  image?: ImageProps;
   cta?: LinkProps;
 }
 
@@ -336,7 +336,7 @@ export interface ServicesAccordionBlockProps {
 
 
 export interface LeadingInstitutionBlockProps extends Base<"blocks.leading-institution-block"> {
-  Title: string;
+  Title?: string;
   description: string;
   Heading: string;
   cta?: LinkProps;

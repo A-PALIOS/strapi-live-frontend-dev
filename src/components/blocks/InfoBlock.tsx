@@ -206,34 +206,23 @@ export function InfoBlock({
         </div>
 
         {/* Media */}
-        <div className="mt-10 md:mt-14">
-          <div className="relative overflow-hidden rounded-2xl shadow-md">
-            <div className="relative aspect-[21/9] md:aspect-[2.6/1]">
-              {image ? (
-                <StrapiVideo
-                  src={image.url}
-                  className="absolute inset-0 h-full w-full object-cover"
-                  controls={false}
-                  autoPlay
-                  loop
-                  muted
-                />
-              ) : (
-                <div className="absolute inset-0 grid place-items-center bg-gray-100">
-                  <div className="h-16 w-16 rounded-full bg-white/70 grid place-items-center">
-                    <svg className="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
-                      <path
-                        fillRule="evenodd"
-                        d="M6.5 5.5a1 1 0 011.664-.747l6 4.5a1 1 0 010 1.494l-6 4.5A1 1 0 016.5 14.5v-9z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                </div>
-              )}
+        {image && (
+          <div className="mt-10 md:mt-14">
+            <div className="relative overflow-hidden rounded-2xl shadow-md">
+              <div className="relative aspect-[21/9] md:aspect-[2.6/1]">
+          <StrapiVideo
+            src={image.url}
+            className="absolute inset-0 h-full w-full object-cover"
+            controls={false}
+            autoPlay
+            loop
+            muted
+          />
+              </div>
             </div>
           </div>
-        </div>
+        )}
+      
       </div>
     </section>
   );
