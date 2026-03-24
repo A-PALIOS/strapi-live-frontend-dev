@@ -32,7 +32,7 @@ export function SecondaryMenuBlock({
   const globalItems = global?.items ?? [];
 
   return (
-    <div className="sticky top-0 z-10 bg-white px-4 py-3">
+    <div className="sticky top-0 z-10 bg-white px-6 md:px-12 lg:px-16 xl:px-20">
       {/* Row 1: logo area (kept for parity with StickyMenuBlock; wire a logo if you add one later) */}
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         <div className="flex items-center gap-2">
@@ -41,7 +41,7 @@ export function SecondaryMenuBlock({
       </div>
 
       {/* Row 2: burger (left) + inline page links + '|' + section anchors */}
-      <div className="flex items-center justify-between max-w-7xl mx-auto">
+      <div className="flex justify-between max-w-7xl ">
         <div className="flex flex-wrap gap-4 text-lg text-gray-700">
           {/* Burger (visible on desktop too) */}
           <button

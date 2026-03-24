@@ -8,7 +8,7 @@ export function InfoBox({ title, content, heading }: Readonly<InfoBoxProps>) {
   return (
     <section
       id={id}
-      className="scroll-mt-24 w-full pt-10 px-6 md:px-12 lg:px-24"
+      className="scroll-mt-24 w-full pt-10 px-6 md:px-12 lg:px-16 xl:px-20"
     >
       
 

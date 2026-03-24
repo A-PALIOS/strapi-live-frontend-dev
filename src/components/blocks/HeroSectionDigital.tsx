@@ -167,11 +167,23 @@ export function HeroSectionDigital({
         )}
       </div>
 
-      {lanyardReady && isTabletOrLarger && (
-        <div className="fixed right-0 top-0 z-20 flex h-screen w-[42vw] max-w-[720px] items-center justify-center pointer-events-auto">
+      {lanyardReady && (
+        <div
+          className="
+            fixed right-0 top-0 z-20 flex h-screen items-center justify-center pointer-events-auto
+            w-[42vw] max-w-[720px]
+            max-[1400px]:w-[38vw]
+            max-[1400px]:max-w-[600px]
+            lg:max-[1200px]:w-[36vw]
+            lg:max-[1200px]:max-w-[520px]
+            md:max-[1024px]:w-[34vw]
+            md:max-[1024px]:max-w-[440px]
+          "
+        >
           <Lanyard onRevealChange={setLanyardRevealed} />
           <DigitalChatbot
             isOpen={chatOpen}
+            onOpen={() => setChatOpen(true)}
             onClose={() => setChatOpen(false)}
           />
         </div>
@@ -179,26 +191,39 @@ export function HeroSectionDigital({
 
       <div
         className="
-          relative mx-auto flex h-full max-w-7xl items-center
-          px-6 pt-96 pb-16 lg:px-8
-          pointer-events-none
+          relative mx-auto flex h-full max-w-7xl items-center px-6 pb-16 pt-96 pointer-events-none lg:px-8
           md:pr-[44vw]
+          max-[1400px]:pt-72
+          max-[1400px]:md:pr-[40vw]
+          max-[1200px]:pt-56
+          max-[1200px]:md:pr-[38vw]
+          max-[1024px]:pt-44
+          max-[1024px]:md:pr-[34vw]
+          max-[767px]:pt-32
         "
       >
-        <div className="max-w-3xl text-white">
+        <div className="max-w-3xl max-[1400px]:max-w-2xl max-[1024px]:max-w-xl text-white">
           {logo && (
-            <div className="mb-6">
+            <div className="mb-6 max-[1024px]:mb-5">
               <StrapiImage
                 src={logo.image.url}
                 alt={logo.image.alternativeText || "Logo"}
-                className="h-10 w-auto"
+                className="h-10 w-auto max-[1024px]:h-9 max-[767px]:h-8"
                 width={120}
                 height={120}
               />
             </div>
           )}
 
-          <h1 className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">
+          <h1
+            className="
+              text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl
+              max-[1400px]:text-5xl
+              max-[1200px]:text-4xl
+              max-[1024px]:text-4xl
+              max-[767px]:text-3xl
+            "
+          >
             <BlurText
               text={firstWord}
               delay={120}
@@ -215,7 +240,15 @@ export function HeroSectionDigital({
             />
           </h1>
 
-          <p className="mt-6 w-2xl text-base/7 font-agenda-regular text-white/90 sm:text-lg/8">
+          <p
+            className="
+              mt-6 max-w-2xl text-base/7 font-agenda-regular text-white/90 sm:text-lg/8
+              max-[1400px]:max-w-xl
+              max-[1200px]:mt-5 max-[1200px]:max-w-lg
+              max-[1024px]:text-base/7
+              max-[767px]:mt-4 max-[767px]:text-sm/6
+            "
+          >
             {subheader}
           </p>
 
@@ -223,7 +256,12 @@ export function HeroSectionDigital({
             <Link
               href={cta.href}
               target={cta.isExternal ? "_blank" : "_self"}
-              className="pointer-events-auto group ml-auto mt-16 inline-flex items-center gap-3 text-slate-300 hover:text-white"
+              className="
+                pointer-events-auto group ml-auto mt-16 inline-flex items-center gap-3 text-slate-300 hover:text-white
+                max-[1400px]:mt-12
+                max-[1024px]:mt-10
+                max-[767px]:mt-8
+              "
               aria-label={cta.text ?? "Learn more"}
             >
               <span className="text-sm font-agenda-semibold md:text-base">

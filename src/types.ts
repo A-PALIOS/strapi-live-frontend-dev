@@ -3,6 +3,45 @@ export interface BadgeItem {
   label: string;
 }
 
+export interface AboutUsStatementBlockProps extends Base<"blocks.about-us-statement"> {
+  id: number;
+  text: string;
+}
+
+export interface MetricItem {
+  id: number;
+  value: string;
+  title: string;
+  subtitle?: string;
+  dotColor?: "blue" | "green" | "orange" | "red" | "black";
+}
+
+export interface ExpertiseItem {
+  id: number;
+  number?: string;
+  title: string;
+  description: string;
+}
+
+export interface ExpertiseGridBlockProps extends Base<"blocks.expertise-grid"> {
+  id: number;
+  eyebrow?: string;
+  items: ExpertiseItem[];
+}
+
+export interface CompanyHighlightsBlockProps extends Base<"blocks.company-highlights"> {
+  id: number;
+  title?: string;
+  items: MetricItem[];
+}
+export interface StatementSectionBlock extends Base<"blocks.statement-section"> {
+  id: number;
+  headingPrimary: string;
+  headingSecondary: string;
+  bodyPrimary: string;
+  bodySecondary: string;
+}
+
 export interface ShowcaseItemProps {
   id: number;
   title: string;
@@ -134,17 +173,21 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
                   | "blocks.paragraph"
                   | "blocks.full-image"
                   | "blocks.sticky-menu"
+                  | "blocks.about-us-statement"
+                  | "blocks.company-highlights"
 				  | "blocks.secondary-menu"
           | "blocks.ai-cards"
           | "blocks.use-cases-section"
           | "blocks.case-highlight"
+          | "blocks.statement-section"
           | "blocks.coverflow-showcase"
           | "blocks.dashboard-section1"
           | "blocks.dashboard-section2"
           | "blocks.dashboard-section3"
           | "blocks.dashboard-section4"
           | "blocks.dashboard-section5"
-           |"blocks.team-grid";
+           |"blocks.team-grid"
+           | "blocks.expertise-grid";
 
 interface Base<
   T extends ComponentType,
@@ -169,17 +212,21 @@ export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigital
   | ParagraphProps
   | FullImageProps
   | StickyMenuProps
+  | AboutUsStatementBlockProps
   | SecondaryMenuProps
   | AICardsBlockProps
   | UseCasesSectionProps
   | CoverflowShowcaseProps
+  | CompanyHighlightsBlockProps
+  | StatementSectionBlock
   | CaseHighlightProps
   | DashboardSection1Props
   | DashboardSection2Props
   | DashboardSection3Props
   | DashboardSection4Props
   | DashboardSection5Props
-  |TeamGridProps;
+  | TeamGridProps
+  | ExpertiseGridBlockProps;
 
 export interface HeroSectionMainProps extends Base<"blocks.hero-section-main"> {
   theme: "black" | "blue";

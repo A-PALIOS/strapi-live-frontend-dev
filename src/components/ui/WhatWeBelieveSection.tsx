@@ -156,7 +156,7 @@ export default function WhatWeBelieveSection({ title, content, heading, items }:
     <section className="relative w-full overflow-hidden bg-white">
       {/* ✨ Removed decorative grid / noise */}
 
-      <div className="relative mx-auto px-4 sm:px-6 sm:py-20">
+      <div className="relative mx-auto px-4 sm:px-0 sm:py-20">
         <div className="mb-8 sm:mb-12 flex flex-col items-start gap-4">
           <PinBadge />
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-agenda-medium tracking-tight text-slate-900">

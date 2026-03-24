@@ -105,7 +105,7 @@ const logoAlt =
   style={{ marginTop: 20 }}
 >
           {/* Logo */}
-<NavLink href="/" className="flex items-center shrink-0">
+<NavLink href="/" className="flex items-center shrink-0" onClick={() => setIsOpen(false)}>
   <StrapiImage
     src={activeLogo.image.url}
     alt={logoAlt}

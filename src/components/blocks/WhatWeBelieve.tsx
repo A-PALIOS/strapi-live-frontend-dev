@@ -14,7 +14,7 @@ export function WhatWeBelieve({ title, content, heading ,items}: Readonly<WhatWe
   return (
     <section
       id={id}
-      className="scroll-mt-24 w-full px-6 md:px-12 lg:px-24"
+      className="scroll-mt-24 w-full px-6 md:px-12 lg:px-16 xl:px-20"
     >
       
 
@@ -27,7 +27,7 @@ export function WhatWeBelieve({ title, content, heading ,items}: Readonly<WhatWe
   {/* decorative grid / noise */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:28px_28px] opacity-[0.06]" />
 
-      <div className="relative mx-auto  px-4 sm:px-6">
+      <div className="relative mx-auto  px-4 sm:px-0">
      
 
      <WhatWeBelieveSection title={title} content={content} heading={heading} items={items}/>

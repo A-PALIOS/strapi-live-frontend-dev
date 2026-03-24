@@ -64,7 +64,7 @@ export function Mission({
   }));
 
   return (
-    <section id={id} className="scroll-mt-24 w-full pt-10 px-6 md:px-12 lg:px-24">
+    <section id={id} className="scroll-mt-24 w-full pt-10 px-6 md:px-12 lg:px-16 xl:px-20">
       <MissionValuesCircles
         heading={title}
         subheading={stripHtml(content)} // show a clean one-line subheading

@@ -344,6 +344,19 @@ const pageBySlugQuery = (slug: string) =>
               "blocks.dashboard-section3": true,
               "blocks.dashboard-section4": true,
               "blocks.dashboard-section5": true,
+              "blocks.statement-section": true,
+              "blocks.about-us-statement": true,
+              "blocks.company-highlights": {
+                populate: {
+                  items: true,
+                },
+              },
+
+              "blocks.expertise-grid": {
+                populate: {
+                  items: true,
+                },
+              },
 
               "blocks.ai-cards": {
                 populate: {

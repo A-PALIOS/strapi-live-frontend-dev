@@ -120,6 +120,10 @@ import DashboardSection2 from "./blocks/DashboardSection2";
 import DashboardSection3 from "./blocks/DashboardSection3";
 import DashboardSection4 from "./blocks/DashboardSection4";
 import DashboardSection5 from "./blocks/DashboardSection5";
+import { StatementSection } from "./blocks/StatementSection";
+import { CompanyHighlights } from "./blocks/CompanyHighlights";
+import { AboutUsStatement } from "./blocks/AboutUsStatement";
+import { ExpertiseGrid } from "./blocks/ExpertiseGrid";
 
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
@@ -155,10 +159,12 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
         return <AboutInfo {...block} key={index} />;
     case "blocks.info-box":
         return <InfoBox {...block} key={index} />;
-
+    case "blocks.about-us-statement":
+        return <AboutUsStatement {...block} key={index} />;
     case "blocks.what-believe":
         return <WhatWeBelieve {...block} key={index} />;
-
+    case "blocks.expertise-grid":
+      return <ExpertiseGrid {...block} key={index} />
     case "blocks.mission-section":
       return <Mission {...block} key={index} />;
 
@@ -168,6 +174,9 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
         return <ServiceInfo {...block} key={index} />;  
     case "blocks.magic-bento-block":
         return <MagicBentoBlock {...block} key={index} />;
+    
+    case "blocks.statement-section":
+      return <StatementSection {...block} key={index} />
       
     case "blocks.heading":
       return <Heading {...block} key={index} />;
@@ -183,6 +192,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <UseCasesSection data={block} key={index} />;
     case "blocks.case-highlight":
       return <CaseHighlight data={block} key={index} />;
+    case "blocks.company-highlights":
+      return <CompanyHighlights {...block} key={index} />
     case "blocks.coverflow-showcase":
       return <CoverflowShowcase {...(block as any)} key={index} />;
     case "blocks.dashboard-section1":

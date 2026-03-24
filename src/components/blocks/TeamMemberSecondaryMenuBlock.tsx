@@ -105,8 +105,8 @@ export function TeamMemberSecondaryMenuBlock({
         }`}
       >
         {/* Top row */}
-        <div className="px-4 py-3 ">
-          <div className="max-w-7xl mx-auto">
+        <div className="px-4 py-3 px-6 md:px-12 lg:px-16 xl:px-20">
+          <div className="max-w-7xl">
             <div className="flex flex-wrap items-center gap-4 text-lg text-gray-700">
               <button
                 onClick={() => setIsOpen((v) => !v)}
@@ -169,7 +169,7 @@ export function TeamMemberSecondaryMenuBlock({
         {/* Dropdown under the menu */}
         {isOpen && globalItems.length > 0 && (
           <div className="bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
-            <div className="max-w-7xl mx-auto px-6 py-8">
+            <div className="max-w-7xl ml-13  px-6 py-8">
               <nav className="flex flex-col gap-6">
                 {globalItems.map((item) => (
                   <Link
