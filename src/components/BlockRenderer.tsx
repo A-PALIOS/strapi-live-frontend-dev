@@ -124,6 +124,7 @@ import { StatementSection } from "./blocks/StatementSection";
 import { CompanyHighlights } from "./blocks/CompanyHighlights";
 import { AboutUsStatement } from "./blocks/AboutUsStatement";
 import { ExpertiseGrid } from "./blocks/ExpertiseGrid";
+import { ExpertiseVideoTabs } from "./blocks/ExpertiseVideoTabs";
 
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
@@ -174,6 +175,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
         return <ServiceInfo {...block} key={index} />;  
     case "blocks.magic-bento-block":
         return <MagicBentoBlock {...block} key={index} />;
+    case "blocks.expertise-video-tabs":
+      return <ExpertiseVideoTabs {...block} key={index} />;
     
     case "blocks.statement-section":
       return <StatementSection {...block} key={index} />

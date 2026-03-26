@@ -40,16 +40,18 @@ export default function DigitalChatbot({
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
-  const [isSmallScreen, setIsSmallScreen] = useState(false); 
-  useEffect(() => { 
-    const checkScreen = () => { 
-        setIsSmallScreen(window.innerWidth < 1400); 
-        }; 
-        
-        checkScreen(); 
-        window.addEventListener("resize", checkScreen); 
-        return () => window.removeEventListener("resize", checkScreen); }, []);
+
+  useEffect(() => {
+    const checkScreen = () => {
+      setIsSmallScreen(window.innerWidth < 1400);
+    };
+
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
 
   useEffect(() => {
     setIsMounted(true);
@@ -64,8 +66,8 @@ export default function DigitalChatbot({
     if (!isMounted) return;
 
     const originalOverflow = document.body.style.overflow;
-
     const isMobile = window.innerWidth < 640;
+
     if (isOpen && isMobile) {
       document.body.style.overflow = "hidden";
     } else {
@@ -74,6 +76,28 @@ export default function DigitalChatbot({
 
     return () => {
       document.body.style.overflow = originalOverflow;
+    };
+  }, [isOpen, isMounted]);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const isMobile = window.innerWidth < 640;
+    if (!isMobile) return;
+
+    const header = document.querySelector("header") as HTMLElement | null;
+    if (!header) return;
+
+    const previousDisplay = header.style.display;
+
+    if (isOpen) {
+      header.style.display = "none";
+    } else {
+      header.style.display = previousDisplay || "";
+    }
+
+    return () => {
+      header.style.display = previousDisplay || "";
     };
   }, [isOpen, isMounted]);
 
@@ -174,7 +198,7 @@ export default function DigitalChatbot({
 
       <div
         className={[
-          "fixed z-50 transition-all duration-300 ease-out",
+          "fixed z-[100] transition-all duration-300 ease-out",
           "sm:bottom-6 sm:right-6",
           "w-full sm:w-[min(92vw,440px)] lg:w-[420px] xl:w-[440px]",
           "h-[100dvh] sm:h-[min(78vh,720px)]",
@@ -196,7 +220,7 @@ export default function DigitalChatbot({
         >
           <div
             className="
-              flex shrink-0 items-center gap-3
+              relative flex shrink-0 items-center gap-3
               border-b border-white/10
               px-4 py-4
               sm:px-5
@@ -207,7 +231,7 @@ export default function DigitalChatbot({
               <Bot className="h-5 w-5 text-[#6EC1FF]" />
             </div>
 
-            <div className="min-w-0">
+            <div className="min-w-0 pr-12 sm:pr-0">
               <div className="flex items-center gap-2">
                 <p className="truncate text-sm font-semibold text-white sm:text-[15px]">
                   Digital Assistant
@@ -222,7 +246,15 @@ export default function DigitalChatbot({
             <button
               type="button"
               onClick={onClose}
-              className="ml-auto grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/5 text-white/70 transition hover:bg-white/10 hover:text-white"
+              className="
+                fixed right-4 top-[max(1rem,env(safe-area-inset-top))]
+                z-[110]
+                grid h-10 w-10 place-items-center
+                rounded-xl border border-white/10
+                bg-[#07111F]/95 text-white
+                shadow-lg transition hover:bg-white/10
+                sm:static sm:ml-auto sm:h-9 sm:w-9 sm:bg-white/5 sm:text-white/70 sm:shadow-none
+              "
               aria-label="Close chatbot"
             >
               <X className="h-4 w-4" />

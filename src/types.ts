@@ -8,6 +8,30 @@ export interface AboutUsStatementBlockProps extends Base<"blocks.about-us-statem
   text: string;
 }
 
+export interface StrapiMedia {
+  id: number;
+  url: string;
+  alternativeText?: string | null;
+  mime?: string | null;
+  width?: number | null;
+  height?: number | null;
+}
+
+export interface ExpertiseVideoItemProps {
+  id: number;
+  title: string;
+  description?: string | null;
+  icon?: StrapiMedia | null;
+  video?: StrapiMedia | null;
+  isDefault?: boolean | null;
+}
+
+export interface ExpertiseVideoTabsBlockProps extends Base<"blocks.expertise-video-tabs"> {
+  id: number;
+  Eyebrow?: string | null;
+  items: ExpertiseVideoItemProps[];
+}
+
 export interface MetricItem {
   id: number;
   value: string;
@@ -175,6 +199,7 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
                   | "blocks.sticky-menu"
                   | "blocks.about-us-statement"
                   | "blocks.company-highlights"
+                  | "blocks.expertise-video-tabs"
 				  | "blocks.secondary-menu"
           | "blocks.ai-cards"
           | "blocks.use-cases-section"
@@ -226,6 +251,7 @@ export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigital
   | DashboardSection4Props
   | DashboardSection5Props
   | TeamGridProps
+  | ExpertiseVideoTabsBlockProps
   | ExpertiseGridBlockProps;
 
 export interface HeroSectionMainProps extends Base<"blocks.hero-section-main"> {

@@ -346,6 +346,16 @@ const pageBySlugQuery = (slug: string) =>
               "blocks.dashboard-section5": true,
               "blocks.statement-section": true,
               "blocks.about-us-statement": true,
+              "blocks.expertise-video-tabs": {
+                  populate: {
+                          items: {
+                              populate: {
+                                      icon: true,
+                                    video: true,
+            },
+          },
+        },
+      },
               "blocks.company-highlights": {
                 populate: {
                   items: true,
