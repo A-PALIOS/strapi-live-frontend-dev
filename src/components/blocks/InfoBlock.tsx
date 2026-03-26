@@ -149,7 +149,7 @@ export function InfoBlock({
             </div>
 
               {/* Decorative SVG graphic */}
-            <svg   aria-hidden="true"
+           {headline && ( <svg   aria-hidden="true"
       viewBox="0 0 120 40"
       className="h-6 w-20 shrink-0 block"  fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -173,6 +173,7 @@ export function InfoBlock({
             </linearGradient>
             </defs>
             </svg>
+            )}
 
 
 </div>

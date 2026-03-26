@@ -8,6 +8,42 @@ export interface AboutUsStatementBlockProps extends Base<"blocks.about-us-statem
   text: string;
 }
 
+export interface ProcessStepItem {
+  id: number;
+  number: string;
+  title: string;
+  description: string;
+  linkUrl: string;
+}
+
+
+export interface TextLinkItem {
+  id: number;
+  text: string;
+  url: string;
+}
+
+export interface WhatSetsUsApartBlockProps extends Base <"blocks.what-sets-us-apart"> {
+  id: number;
+  eyebrow?: string;
+  topLabel?: string;
+  topImage?: StrapiMedia;
+  introText?: string;
+  highlightedText?: string;
+  leftTitleTop?: string;
+  rightTitleTop?: string;
+  leftTitleBottom?: string;
+  rightList?: TextLinkItem[];
+  bottomTitle?: string;
+}
+
+export interface ProcessStepsBlockProps extends Base <"blocks.process-steps"> {
+  id: number;
+  eyebrow?: string | null;
+  title?: string | null;
+  steps: ProcessStepItem[];
+}
+
 export interface StrapiMedia {
   id: number;
   url: string;
@@ -200,6 +236,8 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
                   | "blocks.about-us-statement"
                   | "blocks.company-highlights"
                   | "blocks.expertise-video-tabs"
+                  | "blocks.process-steps"
+                  | "blocks.what-sets-us-apart"
 				  | "blocks.secondary-menu"
           | "blocks.ai-cards"
           | "blocks.use-cases-section"
@@ -233,9 +271,11 @@ export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigital
  | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | InfoBoxProps | ServiceInfoProps | MissionProps | MagicBentoProps | TimeLineProps | WhatWeBelieveProps
    | HeadingProps
   | ParagraphWithImageProps
+  | WhatSetsUsApartBlockProps
   | LeadingInstitutionBlockProps
   | ParagraphProps
   | FullImageProps
+  | ProcessStepsBlockProps
   | StickyMenuProps
   | AboutUsStatementBlockProps
   | SecondaryMenuProps

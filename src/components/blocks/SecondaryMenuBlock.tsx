@@ -32,7 +32,7 @@ export function SecondaryMenuBlock({
   const globalItems = global?.items ?? [];
 
   return (
-    <div className="sticky top-0 z-10 bg-white px-6 md:px-12 lg:px-16 xl:px-20">
+    <div className="sticky top-0 z-10 bg-white px-6 py-3 md:px-12 lg:px-16 xl:px-20">
       {/* Row 1: logo area (kept for parity with StickyMenuBlock; wire a logo if you add one later) */}
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         <div className="flex items-center gap-2">

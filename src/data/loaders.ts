@@ -346,6 +346,29 @@ const pageBySlugQuery = (slug: string) =>
               "blocks.dashboard-section5": true,
               "blocks.statement-section": true,
               "blocks.about-us-statement": true,
+              "blocks.what-sets-us-apart":
+              {
+                populate:{
+                  rightList: true,
+                  topImage:{
+                    fields: ["url", "alternativeText"],
+                  }
+                }
+              },
+              "blocks.services-accordion-block": {
+                populate: {
+                    items: true,
+                    image: {
+                        fields: ["url", "alternativeText"],
+                    },
+                    cta: true,
+                  },
+              },
+              "blocks.process-steps": {
+                populate:{
+                  steps:true
+                }
+              },
               "blocks.expertise-video-tabs": {
                   populate: {
                           items: {

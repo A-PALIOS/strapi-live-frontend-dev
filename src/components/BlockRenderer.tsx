@@ -125,6 +125,8 @@ import { CompanyHighlights } from "./blocks/CompanyHighlights";
 import { AboutUsStatement } from "./blocks/AboutUsStatement";
 import { ExpertiseGrid } from "./blocks/ExpertiseGrid";
 import { ExpertiseVideoTabs } from "./blocks/ExpertiseVideoTabs";
+import { ProcessSteps } from "./blocks/ProcessSteps";
+import { WhatSetsUsApart } from "./blocks/WhatSetUsApart";
 
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
@@ -166,6 +168,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
         return <WhatWeBelieve {...block} key={index} />;
     case "blocks.expertise-grid":
       return <ExpertiseGrid {...block} key={index} />
+    case "blocks.process-steps":
+      return <ProcessSteps {...block} key={index} />;
     case "blocks.mission-section":
       return <Mission {...block} key={index} />;
 
@@ -180,6 +184,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
     
     case "blocks.statement-section":
       return <StatementSection {...block} key={index} />
+    case "blocks.what-sets-us-apart":
+      return <WhatSetsUsApart {...block} key={index} />
       
     case "blocks.heading":
       return <Heading {...block} key={index} />;
