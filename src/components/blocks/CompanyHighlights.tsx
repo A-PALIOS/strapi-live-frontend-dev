@@ -1,4 +1,5 @@
 import type { CompanyHighlightsBlockProps } from "@/types";
+import { StrapiImage } from "../StrapiImage";
 
 function getDotColorClass(color?: string) {
   switch (color) {
@@ -41,12 +42,14 @@ export function CompanyHighlights({
                 last:md:border-r-0 items-align-center
               "
             >
-              <span
-                className={`block h-[42px] w-[42px] rounded-full ${getDotColorClass(
-                  item.dotColor
-                )}`}
-                aria-hidden="true"
+              {item.icon && (
+              <StrapiImage
+                src={item.icon.url}
+                alt={item.icon.alternativeText || "icon"}
+                width={60}
+                height={60}
               />
+              )}
 
               <div className="mt-auto">
                 <h3 className="font-agenda-medium text-[30px] leading-[0.95] tracking-[-0.04em] text-black md:text-[38px]">

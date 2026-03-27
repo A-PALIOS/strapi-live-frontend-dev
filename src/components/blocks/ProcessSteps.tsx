@@ -31,9 +31,9 @@ export function ProcessSteps({
 
         <div className="grid grid-cols-1 border border-[#D9D9D9] md:grid-cols-4">
           {steps.map((step, index) => {
-            const cardClassName = `group relative min-h-[240px] overflow-hidden bg-[#F3F3F3] px-6 py-6 md:min-h-[270px] ${
-              index !== steps.length - 1 ? "border-b md:border-b-0 md:border-r" : ""
-            } border-[#D9D9D9]`;
+            const cardClassName = `group relative min-h-[500px] overflow-hidden bg-[#F3F3F3] px-6 py-8 md:min-h-[460px] ${
+  index !== steps.length - 1 ? "border-b md:border-b-0 md:border-r" : ""
+} border-[#D9D9D9]`;
 
             const content = (
               <>

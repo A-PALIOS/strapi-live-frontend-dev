@@ -16,6 +16,22 @@ export interface ProcessStepItem {
   linkUrl: string;
 }
 
+export interface ImpactLinkItem {
+  id: number;
+  title: string;
+  url: string;
+  openInNewTab?: boolean;
+  isHighlighted?: boolean;
+}
+
+export interface ImpactLinksBlockProps extends Base <"blocks.impact-links"> {
+  id: number;
+  eyebrow?: string;
+  introText?: string;
+  backgroundImage?: StrapiMedia;
+  items: ImpactLinkItem[];
+}
+
 
 export interface TextLinkItem {
   id: number;
@@ -72,6 +88,7 @@ export interface MetricItem {
   id: number;
   value: string;
   title: string;
+  icon: StrapiMedia
   subtitle?: string;
   dotColor?: "blue" | "green" | "orange" | "red" | "black";
 }
@@ -92,6 +109,7 @@ export interface ExpertiseGridBlockProps extends Base<"blocks.expertise-grid"> {
 export interface CompanyHighlightsBlockProps extends Base<"blocks.company-highlights"> {
   id: number;
   title?: string;
+  
   items: MetricItem[];
 }
 export interface StatementSectionBlock extends Base<"blocks.statement-section"> {
@@ -249,6 +267,7 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
           | "blocks.dashboard-section3"
           | "blocks.dashboard-section4"
           | "blocks.dashboard-section5"
+          | "blocks.impact-links"
            |"blocks.team-grid"
            | "blocks.expertise-grid";
 
@@ -285,6 +304,7 @@ export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigital
   | CompanyHighlightsBlockProps
   | StatementSectionBlock
   | CaseHighlightProps
+  | ImpactLinksBlockProps
   | DashboardSection1Props
   | DashboardSection2Props
   | DashboardSection3Props

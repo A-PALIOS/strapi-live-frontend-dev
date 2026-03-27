@@ -127,6 +127,7 @@ import { ExpertiseGrid } from "./blocks/ExpertiseGrid";
 import { ExpertiseVideoTabs } from "./blocks/ExpertiseVideoTabs";
 import { ProcessSteps } from "./blocks/ProcessSteps";
 import { WhatSetsUsApart } from "./blocks/WhatSetUsApart";
+import { ImpactLinks } from "./blocks/ImpactLinks";
 
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
@@ -197,6 +198,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <FullImage {...block} key={index} />;
     case "blocks.ai-cards":
       return <AICardsBlock {...block} key={index} />;
+    case "blocks.impact-links":
+      return <ImpactLinks {...block} key={index} />;
     case "blocks.use-cases-section":
       return <UseCasesSection data={block} key={index} />;
     case "blocks.case-highlight":

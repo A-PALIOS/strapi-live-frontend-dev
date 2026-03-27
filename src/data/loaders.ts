@@ -346,6 +346,16 @@ const pageBySlugQuery = (slug: string) =>
               "blocks.dashboard-section5": true,
               "blocks.statement-section": true,
               "blocks.about-us-statement": true,
+              "blocks.impact-links":
+              {
+                populate:
+                {
+                  backgroundImage:{
+                    fields: ["url", "alternativeText"]
+                  },
+                  items: true
+                }
+              },
               "blocks.what-sets-us-apart":
               {
                 populate:{
@@ -381,7 +391,13 @@ const pageBySlugQuery = (slug: string) =>
       },
               "blocks.company-highlights": {
                 populate: {
-                  items: true,
+                  items: {
+                    populate: {
+                    icon:{
+                      fields: ["url", "alternativeText"],
+                    }
+                  }
+                  }
                 },
               },
 

@@ -27,7 +27,7 @@ function ExpertiseItem({
         delay: index * 0.2,
       }}
       className={`relative pt-8 md:pt-7 ${
-        index >= 2 ? "border-b border-[#cfcfcf] pb-8 md:pb-7" : ""
+        index >= 4 ? "border-b border-[#cfcfcf] pb-8 md:pb-7" : ""
       }`}
     >
       <motion.div
