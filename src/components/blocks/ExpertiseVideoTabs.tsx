@@ -40,7 +40,7 @@ export function ExpertiseVideoTabs({
             </div>
           </div>
 
-          <div className="relative z-10 h-full">
+          <div className="relative h-full">
             {Eyebrow ? (
               <p className="mb-10 text-[13px] uppercase tracking-[0.04em] text-white/95">
                 {Eyebrow}

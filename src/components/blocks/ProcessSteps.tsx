@@ -42,7 +42,7 @@ export function ProcessSteps({
                   aria-hidden="true"
                 />
 
-                <div className="relative z-10 flex h-full flex-col">
+                <div className="relative flex h-full flex-col">
                   <span className="mb-10 text-sm font-medium text-[#4A4A4A] transition-colors duration-300 group-hover:text-white">
                     {step.number}
                   </span>

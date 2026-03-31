@@ -25,6 +25,8 @@ export default async function MemberPage({ params, searchParams }: PageProps) {
 
   const firstName = member.FullName.split(" ")[0];
 
+  const darken = false;
+
   return (
     <div>
       <div className="min-h-screen bg-white text-gray-800">
@@ -68,7 +70,7 @@ export default async function MemberPage({ params, searchParams }: PageProps) {
             </div>
           </div>
         </div> */}
-        <div className="relative bg-[#37393c] text-white px-6 py-16 overflow-hidden">
+        <div className="relative bg-[#37393c] text-white px-6 py-16 overflow-hidden" data-header="dark">
     
     {member.CoverImage?.url && (
       <div className="absolute bottom-0 sm:left-10 md:left-40 lg:left-60 xl:left-70 z-0 w-[400px] h-[600px] overflow-hidden">
@@ -100,8 +102,8 @@ export default async function MemberPage({ params, searchParams }: PageProps) {
       />
     </svg>
 
-    <div className="relative z-20 max-w-6xl mx-auto flex flex-col sm:flex-row items-center sm:items-start gap-8 pt-10">
-      <div className="w-[400px] h-[600px]" />
+    <div className="relative z-20 max-w-6xl mx-auto flex flex-col-reverse items-center md:items-center xl:items-center md:flex-row md:items-start gap-8 pt-10">
+      <div className="w-[300px] h-[500px] sm:w-[400px] sm:h-[500px] md:w-[400px] md:h-[500px] lg:w-[500px] lg:h-[500px] xl:w-[550px] xl:h-[500px]" />
 
       
       <div className="flex-1 pt-4 sm:pt-12">
