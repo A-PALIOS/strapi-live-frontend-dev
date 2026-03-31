@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import type { ExpertiseVideoTabsBlockProps } from "@/types";
 import { StrapiImage } from "../StrapiImage";
+// import { StrapiVideo } from "../StrapiVideo";
 
 function getStrapiMediaUrl(url?: string | null) {
   if (!url) return "";
