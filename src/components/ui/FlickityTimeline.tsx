@@ -207,7 +207,9 @@ const atEnd = selectedIndex >= Math.max(0, items.length - 1);
       }
       aria-label={typeof title === "string" ? title : "Company timeline"}
     >
-      <div className="container is--timeline-slider">
+      <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20 is--timeline-slider">
+
+      {/* <div className="container is--timeline-slider"> */}
         <div className="timeline__row-title">
           <div className="timeline__col-title">
             {eyebrow && (
@@ -359,7 +361,7 @@ const atEnd = selectedIndex >= Math.max(0, items.length - 1);
                       </div>
                       <div className="sticker" aria-hidden="true" />
                       {item.caption && (
-                        <div className="cluster__caption" dangerouslySetInnerHTML={{ __html: item.caption }} />
+                        <div className="cluster__caption rotate-right" dangerouslySetInnerHTML={{ __html: item.caption }} />
                       )}
                     </div>
                   ) : variant === "tall" && image0 ? (
@@ -385,7 +387,7 @@ const atEnd = selectedIndex >= Math.max(0, items.length - 1);
                         </button>
                       </div>
                       {item.caption && (
-                        <p className="card__caption" style={{ marginLeft: 10, maxWidth: 440 }}>
+                        <p className="card__caption rotate-right" style={{ marginLeft: 10, maxWidth: 440 }}>
                           {item.caption}
                         </p>
                       )}
@@ -464,6 +466,7 @@ const atEnd = selectedIndex >= Math.max(0, items.length - 1);
         }
 
         :global(.flickity-slider) {
+           top:24px;
           display: flex;
           gap: 24px;
         }
@@ -499,6 +502,7 @@ const atEnd = selectedIndex >= Math.max(0, items.length - 1);
         }
 
         .timeline__text {
+  text-align: justify;
           max-width: 72ch;
           color: #333;
         }
@@ -600,7 +604,7 @@ const atEnd = selectedIndex >= Math.max(0, items.length - 1);
 
         .cluster .piece--bottom {
           left: 4%;
-          top: 150px;
+          top: 170px;
           transform: rotate(7deg);
           z-index: 1;
         }
@@ -612,8 +616,8 @@ const atEnd = selectedIndex >= Math.max(0, items.length - 1);
 
         .cluster__caption {
           position: absolute;
-          left: 50%;
-          bottom: 0;
+          left: -8%;
+          bottom: 64px;
           transform: translateX(-50%);
           font-weight: 800;
           text-align: center;
