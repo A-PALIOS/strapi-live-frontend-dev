@@ -129,6 +129,7 @@ import { ProcessSteps } from "./blocks/ProcessSteps";
 import { WhatSetsUsApart } from "./blocks/WhatSetUsApart";
 import { ImpactLinks } from "./blocks/ImpactLinks";
 import { TwoColumnText } from "./blocks/TwoColumnText";
+import { AccordionAbout } from "./blocks/AccordionAbout";
 
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
@@ -148,6 +149,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
        return <VerticalAccordionBlock {...block} key={index} />;
     case "blocks.services-accordion-block":
        return <ServicesAccordionBlock {...block} key={index}  />;
+    case "blocks.accordion-about":
+        return <AccordionAbout {...block} key={index} />
     case "blocks.logo-carousel-block":
        return <LogoCarouselBlock  {...block} key={index}  />;
     case "blocks.leading-institution-block":

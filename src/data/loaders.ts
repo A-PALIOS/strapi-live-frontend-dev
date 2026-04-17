@@ -375,6 +375,15 @@ const pageBySlugQuery = (slug: string) =>
                     cta: true,
                   },
               },
+              "blocks.accordion-about": {
+                populate: {
+                    items: true,
+                    image: {
+                        fields: ["url", "alternativeText"],
+                    },
+                    cta: true,
+                  },
+              },
               "blocks.process-steps": {
                 populate:{
                   steps:true

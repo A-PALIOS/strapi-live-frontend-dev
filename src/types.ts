@@ -241,7 +241,7 @@ export interface ArticleProps {
 type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks.hero-section-digital" | "blocks.info-block"   
                 | "blocks.milestones-block" | "blocks.vertical-accordion-block" 
                 | "blocks.services-accordion-block" | "blocks.logo-carousel-block"
-                 | "blocks.testimonials-block" | "blocks.features-block" 
+                 | "blocks.testimonials-block" | "blocks.features-block" | "blocks.accordion-about"
                  | "blocks.featured-article"
                    | "blocks.what-believe"
                   | "blocks.mission-section"
@@ -292,7 +292,7 @@ interface Base<
 }
 
 export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigitalProps | InfoBlockProps | MilestonesBlockProps
- | VerticalAccordionBlockProps | ServicesAccordionBlockProps 
+ | VerticalAccordionBlockProps | ServicesAccordionBlockProps | AccordionAboutBlockProps
  | LogoCarouselBlockProps | TestimonialsBlockProps 
  | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | InfoBoxProps | ServiceInfoProps | MissionProps | MagicBentoProps | TimeLineProps | WhatWeBelieveProps
    | HeadingProps
@@ -467,6 +467,15 @@ export interface ServiceAccordionItem {
 
 export interface ServicesAccordionBlockProps {
   __component: "blocks.services-accordion-block";
+  id: number;
+  heading:string;
+  items: ServiceAccordionItem[];
+  image: ImageProps;
+  cta?: LinkProps;
+}
+
+export interface AccordionAboutBlockProps {
+  __component: "blocks.accordion-about";
   id: number;
   heading:string;
   items: ServiceAccordionItem[];
