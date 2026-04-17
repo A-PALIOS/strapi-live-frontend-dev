@@ -346,6 +346,7 @@ const pageBySlugQuery = (slug: string) =>
               "blocks.dashboard-section5": true,
               "blocks.statement-section": true,
               "blocks.about-us-statement": true,
+              "blocks.two-column-text": true,
               "blocks.impact-links":
               {
                 populate:

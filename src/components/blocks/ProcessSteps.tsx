@@ -29,10 +29,14 @@ export function ProcessSteps({
           </div>
         )}
 
-        <div className="grid grid-cols-1 border border-[#D9D9D9] md:grid-cols-4">
+        <div
+          className={`grid grid-cols-1 border border-[#D9D9D9] ${
+          steps.length === 6 ? "md:grid-cols-3" : "md:grid-cols-4"
+          }`}
+        >
           {steps.map((step, index) => {
             const cardClassName = `group relative min-h-[500px] overflow-hidden bg-[#F3F3F3] px-6 py-8 md:min-h-[460px] ${
-  index !== steps.length - 1 ? "border-b md:border-b-0 md:border-r" : ""
+  index !== steps.length - 1 ? "border-b md:border-b-1 md:border-r" : ""
 } border-[#D9D9D9]`;
 
             const content = (

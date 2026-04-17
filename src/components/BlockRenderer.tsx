@@ -128,6 +128,7 @@ import { ExpertiseVideoTabs } from "./blocks/ExpertiseVideoTabs";
 import { ProcessSteps } from "./blocks/ProcessSteps";
 import { WhatSetsUsApart } from "./blocks/WhatSetUsApart";
 import { ImpactLinks } from "./blocks/ImpactLinks";
+import { TwoColumnText } from "./blocks/TwoColumnText";
 
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
@@ -182,6 +183,9 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
         return <MagicBentoBlock {...block} key={index} />;
     case "blocks.expertise-video-tabs":
       return <ExpertiseVideoTabs {...block} key={index} />;
+
+    case "blocks.two-column-text":
+      return <TwoColumnText {...block} key={index} />
     
     case "blocks.statement-section":
       return <StatementSection {...block} key={index} />

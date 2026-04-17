@@ -8,6 +8,12 @@ export interface AboutUsStatementBlockProps extends Base<"blocks.about-us-statem
   text: string;
 }
 
+export interface TwoColumnTextBlockProps {
+  id: number;
+  leftText: string;
+  rightText: string;
+}
+
 export interface ProcessStepItem {
   id: number;
   number: string;
@@ -256,6 +262,7 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
                   | "blocks.expertise-video-tabs"
                   | "blocks.process-steps"
                   | "blocks.what-sets-us-apart"
+                  | "blocks.two-column-text"
 				  | "blocks.secondary-menu"
           | "blocks.ai-cards"
           | "blocks.use-cases-section"
@@ -311,6 +318,7 @@ export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigital
   | DashboardSection4Props
   | DashboardSection5Props
   | TeamGridProps
+  | TwoColumnTextBlockProps
   | ExpertiseVideoTabsBlockProps
   | ExpertiseGridBlockProps;
 
