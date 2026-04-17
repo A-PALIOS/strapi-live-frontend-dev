@@ -8,7 +8,7 @@ export interface AboutUsStatementBlockProps extends Base<"blocks.about-us-statem
   text: string;
 }
 
-export interface TwoColumnTextBlockProps {
+export interface TwoColumnTextBlockProps extends Base<"blocks.two-column-text"> {
   id: number;
   leftText: string;
   rightText: string;
