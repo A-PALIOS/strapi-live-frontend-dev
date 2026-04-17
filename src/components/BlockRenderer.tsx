@@ -130,6 +130,7 @@ import { WhatSetsUsApart } from "./blocks/WhatSetUsApart";
 import { ImpactLinks } from "./blocks/ImpactLinks";
 import { TwoColumnText } from "./blocks/TwoColumnText";
 import { AccordionAbout } from "./blocks/AccordionAbout";
+import { HeroSectionServiceBlock } from "./blocks/HeroSectionServiceBlock";
 
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
@@ -139,6 +140,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <HeroSectionMain {...block} key={index} />;
     case "blocks.hero-section":
       return <HeroSection {...block} key={index} />;
+    case "blocks.hero-section-service":
+      return <HeroSectionServiceBlock {...block} key={index} />
      case "blocks.hero-section-digital":
       return <HeroSectionDigital {...block} key={index} />;
     case "blocks.info-block":

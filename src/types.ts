@@ -243,6 +243,7 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
                 | "blocks.services-accordion-block" | "blocks.logo-carousel-block"
                  | "blocks.testimonials-block" | "blocks.features-block" | "blocks.accordion-about"
                  | "blocks.featured-article"
+                 | "blocks.hero-section-service"
                    | "blocks.what-believe"
                   | "blocks.mission-section"
                  | "blocks.about-info"
@@ -291,7 +292,7 @@ interface Base<
   data?: D;
 }
 
-export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigitalProps | InfoBlockProps | MilestonesBlockProps
+export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigitalProps | HeroSectionServiceProps | InfoBlockProps | MilestonesBlockProps
  | VerticalAccordionBlockProps | ServicesAccordionBlockProps | AccordionAboutBlockProps
  | LogoCarouselBlockProps | TestimonialsBlockProps 
  | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | InfoBoxProps | ServiceInfoProps | MissionProps | MagicBentoProps | TimeLineProps | WhatWeBelieveProps
@@ -340,6 +341,17 @@ export interface HeroSectionProps extends Base<"blocks.hero-section"> {
   heading: string;
   subheader?:string;
   image: ImageProps;
+  cta?: LinkProps;
+  logo?: LogoProps;
+  author?: string;
+  darken?: boolean;
+}
+
+export interface HeroSectionServiceProps extends Base<"blocks.hero-section-service"> {
+  theme: "black" | "blue";
+  heading: string;
+  subheader?:string;
+  video?: StrapiMedia | null;
   cta?: LinkProps;
   logo?: LogoProps;
   author?: string;
