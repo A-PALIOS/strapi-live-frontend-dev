@@ -196,15 +196,30 @@ export async function getGlobalSettings() {
 
 
 
-const pageBySlugQuery = (slug: string) =>
-  qs.stringify(
+function buildParentFilter(parentSegments: string[]): any {
+  if (parentSegments.length === 0) {
+    return { $null: true };
+  }
+  return {
+    slug: { $eq: parentSegments[parentSegments.length - 1] },
+    parent: buildParentFilter(parentSegments.slice(0, -1)),
+  };
+}
+
+const pageBySlugQuery = (slugSegments: string[]) => {
+  const lastSegment = slugSegments[slugSegments.length - 1];
+  const parentSegments = slugSegments.slice(0, -1);
+
+  return qs.stringify(
     {
       filters: {
         slug: {
-          $eq: slug,
+          $eq: lastSegment,
         },
+        parent: buildParentFilter(parentSegments),
       },
       populate: {
+        parent: { fields: ["slug"] },
           secondary_menus: {
           populate: {
             items: {
@@ -473,12 +488,13 @@ const pageBySlugQuery = (slug: string) =>
       },
     { encodeValuesOnly: true }
   );
+};
 
 
-export async function getPageBySlug(slug: string) {
+export async function getPageBySlug(slugSegments: string[]) {
   const path = "/api/pages";
   const url = new URL(path, BASE_URL);
-  url.search = pageBySlugQuery(slug);
+  url.search = pageBySlugQuery(slugSegments);
 
   console.log("getPageBySlug URL:", url.toString());
 

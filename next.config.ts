@@ -47,6 +47,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/system-level-transformation',
+        destination: '/about-us/system-level-transformation',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

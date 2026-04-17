@@ -2,8 +2,8 @@ import { getPageBySlug } from "@/data/loaders";
 import { notFound } from "next/navigation";
 import { BlockRenderer } from "@/components/BlockRenderer";
 
-async function loader(slug: string) {
-  const response = await getPageBySlug(slug);
+async function loader(slugSegments: string[]) {
+  const response = await getPageBySlug(slugSegments);
 
   // Check if data exists and is an array
   if (!response || !response.data || !Array.isArray(response.data) || response.data.length === 0) {
@@ -16,17 +16,17 @@ async function loader(slug: string) {
     const page = response.data[0]; // your API already returns flattened fields (no attributes)
 
 
-  return { blocks: response.data[0]?.blocks,secondaryMenus: page?.secondary_menus ?? [], };
+  return { blocks: response.data[0]?.blocks, secondaryMenus: page?.secondary_menus ?? [], };
 }
 
 
 interface PageProps {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string[] }>
 }
 
 
 export default async function DynamicPageRoute({ params }: PageProps) {
-  const slug = (await params).slug;
-  const { blocks ,secondaryMenus } = await loader(slug);
+  const slugSegments = (await params).slug;
+  const { blocks, secondaryMenus } = await loader(slugSegments);
   return <BlockRenderer blocks={blocks} secondaryMenus={secondaryMenus}/>;
 }
