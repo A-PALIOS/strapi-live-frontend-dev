@@ -42,7 +42,7 @@ export function ProcessSteps({
                 {/* ORANGE HOVER BACKGROUND */}
                 <div
                   className="
-                    absolute inset-0 z-0 origin-left scale-x-0
+                    absolute inset-0  origin-left scale-x-0
                     bg-[#F58220]
                     transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
                     group-hover:scale-x-100
@@ -50,7 +50,7 @@ export function ProcessSteps({
                   aria-hidden="true"
                 />
 
-                <div className="relative z-10 flex h-full flex-col">
+                <div className="relative  flex h-full flex-col">
                   {/* NUMBER */}
                   <div className="mb-10">
                     <span
