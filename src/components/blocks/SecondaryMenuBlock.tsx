@@ -9,6 +9,13 @@ import Link from "next/link";
 import { useState } from "react";
 import { StrapiImage } from "../StrapiImage";
 
+function getStrapiMediaUrl(url?: string | null) {
+  if (!url) return "";
+  if (url.startsWith("http")) return url;
+  return `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${url}`;
+}
+ 
+
 interface ExtendedSecondaryMenuProps extends SecondaryMenuData {
   aboutInfoBlocks: AboutInfoProps[];
   global?: SecondaryMenuData | null; // second/global menu (goes in burger)
@@ -113,7 +120,7 @@ export function SecondaryMenuBlock({
           href={"/"}
           >
           <StrapiImage
-              src={"http://5.77.39.26:1337/uploads/Logo_Color_e94b003ceb.svg" }
+              src={getStrapiMediaUrl("/uploads/Logo_Color_e94b003ceb.svg") }
               alt={"error.png" }
               width={200}
               height={200}

@@ -23,6 +23,13 @@ interface TeamMemberSecondaryMenuBlockProps {
   global?: MenuData | null;
 }
 
+function getStrapiMediaUrl(url?: string | null) {
+  if (!url) return "";
+  if (url.startsWith("http")) return url;
+  return `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${url}`;
+}
+ 
+
 export function TeamMemberSecondaryMenuBlock({
   items,
   global,
@@ -150,7 +157,7 @@ export function TeamMemberSecondaryMenuBlock({
                 href={"/"}
               >
                 <StrapiImage
-                  src={"http://5.77.39.26:1337/uploads/Logo_Color_e94b003ceb.svg" }
+                  src={getStrapiMediaUrl("/uploads/Logo_Color_e94b003ceb.svg") }
                   alt={"error.png" }
                   width={200}
                   height={200}
