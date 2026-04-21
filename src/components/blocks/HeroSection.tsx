@@ -9,7 +9,11 @@ export function HeroSection({
   image,
   logo,
   darken = false,
+    headingWidth,
+
 }: Readonly<HeroSectionProps>) {
+    const useMinContentWidth = headingWidth === "min-content";
+
   return (
     <section
       id="heropage"
@@ -30,19 +34,23 @@ export function HeroSection({
             </div>
           )}
 
-          <h1 style={{width: 'min-content'}} className="
-             text-[44px]   leading-[0.95]   
-             tracking-[-0.055em]   
-              whitespace-normal   break-words   
-              [overflow-wrap:anywhere]   
-              md:text-[62px]   lg:text-[68px]   
-              w-full justify-center  font-agenda-medium 
-              
-              
-              
-              ">
-  {heading}
-</h1>
+       <h1
+            style={useMinContentWidth ? { width: "min-content" } : undefined}
+            className={`
+              text-[44px]
+              leading-[0.95]
+              tracking-[-0.055em]
+              whitespace-normal
+              break-words
+              [overflow-wrap:anywhere]
+              md:text-[62px]
+              lg:text-[68px]
+              font-agenda-medium
+              ${useMinContentWidth ? "w-auto" : "w-full"}
+            `}
+          >
+            {heading}
+          </h1>
 
 {subheader && (
   <p className="mt-6 max-w-6xl 

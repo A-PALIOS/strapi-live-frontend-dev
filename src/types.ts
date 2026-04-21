@@ -345,6 +345,8 @@ export interface HeroSectionProps extends Base<"blocks.hero-section"> {
   logo?: LogoProps;
   author?: string;
   darken?: boolean;
+    headingWidth?: "min-content" | null;
+
 }
 
 export interface HeroSectionServiceProps extends Base<"blocks.hero-section-services"> {
@@ -356,6 +358,8 @@ export interface HeroSectionServiceProps extends Base<"blocks.hero-section-servi
   logo?: LogoProps;
   author?: string;
   darken?: boolean;
+  headingWidth?: "min-content" | null;
+
 }
 
 
