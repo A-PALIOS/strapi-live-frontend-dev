@@ -243,7 +243,7 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
                 | "blocks.services-accordion-block" | "blocks.logo-carousel-block"
                  | "blocks.testimonials-block" | "blocks.features-block" | "blocks.accordion-about"
                  | "blocks.featured-article"
-                 | "blocks.hero-section-service"
+                 | "blocks.hero-section-services"
                    | "blocks.what-believe"
                   | "blocks.mission-section"
                  | "blocks.about-info"
@@ -347,7 +347,7 @@ export interface HeroSectionProps extends Base<"blocks.hero-section"> {
   darken?: boolean;
 }
 
-export interface HeroSectionServiceProps extends Base<"blocks.hero-section-service"> {
+export interface HeroSectionServiceProps extends Base<"blocks.hero-section-services"> {
   theme: "black" | "blue";
   heading: string;
   subheader?:string;

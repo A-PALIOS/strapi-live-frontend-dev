@@ -15,10 +15,11 @@ export function HeroSectionServiceBlock({
   logo,
   darken = false,
 }: Readonly<HeroSectionServiceProps>) {
+  console.log("Video: ",video);
   return (
     <section
       id="heropage"
-      className="bg-[#fffff] pt-20 md:pt-24 lg:pt-28 pb-1 md:pb-1"
+      className=" pt-20 md:pt-24 lg:pt-28 pb-1 md:pb-1"
     >
       <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20">
         {/* Top content */}
@@ -35,12 +36,37 @@ export function HeroSectionServiceBlock({
             </div>
           )}
 
-          <h1 className="font-agenda-medium text-zinc-800 text-4xl leading-tight sm:text-5xl sm:leading-[1.05] lg:text-6xl lg:leading-[1.05] xl:text-7xl xl:leading-[1.02] 2xl:text-7xl 2xl:leading-[88px]">
+          <h1 style={{width: 'min-content'}} className="
+             text-[44px]   leading-[0.95]   
+             tracking-[-0.055em]   
+              whitespace-normal   break-words   
+              [overflow-wrap:anywhere]   
+              md:text-[62px]   lg:text-[68px]   
+              w-full justify-center  font-agenda-medium 
+              
+              
+              
+              ">
   {heading}
 </h1>
 
 {subheader && (
-  <p className="mt-6 max-w-6xl font-agenda-regular text-zinc-700 text-lg leading-relaxed sm:text-xl sm:leading-relaxed lg:text-2xl lg:leading-[1.5] xl:text-3xl xl:leading-[1.45] 2xl:text-2xl 2xl:leading-[1.4]">
+  <p className="mt-6 max-w-6xl 
+  font-agenda-normal 
+  
+   text-zinc-700
+
+          text-[18px]
+          leading-[1.28]
+          tracking-[-0.03em]
+          text-[#2c2626]
+          sm:text-[19px]
+          md:text-[20px]
+          lg:text-[21px]
+
+
+
+   ">
     {subheader}
   </p>
 )}
@@ -78,10 +104,10 @@ export function HeroSectionServiceBlock({
         {/* Hero image */}
         {video?.url && (
           <div className="mt-14 md:mt-16">
-            <div className="relative overflow-hidden rounded-2xl">
+            <div className="relative w-full overflow-hidden rounded-2xl h-[220px] md:h-[320px] lg:h-[796px] lg:w-[1728px]">
               <video
               key={video.url}
-              className="h-full w-full object-cover"
+              className="object-cover"
               autoPlay
               muted
               loop

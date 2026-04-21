@@ -248,6 +248,20 @@ const pageBySlugQuery = (slugSegments: string[]) => {
                 cta: true,
               },
             },
+
+            "blocks.hero-section-services": {
+              populate: {
+                video: true,
+                logo: {
+                  populate: {
+                    image: {
+                      fields: ["url", "alternativeText"],
+                    },
+                  },
+                },
+                cta: true,
+              },
+            },
           
 
              "blocks.hero-section-digital": {

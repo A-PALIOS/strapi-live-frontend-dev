@@ -141,7 +141,7 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <HeroSectionMain {...block} key={index} />;
     case "blocks.hero-section":
       return <HeroSection {...block} key={index} />;
-    case "blocks.hero-section-service":
+    case "blocks.hero-section-services":
       return <HeroSectionServiceBlock {...block} key={index} />
      case "blocks.hero-section-digital":
       return <HeroSectionDigital {...block} key={index} />;
