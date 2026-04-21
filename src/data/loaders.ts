@@ -288,6 +288,15 @@ const pageBySlugQuery = (slugSegments: string[]) => {
                 cta: true,
               },
             },
+            "blocks.moving-text": {
+              populate: {
+                image: {
+                  fields: ["url", "alternativeText"],
+                },
+                cta: true,
+              },
+            },
+
               "blocks.leading-institution-block":{
               populate:
               {

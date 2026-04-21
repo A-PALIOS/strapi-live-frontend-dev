@@ -85,6 +85,7 @@ import type { Block } from "@/types";
 
 import { HeroSection } from "@/components/blocks/HeroSection";
 import { InfoBlock } from "@/components/blocks/InfoBlock";
+import { MovingText } from "@/components/blocks/MovingText";
 import {MilestoneBlock} from "@/components/blocks/MilestoneBlock";
 import {VerticalAccordionBlock} from "@/components/blocks/VerticalAccordionBlock";
 import {ServicesAccordionBlock} from "@/components/blocks/ServicesAccordionBlock";
@@ -146,6 +147,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <HeroSectionDigital {...block} key={index} />;
     case "blocks.info-block":
       return <InfoBlock {...block} key={index} />;
+    case "blocks.moving-text":
+      return <MovingText {...block} key={index} />;
     case "blocks.milestones-block":
       return <MilestoneBlock {...block} key={index} />;
     case "blocks.vertical-accordion-block":

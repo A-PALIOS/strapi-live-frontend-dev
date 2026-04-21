@@ -34,6 +34,7 @@ export function AccordionAbout({
       data-header="dark"
       className="relative overflow-hidden"
     >
+      <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20">
       <div className="absolute inset-0 -z-10">
         <StrapiImage
           src={image.url}
@@ -140,6 +141,7 @@ export function AccordionAbout({
             );
           })}
         </div>
+      </div>
       </div>
     </section>
   );

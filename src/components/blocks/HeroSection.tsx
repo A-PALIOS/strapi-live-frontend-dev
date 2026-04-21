@@ -30,12 +30,37 @@ export function HeroSection({
             </div>
           )}
 
-          <h1 className="font-agenda-medium text-zinc-800 text-4xl leading-tight sm:text-5xl sm:leading-[1.05] lg:text-6xl lg:leading-[1.05] xl:text-7xl xl:leading-[1.02] 2xl:text-7xl 2xl:leading-[88px]">
+          <h1 style={{width: 'min-content'}} className="
+             text-[44px]   leading-[0.95]   
+             tracking-[-0.055em]   
+              whitespace-normal   break-words   
+              [overflow-wrap:anywhere]   
+              md:text-[62px]   lg:text-[68px]   
+              w-full justify-center  font-agenda-medium 
+              
+              
+              
+              ">
   {heading}
 </h1>
 
 {subheader && (
-  <p className="mt-6 max-w-6xl font-agenda-regular text-zinc-700 text-lg leading-relaxed sm:text-xl sm:leading-relaxed lg:text-2xl lg:leading-[1.5] xl:text-3xl xl:leading-[1.45] 2xl:text-2xl 2xl:leading-[1.4]">
+  <p className="mt-6 max-w-6xl 
+  font-agenda-normal 
+  
+   text-zinc-700
+
+          text-[18px]
+          leading-[1.28]
+          tracking-[-0.03em]
+          text-[#2c2626]
+          sm:text-[19px]
+          md:text-[20px]
+          lg:text-[21px]
+
+
+
+   ">
     {subheader}
   </p>
 )}

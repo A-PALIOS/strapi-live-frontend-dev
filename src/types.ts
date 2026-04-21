@@ -238,7 +238,7 @@ export interface ArticleProps {
 
 
 
-type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks.hero-section-digital" | "blocks.info-block"   
+type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks.hero-section-digital" | "blocks.info-block" | "blocks.moving-text" 
                 | "blocks.milestones-block" | "blocks.vertical-accordion-block" 
                 | "blocks.services-accordion-block" | "blocks.logo-carousel-block"
                  | "blocks.testimonials-block" | "blocks.features-block" | "blocks.accordion-about"
@@ -292,7 +292,7 @@ interface Base<
   data?: D;
 }
 
-export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigitalProps | HeroSectionServiceProps | InfoBlockProps | MilestonesBlockProps
+export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigitalProps | HeroSectionServiceProps | InfoBlockProps | MovingTextProps | MilestonesBlockProps
  | VerticalAccordionBlockProps | ServicesAccordionBlockProps | AccordionAboutBlockProps
  | LogoCarouselBlockProps | TestimonialsBlockProps 
  | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | InfoBoxProps | ServiceInfoProps | MissionProps | MagicBentoProps | TimeLineProps | WhatWeBelieveProps
@@ -381,6 +381,17 @@ export interface InfoBlockProps extends Base<"blocks.info-block"> {
   image?: ImageProps;
   cta?: LinkProps;
 }
+
+export interface MovingTextProps extends Base<"blocks.moving-text"> {
+  theme: "black" | "red";
+  reversed?: boolean;
+  headline: string;
+  description:string;
+  content: string;
+  image?: ImageProps;
+  cta?: LinkProps;
+}
+
 
 
 // Use Case Item (blocks.use-case-item)
