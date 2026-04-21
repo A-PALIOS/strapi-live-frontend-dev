@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { StrapiImage } from "../StrapiImage";
 
 interface MenuItem {
   id?: number;
@@ -100,15 +101,15 @@ export function TeamMemberSecondaryMenuBlock({
 
       <div
         ref={wrapperRef}
-        className={`left-0 right-0 z-[70] bg-white  ${
+        className={`left-0 right-0 z-[70] border-b border-white/20 bg-white/10 backdrop-blur-lg  ${
           isPinned ? "fixed top-0" : "relative"
         }`}
       >
         {/* Top row */}
-        <div className="px-4 py-3 px-6 md:px-12 lg:px-16 xl:px-20">
-          <div className="max-w-7xl">
-            <div className="flex flex-wrap items-center gap-4 text-lg text-gray-700">
-              <button
+        <div className="px-6 py-5 md:px-10 md:py-6 lg:px-16 xl:px-20">
+          <div className="w-full">
+            <div className="flex flex-wrap items-center gap-6 text-xl text-black">
+              {/* <button
                 onClick={() => setIsOpen((v) => !v)}
                 className="text-gray-700 hover:text-blue-600 focus:outline-none"
                 aria-label="Toggle menu"
@@ -143,7 +144,20 @@ export function TeamMemberSecondaryMenuBlock({
                     />
                   </svg>
                 )}
-              </button>
+              </button> */}
+              <Link 
+                className="flex items-center"
+                href={"/"}
+              >
+                <StrapiImage
+                  src={"http://5.77.39.26:1337/uploads/Logo_Color_e94b003ceb.svg" }
+                  alt={"error.png" }
+                  width={200}
+                  height={200}
+                  className="object-contain"
+                >
+                </StrapiImage>
+              </Link>
 
               {items.map((item) => {
                 const isHash = item.url?.startsWith("#");
@@ -153,10 +167,10 @@ export function TeamMemberSecondaryMenuBlock({
                   <Link
                     key={String(item.id ?? `${item.label}-${item.url}`)}
                     href={item.url || "#"}
-                    className={`transition-colors text-[#242A2E]/50 font-agenda-regular duration-300 ${
-                      isActivePage ? "text-[#242A2E]" : ""
+                    className={`font-agenda-regular transition-colors duration-300 ${
+                      isActivePage ? "text-[#1E9BFB]" : "text-black/70 hover:text-black"
                     }`}
-                    style={{ fontSize: "20px" }}
+                    style={{ fontSize: "22px" }}
                   >
                     {item.label}
                   </Link>
@@ -169,13 +183,13 @@ export function TeamMemberSecondaryMenuBlock({
         {/* Dropdown under the menu */}
         {isOpen && globalItems.length > 0 && (
           <div className="bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
-            <div className="max-w-7xl ml-13  px-6 py-8">
+            <div className="ml-13 px-6 py-8">
               <nav className="flex flex-col gap-6">
                 {globalItems.map((item) => (
                   <Link
                     key={`g-${String(item.id ?? item.label)}-${item.url}`}
                     href={item.url || "#"}
-                    className="font-agenda-medium text-[#242A2E] hover:text-blue-500 transition"
+                    className="font-agenda-medium text-[#242A2E] transition hover:text-blue-500"
                     style={{ fontSize: "20px" }}
                     onClick={() => setIsOpen(false)}
                   >

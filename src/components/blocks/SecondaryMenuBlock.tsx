@@ -7,6 +7,7 @@ import { useScrollSpy } from "@/utils/useScrollspy";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
+import { StrapiImage } from "../StrapiImage";
 
 interface ExtendedSecondaryMenuProps extends SecondaryMenuData {
   aboutInfoBlocks: AboutInfoProps[];
@@ -32,23 +33,30 @@ export function SecondaryMenuBlock({
   const globalItems = global?.items ?? [];
 
   return (
-    <div className="sticky top-0 z-10 bg-white px-6 py-3 md:px-12 lg:px-16 xl:px-20">
+    // <div className="sticky top-0 z-30 w-full bg-transparent px-6 py-5 md:px-10 md:py-6 lg:px-16 xl:px-20">
+  //   <div className="sticky top-0 z-30 w-full px-6 py-5 md:px-10 md:py-6 lg:px-16 xl:px-20
+  // backdrop-blur-md bg-white/10 border-b border-white/20">
+  <div className="sticky top-0 z-30 w-full px-6 py-5 md:px-10 md:py-6 lg:px-16 xl:px-20
+  backdrop-blur-md bg-white/40 border-b border-white/20">
+
+    
       {/* Row 1: logo area (kept for parity with StickyMenuBlock; wire a logo if you add one later) */}
-      <div className="flex items-center justify-between max-w-7xl mx-auto">
+      <div className="mx-auto flex w-full items-center justify-between">
         <div className="flex items-center gap-2">
           {/* Optional: render a logo here if you later add it to your menu model */}
         </div>
       </div>
 
       {/* Row 2: burger (left) + inline page links + '|' + section anchors */}
-      <div className="flex justify-between max-w-7xl ">
-        <div className="flex flex-wrap gap-4 text-lg text-gray-700">
+      <div className="flex w-full justify-between">
+        <div className="flex flex-wrap items-center gap-6 text-xl text-white">
           {/* Burger (visible on desktop too) */}
-          <button
+          {/* <button
             onClick={() => setIsOpen((v) => !v)}
             className="text-gray-700 hover:text-blue-600 focus:outline-none"
             aria-label="Toggle menu"
           >
+            
             {isOpen ? (
               <svg
                 className="w-6 h-6"
@@ -96,7 +104,23 @@ export function SecondaryMenuBlock({
                 ))}
               </nav>
             </div>
-          )}
+          )} 
+          
+
+          {/* http://5.77.39.26:1337/uploads/Logo_Color_e94b003ceb.svg */}
+          <Link 
+          className="flex items-center"
+          href={"/"}
+          >
+          <StrapiImage
+              src={"http://5.77.39.26:1337/uploads/Logo_Color_e94b003ceb.svg" }
+              alt={"error.png" }
+              width={200}
+              height={200}
+              className="object-contain"
+            >
+            </StrapiImage>
+          </Link>
 
           {/* Inline page-level links (use items from the selected menu) */}
           {items?.map((item) => {
@@ -106,10 +130,13 @@ export function SecondaryMenuBlock({
               <Link
                 key={String(item.id ?? item.label)}
                 href={item.url || "#"}
-                className={`transition-colors text-[#242A2E]/50 font-agenda-regular duration-300 ${
-                  isActivePage ? "text-[#242A2E]/100 font-agenda-regular" : ""
+                // className={`font-agenda-regular transition-colors duration-300 ${
+                //   isActivePage ? "text-white" : "text-white/70"
+                // }`}
+                className={`font-agenda-regular transition-colors duration-300 ${
+                  isActivePage ? "text-[#1E9BFB]" : "text-black/70 hover:text-black"
                 }`}
-                style={{ fontSize: "20px" }}
+                style={{ fontSize: "22px" }}
               >
                 {item.label}
               </Link>
@@ -118,7 +145,7 @@ export function SecondaryMenuBlock({
 
           {/* Separator */}
           {aboutInfoBlocks.length > 0 && (
-            <span className="text-gray-400">|</span>
+            <span className="text-white/50">|</span>
           )}
 
           {/* In-page scrollspy links */}
@@ -130,10 +157,10 @@ export function SecondaryMenuBlock({
                 key={info.id}
                 href={`#${id}`}
                 className={[
-                  "transition-colors font-agenda-regular duration-300",
-                  isActive ? "text-[#1E9BFB]" : "text-[#242A2E]/50",
+                  "font-agenda-regular transition-colors duration-300 ",
+                  isActive ? "text-[#1E9BFB] decoration underline" : "text-zinc-800/50",
                 ].join(" ")}
-                style={{ fontSize: "20px" }}
+                style={{ fontSize: "22px" }}
               >
                 {info.heading}
               </a>
