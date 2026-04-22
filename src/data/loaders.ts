@@ -269,8 +269,8 @@ const pageBySlugQuery = (slugSegments: string[]) => {
     projects: {
       populate: {
         logo: true,
-        backgroundImage: true,
-        tags: true,
+        // backgroundImage: true,
+        // tags: true,
       },
     },
   },
