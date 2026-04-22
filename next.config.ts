@@ -54,6 +54,11 @@ const nextConfig: NextConfig = {
         destination: '/about-us/system-level-transformation',
         permanent: true,
       },
+      {
+  source: '/from-policy-to-implementation',
+  destination: '/about-us/from-policy-to-implementation',
+  permanent: true,
+},
     ];
   },
 };
