@@ -263,22 +263,22 @@ const pageBySlugQuery = (slugSegments: string[]) => {
               },
             },
 
-            "blocks.relevant-projects": {
-  populate: {
-    cta: true,
-    projects: {
-      populate: {
-        logo: {
-          fields: ["url", "alternativeText"],
-        },
-        tags: true,
-        backgroundImage: {
-          fields: ["url", "alternativeText"],
-        },
-      },
-    },
-  },
-},
+//             "blocks.relevant-projects": {
+//   populate: {
+//     cta: true,
+//     projects: {
+//       populate: {
+//         logo: {
+//           fields: ["url", "alternativeText"],
+//         },
+//         tags: true,
+//         backgroundImage: {
+//           fields: ["url", "alternativeText"],
+//         },
+//       },
+//     },
+//   },
+// },
           
 
              "blocks.hero-section-digital": {
