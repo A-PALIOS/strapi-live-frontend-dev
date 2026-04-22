@@ -25,8 +25,8 @@ export interface RelevantProjectItem {
   description?: string;
   linkUrl?: string;
   isFeatured?: boolean;
-  logo?: StrapiMedia;
-  backgroundImage?: StrapiMedia;
+  logo?: ImageProps;
+  backgroundImage?: ImageProps;
   tags?: RelevantProjectTag[];
 }
 
