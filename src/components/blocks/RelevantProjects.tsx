@@ -60,7 +60,7 @@ export function RelevantProjects({
                 {item.backgroundImage ? (
                   <StrapiImage
                     src={item.backgroundImage.url}
-                    alt={item.backgroundImage.alternativeText || item.title}
+                    alt={item.backgroundImage.alternativeText || "Image"}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                   />
@@ -73,7 +73,7 @@ export function RelevantProjects({
                     {item.logo ? (
                       <StrapiImage
                         src={item.logo.url}
-                        alt={item.logo.alternativeText || item.title}
+                        alt={item.logo.alternativeText || "alternative text"}
                         width={170}
                         height={60}
                         className="h-auto w-auto max-h-[52px] object-contain"
