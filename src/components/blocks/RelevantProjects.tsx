@@ -57,12 +57,17 @@ export function RelevantProjects({
                 href={item.linkUrl || "#"}
                 className="group relative min-h-[420px] overflow-hidden bg-[#b9afa7] md:min-h-[560px]"
               >
-                {item.backgroundImage ? (
+                {item.backgroundImage?.url ? (
                   <StrapiImage
                     src={item.backgroundImage.url}
-                    alt={item.backgroundImage.alternativeText || "Image"}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    alt={
+                      item.backgroundImage.alternativeText ||
+                      item.title ||
+                      "Project image"
+                    }
+                    width={1200}
+                    height={1600}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                   />
                 ) : null}
 
@@ -70,10 +75,14 @@ export function RelevantProjects({
 
                 <div className="relative z-10 flex h-full flex-col justify-between p-4 md:p-5">
                   <div className="max-w-[170px]">
-                    {item.logo ? (
+                    {item.logo?.url ? (
                       <StrapiImage
                         src={item.logo.url}
-                        alt={item.logo.alternativeText || "alternative text"}
+                        alt={
+                          item.logo.alternativeText ||
+                          item.title ||
+                          "Project logo"
+                        }
                         width={170}
                         height={60}
                         className="h-auto w-auto max-h-[52px] object-contain"
@@ -89,9 +98,11 @@ export function RelevantProjects({
                         : "translate-y-8 opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100"
                     )}
                   >
-                    <h3 className="mb-3 text-[22px] font-medium uppercase tracking-[-0.03em] text-white md:text-[24px]">
-                      {item.title}
-                    </h3>
+                    {item.title ? (
+                      <h3 className="mb-3 text-[22px] font-medium uppercase tracking-[-0.03em] text-white md:text-[24px]">
+                        {item.title}
+                      </h3>
+                    ) : null}
 
                     {!!item.tags?.length && (
                       <div className="mb-4 flex flex-wrap gap-2">
