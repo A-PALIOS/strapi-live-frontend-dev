@@ -14,7 +14,7 @@ export interface TwoColumnTextBlockProps extends Base<"blocks.two-column-text"> 
   rightText: string;
 }
 
-export interface RelevantProjectTag {
+export interface Tag {
   id: number;
   label: string;
 }
@@ -27,7 +27,7 @@ export interface RelevantProjectItem {
   isFeatured?: boolean;
   logo?: StrapiMedia | null;
   backgroundImage?: StrapiMedia | null;
-  tags?: RelevantProjectTag[];
+  tags?: Tag[];
 }
 
 export interface RelevantProjectsBlockProps extends Base <"blocks.relevant-projects"> {
