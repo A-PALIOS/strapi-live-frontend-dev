@@ -132,6 +132,7 @@ import { ImpactLinks } from "./blocks/ImpactLinks";
 import { TwoColumnText } from "./blocks/TwoColumnText";
 import { AccordionAbout } from "./blocks/AccordionAbout";
 import { HeroSectionServiceBlock } from "./blocks/HeroSectionServiceBlock";
+import { RelevantProjects } from "./blocks/RelevantProjects";
 
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
@@ -157,6 +158,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
        return <ServicesAccordionBlock {...block} key={index}  />;
     case "blocks.accordion-about":
         return <AccordionAbout {...block} key={index} />
+    case "blocks.relevant-projects":
+      return <RelevantProjects {...block} key={index} />
     case "blocks.logo-carousel-block":
        return <LogoCarouselBlock  {...block} key={index}  />;
     case "blocks.leading-institution-block":
