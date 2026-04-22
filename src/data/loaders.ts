@@ -270,9 +270,7 @@ const pageBySlugQuery = (slugSegments: string[]) => {
       populate: {
         logo: true,
         tags: true,
-        // backgroundImage: {
-        //   fields: ["url", "alternativeText"],
-        // },
+        backgroundImage: true
       },
     },
   },
