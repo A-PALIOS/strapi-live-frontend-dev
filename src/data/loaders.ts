@@ -263,7 +263,7 @@ const pageBySlugQuery = (slugSegments: string[]) => {
               },
             },
 
-  "blocks.relevant-projects": {
+            "blocks.relevant-projects": {
   populate: {
     cta: true,
     projects: {
@@ -271,12 +271,7 @@ const pageBySlugQuery = (slugSegments: string[]) => {
         logo: {
           fields: ["url", "alternativeText"],
         },
-        backgroundImage: {
-          fields: ["url", "alternativeText"],
-        },
-        tags: {
-          populate: "*",
-        },
+        tags: true,
       },
     },
   },
