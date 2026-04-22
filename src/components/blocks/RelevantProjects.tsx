@@ -21,6 +21,8 @@ export function RelevantProjects({
 }: Readonly<RelevantProjectsBlockProps>) {
   if (!projects?.length) return null;
 
+  console.log("Projects, ", projects)
+
   const featuredIndex = Math.max(
     0,
     projects.findIndex((item) => item.isFeatured)
