@@ -8,40 +8,6 @@ function cn(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
 }
 
-function getMediaUrl(
-  media:
-    | {
-        url?: string | null;
-        alternativeText?: string | null;
-        data?: {
-          attributes?: {
-            url?: string | null;
-            alternativeText?: string | null;
-          };
-        };
-      }
-    | null
-    | undefined
-) {
-  if (!media) return undefined;
-
-  if (media.url) {
-    return {
-      url: media.url,
-      alternativeText: media.alternativeText || "",
-    };
-  }
-
-  if (media.data?.attributes?.url) {
-    return {
-      url: media.data.attributes.url,
-      alternativeText: media.data.attributes.alternativeText || "",
-    };
-  }
-
-  return undefined;
-}
-
 export function RelevantProjects({
   eyebrow,
   cta,
@@ -84,8 +50,6 @@ export function RelevantProjects({
         <div className="grid grid-cols-1 gap-[1px] bg-[#d9d4d0] md:grid-cols-3">
           {projects.map((item, index) => {
             const isOpen = index === featuredIndex;
-            const logo = getMediaUrl(item.logo as any);
-            const bg = getMediaUrl(item.backgroundImage as any);
 
             return (
               <Link
@@ -93,13 +57,12 @@ export function RelevantProjects({
                 href={item.linkUrl || "#"}
                 className="group relative min-h-[420px] overflow-hidden bg-[#b9afa7] md:min-h-[560px]"
               >
-                {bg?.url ? (
+                {item.backgroundImage ? (
                   <StrapiImage
-                    src={bg.url}
-                    alt={bg.alternativeText || item.title || "Project image"}
-                    width={1200}
-                    height={1600}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    src={item.backgroundImage.url}
+                    alt={item.backgroundImage.alternativeText || "Image"}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                   />
                 ) : null}
 
@@ -107,10 +70,10 @@ export function RelevantProjects({
 
                 <div className="relative z-10 flex h-full flex-col justify-between p-4 md:p-5">
                   <div className="max-w-[170px]">
-                    {logo?.url ? (
+                    {item.logo ? (
                       <StrapiImage
-                        src={logo.url}
-                        alt={logo.alternativeText || item.title || "Project logo"}
+                        src={item.logo.url}
+                        alt={item.logo.alternativeText || "alternative text"}
                         width={170}
                         height={60}
                         className="h-auto w-auto max-h-[52px] object-contain"
@@ -126,11 +89,9 @@ export function RelevantProjects({
                         : "translate-y-8 opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100"
                     )}
                   >
-                    {item.title ? (
-                      <h3 className="mb-3 text-[22px] font-medium uppercase tracking-[-0.03em] text-white md:text-[24px]">
-                        {item.title}
-                      </h3>
-                    ) : null}
+                    <h3 className="mb-3 text-[22px] font-medium uppercase tracking-[-0.03em] text-white md:text-[24px]">
+                      {item.title}
+                    </h3>
 
                     {!!item.tags?.length && (
                       <div className="mb-4 flex flex-wrap gap-2">
