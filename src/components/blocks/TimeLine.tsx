@@ -125,11 +125,7 @@ export function TimeLine({ title, content, heading, items }: Readonly<TimeLinePr
     <FlickityTimeline
     size="lg"
       eyebrow={title}
-      title={
-        <span className="font-ivypresto-thin">
-          CMT Prooptiki is an independent management consulting firm, specializing in health &amp; social care consulting, EU project consulting, social & economic development, established in Athens in 1992
-        </span>
-      }
+    
       intro={<ReactMarkdown>{content || ""}</ReactMarkdown>}
       items={uiItems}
     />
