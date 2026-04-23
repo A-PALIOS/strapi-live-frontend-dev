@@ -105,7 +105,7 @@ export function StatementSection({
   }, [pathname, headingPrimary, headingSecondary]);
 
   return (
-    <section className="bg-white px-6 py-10 md:px-12 md:py-12">
+    <section className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20 bg-white">
       <div className="text-right">
         <h2
           ref={headingPrimaryRef}

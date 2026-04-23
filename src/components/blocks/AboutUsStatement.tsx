@@ -7,9 +7,9 @@ export function AboutUsStatement({
   const parts = text.split(new RegExp(`(${highlightedWord})`, "i"));
 
   return (
-    <section className="w-full bg-[#02243A] px-6 py-10 md:px-10 md:py-12">
+    <section className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20  bg-[#02243A] px-6 py-10 md:px-10 md:py-12">
       <div className="w-full">
-       <p className="w-full font-agenda-regular-italic text-[22px] leading-[1.4] tracking-[-0.03em] text-white md:text-[68px] md:leading-[1.28]">
+       <p className="w-full font-agenda-light-italic text-[22px] leading-[1.4] tracking-[-0.01em] text-white md:text-6xl md:leading-[1.28]">
           {parts.map((part, index) =>
             part.toLowerCase() === highlightedWord.toLowerCase() ? (
               <span key={index} className="text-[#2994F2]">

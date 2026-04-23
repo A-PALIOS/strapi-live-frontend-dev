@@ -30,7 +30,7 @@ export function CompanyHighlights({
           </h2>
         )}
 
-        <div className="grid grid-cols-1 border-t border-[#d9d9d9] md:grid-cols-3">
+        <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20   bg-white grid grid-cols-1 border-t border-[#d9d9d9] md:grid-cols-3">
           {items?.map((item, index) => (
             <article
               key={item.id ?? index}

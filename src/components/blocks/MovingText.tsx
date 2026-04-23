@@ -65,7 +65,7 @@ export function MovingText({
   return (
     <section className="w-full overflow-x-clip">
       <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-10 md:py-10">
-        <div className="max-w-[760px]">
+        <div className="max-w-[1200px]">
           <p
             ref={descRef}
             className="

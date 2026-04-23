@@ -55,8 +55,19 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-  source: '/from-policy-to-implementation',
-  destination: '/about-us/from-policy-to-implementation',
+  source: '/project-with-real-societal-impact',
+  destination: '/about-us/project-with-real-societal-impact',
+  permanent: true,
+},
+     {
+  source: '/sustainable-and-long-term-change',
+  destination: '/about-us/sustainable-and-long-term-change',
+  permanent: true,
+},
+
+  {
+  source: '/health-policy-and-consulting',
+  destination: '/services/health-policy-and-consulting',
   permanent: true,
 },
     ];

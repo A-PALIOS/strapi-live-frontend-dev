@@ -21,7 +21,7 @@ export function ImpactLinks({
   if (!items?.length) return null;
 
   return (
-    <section className="relative w-full overflow-hidden text-white">
+    <section className="relative w-full px-6 md:px-10 lg:px-16 xl:px-20 py-10 md:py-10 overflow-hidden text-white">
       {/* Background */}
       {backgroundImage && (
         <StrapiImage
@@ -37,7 +37,7 @@ export function ImpactLinks({
       <div className="absolute inset-0 " />
 
       {/* Content */}
-      <div className="relative max-w-[1920px] px-6 py-16 md:px-10 md:py-24">
+      <div className="relative max-w-[1920px]  py-16  md:py-24">
         {/* Top Row */}
         <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           {eyebrow && (
@@ -57,7 +57,7 @@ export function ImpactLinks({
         <div className="mb-10 h-px w-full bg-white/20" />
 
         {/* Links */}
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-10">
           {items.map((item) => {
             const isHighlighted = item.isHighlighted;
 
