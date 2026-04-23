@@ -68,6 +68,19 @@ export interface TextLinkItem {
   url: string;
 }
 
+export interface RelatedServiceItem {
+  id: number;
+  title: string;
+  pagePath: string;
+  openInNewTab?: boolean;
+}
+
+export interface RelatedServicesGridBlockProps extends Base <"blocks.related-service-grid"> {
+  id: number;
+  eyebrow?: string;
+  items?: RelatedServiceItem[];
+}
+
 export interface WhatSetsUsApartBlockProps extends Base <"blocks.what-sets-us-apart"> {
   id: number;
   eyebrow?: string;
@@ -278,6 +291,7 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
                  | "blocks.about-section"
                  | "blocks.leading-institution-block"
                  | "blocks.heading"
+                 | "blocks.related-service-grid"
                   | "blocks.paragraph-with-image"
                   | "blocks.paragraph"
                   | "blocks.full-image"
@@ -328,6 +342,7 @@ export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigital
   | FullImageProps
   | ProcessStepsBlockProps
   | RelevantProjectsBlockProps
+  | RelatedServicesGridBlockProps
   | StickyMenuProps
   | AboutUsStatementBlockProps
   | SecondaryMenuProps

@@ -1,0 +1,93 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import type { RelatedServicesGridBlockProps } from "@/types";
+
+function normalizePath(path?: string) {
+  if (!path) return "/";
+  let cleaned = path.trim().toLowerCase();
+
+  if (!cleaned.startsWith("/")) cleaned = `/${cleaned}`;
+  if (cleaned.length > 1 && cleaned.endsWith("/")) cleaned = cleaned.slice(0, -1);
+
+  return cleaned;
+}
+
+function getLastSegment(path?: string) {
+  const normalized = normalizePath(path);
+  return normalized.split("/").filter(Boolean).pop() ?? "";
+}
+
+export function RelatedServiceGrid({
+  eyebrow,
+  items,
+}: Readonly<RelatedServicesGridBlockProps>) {
+  const pathname = normalizePath(usePathname());
+  const currentSlug = getLastSegment(pathname);
+
+  if (!items?.length) return null;
+
+  // find which index is the current page
+  const hiddenIndex = items.findIndex((item) => {
+    const itemSlug = getLastSegment(item.pagePath);
+    return itemSlug === currentSlug;
+  });
+
+  // find first visible item (for orange)
+  const firstVisibleIndex = items.findIndex((_, i) => i !== hiddenIndex);
+
+  return (
+    <section className="w-full bg-white">
+      <div className="w-full px-6 py-10 md:px-10 md:py-12 lg:px-16 xl:px-20">
+        {eyebrow && (
+          <p className="mb-3 text-[10px] uppercase tracking-[0.08em] text-black">
+            {eyebrow}
+          </p>
+        )}
+
+        <div className="grid grid-cols-1 border border-[#D9D9D9] md:grid-cols-3">
+          {items.map((item, index) => {
+            const isHidden = index === hiddenIndex;
+            const isHighlighted = index === firstVisibleIndex;
+
+            return (
+              <Link
+                key={item.id}
+                href={item.pagePath}
+                target={item.openInNewTab ? "_blank" : undefined}
+                rel={item.openInNewTab ? "noopener noreferrer" : undefined}
+                className={[
+                  "group relative flex min-h-[92px] items-start justify-between border-b border-r border-l border-t border-[#D9D9D9] px-5 py-5 transition-colors duration-200 md:min-h-[110px]",
+
+                  // HIDE CURRENT PAGE (keeps grid structure)
+                  isHidden ? "invisible pointer-events-none" : "",
+
+                  // ORANGE LOGIC
+                  !isHidden && isHighlighted
+                    ? "bg-[#F28C28] text-white"
+                    : "text-[#3A3A3A] hover:bg-[#ECECEC]",
+                ].join(" ")}
+              >
+                <span className="max-w-[220px] text-[18px] leading-[1.1] tracking-[-0.03em] md:text-[20px]">
+                  {item.title}
+                </span>
+
+                <span
+                  className={[
+                    "flex h-7 w-7 shrink-0 items-center justify-center border text-[16px] transition-transform duration-200 group-hover:-translate-y-[1px] group-hover:translate-x-[1px]",
+                    !isHidden && isHighlighted
+                      ? "border-white bg-white text-[#F28C28]"
+                      : "border-transparent text-black",
+                  ].join(" ")}
+                >
+                  ↗
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -271,6 +271,12 @@ const pageBySlugQuery = (slugSegments: string[]) => {
     },
   },
 },
+
+            "blocks.related-service-grid": {
+  populate: {
+    items: true,
+  },
+},
           
 
              "blocks.hero-section-digital": {

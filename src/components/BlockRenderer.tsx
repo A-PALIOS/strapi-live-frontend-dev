@@ -133,6 +133,7 @@ import { TwoColumnText } from "./blocks/TwoColumnText";
 import { AccordionAbout } from "./blocks/AccordionAbout";
 import { HeroSectionServiceBlock } from "./blocks/HeroSectionServiceBlock";
 import { RelevantProjects } from "./blocks/RelevantProjects";
+import { RelatedServiceGrid } from "./blocks/RelatedServiceGrid";
 
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
@@ -148,6 +149,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <HeroSectionDigital {...block} key={index} />;
     case "blocks.info-block":
       return <InfoBlock {...block} key={index} />;
+    case "blocks.related-service-grid":
+      return <RelatedServiceGrid {...block} key={index} />
     case "blocks.moving-text":
       return <MovingText {...block} key={index} />;
     case "blocks.milestones-block":
