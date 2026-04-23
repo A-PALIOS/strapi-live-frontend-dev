@@ -268,9 +268,15 @@ const pageBySlugQuery = (slugSegments: string[]) => {
     cta: true,
     projects: {
       populate: {
-        // logo: true,
-        backgroundImage: true,
-        // tags: true,
+        logo: {
+          fields: ["url", "alternativeText"],
+        },
+        backgroundImage: {
+          fields: ["url", "alternativeText"],
+        },
+        tags: {
+          populate: true,
+        },
       },
     },
   },
