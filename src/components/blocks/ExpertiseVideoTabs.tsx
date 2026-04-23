@@ -30,7 +30,7 @@ export function ExpertiseVideoTabs({
 
   return (
     <section className="w-full">
-      <div style={{ background: "linear-gradient(25deg, rgb(148, 117, 96) 0%, rgb(111, 113, 118) 25%, rgb(79, 110, 133) 50%, rgb(47, 109, 157) 100%);" }}
+      <div style={{ background: "linear-gradient(25deg, rgb(148, 117, 96) 0%, rgb(111, 113, 118) 25%, rgb(79, 110, 133) 50%, rgb(47, 109, 157) 100%)" }}
        className="grid w-full px-6 md:px-10 lg:px-16 xl:px-20  grid-cols-1 md:grid-cols-[48%_52%]">
         <div className="relative overflow-hidden px-6 py-8 md:min-h-[590px] md:px-10 md:py-8">
           <div className="absolute inset-0 opacity-20">

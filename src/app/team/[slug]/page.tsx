@@ -70,7 +70,7 @@ export default async function MemberPage({ params, searchParams }: PageProps) {
             </div>
           </div>
         </div> */}
-        <div className="relative bg-[#37393c] text-white px-6 py-16 overflow-hidden" data-header="dark">
+        <div className="relative bg-team-member text-white px-6 py-16 overflow-hidden" data-header="dark">
     
     {member.CoverImage?.url && (
       <div className="absolute bottom-0 sm:left-10 md:left-40 lg:left-60 xl:left-70 z-0 w-[400px] h-[600px] overflow-hidden">
@@ -90,12 +90,12 @@ export default async function MemberPage({ params, searchParams }: PageProps) {
       preserveAspectRatio="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <defs>
-        <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#2196f3" stopOpacity="0.3" />
-          <stop offset="100%" stopColor="#2196f3" stopOpacity="0.3" />
-        </linearGradient>
-      </defs>
+    <defs>
+  <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="10%" stopColor="#0f172a" stopOpacity="0.9" />
+    <stop offset="80%" stopColor="#075985" stopOpacity="0.9" />
+  </linearGradient>
+</defs>
       <path
         fill="url(#waveGradient)"
         d="M0,288L60,266.7C120,245,240,203,360,192C480,181,600,203,720,200.3C840,190,960,224,1080,208C1200,192,1320,160,1380,144L1440,128V320H1380C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320H0Z"
@@ -107,19 +107,19 @@ export default async function MemberPage({ params, searchParams }: PageProps) {
 
       
       <div className="flex-1 pt-4 sm:pt-12">
-        <h1 className="text-4xl sm:text-5xl font-bold text-[#2196f3]">
+        <h1 className="text-4xl sm:text-5xl font-bold font-agenda-medium text-[#2196f3]">
           {member.FullName}
         </h1>
-        <p className="text-lg italic mt-2 text-gray-200">{member.JobTitle}</p>
+        <p className="text-lg  mt-2 font-agenda-light text-gray-200 leading-[48px]">{member.JobTitle}</p>
       </div>
     </div>
   </div>
 
   <TeamMemberSecondaryMenuBlock items={menuItems} global={globalMenu} />
 
-        <div id="about" className="max-w-5xl mx-auto px-6 py-12 scroll-mt-40">
+        <div id="about" className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20 scroll-mt-40">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-6">
-            <h2 className="text-2xl italic text-[#2196f3] font-semibold">
+            <h2 className="text-4xl font-agenda-medium text-[#242A2E] ">
               About {firstName}
             </h2>
 
@@ -145,7 +145,7 @@ export default async function MemberPage({ params, searchParams }: PageProps) {
           </div>
 
           {member.Bio && (
-            <p className="text-gray-700 leading-relaxed whitespace-pre-line mb-10">
+            <p className="md:w-[50%] lg:w-[50%] font-agenda-regular text-zinc-800/50 text-lg leading-relaxed whitespace-pre-line mb-10">
               {member.Bio}
             </p>
           )}
