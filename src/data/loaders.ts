@@ -446,12 +446,9 @@ const pageBySlugQuery = (slugSegments: string[]) => {
                     cta: true,
                   },
               },
-              // "blocks.link-list-about": {
-              //   populate: {
-              //     items: true,
-              //     cta: true,
-              //   },
-              // },
+              "blocks.link-list-about": {
+                populate: "*"
+              },
               "blocks.process-steps": {
                 populate:{
                   steps:true
