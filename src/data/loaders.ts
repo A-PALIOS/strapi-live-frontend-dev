@@ -544,6 +544,17 @@ const pageBySlugQuery = (slugSegments: string[]) => {
 };
 
 
+// export async function getPageBySlug(slugSegments: string[]) {
+//   const path = "/api/pages";
+//   const url = new URL(path, BASE_URL);
+//   url.search = pageBySlugQuery(slugSegments);
+
+//   console.log("getPageBySlug URL:", url.toString());
+
+//   return await fetchAPI(url.href, { method: "GET" });
+// }
+
+
 export async function getPageBySlug(slugSegments: string[]) {
   const path = "/api/pages";
   const url = new URL(path, BASE_URL);
@@ -551,9 +562,12 @@ export async function getPageBySlug(slugSegments: string[]) {
 
   console.log("getPageBySlug URL:", url.toString());
 
-  return await fetchAPI(url.href, { method: "GET" });
-}
+  const response = await fetchAPI(url.href, { method: "GET" });
 
+  console.log("getPageBySlug RESPONSE:", JSON.stringify(response, null, 2));
+
+  return response;
+}
 
 export async function getContent(path: string, featured?: boolean, query?: string, page?: string, category?: string) {
   const url = new URL(path, BASE_URL);
