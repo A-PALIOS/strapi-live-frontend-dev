@@ -65,9 +65,38 @@ const nextConfig: NextConfig = {
   permanent: true,
 },
 
+
   {
   source: '/health-policy-and-consulting',
   destination: '/services/health-policy-and-consulting',
+  permanent: true,
+},
+
+
+  {
+  source: '/strategic-planning-and-development',
+  destination: '/services/strategic-planning-and-development',
+  permanent: true,
+},
+{
+  source: '/project-design-and-management-eu-and-national',
+  destination: '/services/project-design-and-management-eu-and-national',
+  permanent: true,
+},
+
+{
+  source: '/capacity-building-and-methodology-support',
+  destination: '/services/capacity-building-and-methodology-support',
+  permanent: true,
+},
+  {
+  source: '/feasibility-and-service-design-studies',
+  destination: '/services/feasibility-and-service-design-studies',
+  permanent: true,
+},
+{
+  source: '/digital-solutions-and-innovation',
+  destination: '/services/digital-solutions-and-innovation',
   permanent: true,
 },
     ];
