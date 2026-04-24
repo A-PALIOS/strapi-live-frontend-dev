@@ -222,7 +222,12 @@ const pageBlocksPopulate = {
 
     "blocks.impact-navigation": {
       populate: {
-        items: true,
+        items: {
+          populate:
+          {
+            url: true
+          }
+        },
       },
     },
 
