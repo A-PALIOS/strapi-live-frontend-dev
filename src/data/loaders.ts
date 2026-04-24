@@ -219,326 +219,358 @@ const pageBySlugQuery = (slugSegments: string[]) => {
         parent: buildParentFilter(parentSegments),
       },
       populate: {
-        parent: { fields: ["slug"] },
-          secondary_menus: {
+        parent: {
+          fields: ["slug"],
+        },
+        secondary_menus: {
           populate: {
             items: {
-              populate: {
-                icon: {
-                  fields: ["url", "alternativeText"],
-                },
-              },
+              populate: "*",
             },
           },
         },
         blocks: {
-          on: {
-            "blocks.hero-section": {
-              populate: {
-                image: {
-                  fields: ["url", "alternativeText"],
-                },
-                logo: {
-                  populate: {
-                    image: {
-                      fields: ["url", "alternativeText"],
-                    },
-                  },
-                },
-                cta: true,
-              },
-            },
-
-            "blocks.hero-section-services": {
-              populate: {
-                video: true,
-                logo: {
-                  populate: {
-                    image: {
-                      fields: ["url", "alternativeText"],
-                    },
-                  },
-                },
-                cta: true,
-              },
-            },
-
-           "blocks.relevant-projects": {
-  populate: {
-    cta: true,
-    projects: {
-      populate: "*",
+          populate: "*",
+        },
+      },
     },
-  },
-},
+    { encodeValuesOnly: true }
+  );
+};
 
-            "blocks.related-service-grid": {
-  populate: {
-    items: true,
-  },
-},
-          
+// const pageBySlugQuery = (slugSegments: string[]) => {
+//   const lastSegment = slugSegments[slugSegments.length - 1];
+//   const parentSegments = slugSegments.slice(0, -1);
 
-             "blocks.hero-section-digital": {
-              populate: {
-                image: {
-                  fields: ["url", "alternativeText"],
-                },
-                logo: {
-                  populate: {
-                    image: {
-                      fields: ["url", "alternativeText"],
-                    },
-                  },
-                },
-                cta: true,
-              },
-            },
+//   return qs.stringify(
+//     {
+//       filters: {
+//         slug: {
+//           $eq: lastSegment,
+//         },
+//         parent: buildParentFilter(parentSegments),
+//       },
+//       populate: {
+//         parent: { fields: ["slug"] },
+//           secondary_menus: {
+//           populate: {
+//             items: {
+//               populate: {
+//                 icon: {
+//                   fields: ["url", "alternativeText"],
+//                 },
+//               },
+//             },
+//           },
+//         },
+//         blocks: {
+//           on: {
+//             "blocks.hero-section": {
+//               populate: {
+//                 image: {
+//                   fields: ["url", "alternativeText"],
+//                 },
+//                 logo: {
+//                   populate: {
+//                     image: {
+//                       fields: ["url", "alternativeText"],
+//                     },
+//                   },
+//                 },
+//                 cta: true,
+//               },
+//             },
 
-            "blocks.sticky-menu": {
-              populate: {
-                logo: {
-                  populate: {
-                    image: {
-                      fields: ["url", "alternativeText"],
-                    },
-                  },
-                },
-                navigation:true,
-                hamnavigation:true,
-              },
-            },
+//             "blocks.hero-section-services": {
+//               populate: {
+//                 video: true,
+//                 logo: {
+//                   populate: {
+//                     image: {
+//                       fields: ["url", "alternativeText"],
+//                     },
+//                   },
+//                 },
+//                 cta: true,
+//               },
+//             },
 
-//             "blocks.impact-navigation": {
+//            "blocks.relevant-projects": {
 //   populate: {
-//     items: {
+//     cta: true,
+//     projects: {
 //       populate: "*",
 //     },
 //   },
 // },
 
-            "blocks.info-block": {
-              populate: {
-                image: {
-                  fields: ["url", "alternativeText"],
-                },
-                cta: true,
-              },
-            },
-            "blocks.moving-text": {
-              populate: {
-                image: {
-                  fields: ["url", "alternativeText"],
-                },
-                cta: true,
-              },
-            },
+//             "blocks.related-service-grid": {
+//   populate: {
+//     items: true,
+//   },
+// },
+          
 
-              "blocks.leading-institution-block":{
-              populate:
-              {
-                cta: true,
-              }
-            },
-            "blocks.featured-article": {
-              populate: {
-                image: {
-                  fields: ["url", "alternativeText"],
-                },
-                link: true,
-              },
-            },
-            "blocks.about-section": {
-              populate: {
-                infographic: {
-                  fields: ["url", "alternativeText"],
-                },
-              },
-            },
-            "blocks.about-info": true,
-            "blocks.info-box": true,
-           "blocks.mission-section": {
-  fields: ["title", "content", "heading"],     // parent fields
-  populate: {
-    values: {
-      fields: ["key", "title", "body"]         // repeatable component fields
-    }
-  }
-},
-            "blocks.what-believe": {
-              populate: { items: { fields: ["title", "blurb", "iconKey", "sortOrder"] } },
-            },
-            "blocks.magic-bento-block": {
-                populate: {
-                  items: {
-                    sort: ["order:asc"],
-                    populate: { link: true },
-                  },
-                },
-              },
-            "blocks.service-info": true,
-            "blocks.timeline-block": {
-              populate: {
-                items: {
-                  populate: {
-                    images: { fields: ["url", "alternativeText"] },
-                  },
-                },
-              },
-            },
+//              "blocks.hero-section-digital": {
+//               populate: {
+//                 image: {
+//                   fields: ["url", "alternativeText"],
+//                 },
+//                 logo: {
+//                   populate: {
+//                     image: {
+//                       fields: ["url", "alternativeText"],
+//                     },
+//                   },
+//                 },
+//                 cta: true,
+//               },
+//             },
 
-            "blocks.team-grid": {
-              populate: {
-                team_members: {
-                  populate: {
-                    ProfileImage: {
-                      fields: ["url", "alternativeText"],
-                    },
-                    CoverImage:{
-                      fields: ["url", "alternativeText"],
-                    }
-                  },
-                },
-                },
-              },
-              "blocks.dashboard-section1": true,
-              "blocks.dashboard-section2": true,
-              "blocks.dashboard-section3": true,
-              "blocks.dashboard-section4": true,
-              "blocks.dashboard-section5": true,
-              "blocks.statement-section": true,
-              "blocks.about-us-statement": true,
-              "blocks.two-column-text": true,
-              "blocks.impact-links":
-              {
-                populate:
-                {
-                  backgroundImage:{
-                    fields: ["url", "alternativeText"]
-                  },
-                  items: true
-                }
-              },
-              "blocks.what-sets-us-apart":
-              {
-                populate:{
-                  rightList: true,
-                  topImage:{
-                    fields: ["url", "alternativeText"],
-                  }
-                }
-              },
-              "blocks.services-accordion-block": {
-                populate: {
-                    items: true,
-                    image: {
-                        fields: ["url", "alternativeText"],
-                    },
-                    cta: true,
-                  },
-              },
-              "blocks.accordion-about": {
-                populate: {
-                    items: true,
-                    image: {
-                        fields: ["url", "alternativeText"],
-                    },
-                    cta: true,
-                  },
-              },
-              "blocks.link-list-about": {
-  populate: "*",
-},
-              "blocks.process-steps": {
-                populate:{
-                  steps:true
-                }
-              },
-              "blocks.expertise-video-tabs": {
-                  populate: {
-                          items: {
-                              populate: {
-                                      icon: true,
-                                    video: true,
-            },
-          },
-        },
-      },
-              "blocks.company-highlights": {
-                populate: {
-                  items: {
-                    populate: {
-                    icon:{
-                      fields: ["url", "alternativeText"],
-                    }
-                  }
-                  }
-                },
-              },
+//             "blocks.sticky-menu": {
+//               populate: {
+//                 logo: {
+//                   populate: {
+//                     image: {
+//                       fields: ["url", "alternativeText"],
+//                     },
+//                   },
+//                 },
+//                 navigation:true,
+//                 hamnavigation:true,
+//               },
+//             },
 
-              "blocks.expertise-grid": {
-                populate: {
-                  items: true,
-                },
-              },
+// //             "blocks.impact-navigation": {
+// //   populate: {
+// //     items: {
+// //       populate: "*",
+// //     },
+// //   },
+// // },
 
-              "blocks.ai-cards": {
-                populate: {
-                  Cards: {
-                    populate: {
-                      Icon_Image: {
-                        fields: ["url", "alternativeText"],
-                      },
-                    },
-                  },
-                },
-              },
-              "blocks.use-cases-section": {
-                populate: {
-                  items: {
-                    fields: ["text", "icon"],
-                  },
-                  image:{
-                    fields: ["url", "alternativeText"],
-                  },
-                  cta: true,
-                },
-              },
-              "blocks.coverflow-showcase": {
-                  populate: {
-                    items: {
-                      populate: {
-                        thumb: {
-                          fields: ["url", "alternativeText"],
-                        },
-                        screenshots: {
-                          fields: ["url", "alternativeText"],
-                        },
-                        tags: {
-                          fields: ["label"],
-                        },
-                        stack: {
-                          fields: ["label"],
-                        },
-                      },
-                    },
-                  },
-                },
-              "blocks.case-highlight": {
-                populate: {
-                  image: {
-                    fields: ["url", "alternativeText"],
-                  },
-                  cta: true,
-                },
-              },
-            },
-          },
-        },
-      },
-    { encodeValuesOnly: true }
-  );
-};
+//             "blocks.info-block": {
+//               populate: {
+//                 image: {
+//                   fields: ["url", "alternativeText"],
+//                 },
+//                 cta: true,
+//               },
+//             },
+//             "blocks.moving-text": {
+//               populate: {
+//                 image: {
+//                   fields: ["url", "alternativeText"],
+//                 },
+//                 cta: true,
+//               },
+//             },
+
+//               "blocks.leading-institution-block":{
+//               populate:
+//               {
+//                 cta: true,
+//               }
+//             },
+//             "blocks.featured-article": {
+//               populate: {
+//                 image: {
+//                   fields: ["url", "alternativeText"],
+//                 },
+//                 link: true,
+//               },
+//             },
+//             "blocks.about-section": {
+//               populate: {
+//                 infographic: {
+//                   fields: ["url", "alternativeText"],
+//                 },
+//               },
+//             },
+//             "blocks.about-info": true,
+//             "blocks.info-box": true,
+//            "blocks.mission-section": {
+//   fields: ["title", "content", "heading"],     // parent fields
+//   populate: {
+//     values: {
+//       fields: ["key", "title", "body"]         // repeatable component fields
+//     }
+//   }
+// },
+//             "blocks.what-believe": {
+//               populate: { items: { fields: ["title", "blurb", "iconKey", "sortOrder"] } },
+//             },
+//             "blocks.magic-bento-block": {
+//                 populate: {
+//                   items: {
+//                     sort: ["order:asc"],
+//                     populate: { link: true },
+//                   },
+//                 },
+//               },
+//             "blocks.service-info": true,
+//             "blocks.timeline-block": {
+//               populate: {
+//                 items: {
+//                   populate: {
+//                     images: { fields: ["url", "alternativeText"] },
+//                   },
+//                 },
+//               },
+//             },
+
+//             "blocks.team-grid": {
+//               populate: {
+//                 team_members: {
+//                   populate: {
+//                     ProfileImage: {
+//                       fields: ["url", "alternativeText"],
+//                     },
+//                     CoverImage:{
+//                       fields: ["url", "alternativeText"],
+//                     }
+//                   },
+//                 },
+//                 },
+//               },
+//               "blocks.dashboard-section1": true,
+//               "blocks.dashboard-section2": true,
+//               "blocks.dashboard-section3": true,
+//               "blocks.dashboard-section4": true,
+//               "blocks.dashboard-section5": true,
+//               "blocks.statement-section": true,
+//               "blocks.about-us-statement": true,
+//               "blocks.two-column-text": true,
+//               "blocks.impact-links":
+//               {
+//                 populate:
+//                 {
+//                   backgroundImage:{
+//                     fields: ["url", "alternativeText"]
+//                   },
+//                   items: true
+//                 }
+//               },
+//               "blocks.what-sets-us-apart":
+//               {
+//                 populate:{
+//                   rightList: true,
+//                   topImage:{
+//                     fields: ["url", "alternativeText"],
+//                   }
+//                 }
+//               },
+//               "blocks.services-accordion-block": {
+//                 populate: {
+//                     items: true,
+//                     image: {
+//                         fields: ["url", "alternativeText"],
+//                     },
+//                     cta: true,
+//                   },
+//               },
+//               "blocks.accordion-about": {
+//                 populate: {
+//                     items: true,
+//                     image: {
+//                         fields: ["url", "alternativeText"],
+//                     },
+//                     cta: true,
+//                   },
+//               },
+//               "blocks.link-list-about": {
+//   populate: "*",
+// },
+//               "blocks.process-steps": {
+//                 populate:{
+//                   steps:true
+//                 }
+//               },
+//               "blocks.expertise-video-tabs": {
+//                   populate: {
+//                           items: {
+//                               populate: {
+//                                       icon: true,
+//                                     video: true,
+//             },
+//           },
+//         },
+//       },
+//               "blocks.company-highlights": {
+//                 populate: {
+//                   items: {
+//                     populate: {
+//                     icon:{
+//                       fields: ["url", "alternativeText"],
+//                     }
+//                   }
+//                   }
+//                 },
+//               },
+
+//               "blocks.expertise-grid": {
+//                 populate: {
+//                   items: true,
+//                 },
+//               },
+
+//               "blocks.ai-cards": {
+//                 populate: {
+//                   Cards: {
+//                     populate: {
+//                       Icon_Image: {
+//                         fields: ["url", "alternativeText"],
+//                       },
+//                     },
+//                   },
+//                 },
+//               },
+//               "blocks.use-cases-section": {
+//                 populate: {
+//                   items: {
+//                     fields: ["text", "icon"],
+//                   },
+//                   image:{
+//                     fields: ["url", "alternativeText"],
+//                   },
+//                   cta: true,
+//                 },
+//               },
+//               "blocks.coverflow-showcase": {
+//                   populate: {
+//                     items: {
+//                       populate: {
+//                         thumb: {
+//                           fields: ["url", "alternativeText"],
+//                         },
+//                         screenshots: {
+//                           fields: ["url", "alternativeText"],
+//                         },
+//                         tags: {
+//                           fields: ["label"],
+//                         },
+//                         stack: {
+//                           fields: ["label"],
+//                         },
+//                       },
+//                     },
+//                   },
+//                 },
+//               "blocks.case-highlight": {
+//                 populate: {
+//                   image: {
+//                     fields: ["url", "alternativeText"],
+//                   },
+//                   cta: true,
+//                 },
+//               },
+//             },
+//           },
+//         },
+//       },
+//     { encodeValuesOnly: true }
+//   );
+// };
 
 
 // export async function getPageBySlug(slugSegments: string[]) {
