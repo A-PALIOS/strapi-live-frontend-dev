@@ -309,13 +309,13 @@ const pageBySlugQuery = (slugSegments: string[]) => {
               },
             },
 
-            "blocks.impact-navigation": {
-  populate: {
-    items: {
-      populate: "*",
-    },
-  },
-},
+//             "blocks.impact-navigation": {
+//   populate: {
+//     items: {
+//       populate: "*",
+//     },
+//   },
+// },
 
             "blocks.info-block": {
               populate: {
@@ -446,12 +446,12 @@ const pageBySlugQuery = (slugSegments: string[]) => {
                     cta: true,
                   },
               },
-              // "blocks.link-list-about": {
-              //   populate: {
-              //     items: true,
-              //     cta: true,
-              //   },
-              // },
+              "blocks.link-list-about": {
+                populate: {
+                  items: true,
+                  cta: true,
+                },
+              },
               "blocks.process-steps": {
                 populate:{
                   steps:true
