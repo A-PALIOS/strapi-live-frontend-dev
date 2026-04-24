@@ -309,13 +309,13 @@ const pageBySlugQuery = (slugSegments: string[]) => {
               },
             },
 
-//             "blocks.impact-navigation": {
-//   populate: {
-//     items: {
-//       populate: "*",
-//     },
-//   },
-// },
+            "blocks.impact-navigation": {
+  populate: {
+    items: {
+      populate: "*",
+    },
+  },
+},
 
             "blocks.info-block": {
               populate: {
@@ -447,7 +447,10 @@ const pageBySlugQuery = (slugSegments: string[]) => {
                   },
               },
               "blocks.link-list-about": {
-                populate: "*",
+                populate: {
+                  items: true,
+                  cta: true,
+                },
               },
               "blocks.process-steps": {
                 populate:{
