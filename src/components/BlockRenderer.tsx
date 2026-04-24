@@ -135,6 +135,7 @@ import { HeroSectionServiceBlock } from "./blocks/HeroSectionServiceBlock";
 import { RelevantProjects } from "./blocks/RelevantProjects";
 import { RelatedServiceGrid } from "./blocks/RelatedServiceGrid";
 import { LinkListAbout } from "./blocks/LinkListAbout";
+import { ImpactNavigation } from "./blocks/ImpactNavigation";
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
     
@@ -171,6 +172,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <LeadingInstitutionBlock {...block} key={index} />;
     case "blocks.testimonials-block":
         return <TestimonialsBlock {...block} key={index} />;
+    case "blocks.impact-navigation":
+      return <ImpactNavigation {...block} key={index} />;
     case "blocks.features-block" :
         return <FeaturesBlock {...block} key={index} />;
     case "blocks.featured-article":

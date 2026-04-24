@@ -309,6 +309,16 @@ const pageBySlugQuery = (slugSegments: string[]) => {
               },
             },
 
+            "blocks.impact-navigation": {
+  populate: {
+    items: {
+      populate: {
+        url: true,
+      },
+    },
+  },
+},
+
             "blocks.info-block": {
               populate: {
                 image: {

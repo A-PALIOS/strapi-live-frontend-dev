@@ -194,6 +194,17 @@ export interface LinkProps {
   isExternal: boolean;
 }
 
+export type ImpactNavigationItem = {
+  id: number;
+  title: string;
+  url?: LinkProps;
+};
+
+export interface ImpactNavigationBlockProps extends Base <"blocks.impact-navigation"> {
+  eyebrow?: string;
+  items?: ImpactNavigationItem[];
+};
+
 
 // NEW: match Strapi exactly
 export interface SocialLink {
@@ -281,6 +292,7 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
                  | "blocks.relevant-projects"
                  | "blocks.featured-article"
                  | "blocks.hero-section-services"
+                 | "blocks.impact-navigation"
                    | "blocks.what-believe"
                   | "blocks.mission-section"
                  | "blocks.about-info"
@@ -336,6 +348,7 @@ export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigital
  | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | InfoBoxProps | ServiceInfoProps | MissionProps | MagicBentoProps | TimeLineProps | WhatWeBelieveProps
    | HeadingProps
   | ParagraphWithImageProps
+  | ImpactNavigationBlockProps
   | WhatSetsUsApartBlockProps
   | LeadingInstitutionBlockProps
   | ParagraphProps

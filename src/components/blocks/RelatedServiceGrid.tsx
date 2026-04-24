@@ -28,14 +28,19 @@ export function RelatedServiceGrid({
 
   if (!items?.length) return null;
 
-  // find which index is the current page
+  // find current page index
   const hiddenIndex = items.findIndex((item) => {
     const itemSlug = getLastSegment(item.pagePath);
     return itemSlug === currentSlug;
   });
 
-  // find first visible item (for orange)
-  const firstVisibleIndex = items.findIndex((_, i) => i !== hiddenIndex);
+  // find next item after current page
+  let firstVisibleIndex = items.findIndex((_, i) => i > hiddenIndex);
+
+  // fallback if current is last item
+  if (firstVisibleIndex === -1) {
+    firstVisibleIndex = items.findIndex((_, i) => i !== hiddenIndex);
+  }
 
   return (
     <section className="w-full bg-white">
@@ -58,12 +63,12 @@ export function RelatedServiceGrid({
                 target={item.openInNewTab ? "_blank" : undefined}
                 rel={item.openInNewTab ? "noopener noreferrer" : undefined}
                 className={[
-                  "group relative flex min-h-[92px] items-start justify-between border-b border-r border-l border-t border-[#D9D9D9] px-5 py-5 transition-colors duration-200 md:min-h-[110px]",
+                  "group relative flex min-h-[92px] items-start justify-between border border-[#D9D9D9] px-5 py-5 transition-colors duration-200 md:min-h-[110px]",
 
-                  // HIDE CURRENT PAGE (keeps grid structure)
+                  // hide current page but keep layout
                   isHidden ? "invisible pointer-events-none" : "",
 
-                  // ORANGE LOGIC
+                  // highlight next item
                   !isHidden && isHighlighted
                     ? "bg-[#F28C28] text-white"
                     : "text-[#3A3A3A] hover:bg-[#ECECEC]",
