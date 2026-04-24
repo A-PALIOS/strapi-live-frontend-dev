@@ -134,7 +134,7 @@ import { AccordionAbout } from "./blocks/AccordionAbout";
 import { HeroSectionServiceBlock } from "./blocks/HeroSectionServiceBlock";
 import { RelevantProjects } from "./blocks/RelevantProjects";
 import { RelatedServiceGrid } from "./blocks/RelatedServiceGrid";
-
+import { LinkListAbout } from "./blocks/LinkListAbout";
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
     
@@ -161,6 +161,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
        return <ServicesAccordionBlock {...block} key={index}  />;
     case "blocks.accordion-about":
         return <AccordionAbout {...block} key={index} />
+    case "blocks.link-list-about":
+        return <LinkListAbout {...block} key={index} />
     case "blocks.relevant-projects":
       return <RelevantProjects {...block} key={index} />
     case "blocks.logo-carousel-block":

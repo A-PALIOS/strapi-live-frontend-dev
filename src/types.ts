@@ -277,7 +277,7 @@ export interface ArticleProps {
 type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks.hero-section-digital" | "blocks.info-block" | "blocks.moving-text" 
                 | "blocks.milestones-block" | "blocks.vertical-accordion-block" 
                 | "blocks.services-accordion-block" | "blocks.logo-carousel-block"
-                 | "blocks.testimonials-block" | "blocks.features-block" | "blocks.accordion-about"
+                 | "blocks.testimonials-block" | "blocks.features-block" | "blocks.accordion-about" | "blocks.link-list-about"
                  | "blocks.relevant-projects"
                  | "blocks.featured-article"
                  | "blocks.hero-section-services"
@@ -331,7 +331,7 @@ interface Base<
 }
 
 export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigitalProps | HeroSectionServiceProps | InfoBlockProps | MovingTextProps | MilestonesBlockProps
- | VerticalAccordionBlockProps | ServicesAccordionBlockProps | AccordionAboutBlockProps
+ | VerticalAccordionBlockProps | ServicesAccordionBlockProps | AccordionAboutBlockProps | LinkListAboutBlockProps
  | LogoCarouselBlockProps | TestimonialsBlockProps 
  | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | InfoBoxProps | ServiceInfoProps | MissionProps | MagicBentoProps | TimeLineProps | WhatWeBelieveProps
    | HeadingProps
@@ -547,6 +547,23 @@ export interface AccordionAboutBlockProps {
   heading:string;
   items: ServiceAccordionItem[];
   image: ImageProps;
+  cta?: LinkProps;
+}
+
+
+
+export interface LinkListAboutItem {
+  id: number;
+  title: string;
+  href: string;
+  isExternal?: boolean;
+}
+
+export interface LinkListAboutBlockProps {
+  __component: "blocks.link-list-about";
+  id: number;
+  heading?: string;
+  items?: LinkListAboutItem[];
   cta?: LinkProps;
 }
 
