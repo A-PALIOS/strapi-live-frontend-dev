@@ -447,7 +447,7 @@ const pageBySlugQuery = (slugSegments: string[]) => {
                   },
               },
               "blocks.link-list-about": {
-                populate: "*"
+                populate: "*",
               },
               "blocks.process-steps": {
                 populate:{
