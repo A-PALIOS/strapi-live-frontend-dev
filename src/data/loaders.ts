@@ -311,9 +311,7 @@ const pageBySlugQuery = (slugSegments: string[]) => {
 
             "blocks.impact-navigation": {
   populate: {
-    items: {
-      populate: "*",
-    },
+    items: true,
   },
 },
 
