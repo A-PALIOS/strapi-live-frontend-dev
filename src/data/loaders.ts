@@ -311,7 +311,9 @@ const pageBySlugQuery = (slugSegments: string[]) => {
 
             "blocks.impact-navigation": {
   populate: {
-    items: true,
+    items: {
+      populate: "*",
+    },
   },
 },
 
@@ -444,12 +446,12 @@ const pageBySlugQuery = (slugSegments: string[]) => {
                     cta: true,
                   },
               },
-              "blocks.link-list-about": {
-                populate: {
-                  items: true,
-                  cta: true,
-                },
-              },
+              // "blocks.link-list-about": {
+              //   populate: {
+              //     items: true,
+              //     cta: true,
+              //   },
+              // },
               "blocks.process-steps": {
                 populate:{
                   steps:true
