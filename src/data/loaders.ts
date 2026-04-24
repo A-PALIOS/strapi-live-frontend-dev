@@ -678,11 +678,17 @@ export async function getArticleOfTheDay() {
 }
 
 const memberPopulate = {
-  ProfileImage: media,
-  CoverImage: media,
-  secondary_menus: secondaryMenusPopulate,
-  LinkedInUrl: true,
-  Bio: true,
+  ProfileImage: true,
+  CoverImage: true,
+  secondary_menus: {
+    populate: {
+      items: {
+        populate: {
+          icon: true,
+        },
+      },
+    },
+  },
 };
 
 export async function getTeamMemberBySlug(slug: string) {
@@ -717,9 +723,7 @@ export async function fetchTeamMember(slug: string) {
   );
 
   const res = await fetch(`${BASE_URL}/api/team-members?${query}`, {
-    next: {
-      revalidate: 60,
-    },
+    next: { revalidate: 60 },
   });
 
   const data = await res.json();
