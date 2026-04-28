@@ -128,11 +128,17 @@ export function HeroSection({
         {/* Hero image */}
         {image?.url && (
           <div className="mt-14 md:mt-16 ">
-            <div className="relative overflow-hidden rounded-2xl
+            <div className={
+            `relative overflow-hidden rounded-2xl
+            ${theme==="black" ?
+              
+              "self-stretch  bg-gradient-to-l from-sky-900 via-sky-950 to-slate-950 rounded-lg shadow-[0px_0px_40px_0px_rgba(26,146,236,0.50)] outline outline-1 outline-offset-[-1px] outline-neutral-400 inline-flex justify-start items-center gap-2"
+              :"rounded-lg inline-flex justify-start items-center gap-2"
+            }
             
-            self-stretch  bg-gradient-to-l from-sky-900 via-sky-950 to-slate-950 rounded-lg shadow-[0px_0px_40px_0px_rgba(26,146,236,0.50)] outline outline-1 outline-offset-[-1px] outline-neutral-400 inline-flex justify-start items-center gap-2
-
-            ">
+            `       
+            
+            }>
               <StrapiImage
                 src={image.url}
                 alt={image.alternativeText || "Hero image"}

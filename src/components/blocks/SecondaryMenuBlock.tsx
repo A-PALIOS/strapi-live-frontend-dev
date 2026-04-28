@@ -188,8 +188,8 @@ export function SecondaryMenuBlock({
                   // }`}
                   className={`font-agenda-regular transition-colors duration-300 ${
                     isActivePage ? 
-                    (theme=="white" ? "text-[#1E9BFB]":"text-white") : 
-                    (theme=="white" ? `text-black/70 hover:text-black`: "text-white hover:text-white")
+                    (theme=="white" ? "text-black":"text-white") : 
+                    (theme=="white" ? `text-zinc-800/50 hover:text-[#1E9BFB]`: "text-white hover:text-white")
                   }`}
                   style={{ fontSize: "22px" }}
                 >
@@ -201,7 +201,7 @@ export function SecondaryMenuBlock({
 
           {/* Separator */}
           {aboutInfoBlocks.length > 0 && (
-            <span className="text-white/50">|</span>
+            <span className={theme=="white"? "text-[#969698]":"text-white"}>|</span>
           )}
 
           {/* In-page scrollspy links */}
