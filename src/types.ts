@@ -390,7 +390,7 @@ export interface HeroSectionMainProps extends Base<"blocks.hero-section-main"> {
 
 
 export interface HeroSectionProps extends Base<"blocks.hero-section"> {
-  theme: "black" | "blue";
+  theme: "black" | "blue" | "white";
   heading: string;
   subheader?:string;
   image: ImageProps;

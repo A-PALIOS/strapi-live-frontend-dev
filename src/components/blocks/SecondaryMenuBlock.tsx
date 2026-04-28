@@ -19,12 +19,14 @@ function getStrapiMediaUrl(url?: string | null) {
 interface ExtendedSecondaryMenuProps extends SecondaryMenuData {
   aboutInfoBlocks: AboutInfoProps[];
   global?: SecondaryMenuData | null; // second/global menu (goes in burger)
+
 }
 
 export function SecondaryMenuBlock({
   title,
   slug,
   items,
+  theme,
   global,
   aboutInfoBlocks,
 }: ExtendedSecondaryMenuProps) {
@@ -39,12 +41,26 @@ export function SecondaryMenuBlock({
   const [isOpen, setIsOpen] = useState(false);
   const globalItems = global?.items ?? [];
 
+  const themes = {
+    white: "bg-white/40 border-white/20 text-black",
+    black: "bg-black border-white/20 text-white",
+  };
+
+  const isWhite = theme === "white";
+
+  const backgroundClass = isWhite ? "black" : "white";
+  
+
+  // Use the theme value to pick the class, defaulting to 'white' if theme is null
+  const currentTheme = themes[theme as keyof typeof themes] || themes.white;
+
+
+  
   return (
     // <div className="sticky top-0 z-30 w-full bg-transparent px-6 py-5 md:px-10 md:py-6 lg:px-16 xl:px-20">
   //   <div className="sticky top-0 z-30 w-full px-6 py-5 md:px-10 md:py-6 lg:px-16 xl:px-20
   // backdrop-blur-md bg-white/10 border-b border-white/20">
-  <div className="sticky top-0 z-30 w-full px-6 py-5 md:px-10 md:py-6 lg:px-16 xl:px-20
-  backdrop-blur-md bg-white/40 border-b border-white/20">
+  <div className={`sticky top-0 z-30 w-full px-6 py-5 md:px-10 md:py-6 lg:px-16 xl:px-20 backdrop-blur-md ${currentTheme} ` } style={{borderBottom:"1px solid white"}}>
 
     
       {/* Row 1: logo area (kept for parity with StickyMenuBlock; wire a logo if you add one later) */}
@@ -115,7 +131,7 @@ export function SecondaryMenuBlock({
           
 
           {/* http://5.77.39.26:1337/uploads/Logo_Color_e94b003ceb.svg */}
-          <Link 
+          {/* <Link 
           className="flex items-center"
           href={"/"}
           >
@@ -127,27 +143,60 @@ export function SecondaryMenuBlock({
               className="object-contain"
             >
             </StrapiImage>
-          </Link>
+          </Link> */}
 
           {/* Inline page-level links (use items from the selected menu) */}
           {items?.map((item) => {
             const isHash = item.url?.startsWith("#");
             const isActivePage = !!item.url && !isHash && pathname === item.url;
-            return (
-              <Link
-                key={String(item.id ?? item.label)}
-                href={item.url || "#"}
-                // className={`font-agenda-regular transition-colors duration-300 ${
-                //   isActivePage ? "text-white" : "text-white/70"
-                // }`}
-                className={`font-agenda-regular transition-colors duration-300 ${
-                  isActivePage ? "text-[#1E9BFB]" : "text-black/70 hover:text-black"
-                }`}
-                style={{ fontSize: "22px" }}
-              >
-                {item.label}
-              </Link>
-            );
+            console.log("item,: ",item)
+            if(item?.icon!=null){
+
+                return (
+                <Link
+                  key={String(item.id ?? item.label)}
+                  href={item.url || "#"}
+                  // className={`font-agenda-regular transition-colors duration-300 ${
+                  //   isActivePage ? "text-white" : "text-white/70"
+                  // }`}
+                  className={`font-agenda-regular transition-colors duration-300 ${
+                    isActivePage ? "text-[#1E9BFB]" : "text-black/70 hover:text-black"
+                  }`}
+                  style={{ fontSize: "22px" }}
+                >
+                  <StrapiImage
+                    src={getStrapiMediaUrl(String(item.icon.url)) }
+                    alt={"error.png" }
+                    width={200}
+                    height={200}
+                    className="object-contain"
+                  >
+                  </StrapiImage>
+                </Link>
+              );
+
+            }else{
+
+            
+
+              return (
+                <Link
+                  key={String(item.id ?? item.label)}
+                  href={item.url || "#"}
+                  // className={`font-agenda-regular transition-colors duration-300 ${
+                  //   isActivePage ? "text-white" : "text-white/70"
+                  // }`}
+                  className={`font-agenda-regular transition-colors duration-300 ${
+                    isActivePage ? 
+                    (theme=="white" ? "text-[#1E9BFB]":"text-white") : 
+                    (theme=="white" ? `text-black/70 hover:text-black`: "text-white hover:text-white")
+                  }`}
+                  style={{ fontSize: "22px" }}
+                >
+                  {item.label}
+                </Link>
+              );
+            }
           })}
 
           {/* Separator */}
@@ -165,7 +214,9 @@ export function SecondaryMenuBlock({
                 href={`#${id}`}
                 className={[
                   "font-agenda-regular transition-colors duration-300 ",
-                  isActive ? "text-[#1E9BFB] decoration underline" : "text-zinc-800/50",
+                  isActive ? 
+                  ( theme=="white" ? "text-[#1E9BFB] decoration underline" : "text-[#1E9BFB] decoration underline") : 
+                  (theme=="white" ? `text-zinc-800/50`: "text-white"),
                 ].join(" ")}
                 style={{ fontSize: "22px" }}
               >
