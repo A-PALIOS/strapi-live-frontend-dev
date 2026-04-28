@@ -14,7 +14,7 @@ export function ImpactNavigation({
       <div className="mx-auto max-w-[1750px] px-6 py-6 md:px-10">
         {/* Eyebrow */}
         {eyebrow ? (
-          <p className="mb-6 text-[11px] font-agenda-medium uppercase tracking-[0.18em] text-[#1e1e1e]">
+          <p className="mb-6 text-[15px] font-agenda-regular uppercase tracking-[0.18em] text-[#1e1e1e]">
             {eyebrow}
           </p>
         ) : null}
@@ -42,7 +42,7 @@ export function ImpactNavigation({
                 `}
               >
                 {/* Title */}
-                <h3 className="max-w-[420px] font-agenda-medium text-[24px] uppercase leading-[0.95] tracking-[-0.055em] md:text-[28px] lg:text-[30px]">
+                <h3 className="max-w-[420px] font-agenda-regular text-[24px] uppercase leading-[0.95] tracking-[-0.055em] md:text-[32px] lg:text-[35px]">
                   {item.title}
                 </h3>
 
