@@ -6,7 +6,7 @@ import { formatDate } from "@/utils/format-date";
 export interface CardProps {
   documentId: string;
   title: string;
-  description: string;
+  description?: string;
   slug: string;
   image: ImageProps;
    imageAuthor?: {
@@ -91,7 +91,7 @@ export function Card({
  
         {/*figma author section */}
 
-<div className="flex justify-between">
+<div className="flex justify-between mt-4 mb-2 md:mt-0 md:mb-0">
 <div className="flex items-center bg-gray-100 px-4 py-2 w-fit shadow">
   {/* Profile Image with Figma-style cyan shadow */}
   <div

@@ -21,7 +21,7 @@ async function loader(slug: string) {
 
 interface ArticleOverviewProps {
   headline: string;
-  description: string;
+  description?: string;
 }
 
 function ArticleOverview({

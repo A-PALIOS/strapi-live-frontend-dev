@@ -14,13 +14,13 @@ export function ArticleIntroSection({
   publishedAt,
 }: Readonly<ArticleProps>){
   return (
-    <section className="max-w-6xl mx-auto px-4 py-31">
+    <section className="max-w-6xl mx-auto px-4 py-8 md:py-16 md:mt-0 lg:py-31 lg:mt-6">
       {/* Top row with title and author info */}
-      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-11">
+      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-6 lg:mb-11">
         <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 max-w-3xl leading-snug">
           {title}
         </h1>
-<div className="flex items-center bg-gray-100 rounded-full px-4 py-2 w-fit shadow">
+<div className="flex items-center bg-gray-100 rounded-full mt-4 mb-4 px-4 py-2 w-fit shadow">
   {/* Profile Image with Figma-style cyan shadow */}
   <div
     className="w-11 h-11 mr-3 rounded-full relative"
@@ -65,12 +65,14 @@ export function ArticleIntroSection({
 />
 
 {/* Overlay box */}
+{description && (
 <div className="relative mt-4 md:absolute md:bottom-6 md:right-6  p-4 rounded-md w-full md:w-[80%]  text-gray-900 md:text-white">
   <h4 className="font-semibold mb-1 text-left">Description:</h4>
   <p className="text-sm leading-relaxed text-left">
     {description}
   </p>
 </div>
+)}
       </div>
     </section>
   );
