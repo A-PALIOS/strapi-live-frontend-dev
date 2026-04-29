@@ -267,7 +267,7 @@ export interface ArticleProps {
   id: number;
   documentId: string;
   title: string;
-  description: string;
+  description?: string;
   slug: string;
   image: ImageProps;
   
