@@ -17,7 +17,7 @@ export function ArticleIntroSection({
     <section className="max-w-6xl mx-auto px-4 py-8 md:py-16 md:mt-0 lg:py-31 lg:mt-6">
       {/* Top row with title and author info */}
       <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-6 lg:mb-11">
-        <h1 className="text-2xl md:text-3xl font-semibold text-gray-900 max-w-3xl leading-snug">
+        <h1 className="text-[40px] md:text-[40px] font-agenda-semibold max-w-3xl leading-snug">
           {title}
         </h1>
 <div className="flex items-center bg-gray-100 rounded-full mt-4 mb-4 px-4 py-2 w-fit shadow">
