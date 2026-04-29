@@ -17,6 +17,7 @@ export type SecondaryMenuProps = {
     title:string;
     slug:string;
     items: SecondaryMenuItem[];
+    theme: "black" | "white" ;
 };
 
 export function mapSecondaryMenu(raw: any): SecondaryMenuProps | null {
@@ -38,5 +39,6 @@ export function mapSecondaryMenu(raw: any): SecondaryMenuProps | null {
     title: sm.title ?? null,
     slug: sm.slug ?? null,
     items,
+    theme: sm.theme ?? null,
   };
 }

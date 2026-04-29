@@ -8,16 +8,39 @@ export function HeroSection({
   cta,
   image,
   logo,
+  theme,
   darken = false,
     headingWidth,
 
 }: Readonly<HeroSectionProps>) {
     const useMinContentWidth = headingWidth === "min-content";
 
+    const themes = {
+    white: "bg-white/40 border-white/20 text-black",
+    black: "bg-black border-white/20 text-white",
+  };
+
+    const isWhite = theme === "white";
+
+    const backgroundClass = isWhite ? "black" : "white";
+    
+
+    // Use the theme value to pick the class, defaulting to 'white' if theme is null
+    const currentTheme = themes[theme as keyof typeof themes] || themes.white;
+
+
+    let navbar_color= "light"
+    if(theme=="black"){
+      navbar_color="dark"
+    }else{
+      navbar_color="light"
+    }
+
   return (
     <section
       id="heropage"
-      className="bg-[#fffff] pt-20 md:pt-24 lg:pt-28 pb-1 md:pb-1"
+      data-header={`${navbar_color}`}
+      className={`bg-${theme} pt-20 md:pt-24 lg:pt-28 pb-1 md:pb-1`}
     >
       <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20">
         {/* Top content */}
@@ -46,6 +69,7 @@ export function HeroSection({
               md:text-[62px]
               lg:text-[68px]
               font-agenda-medium
+              ${theme === "black" ? "text-white":""}
               ${useMinContentWidth ? "w-auto" : "w-full"}
             `}
           >
@@ -53,22 +77,20 @@ export function HeroSection({
           </h1>
 
 {subheader && (
-  <p className="mt-6 max-w-6xl 
-  font-agenda-normal 
-  
-   text-zinc-700
-
+  <p className={`
+          mt-6 max-w-6xl 
+          font-agenda-normal 
+          
+          
           text-[18px]
           leading-[1.28]
           tracking-[-0.03em]
-          text-[#2c2626]
+          
+          ${theme === "black" ? "text-white":"text-zinc-700"}
           sm:text-[19px]
           md:text-[20px]
           lg:text-[21px]
-
-
-
-   ">
+   `}>
     {subheader}
   </p>
 )}
@@ -78,7 +100,7 @@ export function HeroSection({
               <Link
                 href={cta.href}
                 target={cta.isExternal ? "_blank" : "_self"}
-                className="inline-flex items-center gap-3 rounded-md bg-[#1E9BFB] px-6 py-3 text-sm font-agenda-semibold text-white transition hover:bg-[#156DB0]"
+                className={`inline-flex items-center gap-3 rounded-md bg-[#1E9BFB] px-6 py-3 text-sm font-agenda-semibold text-white transition hover:bg-[#156DB0]`}
                 aria-label={cta.text ?? "Learn more"}
               >
                 <span>{cta.text ?? "Learn More"}</span>
@@ -105,8 +127,18 @@ export function HeroSection({
 
         {/* Hero image */}
         {image?.url && (
-          <div className="mt-14 md:mt-16">
-            <div className="relative overflow-hidden rounded-2xl">
+          <div className="mt-14 md:mt-16 ">
+            <div className={
+            `relative overflow-hidden rounded-2xl
+            ${theme==="black" ?
+              
+              "self-stretch  bg-gradient-to-l from-sky-900 via-sky-950 to-slate-950 rounded-lg shadow-[0px_0px_40px_0px_rgba(26,146,236,0.50)] outline outline-1 outline-offset-[-1px] outline-neutral-400 inline-flex justify-start items-center gap-2"
+              :"rounded-lg inline-flex justify-start items-center gap-2"
+            }
+            
+            `       
+            
+            }>
               <StrapiImage
                 src={image.url}
                 alt={image.alternativeText || "Hero image"}

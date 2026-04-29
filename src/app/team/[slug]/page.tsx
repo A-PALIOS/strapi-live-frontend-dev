@@ -92,8 +92,8 @@ export default async function MemberPage({ params, searchParams }: PageProps) {
     >
     <defs>
   <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-    <stop offset="10%" stopColor="#0f172a" stopOpacity="0.9" />
-    <stop offset="80%" stopColor="#075985" stopOpacity="0.9" />
+    <stop offset="0%" stopColor="#001A2C" stopOpacity="1" />
+    <stop offset="60%" stopColor="#005692" stopOpacity="1" />
   </linearGradient>
 </defs>
       <path
@@ -102,15 +102,15 @@ export default async function MemberPage({ params, searchParams }: PageProps) {
       />
     </svg>
 
-    <div className="relative z-20 max-w-6xl mx-auto flex flex-col-reverse items-center md:items-center xl:items-center md:flex-row md:items-start gap-8 pt-10">
-      <div className="w-[300px] h-[500px] sm:w-[400px] sm:h-[500px] md:w-[400px] md:h-[500px] lg:w-[500px] lg:h-[500px] xl:w-[550px] xl:h-[500px]" />
+    <div className="relative z-20  mx-auto flex flex-col-reverse items-center md:items-center xl:items-center md:flex-row md:items-start gap-8 pt-10">
+      <div className="w-[300px] h-[500px] sm:w-[400px] sm:h-[500px] md:w-[400px] md:h-[500px] lg:w-[500px] lg:h-[500px] xl:w-[700px] xl:h-[500px]" />
 
       
       <div className="flex-1 pt-4 sm:pt-12">
-        <h1 className="text-4xl sm:text-5xl font-bold font-agenda-medium text-[#2196f3]">
+        <h1 className="text-4xl sm:text-5xl font-bold font-agenda-medium text-[#2196f3] xl:text-[64px] xl:leading-[72px] text-[#A1CFF3]">
           {member.FullName}
         </h1>
-        <p className="text-lg  mt-2 font-agenda-light text-gray-200 leading-[48px]">{member.JobTitle}</p>
+        <p className="text-lg  mt-2 font-agenda-light text-gray-200 leading-[40px] xl:text-[32px]">{member.JobTitle}</p>
       </div>
     </div>
   </div>
@@ -119,33 +119,40 @@ export default async function MemberPage({ params, searchParams }: PageProps) {
 
         <div id="about" className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20 scroll-mt-40">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-6">
-            <h2 className="text-4xl font-agenda-medium text-[#242A2E] ">
+            <h2 className="text-4xl font-agenda-medium text-[#242A2E] xl:text-[56px] xl:leading-[62px]">
               About {firstName}
             </h2>
 
             <div className="flex flex-col items-start sm:items-end gap-3">
-              <Link
+              {/* <Link
                 href="/contact"
                 className="bg-gradient-to-r from-blue-500 to-blue-300 text-white px-5 py-2 rounded-md font-medium hover:from-blue-600 hover:to-blue-400 transition text-sm"
               >
                 Get in Touch →
-              </Link>
+              </Link> */}
 
               <div className="flex items-center gap-2">
-                <span className="text-gray-700 text-sm">Social:</span>
+                {/* <span className="text-gray-700 text-sm">Social:</span> */}
                 {member.LinkedInUrl && (
-                  <SocialIcon
-                    style={{ height: 35, width: 35 }}
-                    network="linkedin"
-                    url={member.LinkedInUrl}
-                  />
-                )}
+                <Link
+                  href={member.LinkedInUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center font-agenda-regular gap-3 border border-[#dcdcdc] rounded-md px-6 py-3 text-base text-[#1e1e1e] hover:bg-gray-100 transition"
+                >
+                  <span>Get in Touch</span>
+
+                  <span className="flex items-center justify-center w-8 h-8 bg-[#FB7B1E] text-white text-md font-bold rounded-sm">
+                    in
+                  </span>
+                </Link>
+              )}
               </div>
             </div>
           </div>
 
           {member.Bio && (
-            <p className="md:w-[50%] lg:w-[50%] font-agenda-regular text-zinc-800/50 text-lg leading-relaxed whitespace-pre-line mb-10">
+            <p className="md:w-[50%] lg:w-[50%] font-agenda-regular text-zinc-800/50 text-[24px] leading-[32px] whitespace-pre-line mb-10">
               {member.Bio}
             </p>
           )}
