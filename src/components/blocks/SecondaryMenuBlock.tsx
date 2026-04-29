@@ -60,7 +60,7 @@ export function SecondaryMenuBlock({
     // <div className="sticky top-0 z-30 w-full bg-transparent px-6 py-5 md:px-10 md:py-6 lg:px-16 xl:px-20">
   //   <div className="sticky top-0 z-30 w-full px-6 py-5 md:px-10 md:py-6 lg:px-16 xl:px-20
   // backdrop-blur-md bg-white/10 border-b border-white/20">
-  <div className={`sticky top-0 z-30 w-full px-6 py-5 md:px-10 md:py-6 lg:px-16 xl:px-20 backdrop-blur-md ${currentTheme} ` } style={{borderBottom:"1px solid white"}}>
+  <div className={`sticky top-0 z-30 w-full px-6 py-5 md:px-10 md:py-6 lg:px-16 xl:px-20 backdrop-blur-md ${currentTheme} ` } style={{borderBottom:"1px solid #F5F4F4"}}>
 
     
       {/* Row 1: logo area (kept for parity with StickyMenuBlock; wire a logo if you add one later) */}

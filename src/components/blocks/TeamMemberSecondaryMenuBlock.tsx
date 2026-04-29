@@ -108,7 +108,7 @@ export function TeamMemberSecondaryMenuBlock({
 
       <div
         ref={wrapperRef}
-        className={`left-0 right-0 z-[70] border-b border-white/20 bg-white/10 backdrop-blur-lg  ${
+        className={`left-0 right-0 z-[70] border-b-1 border-[#F5F4F4] bg-white/10 backdrop-blur-lg  ${
           isPinned ? "fixed top-0" : "relative"
         }`}
       >
