@@ -256,8 +256,16 @@ body {
   font-style: italic;
 }
 .bg-team-member {
-  background:linear-gradient(
-198deg, #4f86ad 0%, #5f7f95 30%, #7a7f83 55%, #9b6a4c 85%, #8a5f45 100%);
+   background: linear-gradient(
+    90deg,
+    #71655E 0%,
+    #656568 15%,
+    #596671 30%,
+    #4D667B 45%,
+    #466780 60%,
+    #406785 80%,
+    #1D6194 100%
+  );
 }
 
 :root {
