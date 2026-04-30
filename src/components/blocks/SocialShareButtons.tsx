@@ -45,7 +45,7 @@ export function SocialShareButtons({ title }: { title: string }) {
     },
     {
       label: "X",
-      href: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
+      href: `https://x.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
     },
     {
       label: "Email",
