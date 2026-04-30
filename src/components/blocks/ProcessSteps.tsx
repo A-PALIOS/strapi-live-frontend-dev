@@ -103,7 +103,7 @@ export function ProcessSteps({
                       pointer-events-none
                       absolute bottom-6 right-6
                       flex h-14 w-14 items-center justify-center rounded-[4px]
-                      bg-white text-[#F58220] text-[26px]
+                      bg-white text-[#F58220]
 
                       opacity-0 translate-y-2 scale-95
                       transition-all duration-200 ease-out
@@ -112,7 +112,17 @@ export function ProcessSteps({
                     "
                     aria-hidden="true"
                   >
-                    ↗
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-6 w-6"
+                    >
+                      <path d="M7 17L17 7M17 7H7M17 7V17" />
+                    </svg>
                   </span>
                 )}
               </>

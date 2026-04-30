@@ -82,9 +82,22 @@ export function ExpertiseVideoTabs({
                             className="h-[18px] w-[18px] object-contain"
                           />
                         ) : (
-                          <span className="text-[22px] leading-none">
-                            {isActive ? "↘" : "↗"}
-                          </span>
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="h-5 w-5"
+                            aria-hidden="true"
+                          >
+                            {isActive ? (
+                              <path d="M7 7L17 17M17 17H7M17 17V7" />
+                            ) : (
+                              <path d="M7 17L17 7M17 7H7M17 7V17" />
+                            )}
+                          </svg>
                         )}
                       </span>
                     </div>

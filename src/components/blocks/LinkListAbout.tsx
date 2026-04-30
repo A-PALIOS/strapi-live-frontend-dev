@@ -45,12 +45,18 @@ export function LinkListAbout({
                 className="group inline-flex items-center gap-2 font-agenda-medium text-[10px] uppercase tracking-[0.08em] text-white/85 transition hover:text-white md:text-[11px]"
               >
                 <span>{cta.text}</span>
-                <span
-                  aria-hidden
-                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  aria-hidden="true"
                 >
-                  ↗
-                </span>
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
               </Link>
             ) : null}
           </div>
@@ -78,12 +84,18 @@ export function LinkListAbout({
                     {item.title}
                   </span>
 
-                  <span
-                    aria-hidden
-                    className="shrink-0 text-[22px] leading-none text-white/90 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-5 w-5 shrink-0 text-white/90 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                    aria-hidden="true"
                   >
-                    ↗
-                  </span>
+                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                  </svg>
                 </Link>
               );
             })}

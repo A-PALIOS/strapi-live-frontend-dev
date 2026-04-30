@@ -72,14 +72,21 @@ export function ImpactLinks({
                     : "text-white hover:text-[#2F80ED]"
                 }`}
               >
-                <span className="text-[22px] font-agenda-medium tracking-[-0.02em] md:text-[32px]">
-                  {item.title} ↗
+                <span className="inline-flex items-center gap-2 text-[22px] font-agenda-medium tracking-[-0.02em] md:text-[32px]">
+                  {item.title}
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 md:h-7 md:w-7"
+                    aria-hidden="true"
+                  >
+                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                  </svg>
                 </span>
-
-                {/* Arrow */}
-                {/* <span className="ml-4 transition-transform duration-300 group-hover:translate-x-1">
-                  ↗
-                </span> */}
               </Link>
             );
           })}
