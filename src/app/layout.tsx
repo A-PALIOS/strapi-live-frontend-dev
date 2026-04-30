@@ -63,7 +63,7 @@ export default async function RootLayout({
         <Header data={header} />
         <DapperTransition />
         {/* <StickyMenu /> */}
-        <main className="pt-24 xl:pt-0">
+        <main >
           {children}
         </main>
         </NavProgressProvider>
