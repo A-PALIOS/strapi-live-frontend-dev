@@ -33,10 +33,10 @@ export function ImpactNavigation({
                   item.url?.isExternal ? "noopener noreferrer" : undefined
                 }
                 className={`
-                  group relative flex min-h-[280px] items-start overflow-hidden px-6 py-10 transition-all duration-300
+                  group relative border-b border-r md:border-b-0 border-[#dedede] md:border-r-0 flex min-h-[280px] items-start overflow-hidden px-6 py-10 transition-all duration-300
                   ${
                     isFirst
-                      ? "text-[#27313a] hover:bg-[#ff7417] hover:text-white border-r"
+                      ? "text-[#27313a] hover:bg-[#ff7417] hover:text-white md:border-r-1"
                       : "text-[#27313a] hover:bg-[#ff7417] hover:text-white"
                   }
                 `}
