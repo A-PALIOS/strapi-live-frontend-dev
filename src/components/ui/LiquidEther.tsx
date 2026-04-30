@@ -840,7 +840,10 @@ export default function LiquidEther({
         this.createShaderPass();
       }
       getFloatType() {
-        const isIOS = /(iPad|iPhone|iPod)/i.test(navigator.userAgent);
+        // iPadOS 13+ reports a Mac user agent, so also check maxTouchPoints
+        const isIOS =
+          /(iPad|iPhone|iPod)/i.test(navigator.userAgent) ||
+          (/Mac/i.test(navigator.userAgent) && navigator.maxTouchPoints > 1);
         return isIOS ? THREE.HalfFloatType : THREE.FloatType;
       }
       createAllFBO() {
