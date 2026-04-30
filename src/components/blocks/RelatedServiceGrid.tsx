@@ -63,7 +63,7 @@ export function RelatedServiceGrid({
                 target={item.openInNewTab ? "_blank" : undefined}
                 rel={item.openInNewTab ? "noopener noreferrer" : undefined}
                 className={[
-                  "group relative flex  min-h-[92px] items-center justify-between border border-[#D9D9D9] px-5 py-5 transition-colors duration-200 md:min-h-[110px] pt-12 pb-12 pr-30 pl-18",
+                  "group relative flex  min-h-[140px] items-center justify-between border border-[#D9D9D9] px-5 py-5 transition-colors duration-200 md:min-h-[110px] pt-12 pb-12 pr-30 pl-18",
 
                   // hide current page but keep layout
                   isHidden ? "invisible pointer-events-none" : "",
@@ -74,7 +74,7 @@ export function RelatedServiceGrid({
                     : "text-[#3A3A3A] hover:bg-[#ECECEC]",
                 ].join(" ")}
               >
-                <span className=" text-[24px] font-agenda-medium leading-[1.1] tracking-[-0.03em] md:text-[28px] lg:text-5xl uppercase
+                <span className=" text-[24px] font-agenda-medium leading-[1.1] tracking-[-0.03em] md:text-[24px] lg:text-[32px] xl:text-5xl uppercase
 leading-10 ">
                   {item.title}
                 </span>
