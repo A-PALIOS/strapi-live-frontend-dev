@@ -27,7 +27,18 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
           className="font-agenda-regular md:text-[18px] sm:text-sm group inline-flex items-center gap-2 opacity-90 hover:opacity-100"
         >
           <span>{cta.text}</span>
-          <span aria-hidden className="transition-transform group-hover:translate-x-0.5">↗</span>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            aria-hidden="true"
+          >
+            <path d="M7 17L17 7M17 7H7M17 7V17" />
+          </svg>
         </a>
       )}
     </div>
@@ -62,7 +73,7 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
                   className="inline-flex items-center gap-2 rounded-md bg-white/95 px-4 py-2 text-sm text-gray-900 shadow hover:bg-white"
                 >
                   {item.cta.text || "Learn More"}
-                  <span className="text-xs">↗</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 shrink-0" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17" /></svg>
                 </Link>
               </div>
             )}
@@ -100,7 +111,7 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
                     {item.title}
                   </span>
                 </div>
-                <span className="mb-2 text-blue-300">↗</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="mb-2 h-4 w-4 text-blue-300" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17" /></svg>
               </div>
             )}
 
@@ -130,7 +141,7 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
                       onClick={(e) => e.stopPropagation()}
                     >
                       {item.cta.text || "Learn More"}
-                      <span className="text-xs">↗</span>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 shrink-0" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17" /></svg>
                     </Link>
                   </div>
                 )}

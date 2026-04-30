@@ -45,7 +45,18 @@ export function ServicesAccordionBlock({
               className="group inline-flex items-center gap-2 opacity-90 hover:opacity-100"
             >
               <span>{cta.text}</span>
-              <span aria-hidden className="transition-transform group-hover:translate-x-0.5">↗</span>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                aria-hidden="true"
+              >
+                <path d="M7 17L17 7M17 7H7M17 7V17" />
+              </svg>
             </a>
           )}
         </div>
