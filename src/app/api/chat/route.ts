@@ -3,7 +3,7 @@ import OpenAI from "openai";
 import qs from "qs";
 
 const openai = new OpenAI({
-  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL ?? "";
