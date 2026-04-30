@@ -170,7 +170,7 @@ export function HeroSectionDigital({
       {lanyardReady && (
         <div
           className="
-            fixed right-0 top-0 z-20 flex h-screen items-center justify-center pointer-events-auto
+            fixed right-0 top-0 z-35 flex h-screen items-center justify-center pointer-events-auto
             w-[42vw] max-w-[720px]
             max-[1400px]:w-[38vw]
             max-[1400px]:max-w-[600px]
