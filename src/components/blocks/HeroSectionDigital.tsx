@@ -3,6 +3,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { ChevronDown } from "lucide-react";
 import { StrapiImage } from "../StrapiImage";
 import type { HeroSectionDigitalProps } from "@/types";
 import BlurText from "../ui/BlurText";
@@ -74,6 +75,8 @@ export function HeroSectionDigital({
 
   // actual chat visibility
   const [chatOpen, setChatOpen] = useState(false);
+
+  const [showHint, setShowHint] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -150,6 +153,17 @@ export function HeroSectionDigital({
     }
   }, [lanyardRevealed]);
 
+  useEffect(() => {
+    if (!lanyardReady || window.innerWidth < 1400) return;
+    const show = setTimeout(() => setShowHint(true), 2000);
+    const hide = setTimeout(() => setShowHint(false), 9000);
+    return () => { clearTimeout(show); clearTimeout(hide); };
+  }, [lanyardReady]);
+
+  useEffect(() => {
+    if (lanyardRevealed || chatOpen) setShowHint(false);
+  }, [lanyardRevealed, chatOpen]);
+
   const canAnimate = !prefersReduced && tabVisible;
   const showEther = canAnimate && inView;
 
@@ -168,30 +182,87 @@ export function HeroSectionDigital({
       </div>
 
       {lanyardReady && (
-        <div
-          className="
-            fixed right-0 top-0 z-35 flex h-screen items-center justify-center pointer-events-auto
-            w-[42vw] max-w-[720px]
-            max-[1400px]:w-[38vw]
-            max-[1400px]:max-w-[600px]
-            lg:max-[1200px]:w-[36vw]
-            lg:max-[1200px]:max-w-[520px]
-            md:max-[1024px]:w-[34vw]
-            md:max-[1024px]:max-w-[440px]
-          "
-        >
+        <>
           <Lanyard onRevealChange={setLanyardRevealed} />
           <DigitalChatbot
             isOpen={chatOpen}
             onOpen={() => setChatOpen(true)}
             onClose={() => setChatOpen(false)}
           />
-        </div>
+        </>
+      )}
+
+      {showHint && (
+        <>
+          <style>{`
+            @keyframes lanyardHintIn {
+              from { opacity: 0; transform: translateY(14px); }
+              to   { opacity: 1; transform: translateY(0);    }
+            }
+            @keyframes lanyardFloat {
+              0%, 100% { transform: translateY(0px);  }
+              50%       { transform: translateY(-7px); }
+            }
+            @keyframes lanyardHintOut {
+              from { opacity: 1; }
+              to   { opacity: 0; }
+            }
+          `}</style>
+
+          <div
+            className="fixed z-20 pointer-events-none select-none flex flex-col items-center gap-2"
+            style={{ right: "22vw", top: "58%" }}
+          >
+            {/* outer wrapper fades in */}
+            <div style={{ animation: "lanyardHintIn 0.55s cubic-bezier(0.34,1.56,0.64,1) forwards" }}>
+              {/* inner wrapper floats */}
+              <div
+                className="flex flex-col items-center gap-2.5"
+                style={{ animation: "lanyardFloat 2.8s ease-in-out 0.6s infinite" }}
+              >
+                {/* glass pill */}
+                <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-[#07111F]/80 px-4 py-3 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.45),0_0_0_1px_rgba(30,155,251,0.12),0_0_20px_rgba(30,155,251,0.08)]">
+                  {/* animated grab icon */}
+                  <div className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-[#1E9BFB]/20 bg-[#1E9BFB]/10">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#6EC1FF"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-4 w-4"
+                      aria-hidden="true"
+                    >
+                      <path d="M18 11V6a2 2 0 0 0-4 0v5" />
+                      <path d="M14 10V4a2 2 0 0 0-4 0v6" />
+                      <path d="M10 10.5V6a2 2 0 0 0-4 0v8" />
+                      <path d="M6 14a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-2.5" />
+                      <path d="M18 11.5V14" />
+                    </svg>
+                  </div>
+
+                  <div>
+                    <p className="text-[11px] font-semibold leading-none text-white/90">
+                      Pull card down
+                    </p>
+                    <p className="mt-1 text-[10px] leading-none text-white/45">
+                      to Reveal
+                    </p>
+                  </div>
+                </div>
+
+                {/* bouncing chevron */}
+                <ChevronDown className="h-4 w-4 animate-bounce text-[#1E9BFB]/60" />
+              </div>
+            </div>
+          </div>
+        </>
       )}
 
       <div
         className="
-          relative mx-auto flex h-full max-w-7xl items-center px-6 pb-16 pt-96 pointer-events-none lg:px-8
+          relative z-10 mx-auto flex h-full max-w-7xl items-center px-6 pb-16 pt-96 pointer-events-none lg:px-8
           md:pr-[44vw]
           max-[1400px]:pt-72
           max-[1400px]:md:pr-[40vw]

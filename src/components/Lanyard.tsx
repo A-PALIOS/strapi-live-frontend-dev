@@ -295,7 +295,7 @@
 
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   Environment,
@@ -331,6 +331,7 @@ export default function Lanyard({
 }: LanyardProps) {
   const [visible, setVisible] = useState(true);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -360,13 +361,15 @@ export default function Lanyard({
 
   return (
     <div
-      className={`fixed inset-0 z-0 flex items-start justify-end transition-all duration-500 ${
+      className={`fixed inset-0 flex items-start justify-end transition-all duration-500 ${
+        isDragging ? "z-40" : "z-0"
+      } ${
         visible
           ? "pointer-events-auto translate-y-0 opacity-100"
           : "pointer-events-none -translate-y-8 hidden"
       }`}
     >
-      <div className="mt-4 mr-4 h-[720px] w-[720px] xl:mt-8 xl:mr-8 xl:h-[720px] xl:w-[720px]">
+      <div className="mr-4 h-[720px] w-[720px]  xl:mr-8 xl:h-[720px] xl:w-[720px]">
         <Canvas
           camera={{ position, fov }}
           gl={{ alpha: transparent }}
@@ -374,42 +377,44 @@ export default function Lanyard({
             gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)
           }
         >
-          <ambientLight intensity={Math.PI} />
+          <Suspense fallback={null}>
+            <ambientLight intensity={Math.PI} />
 
-          <Physics gravity={gravity} timeStep={1 / 60}>
-            <Band onRevealChange={onRevealChange} />
-          </Physics>
+            <Physics gravity={gravity} timeStep={1 / 60}>
+              <Band onRevealChange={onRevealChange} onDragChange={setIsDragging} />
+            </Physics>
 
-          <Environment blur={0.75}>
-            <Lightformer
-              intensity={2}
-              color="white"
-              position={[0, -1, 5]}
-              rotation={[0, 0, Math.PI / 3]}
-              scale={[100, 0.1, 1]}
-            />
-            <Lightformer
-              intensity={3}
-              color="white"
-              position={[-1, -1, 1]}
-              rotation={[0, 0, Math.PI / 3]}
-              scale={[100, 0.1, 1]}
-            />
-            <Lightformer
-              intensity={3}
-              color="white"
-              position={[1, 1, 1]}
-              rotation={[0, 0, Math.PI / 3]}
-              scale={[100, 0.1, 1]}
-            />
-            <Lightformer
-              intensity={10}
-              color="white"
-              position={[-10, 0, 14]}
-              rotation={[0, Math.PI / 2, Math.PI / 3]}
-              scale={[100, 10, 1]}
-            />
-          </Environment>
+            <Environment blur={0.75}>
+              <Lightformer
+                intensity={2}
+                color="white"
+                position={[0, -1, 5]}
+                rotation={[0, 0, Math.PI / 3]}
+                scale={[100, 0.1, 1]}
+              />
+              <Lightformer
+                intensity={3}
+                color="white"
+                position={[-1, -1, 1]}
+                rotation={[0, 0, Math.PI / 3]}
+                scale={[100, 0.1, 1]}
+              />
+              <Lightformer
+                intensity={3}
+                color="white"
+                position={[1, 1, 1]}
+                rotation={[0, 0, Math.PI / 3]}
+                scale={[100, 0.1, 1]}
+              />
+              <Lightformer
+                intensity={10}
+                color="white"
+                position={[-10, 0, 14]}
+                rotation={[0, Math.PI / 2, Math.PI / 3]}
+                scale={[100, 10, 1]}
+              />
+            </Environment>
+          </Suspense>
         </Canvas>
       </div>
     </div>
@@ -420,10 +425,12 @@ function Band({
   maxSpeed = 50,
   minSpeed = 0,
   onRevealChange,
+  onDragChange,
 }: {
   maxSpeed?: number;
   minSpeed?: number;
   onRevealChange?: (revealed: boolean) => void;
+  onDragChange?: (dragging: boolean) => void;
 }) {
   const fixed = useRef<any>(null);
   const j1 = useRef<any>(null);
@@ -448,6 +455,19 @@ function Band({
 
   const { nodes, materials } = useGLTF("/assets/lanyard/card.glb") as any;
   const texture = useTexture("/assets/lanyard/lanyard.png");
+
+  const cardMaterial = useMemo(() => {
+    const mat = new THREE.MeshPhysicalMaterial({
+      map: materials.base?.map ?? null,
+      clearcoat: 1,
+      clearcoatRoughness: 0.15,
+      roughness: 0.9,
+      metalness: 0.8,
+    });
+    if (mat.map) mat.map.needsUpdate = true;
+    mat.needsUpdate = true;
+    return mat;
+  }, [materials.base]);
 
   const [curve] = useState(
     () =>
@@ -640,22 +660,16 @@ function Band({
                   vec.set(bodyPos.x, bodyPos.y, bodyPos.z)
                 )
               );
+              onDragChange?.(true);
             }}
             onPointerUp={(e) => {
               (e.target as Element)?.releasePointerCapture?.(e.pointerId);
               setDragged(false);
+              onDragChange?.(false);
             }}
-            onPointerLeave={() => setDragged(false)}
+            onPointerLeave={() => { setDragged(false); onDragChange?.(false); }}
           >
-            <mesh geometry={nodes.card.geometry}>
-              <meshPhysicalMaterial
-                map={materials.base?.map}
-                clearcoat={1}
-                clearcoatRoughness={0.15}
-                roughness={0.9}
-                metalness={0.8}
-              />
-            </mesh>
+            <mesh geometry={nodes.card.geometry} material={cardMaterial} />
 
             <mesh
               geometry={nodes.clip.geometry}
