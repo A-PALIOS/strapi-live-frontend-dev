@@ -99,7 +99,7 @@ export function AccordionAbout({
                     onClick={() => toggleIndex(index)}
                     aria-expanded={isOpen}
                     aria-controls={`svc-desc-${item.id}`}
-                    className="group flex w-full items-start justify-between gap-4 text-left"
+                    className="group flex w-full items-start justify-between gap-4 text-left outline-none focus:outline-none focus-visible:outline-none"
                   >
                     <span
                       className={[
