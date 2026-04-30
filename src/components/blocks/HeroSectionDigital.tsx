@@ -77,6 +77,8 @@ export function HeroSectionDigital({
   const [chatOpen, setChatOpen] = useState(false);
 
   const [showHint, setShowHint] = useState(false);
+  const hintReadyRef = useRef(false);
+  const hintRevealedRef = useRef(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -155,14 +157,32 @@ export function HeroSectionDigital({
 
   useEffect(() => {
     if (!lanyardReady || window.innerWidth < 1400) return;
-    const show = setTimeout(() => setShowHint(true), 2000);
+    const show = setTimeout(() => {
+      hintReadyRef.current = true;
+      setShowHint(true);
+    }, 2000);
     const hide = setTimeout(() => setShowHint(false), 9000);
     return () => { clearTimeout(show); clearTimeout(hide); };
   }, [lanyardReady]);
 
   useEffect(() => {
-    if (lanyardRevealed || chatOpen) setShowHint(false);
+    if (lanyardRevealed || chatOpen) {
+      hintRevealedRef.current = true;
+      setShowHint(false);
+    }
   }, [lanyardRevealed, chatOpen]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 180) {
+        setShowHint(false);
+      } else if (hintReadyRef.current && !hintRevealedRef.current) {
+        setShowHint(true);
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const canAnimate = !prefersReduced && tabVisible;
   const showEther = canAnimate && inView;
