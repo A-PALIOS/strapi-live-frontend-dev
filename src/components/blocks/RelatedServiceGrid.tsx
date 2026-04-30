@@ -81,13 +81,24 @@ leading-10 ">
 
                 <span
   className={[
-    "absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center text-[22px] border transition-transform duration-200 group-hover:-translate-y-[1px] group-hover:translate-x-[1px]",
+    "absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center border transition-transform duration-200 group-hover:-translate-y-[1px] group-hover:translate-x-[1px]",
     !isHidden && isHighlighted
       ? "border-white bg-white text-[#F28C28]"
       : "border-transparent text-black",
   ].join(" ")}
 >
-  ↗
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-5 w-5"
+    aria-hidden="true"
+  >
+    <path d="M7 17L17 7M17 7H7M17 7V17" />
+  </svg>
 </span>
               </Link>
             );
