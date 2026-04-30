@@ -1,6 +1,7 @@
 // import Link from "next/link";
 import { StrapiImage } from "../StrapiImage";
 import { ArticleProps } from "@/types";
+import { SocialShareButtons } from "./SocialShareButtons";
 
 
 
@@ -74,6 +75,7 @@ export function ArticleIntroSection({
 </div>
 )}
       </div>
+      <SocialShareButtons title={title} />
     </section>
   );
 }
