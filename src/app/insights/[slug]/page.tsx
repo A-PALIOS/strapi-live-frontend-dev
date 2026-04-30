@@ -106,13 +106,27 @@ import { Card, type CardProps } from "@/components/Card";
 import { ContentList } from "@/components/ContentList";
 import { ArticleIntroSection } from "@/components/blocks/ArticleIntroSection";
 
-function getStrapiMediaUrl(url?: string | null) {
-  if (!url) return "";
-  if (url.startsWith("http")) return url;
+const SITE_URL = "https://newsite.cmtprooptiki.gr";
 
-  const baseUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL?.replace(/\/$/, "");
+// Returns a URL served through our own domain so Facebook's crawler can reach it.
+function getOgImageUrl(rawUrl?: string | null): string | undefined {
+  if (!rawUrl) return undefined;
 
-  return `${baseUrl}${url}`;
+  let path: string | undefined;
+
+  if (rawUrl.startsWith("/uploads/")) {
+    path = rawUrl;
+  } else {
+    try {
+      path = new URL(rawUrl).pathname;
+    } catch {
+      return undefined;
+    }
+  }
+
+  if (!path?.startsWith("/uploads/")) return undefined;
+
+  return `${SITE_URL}/api/og-image?path=${encodeURIComponent(path)}`;
 }
 
 interface PageProps {
@@ -138,9 +152,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const articleUrl = `https://newsite.cmtprooptiki.gr/insights/${slug}`;
 
-  const imageUrl = article.image?.url
-    ? getStrapiMediaUrl(article.image.url)
-    : undefined;
+  const imageUrl = getOgImageUrl(article.image?.url);
 
   return {
     metadataBase: new URL("https://newsite.cmtprooptiki.gr"),
@@ -170,7 +182,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       card: "summary_large_image",
       title,
       description,
-      images: imageUrl ? [imageUrl] : [],
+      images: imageUrl
+        ? [
+            {
+              url: imageUrl,
+              alt: article.image?.alternativeText || title,
+            },
+          ]
+        : [],
     },
   };
 }
