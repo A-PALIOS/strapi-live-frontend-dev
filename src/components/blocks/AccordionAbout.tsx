@@ -61,18 +61,12 @@ export function AccordionAbout({
                 className="group inline-flex items-center gap-2 font-agenda-medium text-[10px] uppercase tracking-[0.08em] text-white/85 transition hover:text-white md:text-[11px]"
               >
                 <span>{cta.text}</span>
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                  aria-hidden="true"
+                <span
+                  aria-hidden
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 >
-                  <path d="M7 17L17 7M17 7H7M17 7V17" />
-                </svg>
+                  ↗
+                </span>
               </a>
             )}
           </div>
@@ -99,7 +93,7 @@ export function AccordionAbout({
                     onClick={() => toggleIndex(index)}
                     aria-expanded={isOpen}
                     aria-controls={`svc-desc-${item.id}`}
-                    className="group flex w-full items-start justify-between gap-4 text-left outline-none focus:outline-none focus-visible:outline-none"
+                    className="group flex w-full items-start justify-between gap-4 text-left"
                   >
                     <span
                       className={[
@@ -111,21 +105,15 @@ export function AccordionAbout({
                       {item.title}
                     </span>
 
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
+                    <span
+                      aria-hidden
                       className={[
-                        "h-5 w-5 shrink-0 text-white/90 transition-transform duration-300",
+                        "shrink-0 text-[22px] leading-none text-white/90 transition-transform duration-300",
                         isOpen ? "rotate-90" : "rotate-0",
                       ].join(" ")}
-                      aria-hidden="true"
                     >
-                      <path d="M7 17L17 7M17 7H7M17 7V17" />
-                    </svg>
+                      ↗
+                    </span>
                   </button>
 
                   <AnimatePresence initial={false}>
