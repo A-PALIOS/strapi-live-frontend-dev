@@ -108,25 +108,35 @@ import { ArticleIntroSection } from "@/components/blocks/ArticleIntroSection";
 
 const SITE_URL = "https://newsite.cmtprooptiki.gr";
 
-// Returns a URL served through our own domain so Facebook's crawler can reach it.
-function getOgImageUrl(rawUrl?: string | null): string | undefined {
-  if (!rawUrl) return undefined;
+const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.jpg`;
 
-  let path: string | undefined;
+// Returns a publicly accessible image URL for OG/Twitter cards.
+function getOgImageUrl(rawUrl?: string | null): string {
+  if (rawUrl) {
+    // Already a public HTTPS URL (external CDN) — use directly (SVGs fall through to default)
+    if (rawUrl.startsWith("https://") && !rawUrl.toLowerCase().endsWith(".svg")) return rawUrl;
 
-  if (rawUrl.startsWith("/uploads/")) {
-    path = rawUrl;
-  } else {
-    try {
-      path = new URL(rawUrl).pathname;
-    } catch {
-      return undefined;
+    // Relative path or absolute HTTP URL (Strapi IP) — proxy through our server
+    let path: string | undefined;
+
+    if (rawUrl.startsWith("/")) {
+      path = rawUrl;
+    } else {
+      try {
+        path = new URL(rawUrl).pathname;
+      } catch {
+        // fall through to default
+      }
+    }
+
+    if (path && path.startsWith("/") && !path.includes("..")) {
+      // X (Twitter) does not support SVG for card images — fall back to default
+      if (path.toLowerCase().endsWith(".svg")) return DEFAULT_OG_IMAGE;
+      return `${SITE_URL}/api/og-image?path=${encodeURIComponent(path)}`;
     }
   }
 
-  if (!path?.startsWith("/uploads/")) return undefined;
-
-  return `${SITE_URL}/api/og-image?path=${encodeURIComponent(path)}`;
+  return DEFAULT_OG_IMAGE;
 }
 
 interface PageProps {
@@ -167,29 +177,25 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url: articleUrl,
       siteName: "CMT Prooptiki",
       type: "article",
-      images: imageUrl
-        ? [
-            {
-              url: imageUrl,
-              width: 1200,
-              height: 630,
-              alt: article.image?.alternativeText || title,
-            },
-          ]
-        : [],
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: article.image?.alternativeText || title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: imageUrl
-        ? [
-            {
-              url: imageUrl,
-              alt: article.image?.alternativeText || title,
-            },
-          ]
-        : [],
+      images: [
+        {
+          url: imageUrl,
+          alt: article.image?.alternativeText || title,
+        },
+      ],
     },
   };
 }

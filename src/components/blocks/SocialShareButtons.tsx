@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 const platformIcons: Record<string, React.ReactNode> = {
@@ -24,15 +25,37 @@ const platformIcons: Record<string, React.ReactNode> = {
       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
     </svg>
   ),
+  Share: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 shrink-0" aria-hidden="true">
+      <circle cx="18" cy="5" r="3" />
+      <circle cx="6" cy="12" r="3" />
+      <circle cx="18" cy="19" r="3" />
+      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+    </svg>
+  ),
 };
 
 export function SocialShareButtons({ title }: { title: string }) {
   const pathname = usePathname();
+  const [canNativeShare, setCanNativeShare] = useState(false);
 
   const siteUrl = "https://newsite.cmtprooptiki.gr";
   const postUrl = `${siteUrl}${pathname}`;
   const encodedUrl = encodeURIComponent(postUrl);
   const encodedTitle = encodeURIComponent(title);
+
+  useEffect(() => {
+    setCanNativeShare(typeof navigator !== "undefined" && typeof navigator.share === "function");
+  }, []);
+
+  const handleNativeShare = async () => {
+    try {
+      await navigator.share({ title, url: postUrl });
+    } catch {
+      // user cancelled or browser denied — silently ignore
+    }
+  };
 
   const links = [
     {
@@ -53,6 +76,15 @@ export function SocialShareButtons({ title }: { title: string }) {
     },
   ];
 
+  const buttonClass = `
+    group inline-flex items-center gap-2
+    rounded-full border border-gray-200 bg-white
+    px-4 py-2
+    text-[13px] font-agenda-medium text-gray-600
+    shadow-sm transition-all duration-200
+    hover:border-[#1E9BFB] hover:bg-[#1E9BFB] hover:text-white hover:shadow-md
+  `;
+
   return (
     <div className="mt-12 border-t border-gray-200 pt-8">
       <p className="mb-4 text-[11px] font-agenda-medium uppercase tracking-[0.15em] text-gray-400">
@@ -60,20 +92,20 @@ export function SocialShareButtons({ title }: { title: string }) {
       </p>
 
       <div className="flex flex-wrap gap-2">
+        {canNativeShare && (
+          <button onClick={handleNativeShare} className={buttonClass}>
+            {platformIcons["Share"]}
+            Share
+          </button>
+        )}
+
         {links.map((link) => (
           <a
             key={link.label}
             href={link.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="
-              group inline-flex items-center gap-2
-              rounded-full border border-gray-200 bg-white
-              px-4 py-2
-              text-[13px] font-agenda-medium text-gray-600
-              shadow-sm transition-all duration-200
-              hover:border-[#1E9BFB] hover:bg-[#1E9BFB] hover:text-white hover:shadow-md
-            "
+            className={buttonClass}
           >
             {platformIcons[link.label]}
             {link.label}
