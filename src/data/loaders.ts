@@ -760,6 +760,8 @@ const keyProjectPopulate = {
   image: true,
   type_of_work: true,
   sector: true,
+  secondary_menus: secondaryMenusPopulate,
+  blocks: pageBlocksPopulate,
 };
 
 export async function getKeyProjects() {

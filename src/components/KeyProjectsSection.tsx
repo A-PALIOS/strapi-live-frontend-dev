@@ -118,7 +118,7 @@ export function KeyProjectsBlock({
   }, [filteredProjects]);
 
   return (
-    <section className="px-4 sm:px-8 py-12 lg:py-20">
+    <section className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20">
       {(eyebrow || title) && (
         <div className="mb-12">
           {eyebrow && (

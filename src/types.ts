@@ -897,6 +897,8 @@ export interface KeyProject {
   image?: StrapiMedia | null;
   type_of_work?: KeyProjectTaxonomy | null;
   sector?: KeyProjectTaxonomy | null;
+  blocks?: Block[];
+  secondary_menus?: SecondaryMenuProps[];
 }
 
 export interface KeyProjectsBlockProps extends Base<"blocks.key-projects"> {
