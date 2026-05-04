@@ -136,6 +136,7 @@ import { RelevantProjects } from "./blocks/RelevantProjects";
 import { RelatedServiceGrid } from "./blocks/RelatedServiceGrid";
 import { LinkListAbout } from "./blocks/LinkListAbout";
 import { ImpactNavigation } from "./blocks/ImpactNavigation";
+import { KeyProjectsBlock } from "./KeyProjectsSection";
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
     
@@ -315,6 +316,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
     // }
     case "blocks.team-grid":
       return <TeamGrid {...block} key={index}></TeamGrid>
+    case "blocks.key-projects":
+      return <KeyProjectsBlock {...block} key={index}></KeyProjectsBlock>
     default:
       return null;
   }

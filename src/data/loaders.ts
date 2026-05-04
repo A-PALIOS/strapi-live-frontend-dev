@@ -319,6 +319,25 @@ const pageBlocksPopulate = {
         },
       },
     },
+    // "blocks.key-projects": {
+    //   populate: {
+        
+    //     projects: {
+    //       populate: {
+    //         image: media,
+    //         type_of_work: true,
+    //         sector: true,
+    //       },
+    //     },
+    //   },
+    // },
+    "blocks.key-projects": {
+        populate: {
+          projects: {
+            populate: "*",
+          },
+        },
+      },
 
     "blocks.impact-links": {
       populate: {
@@ -713,7 +732,6 @@ export async function getTeamMemberBySlug(slug: string) {
 
   return fetchAPI(url.href, { method: "GET" });
 }
-
 export async function fetchTeamMember(slug: string) {
   const query = qs.stringify(
     {
@@ -734,4 +752,44 @@ export async function fetchTeamMember(slug: string) {
   const data = await res.json();
 
   return data?.data?.[0];
+}
+
+//key projects logic
+
+const keyProjectPopulate = {
+  image: true,
+  type_of_work: true,
+  sector: true,
+};
+
+export async function getKeyProjects() {
+  const query = qs.stringify(
+    {
+      sort: ["createdAt:desc"],
+      populate: keyProjectPopulate,
+    },
+    { encodeValuesOnly: true }
+  );
+
+  const url = new URL(`/api/key-projects?${query}`, BASE_URL);
+
+  return fetchAPI(url.href, { method: "GET" });
+}
+
+export async function getKeyProjectBySlug(slug: string) {
+  const query = qs.stringify(
+    {
+      filters: {
+        slug: {
+          $eq: slug,
+        },
+      },
+      populate: keyProjectPopulate,
+    },
+    { encodeValuesOnly: true }
+  );
+
+  const url = new URL(`/api/key-projects?${query}`, BASE_URL);
+
+  return fetchAPI(url.href, { method: "GET" });
 }

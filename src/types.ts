@@ -327,6 +327,7 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
           | "blocks.dashboard-section5"
           | "blocks.impact-links"
            |"blocks.team-grid"
+           | "blocks.key-projects"
            | "blocks.expertise-grid";
 
 interface Base<
@@ -372,6 +373,7 @@ export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigital
   | DashboardSection4Props
   | DashboardSection5Props
   | TeamGridProps
+  | KeyProjectsBlockProps
   | TwoColumnTextBlockProps
   | ExpertiseVideoTabsBlockProps
   | ExpertiseGridBlockProps;
@@ -875,4 +877,32 @@ export interface TeamMemberProps {
       };
     };
   };
+}
+
+export interface KeyProjectTaxonomy {
+  id: number;
+  name: string;
+}
+
+export type KeyProjectPriority = "featured" | "standard" | "small";
+
+export interface KeyProject {
+  id: number;
+  documentId?: string;
+  title: string;
+  slug: string;
+  excerpt?: string;
+  link?: string;
+  priority: KeyProjectPriority;
+  image?: StrapiMedia | null;
+  type_of_work?: KeyProjectTaxonomy | null;
+  sector?: KeyProjectTaxonomy | null;
+}
+
+export interface KeyProjectsBlockProps extends Base<"blocks.key-projects"> {
+  id: number;
+  eyebrow?: string;
+  title?: string;
+  cta?: LinkProps;
+  projects: KeyProject[];
 }
