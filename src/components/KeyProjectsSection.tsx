@@ -3,10 +3,11 @@
 import { useMemo, useState } from "react";
 import type { KeyProjectsBlockProps, KeyProject } from "@/types";
 import { StrapiImage } from "./StrapiImage";
+import Link from "next/link";
 
 function FeaturedProject({ project }: { project: KeyProject }) {
   return (
-    <a href={project.link || `/key-projects/${project.slug}`} className="block mb-10 lg:mb-20">
+    <Link href={`/key-projects/${project.slug}`} className="block mb-10 lg:mb-20">
       {project.image?.url && (
         <div className="relative h-[260px] sm:h-[340px] lg:h-[420px] w-full overflow-hidden">
           <StrapiImage
@@ -27,13 +28,13 @@ function FeaturedProject({ project }: { project: KeyProject }) {
           {project.title}
         </h2>
       </div>
-    </a>
+    </Link>
   );
 }
 
 function SmallProject({ project }: { project: KeyProject }) {
   return (
-    <a href={project.link || `/key-projects/${project.slug}`} className="block">
+    <Link href={`/key-projects/${project.slug}`} className="block">
       {project.image?.url && (
         <div className="relative h-[260px] sm:h-[340px] lg:h-[500px] w-full overflow-hidden">
           <StrapiImage
@@ -54,7 +55,7 @@ function SmallProject({ project }: { project: KeyProject }) {
           {project.title}
         </h3>
       </div>
-    </a>
+    </Link>
   );
 }
 
