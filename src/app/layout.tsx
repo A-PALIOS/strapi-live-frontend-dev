@@ -44,6 +44,7 @@ export default async function RootLayout({
     <html lang="en">
             <head>
 
+      <link rel="icon" href="/favicon.png" type="image/png" />
       <link rel="stylesheet" href="https://use.typekit.net/wtb8azc.css"/>
       <link rel="stylesheet" href="https://use.typekit.net/vfu6mno.css"/>
  
