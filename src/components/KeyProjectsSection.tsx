@@ -4,6 +4,7 @@ import { useMemo, useState, useRef, useEffect } from "react";
 import type { KeyProjectsBlockProps, KeyProject } from "@/types";
 import { StrapiImage } from "./StrapiImage";
 import Link from "next/link";
+import { StrapiImageWithLogo } from "./StrapiImageWithLogo";
 
 function FilterDropdown({
   value,
@@ -77,12 +78,22 @@ function FeaturedProject({ project }: { project: KeyProject }) {
     <Link href={`/key-projects/${project.slug}`} className="block mb-10 lg:mb-20">
       {project.image?.url && (
         <div className="relative h-[70vh] w-full overflow-hidden">
-          <StrapiImage
-            src={project.image.url}
-            alt={project.image.alternativeText || project.title}
-            fill
-            className="object-cover"
-          />
+          {project.logo?.url ? (
+            <StrapiImageWithLogo
+              src={project.image.url}
+              alt={project.title}
+              fill
+              className="object-cover"
+              logo={{ src: project.logo.url, alt: project.title }}
+            />
+          ) : (
+            <StrapiImage
+              src={project.image.url}
+              alt={project.image.alternativeText || project.title}
+              fill
+              className="object-cover"
+            />
+          )}
         </div>
       )}
 
@@ -110,8 +121,10 @@ function SmallProject({ project }: { project: KeyProject }) {
             fill
             className="object-cover"
           />
+          
         </div>
       )}
+      
 
       <div className="mt-4">
         <p className="font-agenda-regular text-3xl uppercase text-zinc-600">

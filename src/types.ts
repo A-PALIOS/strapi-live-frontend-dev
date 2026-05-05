@@ -895,6 +895,7 @@ export interface KeyProject {
   link?: string;
   priority: KeyProjectPriority;
   image?: StrapiMedia | null;
+  logo?: StrapiMedia | null;
   type_of_work?: KeyProjectTaxonomy | null;
   sector?: KeyProjectTaxonomy | null;
   blocks?: Block[];
