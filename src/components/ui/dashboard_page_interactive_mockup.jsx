@@ -67,7 +67,7 @@ export function HeroSection() {
               Digital / Dashboard Solutions
             </div>
             <h1 className="max-w-3xl text-4xl font-semibold leading-tight md:text-6xl">
-              Interactive <span className="text-cyan-300">Data Dashboards</span>
+              <span className="text-white">Interactive</span> <span className="text-cyan-300">Data Dashboards</span>
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-8 text-blue-100/85 md:text-lg">
               Transform complex data into clear insights with powerful interactive dashboards designed for teams, executives, and organizations that need better visibility.
@@ -97,7 +97,7 @@ export function HeroSection() {
               <div className="mb-4 flex items-center justify-between">
                 <div>
                   <div className="text-sm text-white/50">Live Preview</div>
-                  <div className="text-lg font-semibold">Executive Control Center</div>
+                  <div className="text-lg text-white font-semibold">Executive Control Center</div>
                 </div>
                 <div className="rounded-full bg-emerald-400/15 px-3 py-1 text-xs font-medium text-emerald-300">
                   Live Data
@@ -127,7 +127,7 @@ export function HeroSection() {
                   <div className="mb-3 text-sm text-white/60">Completion Mix</div>
                   <div className="mx-auto mt-5 flex h-36 w-36 items-center justify-center rounded-full border-[18px] border-cyan-400/80 border-r-blue-500 border-b-indigo-500 border-l-sky-200/80">
                     <div className="text-center">
-                      <div className="text-2xl font-semibold">{range}%</div>
+                      <div className="text-2xl text-white font-semibold">{range}%</div>
                       <div className="text-xs text-white/55">completion</div>
                     </div>
                   </div>
