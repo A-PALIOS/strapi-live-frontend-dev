@@ -13,7 +13,7 @@ export function ProcessSteps({
   const desktopCols = steps.length === 6 ? "lg:grid-cols-3" : "lg:grid-cols-4";
 
   return (
-    <section className="w-full bg-white">
+    <section className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-10 md:py-10 bg-white">
       <div className="w-full">
         {(eyebrow || title) && (
           <div className="px-6 py-8 md:px-10 lg:px-12">

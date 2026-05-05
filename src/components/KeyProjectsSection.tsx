@@ -1,15 +1,82 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import type { KeyProjectsBlockProps, KeyProject } from "@/types";
 import { StrapiImage } from "./StrapiImage";
 import Link from "next/link";
+
+function FilterDropdown({
+  value,
+  onChange,
+  placeholder,
+  options,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  placeholder: string;
+  options: string[];
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const label = value === "all" ? placeholder : value;
+
+  return (
+    <div ref={ref} className="relative flex-shrink-0">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="flex items-center gap-2 font-agenda-regular text-3xl uppercase text-neutral-400 outline-none cursor-pointer"
+      >
+        {label}
+        <svg
+          className={`h-4 w-4 flex-shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          viewBox="0 0 10 6"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+        >
+          <path d="M1 1l4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+
+      {open && (
+        <div className="absolute left-0 top-full mt-2 z-50 bg-white border border-gray-200 shadow-lg min-w-[220px]">
+          <button
+            onClick={() => { onChange("all"); setOpen(false); }}
+            className={`w-full text-left px-5 py-3 font-agenda-regular text-xl uppercase hover:bg-gray-50 transition-colors ${value === "all" ? "text-stone-800" : "text-neutral-400"}`}
+          >
+            {placeholder}
+          </button>
+          {options.map((opt) => (
+            <button
+              key={opt}
+              onClick={() => { onChange(opt); setOpen(false); }}
+              className={`w-full text-left px-5 py-3 font-agenda-regular text-xl uppercase hover:bg-gray-50 transition-colors ${value === opt ? "text-stone-800" : "text-neutral-400"}`}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 function FeaturedProject({ project }: { project: KeyProject }) {
   return (
     <Link href={`/key-projects/${project.slug}`} className="block mb-10 lg:mb-20">
       {project.image?.url && (
-        <div className="relative h-[260px] sm:h-[340px] lg:h-[420px] w-full overflow-hidden">
+        <div className="relative h-[70vh] w-full overflow-hidden">
           <StrapiImage
             src={project.image.url}
             alt={project.image.alternativeText || project.title}
@@ -20,11 +87,11 @@ function FeaturedProject({ project }: { project: KeyProject }) {
       )}
 
       <div className="mt-5">
-        <p className="text-xs uppercase tracking-widest text-gray-500">
+        <p className="font-agenda-regular text-3xl uppercase text-zinc-600">
           {project.type_of_work?.name}
         </p>
 
-        <h2 className="mt-2 text-xl font-semibold uppercase tracking-wide">
+        <h2 className="mt-2 font-agenda-medium text-4xl uppercase leading-10 text-stone-800">
           {project.title}
         </h2>
       </div>
@@ -36,7 +103,7 @@ function SmallProject({ project }: { project: KeyProject }) {
   return (
     <Link href={`/key-projects/${project.slug}`} className="block">
       {project.image?.url && (
-        <div className="relative h-[260px] sm:h-[340px] lg:h-[500px] w-full overflow-hidden">
+        <div className="relative h-[75vh] w-full overflow-hidden">
           <StrapiImage
             src={project.image.url}
             alt={project.image.alternativeText || project.title}
@@ -47,11 +114,11 @@ function SmallProject({ project }: { project: KeyProject }) {
       )}
 
       <div className="mt-4">
-        <p className="text-xs uppercase tracking-widest text-gray-500">
+        <p className="font-agenda-regular text-3xl uppercase text-zinc-600">
           {project.type_of_work?.name}
         </p>
 
-        <h3 className="mt-1 text-base font-semibold uppercase tracking-wide">
+        <h3 className="mt-2 font-agenda-medium text-4xl uppercase leading-10 text-stone-800">
           {project.title}
         </h3>
       </div>
@@ -128,42 +195,19 @@ export function KeyProjectsBlock({
         </div>
       )}
 
-      <div className="mb-12 flex items-center gap-8 lg:gap-16 border-b border-gray-300 pb-4 w-full overflow-hidden">
-        <div className="relative flex items-center min-w-0 flex-shrink-0">
-          <select
-            value={selectedType}
-            onChange={(e) => setSelectedType(e.target.value)}
-            className="appearance-none bg-transparent text-xs uppercase tracking-wider text-gray-600 outline-none cursor-pointer pr-5 max-w-[140px] sm:max-w-none truncate"
-          >
-            <option value="all">Type of Work</option>
-            {typeOptions.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
-          <svg className="pointer-events-none absolute right-0 h-3 w-3 text-gray-600 flex-shrink-0" viewBox="0 0 10 6" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M1 1l4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
-
-        <div className="relative flex items-center min-w-0 flex-shrink-0">
-          <select
-            value={selectedSector}
-            onChange={(e) => setSelectedSector(e.target.value)}
-            className="appearance-none bg-transparent text-xs uppercase tracking-wider text-gray-600 outline-none cursor-pointer pr-5 max-w-[120px] sm:max-w-none truncate"
-          >
-            <option value="all">Sector</option>
-            {sectorOptions.map((sector) => (
-              <option key={sector} value={sector}>
-                {sector}
-              </option>
-            ))}
-          </select>
-          <svg className="pointer-events-none absolute right-0 h-3 w-3 text-gray-600 flex-shrink-0" viewBox="0 0 10 6" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M1 1l4 4 4-4" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
+      <div className="mb-12 flex items-center flex-col lg:flex-row gap-0 lg:gap-28 border-b border-gray-300 pb-8 w-full">
+        <FilterDropdown
+          value={selectedType}
+          onChange={setSelectedType}
+          placeholder="Type of Work"
+          options={typeOptions}
+        />
+        <FilterDropdown
+          value={selectedSector}
+          onChange={setSelectedSector}
+          placeholder="Sector"
+          options={sectorOptions}
+        />
       </div>
 
       {renderList.map((item) =>
