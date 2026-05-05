@@ -45,6 +45,7 @@ export default async function RootLayout({
             <head>
 
       <link rel="icon" href="/favicon.png" type="image/png" />
+      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       <link rel="stylesheet" href="https://use.typekit.net/wtb8azc.css"/>
       <link rel="stylesheet" href="https://use.typekit.net/vfu6mno.css"/>
  
