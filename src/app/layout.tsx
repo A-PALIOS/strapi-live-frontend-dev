@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   title: "CMT Prooptiki",
   description: "We Have the know-how and the experience",
   icons: {
-    icon: "/favicon.png",
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
 };
 
