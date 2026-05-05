@@ -115,12 +115,22 @@ function SmallProject({ project }: { project: KeyProject }) {
     <Link href={`/key-projects/${project.slug}`} className="block">
       {project.image?.url && (
         <div className="relative h-[75vh] w-full overflow-hidden">
-          <StrapiImage
-            src={project.image.url}
-            alt={project.image.alternativeText || project.title}
-            fill
-            className="object-cover"
-          />
+          {project.logo?.url ? (
+            <StrapiImageWithLogo
+              src={project.image.url}
+              alt={project.title}
+              fill
+              className="object-cover"
+              logo={{ src: project.logo.url, alt: project.title }}
+            />
+          ) : (
+            <StrapiImage
+              src={project.image.url}
+              alt={project.image.alternativeText || project.title}
+              fill
+              className="object-cover"
+            />
+          )}
           
         </div>
       )}
