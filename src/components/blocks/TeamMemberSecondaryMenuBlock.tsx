@@ -83,19 +83,14 @@ export function TeamMemberSecondaryMenuBlock({
     const sentinel = sentinelRef.current;
     if (!sentinel) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsPinned(!entry.isIntersecting);
-      },
-      {
-        root: null,
-        threshold: 0,
-      }
-    );
+    const checkPinned = () => {
+      setIsPinned(sentinel.getBoundingClientRect().top <= 0);
+    };
 
-    observer.observe(sentinel);
+    checkPinned();
+    window.addEventListener("scroll", checkPinned, { passive: true });
 
-    return () => observer.disconnect();
+    return () => window.removeEventListener("scroll", checkPinned);
   }, []);
 
   if (!items?.length && !globalItems.length) return null;
