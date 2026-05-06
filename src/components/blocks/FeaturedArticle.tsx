@@ -214,7 +214,7 @@ export function FeaturedArticle({
   publishedAt,
 }: Readonly<FeaturedArticleProps>) {
   return (
-    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-[124px]">
+    <section className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20">
       <article className="relative w-full h-auto rounded overflow-hidden">
         {/* Image */}
         {image && (

@@ -47,7 +47,7 @@ export default async function BlogRoute({ searchParams }: PageProps) {
 />
       )}
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-8" style={{paddingTop:"124px"}}>
+      <section className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20" style={{paddingTop:"124px"}}>
   <div className="space-y-2">
     <h2 className="text-2xl sm:text-3xl font-light text-gray-900">
       <span className="italic font-semibold text-[#1E9BFB]">Interested</span>
@@ -74,18 +74,20 @@ export default async function BlogRoute({ searchParams }: PageProps) {
   showPagination
   page={page}
 /> */}
-<ContentList
-  headline="Check out our latest articles"
-  path="/api/articles"
-  component={BlogCard}
-  featured
-  showSearch
-  category={category}
-  query={query}
-  showPagination={false}   // pagination generally not needed for carousels
-  page={page}
-  layout="grid"        // ⬅️ enable carousel mode
-/>
+<div>
+    <ContentList
+      headline="Check out our latest articles"
+      path="/api/articles"
+      component={BlogCard}
+      featured
+      showSearch
+      category={category}
+      query={query}
+      showPagination={false}   // pagination generally not needed for carousels
+      page={page}
+      layout="grid"        // ⬅️ enable carousel mode
+    />
+</div>
 
   </div>;
 }

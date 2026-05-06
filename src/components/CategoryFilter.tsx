@@ -39,7 +39,7 @@ export default function CategoryFilter({ categories }: Props) {
 
 
   return (
-    <section className="w-full max-w-7xl mx-auto px-4 py-6">
+    <section className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20">
       <div className="flex flex-wrap items-center justify-between gap-4">
         {/* Left: Buttons */}
         <div className="flex flex-wrap gap-4 text-sm">
