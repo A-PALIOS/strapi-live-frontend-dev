@@ -24,10 +24,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://newsite.cmtprooptiki.gr"),
   title: "CMT Prooptiki",
   description: "We Have the know-how and the experience",
   icons: {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  openGraph: {
+    images: [{ url: "/apple-touch-icon.png" }],
   },
 };
 
