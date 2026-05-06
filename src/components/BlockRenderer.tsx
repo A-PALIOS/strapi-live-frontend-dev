@@ -137,8 +137,13 @@ import { RelatedServiceGrid } from "./blocks/RelatedServiceGrid";
 import { LinkListAbout } from "./blocks/LinkListAbout";
 import { ImpactNavigation } from "./blocks/ImpactNavigation";
 import { KeyProjectsBlock } from "./KeyProjectsSection";
+import ContentListBlock from "./blocks/ContentListBlock";
 
-function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[]) {
+function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[], searchParams?: Promise<{
+    page?: string;
+    query?: string;
+    category?: string;
+  }>) {
     
   switch (block.__component) {
         case "blocks.hero-section-main":
@@ -151,6 +156,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <HeroSectionDigital {...block} key={index} />;
     case "blocks.info-block":
       return <InfoBlock {...block} key={index} />;
+    case "blocks.content-list":
+      return <ContentListBlock {...block} key={index} searchParams={searchParams!} />;
     case "blocks.related-service-grid":
       return <RelatedServiceGrid {...block} key={index} />
     case "blocks.moving-text":
@@ -323,6 +330,10 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
   }
 }
 
-export function BlockRenderer({ blocks, secondaryMenus }: { blocks: Block[],  secondaryMenus?: any[]; }) {
-  return blocks.map((block, index) => blockRenderer(block, index,blocks,secondaryMenus));
+export function BlockRenderer({ blocks, secondaryMenus, searchParams }: { blocks: Block[],  secondaryMenus?: any[], searchParams: Promise<{
+    page?: string;
+    query?: string;
+    category?: string;
+  }>; }) {
+  return blocks.map((block, index) => blockRenderer(block, index,blocks,secondaryMenus, searchParams));
 }

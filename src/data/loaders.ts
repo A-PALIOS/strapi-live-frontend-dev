@@ -266,6 +266,7 @@ const pageBlocksPopulate = {
 
     "blocks.about-info": true,
     "blocks.info-box": true,
+    "blocks.content-list":true,
     "blocks.service-info": true,
     "blocks.dashboard-section1": true,
     "blocks.dashboard-section2": true,

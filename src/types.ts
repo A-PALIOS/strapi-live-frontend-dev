@@ -19,6 +19,11 @@ export interface Tag {
   label: string;
 }
 
+export interface ContentList extends Base<"blocks.content-list"> 
+{
+  id: number;
+}
+
 export interface RelevantProjectItem {
   id: number;
   title: string;
@@ -294,6 +299,7 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
                  | "blocks.hero-section-services"
                  | "blocks.impact-navigation"
                    | "blocks.what-believe"
+                | "blocks.content-list"
                   | "blocks.mission-section"
                  | "blocks.about-info"
                  | "blocks.info-box"
@@ -373,6 +379,7 @@ export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigital
   | DashboardSection4Props
   | DashboardSection5Props
   | TeamGridProps
+  | ContentList
   | KeyProjectsBlockProps
   | TwoColumnTextBlockProps
   | ExpertiseVideoTabsBlockProps
