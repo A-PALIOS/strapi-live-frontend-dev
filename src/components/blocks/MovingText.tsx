@@ -10,9 +10,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function MovingText({
   description,
+  theme,
 }: Readonly<MovingTextProps>) {
   const descRef = useRef<HTMLParagraphElement | null>(null);
   const pathname = usePathname();
+  const isBlack = theme === "black";
 
   useEffect(() => {
     const el = descRef.current;
@@ -26,10 +28,13 @@ export function MovingText({
       .map((t) => (/\S/.test(t) ? `<span class="desc-word">${t}</span>` : t))
       .join("");
 
+    const startColor = isBlack ? "#555555" : "#9a9a9a";
+    const endColor = isBlack ? "#ffffff" : "#1f1a1c";
+
     const ctx = gsap.context(() => {
       const words = el.querySelectorAll<HTMLSpanElement>(".desc-word");
 
-      gsap.set(words, { color: "#9a9a9a" });
+      gsap.set(words, { color: startColor });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -41,7 +46,7 @@ export function MovingText({
       });
 
       tl.to(words, {
-        color: "#1f1a1c",
+        color: endColor,
         stagger: 0.08,
         duration: 0.8,
         ease: "none",
@@ -60,26 +65,26 @@ export function MovingText({
       ctx.revert();
       el.textContent = original;
     };
-  }, [pathname, description]);
+  }, [pathname, description, isBlack]);
 
   return (
-    <section className="w-full overflow-x-clip">
+    <section className={`w-full overflow-x-clip${isBlack ? " bg-black" : ""}`}>
       <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-10 md:py-10">
         <div className="max-w-[1200px]">
           <p
             ref={descRef}
-            className="
+            className={`
               font-agenda-medium
               text-[44px]
               leading-[0.95]
               tracking-[-0.055em]
-              text-[#9a9a9a]
               whitespace-normal
               break-words
               [overflow-wrap:anywhere]
               md:text-[62px]
               lg:text-[68px]
-            "
+              ${isBlack ? "text-[#555555]" : "text-[#9a9a9a]"}
+            `}
           >
             {description}
           </p>

@@ -10,6 +10,7 @@ export interface AboutUsStatementBlockProps extends Base<"blocks.about-us-statem
 
 export interface TwoColumnTextBlockProps extends Base<"blocks.two-column-text"> {
   id: number;
+  theme: "white" | "black";
   leftText: string;
   rightText: string;
 }
@@ -37,6 +38,7 @@ export interface RelevantProjectItem {
 
 export interface RelevantProjectsBlockProps extends Base <"blocks.relevant-projects"> {
   id: number;
+  theme: "white" | "black";
   eyebrow?: string;
   cta?: LinkProps;
   projects: RelevantProjectItem[];
@@ -82,6 +84,7 @@ export interface RelatedServiceItem {
 
 export interface RelatedServicesGridBlockProps extends Base <"blocks.related-service-grid"> {
   id: number;
+  theme: "white" | "black";
   eyebrow?: string;
   items?: RelatedServiceItem[];
 }
@@ -566,6 +569,7 @@ export interface ServicesAccordionBlockProps {
 export interface AccordionAboutBlockProps {
   __component: "blocks.accordion-about";
   id: number;
+  theme: "white" | "black";
   heading:string;
   items: ServiceAccordionItem[];
   image: ImageProps;

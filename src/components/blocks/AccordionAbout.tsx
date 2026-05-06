@@ -13,7 +13,9 @@ export function AccordionAbout({
   heading,
   items,
   cta,
+  theme,
 }: AccordionAboutBlockProps) {
+  const isBlack = theme === "black";
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const prefersReducedMotion = useReducedMotion();
 
@@ -30,7 +32,7 @@ export function AccordionAbout({
     <section
       id="services"
       data-header="dark"
-      className="relative overflow-hidden"
+      className={`relative overflow-hidden${isBlack ? " bg-black" : ""}`}
     >
       <div className="w-full px-6 py-16 md:px-10 md:py-20 lg:px-16 xl:px-20">
         <div

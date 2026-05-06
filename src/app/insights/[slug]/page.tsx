@@ -236,7 +236,7 @@ export default async function SingleBlogRoute({
       <div className="container mx-auto px-4 md:px-6 lg:px-12 mb-24">
         <div className="flex flex-col lg:flex-row gap-12 items-start">
           <div className="w-full lg:w-2/3">
-            <BlockRenderer blocks={blocks} />
+            <BlockRenderer blocks={blocks} searchParams={searchParams} />
           </div>
 
           <div className="w-full lg:w-1/3 space-y-6">

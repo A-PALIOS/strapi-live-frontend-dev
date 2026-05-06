@@ -18,10 +18,11 @@ export function RelevantProjects({
   eyebrow,
   cta,
   projects,
+  theme,
 }: Readonly<RelevantProjectsBlockProps>) {
   if (!projects?.length) return null;
 
-  console.log("Projects, ", projects)
+  const isBlack = theme === "black";
 
   const featuredIndex = Math.max(
     0,
@@ -29,12 +30,12 @@ export function RelevantProjects({
   );
 
   return (
-    <section className="w-full px-6 py-16 md:px-10 md:py-20 lg:px-16 xl:px-20">
+    <section className={`w-full px-6 py-16 md:px-10 md:py-20 lg:px-16 xl:px-20${isBlack ? " bg-black" : ""}`}>
       <div>
         <div className="mb-6 flex items-start justify-between gap-4">
           <div>
             {eyebrow ? (
-              <p className="text-[12px] font-medium uppercase tracking-[0.08em] text-[#1f1f1f]">
+              <p className={`text-[12px] font-medium uppercase tracking-[0.08em] ${isBlack ? "text-white" : "text-[#1f1f1f]"}`}>
                 {eyebrow}
               </p>
             ) : null}
@@ -45,7 +46,7 @@ export function RelevantProjects({
               href={cta.href}
               target={cta.isExternal ? "_blank" : undefined}
               rel={cta.isExternal ? "noopener noreferrer" : undefined}
-              className="group inline-flex items-center gap-2 text-[13px] text-[#1f1f1f]"
+              className={`group inline-flex items-center gap-2 text-[13px] ${isBlack ? "text-white" : "text-[#1f1f1f]"}`}
             >
               <span>{cta.text}</span>
               <span className="flex h-4 w-4 items-center justify-center bg-[#f08a24] text-[10px] text-white transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">

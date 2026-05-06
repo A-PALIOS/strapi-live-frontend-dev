@@ -59,7 +59,7 @@ export default async function HomeRoute({ searchParams }: PageProps) {
  
   return (
     <div>
-      <BlockRenderer blocks={headerBlocks} />
+      <BlockRenderer blocks={headerBlocks} searchParams={searchParams} />
       <ContentList
         headline="INSIGHTS THAT MATTER"
         path="/api/articles"
@@ -70,7 +70,7 @@ export default async function HomeRoute({ searchParams }: PageProps) {
         query={query}
         category={category}
       />
-      <BlockRenderer blocks={contentBlocks} />
+      <BlockRenderer blocks={contentBlocks} searchParams={searchParams} />
     </div>
   );
 }
