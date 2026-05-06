@@ -57,6 +57,7 @@ export default async function RootLayout({
           rel="stylesheet"
         />
         <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000" />
             </head>
 
       <body
