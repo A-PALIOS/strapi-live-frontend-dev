@@ -131,7 +131,7 @@ export function ProcessSteps({
             const cardClassName = `
               group relative flex min-h-[360px] overflow-hidden
               border-r border-b border-[#BDBDBD]
-              bg-[#F5F5F5]
+              
               px-5 py-5
               sm:min-h-[420px] sm:px-7 sm:py-7
               lg:min-h-[480px] lg:px-8 lg:py-8

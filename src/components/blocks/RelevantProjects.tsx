@@ -24,18 +24,21 @@ export function RelevantProjects({
 
   const isBlack = theme === "black";
 
-  const featuredIndex = Math.max(
-    0,
-    projects.findIndex((item) => item.isFeatured)
-  );
-
   return (
-    <section className={`w-full px-6 py-16 md:px-10 md:py-20 lg:px-16 xl:px-20${isBlack ? " bg-black" : ""}`}>
+    <section
+      className={`w-full px-6 py-16 md:px-10 md:py-20 lg:px-16 xl:px-20${
+        isBlack ? " bg-black" : ""
+      }`}
+    >
       <div>
         <div className="mb-6 flex items-start justify-between gap-4">
           <div>
             {eyebrow ? (
-              <p className={`text-[12px] font-medium uppercase tracking-[0.08em] ${isBlack ? "text-white" : "text-[#1f1f1f]"}`}>
+              <p
+                className={`text-[12px] font-medium uppercase tracking-[0.08em] ${
+                  isBlack ? "text-white" : "text-[#1f1f1f]"
+                }`}
+              >
                 {eyebrow}
               </p>
             ) : null}
@@ -46,7 +49,9 @@ export function RelevantProjects({
               href={cta.href}
               target={cta.isExternal ? "_blank" : undefined}
               rel={cta.isExternal ? "noopener noreferrer" : undefined}
-              className={`group inline-flex items-center gap-2 text-[13px] ${isBlack ? "text-white" : "text-[#1f1f1f]"}`}
+              className={`group inline-flex items-center gap-2 text-[13px] ${
+                isBlack ? "text-white" : "text-[#1f1f1f]"
+              }`}
             >
               <span>{cta.text}</span>
               <span className="flex h-4 w-4 items-center justify-center bg-[#f08a24] text-[10px] text-white transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
@@ -57,9 +62,7 @@ export function RelevantProjects({
         </div>
 
         <div className="grid grid-cols-1 gap-[1px] bg-[#d9d4d0] md:grid-cols-3">
-          {projects.map((item, index) => {
-            const isOpen = index === featuredIndex;
-
+          {projects.map((item) => {
             return (
               <Link
                 key={item.id}
@@ -86,7 +89,11 @@ export function RelevantProjects({
                     {item.logo?.url ? (
                       <Image
                         src={getStrapiMediaUrl(item.logo.url)}
-                        alt={item.logo.alternativeText || item.title || "Project logo"}
+                        alt={
+                          item.logo.alternativeText ||
+                          item.title ||
+                          "Project logo"
+                        }
                         width={170}
                         height={60}
                         className="h-auto w-auto max-h-[52px] object-contain"
@@ -94,14 +101,7 @@ export function RelevantProjects({
                     ) : null}
                   </div>
 
-                  <div
-                    className={cn(
-                      "max-w-[330px] transition-all duration-500",
-                      isOpen
-                        ? "translate-y-0 opacity-100"
-                        : "translate-y-8 opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100"
-                    )}
-                  >
+                  <div className="max-w-[330px] translate-y-8 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                     {item.title ? (
                       <h3 className="mb-3 text-[22px] font-medium uppercase tracking-[-0.03em] text-white md:text-[24px]">
                         {item.title}
