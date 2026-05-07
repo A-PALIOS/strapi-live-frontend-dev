@@ -214,7 +214,40 @@ export function FeaturedArticle({
   publishedAt,
 }: Readonly<FeaturedArticleProps>) {
   return (
-    <section className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20">
+    <section className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-30 md:py-30 xl:py-40">
+      <div>
+      <h1 className="text-[44px]
+              leading-[0.95]
+              tracking-[-0.055em]
+              whitespace-normal
+              break-words
+              [overflow-wrap:anywhere]
+              md:text-[62px]
+              lg:text-[68px]
+              font-agenda-medium">Insights & Advice from Our team
+      </h1>
+       <p className={`
+          mt-6 max-w-6xl 
+          font-agenda-normal 
+          text-[18px]
+          leading-[1.28]
+          tracking-[-0.03em]
+          sm:text-[19px]
+          md:text-[20px]
+          lg:text-[21px]
+   `}>Lorem ipsum dolor sit amet consectetur. Viverra velit sem pellentesque arcu </p>
+   <p className={`
+          mb-6
+          max-w-6xl 
+          font-agenda-normal 
+          text-[18px]
+          leading-[1.28]
+          tracking-[-0.03em]
+          sm:text-[19px]
+          md:text-[20px]
+          lg:text-[21px]
+   `}>vitae Ultricies mattis felis facilisis ultricies ut donec.</p>
+    </div>
       <article className="relative w-full h-auto rounded overflow-hidden">
         {/* Image */}
         {image && (

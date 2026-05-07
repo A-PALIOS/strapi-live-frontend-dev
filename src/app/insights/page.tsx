@@ -30,6 +30,7 @@ export default async function BlogRoute({ searchParams }: PageProps) {
   return <div>
     
     {/* <BlockRenderer blocks={blocks} /> */}
+    
 
 
       {featured && (
@@ -47,7 +48,7 @@ export default async function BlogRoute({ searchParams }: PageProps) {
 />
       )}
 
-      <section className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20" style={{paddingTop:"124px"}}>
+      <section className="w-full px-6 md:px-10 lg:px-16 xl:px-20">
   <div className="space-y-2">
     <h2 className="text-2xl sm:text-3xl font-light text-gray-900">
       <span className="italic font-semibold text-[#1E9BFB]">Interested</span>
