@@ -17,6 +17,7 @@ export function InfoBlock({
   image,
 }: Readonly<InfoBlockProps>) {
   const descRef = useRef<HTMLParagraphElement | null>(null);
+  const catRef  = useRef<HTMLDivElement | null>(null);
 
   const pathname = usePathname();
 
@@ -78,6 +79,47 @@ export function InfoBlock({
     el.textContent = original;
   };
 }, [pathname, description]);
+
+  // Right-side category words — synced to the same scroll trigger as the description
+  useEffect(() => {
+    const container = catRef.current;
+    const trigger   = descRef.current;
+    if (!container || !trigger) return;
+
+    const words = Array.from(
+      container.querySelectorAll<HTMLSpanElement>(".cat-word")
+    );
+    if (!words.length) return;
+
+    const ctx = gsap.context(() => {
+      gsap.set(words, { color: "#D1D5DB" });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger,
+          start: "top 70%",
+          end: "bottom 30%",
+          scrub: true,
+        },
+      });
+
+      words.forEach((word, i) => {
+        tl.to(word, { color: "#0090FE", duration: 1 }, i);
+      });
+    }, container);
+
+    const refresh = () => ScrollTrigger.refresh();
+    const raf = requestAnimationFrame(refresh);
+    window.addEventListener("pageshow", refresh);
+    window.addEventListener("resize", refresh);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("pageshow", refresh);
+      window.removeEventListener("resize", refresh);
+      ctx.revert();
+    };
+  }, [pathname]);
 
 //another useEffect showing pixelbypixel logic
   /*
@@ -203,11 +245,12 @@ export function InfoBlock({
 
         {/* Body */}
         <div className="mt-6 grid grid-cols-1 gap-10 md:mt-8 md:grid-cols-12">
-          <div className="md:col-span-10">
+          {/* Left: animated description */}
+          <div className="md:col-span-9">
             <p
               ref={descRef}
               className="
-                animate font-agenda-semibold text-3xl md:text-2xl lg:text-3xl
+                animate font-agenda-semibold text-3xl md:text-2xl lg:text-4xl
                 leading-tight text-gray-300
                 whitespace-normal break-words [overflow-wrap:anywhere]
               "
@@ -215,21 +258,36 @@ export function InfoBlock({
               {description}
             </p>
           </div>
+
+          {/* Right: scroll-revealed category words */}
+          <div
+            ref={catRef}
+            className="hidden md:flex md:col-span-3 flex-col justify-start items-end gap-3"
+          >
+            {["CONSULTING", "MANAGEMENT", "TRAINING"].map((word) => (
+              <span
+                key={word}
+                className="cat-word font-agenda-medium text-sky-500 text-4xl uppercase"
+              >
+                {word}
+              </span>
+            ))}
+          </div>
         </div>
 
         {/* Media */}
         {image && (
           <div className="mt-10 md:mt-14">
-            <div className="relative overflow-hidden rounded-2xl shadow-md">
-              <div className="relative aspect-[21/9] md:aspect-[2.6/1]">
-          <StrapiVideo
-            src={image.url}
-            className="absolute inset-0 h-full w-full object-cover"
-            controls={false}
-            autoPlay
-            loop
-            muted
-          />
+            <div className="relative overflow-hidden rounded-2xl">
+              <div className="relative aspect-[4/3] sm:aspect-video md:aspect-[1728/802]">
+                <StrapiVideo
+                  src={image.url}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  controls={false}
+                  autoPlay
+                  loop
+                  muted
+                />
               </div>
             </div>
           </div>

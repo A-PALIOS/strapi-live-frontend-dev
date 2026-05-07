@@ -1,363 +1,150 @@
-// "use client";
-
-// import type { FeaturedArticleProps } from "@/types";
-// import Link from "next/link";
-// import { StrapiImage } from "@/components/StrapiImage";
-// import ReactMarkdown from "react-markdown";
-
-// export function FeaturedArticle({
-//   headline,
-//   link,
-//   excerpt,
-//   image,
-// }: Readonly<FeaturedArticleProps>) {
-//   return (
-//     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-//       {/* Top section: Heading + Description */}
-//       <div>
-//         <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-//           {headline}
-//           <span className="text-sky-500">Our team</span>
-//         </h2>
-//         <p className="mt-2 text-gray-500 max-w-3xl">
-//           {excerpt}
-//         </p>
-//       </div>
-
-//       {/* Featured article card */}
-//       <article className="relative w-full h-[300px] md:h-[380px] rounded overflow-hidden">
-//         <StrapiImage
-//         src={image.url}
-//         alt={image.alternativeText || "No alternative text provided"}
-//         height={200}
-//         width={300}
-//         priority
-//         />
-
-//         {/* Overlay */}
-//         <div className="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm p-6 md:p-10 flex flex-col justify-between text-white">
-//           <div className="space-y-2">
-//             <h3 className="text-2xl sm:text-3xl font-bold">
-//               <span className="text-sky-400">Article</span> of the Day
-//             </h3>
-
-//             <p className="text-sm font-semibold">
-//               {headline}{" "}
-//               {/* <span className="text-sky-400">Our team</span> */}
-//             </p>
-
-//             <div className="text-sm leading-relaxed text-gray-200">
-//               <ReactMarkdown>{excerpt}</ReactMarkdown>
-//             </div>
-//           </div>
-
-//           {/* Author and CTA */}
-//           <div className="flex items-center justify-between mt-4">
-//             <div className="flex items-center gap-3">
-//               <div className="h-9 w-9 rounded-full bg-gray-200" />
-//               <div className="text-xs">
-//                 <p className="font-medium">Jon Doe</p>
-//                 <p className="text-gray-400">05/05/2023</p>
-//               </div>
-//             </div>
-
-//             <Link
-//               href={link.href}
-//               className="bg-white text-black text-sm px-4 py-2 rounded hover:bg-gray-100 transition"
-//             >
-//               {link.text} →
-//             </Link>
-//           </div>
-//         </div>
-//       </article>
-//     </section>
-//   );
-// }
-
-
-
-// "use client";
-
-// import type { FeaturedArticleProps } from "@/types";
-// import Link from "next/link";
-// import { StrapiImage } from "../StrapiImage";
-// import ReactMarkdown from "react-markdown";
-
-// export function FeaturedArticle({
-//   title,
-//   excerpt,
-//   image,
-  
-//   link,
-//   author,
-//   publishedAt,
-// }: Readonly<FeaturedArticleProps>) {
-//   return (
-//     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-//       {/* Header */}
-  
-
-//       {/* Featured article card */}
-//       <article className="relative w-full h-auto rounded overflow-hidden">
-       
-//        {image && (<StrapiImage
-//             src={image.url}
-//             alt={image.alternativeText || "Article Image"}
-//             width={1200}
-//             height={600}
-//             className="w-full rounded shadow-lg"
-//             />
-//             )}
-
-//         {/* Overlay content */}
-//         <div className="absolute inset-0  p-6 md:p-10 text-white">
-//           <div className="space-y-2">
-//             <h3 className="text-2xl sm:text-3xl font-bold">
-//               <span className="text-sky-400">Article</span> of the Day
-//             </h3>
-
-//             <p className="text-sm font-semibold">{title}</p>
-
-//             <div className="text-sm leading-relaxed text-gray-200 line-clamp-4">
-//               <ReactMarkdown>{excerpt}</ReactMarkdown>
-//             </div>
-//           </div>
-
-// <div className="flex items-center bg-gray-100 rounded-full px-4 py-2 w-fit shadow">
-//   {/* Profile Image with Figma-style cyan shadow */}
-//   <div
-//     className="w-11 h-11 mr-3 rounded-full relative"
-//     style={{
-//       boxShadow: "-2.54px 0px 3.8px 0px #1E9BFB",
-//     }}
-//   >
-//       {author.imageAuthor?.url && (
-
-//     <StrapiImage
-//       src={author.imageAuthor?.url}
-//       alt={author.imageAuthor?.alternativeText || "Author"}
-//       width={44}
-//       height={44}
-//       className="w-full h-full rounded-full object-cover"
-//     />)}
-//   </div>
-
-//   {/* Author Name and Date */}
-//   <div className="flex flex-col leading-tight">
-//     <span className="text-[#1E9BFB] font-semibold text-sm">{author.name}</span>
-//     <span className="text-gray-600 text-xs mt-0.5">{publishedAt}</span>
-//   </div>
-// </div>
-
-
-
-
-
-//           {/* Author and CTA */}
-//           <div className="flex items-center justify-between mt-4">
-//             <div className="flex items-center gap-3">
-//               {/* {author?.imageAuthor?.url ? (
-//                 <StrapiImage
-//                   src={author.imageAuthor.url}
-//                   alt={author.imageAuthor.alternativeText || author.name}
-//                   width={36}
-//                   height={36}
-//                   className="rounded-full object-cover w-9 h-9"
-//                 />
-//               ) : (
-//                 <div className="w-9 h-9 rounded-full bg-gray-400" />
-//               )} */}
-//               <div className="text-xs">
-//                 {/* <p className="font-medium">{author.name}</p> */}
-//                 <p className="text-gray-400">{formatDate(publishedAt)}</p>
-//               </div>
-//             </div>
-
-//             <Link
-//               href={link.href}
-//               className="bg-white text-black text-sm px-4 py-2 rounded hover:bg-gray-100 transition"
-//             >
-//               {link.text} →
-//             </Link>
-//           </div>
-//         </div>
-//       </article>
-//     </section>
-//   );
-// }
-
-// // Optional helper to format date
-// function formatDate(dateString: string) {
-//   const date = new Date(dateString);
-//   return date.toLocaleDateString("en-GB", {
-//     day: "2-digit",
-//     month: "2-digit",
-//     year: "numeric",
-//   });
-// }
-
-
-
 "use client";
 
 import type { FeaturedArticleProps } from "@/types";
-import Link from "next/link";
 import { StrapiImage } from "../StrapiImage";
-import ReactMarkdown from "react-markdown";
 
 export function FeaturedArticle({
   title,
-  excerpt,
   image,
-  link,
   author,
   publishedAt,
 }: Readonly<FeaturedArticleProps>) {
   return (
-    <section className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-30 md:py-30 xl:py-40">
-      <div>
-      <h1 className="text-[44px]
-              leading-[0.95]
-              tracking-[-0.055em]
-              whitespace-normal
-              break-words
-              [overflow-wrap:anywhere]
-              md:text-[62px]
-              lg:text-[68px]
-              font-agenda-medium">Insights & Advice from Our team
-      </h1>
-       <p className={`
-          mt-6 max-w-6xl 
-          font-agenda-normal 
-          text-[18px]
-          leading-[1.28]
-          tracking-[-0.03em]
-          sm:text-[19px]
-          md:text-[20px]
-          lg:text-[21px]
-   `}>Lorem ipsum dolor sit amet consectetur. Viverra velit sem pellentesque arcu </p>
-   <p className={`
-          mb-6
-          max-w-6xl 
-          font-agenda-normal 
-          text-[18px]
-          leading-[1.28]
-          tracking-[-0.03em]
-          sm:text-[19px]
-          md:text-[20px]
-          lg:text-[21px]
-   `}>vitae Ultricies mattis felis facilisis ultricies ut donec.</p>
-    </div>
-      <article className="relative w-full h-auto rounded overflow-hidden">
-        {/* Image */}
+    <section className="w-full px-6 md:px-10 lg:px-16 xl:px-20 pt-32 pb-12 md:pt-36 md:pb-14 xl:pt-40 xl:pb-16">
+
+      {/* Section header */}
+      <div className="mb-6 md:mb-8">
+        <h1
+          className="
+            text-[44px] leading-[0.95] tracking-[-0.055em]
+            md:text-[62px] lg:text-[68px]
+            whitespace-normal break-words [overflow-wrap:anywhere]
+          "
+        >
+          <span className="font-agenda-medium">Insights &amp; Advice from </span>
+          <span className="font-ivypresto-regular-italic">Our team</span>
+        </h1>
+
+        <p
+          className="
+            mt-4 md:mt-5 max-w-3xl
+            font-agenda-regular text-[18px] leading-[1.28] tracking-[-0.03em]
+            md:text-[20px] lg:text-[21px]
+          "
+        >
+          Explore the latest ideas, expert perspectives, and industry thinking shaping the future of
+          healthcare and social impact. Discover research-driven insights, emerging trends, and
+          practical approaches for a rapidly evolving healthcare landscape.
+        </p>
+      </div>
+
+      {/* Article card */}
+      <article className="relative w-full rounded-lg overflow-hidden">
+
+        {/* Background image */}
         {image && (
           <StrapiImage
             src={image.url}
             alt={image.alternativeText || "Article Image"}
-            width={1200}
-            height={600}
+            width={1728}
+            height={715}
             className="
-              w-full object-cover rounded
-              h-[380px] sm:h-[420px] md:h-[520px]
-              lg:h-[580px] xl:h-full
-              max-[1132px]:lg:h-[520px]
+              w-full object-cover
+              h-[380px] sm:h-[460px] md:h-[560px] lg:h-[640px] xl:h-[715px]
             "
           />
         )}
 
-        {/* Overlay */}
+        {/* Gradient overlay — matches Figma: from-sky-900 via-sky-950/40 to-slate-950/0 */}
+        <div className="absolute inset-0 bg-gradient-to-br from-sky-900 via-sky-950/40 to-slate-950/0" />
+
+        {/* Content — Figma: px-36 py-24, items-center */}
         <div
           className="
-            absolute inset-0 text-white
-            p-4 sm:p-6 md:p-8 lg:p-10
-            max-[1132px]:lg:p-8
-            flex flex-col justify-between
-            bg-gradient-to-t from-black/80 via-black/30 to-transparent
-            sm:bg-gradient-to-r sm:from-black/80 sm:to-black/20
+            absolute inset-0 flex items-center
+            px-6 py-8 sm:px-10 sm:py-12
+            md:px-16 md:py-16
+            lg:px-24 lg:py-20
+            xl:px-36 xl:py-24
           "
         >
-          {/* Top content */}
-          <div className="space-y-3 sm:space-y-4 md:space-y-5 max-w-2xl">
-            <h3
-              className="
-                font-bold leading-tight
-                text-2xl sm:text-3xl md:text-4xl lg:text-4xl
-                max-[1132px]:lg:text-[2.25rem]
-              "
-            >
-              <span className="text-[#1E9BFB]">Article</span> of the Day
-            </h3>
+          {/* Inner column — Figma: w-[728px], gap-20 */}
+          <div className="flex flex-col justify-center gap-10 md:gap-14 xl:gap-20 w-full max-w-[728px]">
 
-            <p
-              className="
-                italic
-                text-base sm:text-lg md:text-xl lg:text-lg
-                max-[1132px]:lg:text-[1.05rem]
-              "
-            >
-              {title} <span className="text-[#1E9BFB] font-medium"></span>
-            </p>
+            {/* Heading + title */}
+            <div className="flex flex-col gap-4 md:gap-6">
 
-            <div
-              className="
-                text-sm sm:text-base md:text-base lg:text-sm
-                max-w-xl text-white leading-relaxed
-                line-clamp-4 sm:line-clamp-5 md:line-clamp-6 lg:line-clamp-none
-                max-[1132px]:lg:text-base
-              "
-            >
-              <ReactMarkdown>{excerpt}</ReactMarkdown>
-            </div>
-          </div>
+              {/* "Article  of the Day" — two spans aligned to baseline */}
+              <div className="flex flex-wrap items-end gap-2 sm:gap-3 md:gap-4">
+                {/* Figma: text-blue-200 text-7xl font-normal IvyPresto */}
+                <span
+                  className="
+                    font-ivypresto-regular-italic text-blue-200
+                    text-4xl sm:text-5xl md:text-6xl xl:text-7xl
+                    leading-none
+                  "
+                >
+                  Article
+                </span>
 
-          {/* Bottom content */}
-          <div className="flex flex-col gap-4 mt-6 sm:mt-8 md:flex-row md:items-end md:justify-between">
-            {/* Author pill */}
-            <div className="flex items-center bg-white text-black rounded-full px-3 py-2 md:px-4 md:py-2 shadow-lg w-fit sm:w-auto">
-              <div
+                {/* Figma: text-white text-8xl font-normal Agenda leading-[82px] */}
+                <span
+                  className="
+                    font-agenda-medium text-white
+                    text-4xl sm:text-5xl md:text-7xl xl:text-8xl
+                    leading-none xl:leading-[82px]
+                  "
+                >
+                  of the Day
+                </span>
+              </div>
+
+              {/* Article title — Figma: text-white text-3xl font-normal Roboto */}
+              <p
                 className="
-                  rounded-full mr-3 overflow-hidden
-                  w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10
-                  max-[1132px]:lg:w-10 max-[1132px]:lg:h-10
+                  font-agenda-regular text-white
+                  text-lg sm:text-xl md:text-2xl xl:text-3xl
+                  leading-snug
                 "
+              >
+                {title}
+              </p>
+            </div>
+
+            {/* Author pill — Figma: w-40 h-10 px-2 py-0.5 bg-zinc-100 rounded-[75px] gap-4 */}
+            <div className="inline-flex items-center gap-3 bg-zinc-100 rounded-[75px] px-2 py-0.5 w-fit">
+
+              {/* Avatar */}
+              <div
+                className="w-9 h-9 rounded-full overflow-hidden shrink-0"
                 style={{ boxShadow: "-2.54px 0px 3.8px 0px #1E9BFB" }}
               >
-                {author.imageAuthor?.url && (
+                {author.imageAuthor?.url ? (
                   <StrapiImage
                     src={author.imageAuthor.url}
-                    alt={author.imageAuthor.alternativeText || "Author"}
-                    width={40}
-                    height={40}
-                    className="object-cover w-full h-full"
+                    alt={author.imageAuthor.alternativeText || author.name}
+                    width={36}
+                    height={36}
+                    className="w-full h-full object-cover"
                   />
+                ) : (
+                  <div className="w-full h-full bg-sky-300 rounded-full" />
                 )}
               </div>
-              <div
-                className="
-                  text-[11px] sm:text-xs md:text-sm
-                  max-[1132px]:lg:text-sm
-                "
-              >
-                <p className="font-semibold text-[#1E9BFB]">{author.name}</p>
-                <p className="text-gray-600">{formatDate(publishedAt)}</p>
+
+              {/* Name + date — Figma: flex-col gap-2 */}
+              <div className="flex flex-col">
+                {/* Figma: text-sky-500 text-xs Proxima Nova leading-6 */}
+                <span className="text-sky-500 text-xs leading-6 whitespace-nowrap">
+                  {author.name}
+                </span>
+                {/* Figma: text-zinc-800/75 text-xs Proxima Nova leading-6 */}
+                <span className="text-zinc-800/75 text-xs leading-6 whitespace-nowrap">
+                  {formatDate(publishedAt)}
+                </span>
               </div>
             </div>
 
-            {/* CTA button */}
-            <Link
-              href={link.href}
-              className="
-                bg-white text-[#1E9BFB] font-medium
-                inline-flex items-center justify-center
-                rounded shadow hover:bg-gray-100 transition
-                w-full sm:w-auto
-                text-sm px-5 py-2
-                md:px-6 md:py-2.5
-              "
-            >
-              {link.text}
-              <span className="ml-2">➜</span>
-            </Link>
           </div>
         </div>
       </article>
@@ -365,7 +152,6 @@ export function FeaturedArticle({
   );
 }
 
-// Date formatter
 function formatDate(dateString: string) {
   const date = new Date(dateString);
   return date.toLocaleDateString("en-GB", {
