@@ -40,7 +40,6 @@ export default async function Page({ params, searchParams }: PageProps) {
           component={BlogCard}
           featured
           showSearch
-          category={category}
           query={query}
           showPagination
           page={page}
