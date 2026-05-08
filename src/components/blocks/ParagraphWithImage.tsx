@@ -14,7 +14,7 @@ export function ParagraphWithImage({
       </div>
 
       {/* Image Block (smaller size) */}
-      <div className="w-full max-w-md">
+      <div className="w-full">
         <StrapiImage
           src={image.url}
           alt={image.alternativeText || "No alternative text provided"}
