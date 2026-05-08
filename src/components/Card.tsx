@@ -92,34 +92,21 @@ export function Card({
         {/*figma author section */}
 
 <div className="flex justify-between mt-auto">
-<div className="flex items-center bg-gray-100 px-4 py-2 w-fit shadow">
-  {/* Profile Image with Figma-style cyan shadow */}
-  <div
-    className="w-11 h-11 mr-3 rounded-full relative"
-    style={{
-      boxShadow: "-2.54px 0px 3.8px 0px #1E9BFB",
-    }}
-  >
-      {imageAuthor?.url && (
- 
-    <StrapiImage
-      src={imageAuthor?.url}
-      alt={imageAuthor?.alternativeText || "Author"}
-      width={44}
-      height={44}
-      className="w-full h-full rounded-full object-cover"
-    />)}
-  </div>
-  {/* {primaryCategory && (
-            <span className="text-xs text-gray-600 mr-3 bg-white rounded-full px-2 py-0.5 border">
-              {primaryCategory}
-            </span>
-          )} */}
- 
-  {/* Author Name and Date */}
-  <div className="flex flex-col leading-tight">
-    <span className="text-[#1E9BFB] font-semibold text-sm font-agenda-regular">{author}</span>
-    <span className="text-gray-600 text-xs mt-0.5 font-agenda-regular">     {formatDate(startDate ?? createdAt)}</span>
+<div className="px-2 py-0.5 bg-zinc-800/5 rounded-[5px] inline-flex justify-start items-center gap-2">
+  {imageAuthor?.url && (
+    <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0" style={{ boxShadow: "-2.54px 0px 3.8px 0px #1E9BFB" }}>
+      <StrapiImage
+        src={imageAuthor.url}
+        alt={imageAuthor.alternativeText || author}
+        width={28}
+        height={28}
+        className="w-full h-full object-cover"
+      />
+    </div>
+  )}
+  <div className="h-9 inline-flex flex-col justify-center items-start gap-[3px]">
+    <span className="text-sky-500 text-xs font-normal font-agenda-regular">{author}</span>
+    <span className="text-zinc-800 text-xs font-normal font-agenda-regular">{formatDate(startDate ?? createdAt)}</span>
   </div>
 </div>
 
