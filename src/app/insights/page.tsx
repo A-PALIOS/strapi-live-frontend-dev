@@ -84,9 +84,10 @@ export default async function BlogRoute({ searchParams }: PageProps) {
       showSearch
       category={category}
       query={query}
-      showPagination={false}   // pagination generally not needed for carousels
+      showPagination={false}
       page={page}
-      layout="grid"        // ⬅️ enable carousel mode
+      layout="grid"
+      pageSize={16}
     />
 </div>
 

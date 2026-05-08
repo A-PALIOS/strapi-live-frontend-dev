@@ -486,7 +486,8 @@ export async function getContent(
   featured?: boolean,
   query?: string,
   page?: string,
-  category?: string
+  category?: string,
+  pageSize?: number
 ) {
   const url = new URL(path, BASE_URL);
 
@@ -510,7 +511,7 @@ export async function getContent(
         }),
       },
       pagination: {
-        pageSize: BLOG_PAGE_SIZE,
+        pageSize: pageSize ?? BLOG_PAGE_SIZE,
         page: parseInt(page || "1"),
       },
       populate: {

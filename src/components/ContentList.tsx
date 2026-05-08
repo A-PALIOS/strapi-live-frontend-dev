@@ -8,17 +8,18 @@ interface ContentListProps {
   query?: string;
   path: string;
   featured?: boolean;
-  category?: string; // ✅ NEW
+  category?: string;
   component: React.ComponentType<ArticleProps & { basePath: string }>;
   headlineAlignment?: "center" | "right" | "left";
   showSearch?:boolean;
   page?:string;
   showPagination?:boolean;
-  layout?:"grid" | "vertical"
+  layout?:"grid" | "vertical";
+  pageSize?: number;
 }
 
-async function loader(path: string ,featured?:boolean,query?:string, page?:string,  category?: string) {
-  const { data, meta } = await getContent(path,featured,query ,page,category);
+async function loader(path: string, featured?: boolean, query?: string, page?: string, category?: string, pageSize?: number) {
+  const { data, meta } = await getContent(path, featured, query, page, category, pageSize);
   return {
     articles: (data as ArticleProps[]) || [],
     pageCount:meta?.pagination?.pageCount || 1,
@@ -36,9 +37,10 @@ export async function ContentList({
   query,
   page,
   showPagination,
-  layout = "grid", // <- default to grid layout
+  layout = "grid",
+  pageSize,
 }: Readonly<ContentListProps>) {
-  const { articles, pageCount } = await loader(path, featured, query, page,category);
+  const { articles, pageCount } = await loader(path, featured, query, page, category, pageSize);
   const Component = component;
 
   const alignmentClass = {
