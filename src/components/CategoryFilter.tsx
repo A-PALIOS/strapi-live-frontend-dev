@@ -9,7 +9,7 @@ interface Taxonomy {
 }
 
 interface Props {
-  categories: Taxonomy[];
+  sectors: Taxonomy[];
   topics: Taxonomy[];
 }
 
@@ -80,7 +80,7 @@ function FilterDropdown({
   );
 }
 
-export default function CategoryFilter({ categories, topics }: Props) {
+export default function CategoryFilter({ sectors, topics }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedTopic, setSelectedTopic] = useState("all");
@@ -88,10 +88,10 @@ export default function CategoryFilter({ categories, topics }: Props) {
 
   useEffect(() => {
     setSelectedTopic(searchParams.get("topic") ?? "all");
-    setSelectedSector(searchParams.get("category") ?? "all");
+    setSelectedSector(searchParams.get("sector") ?? "all");
   }, [searchParams]);
 
-  const handleChange = (key: "topic" | "category", value: string) => {
+  const handleChange = (key: "topic" | "sector", value: string) => {
     const params = new URLSearchParams(window.location.search);
     params.set("page", "1");
     if (value === "all") {
@@ -112,9 +112,9 @@ export default function CategoryFilter({ categories, topics }: Props) {
       />
       <FilterDropdown
         value={selectedSector}
-        onChange={(v) => { setSelectedSector(v); handleChange("category", v); }}
+        onChange={(v) => { setSelectedSector(v); handleChange("sector", v); }}
         placeholder="By Sector"
-        options={categories.map((c) => c.name)}
+        options={sectors.map((s) => s.name)}
       />
     </div>
   );

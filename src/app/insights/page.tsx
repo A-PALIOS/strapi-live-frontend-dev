@@ -1,4 +1,4 @@
-import { getArticleOfTheDay,getPageBySlug,getCategories,getTopics } from "@/data/loaders";
+import { getArticleOfTheDay,getPageBySlug,getSectors,getTopics } from "@/data/loaders";
 import { FeaturedArticle } from "@/components/blocks/FeaturedArticle";
 
 import { notFound } from "next/navigation";
@@ -14,16 +14,16 @@ import CategoryFilter from "@/components/CategoryFilter";
 // }
 
 interface PageProps {
-  searchParams: Promise<{ page?: string; query?: string; category?: string; topic?: string }>
+  searchParams: Promise<{ page?: string; query?: string; sector?: string; topic?: string }>
 }
 
 
 
 export default async function BlogRoute({ searchParams }: PageProps) {
-  const { page, query, category, topic } = await searchParams;
-  const [featured, categoryList, topicList] = await Promise.all([
+  const { page, query, sector, topic } = await searchParams;
+  const [featured, sectorList, topicList] = await Promise.all([
     getArticleOfTheDay(),
-    getCategories(),
+    getSectors(),
     getTopics(),
   ]);
   return <div>
@@ -61,7 +61,7 @@ export default async function BlogRoute({ searchParams }: PageProps) {
 </section> */}
 
   {/* Category filters */}
-      <CategoryFilter categories={categoryList} topics={topicList} />
+      <CategoryFilter sectors={sectorList} topics={topicList} />
 
     {/* <ContentList
   headline="Check out our latest  + +articles"
@@ -81,7 +81,7 @@ export default async function BlogRoute({ searchParams }: PageProps) {
       component={BlogCard}
       featured
 
-      category={category}
+      sector={sector}
       topic={topic}
       query={query}
       showPagination={false}

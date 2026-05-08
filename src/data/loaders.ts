@@ -486,7 +486,7 @@ export async function getContent(
   featured?: boolean,
   query?: string,
   page?: string,
-  category?: string,
+  sector?: string,
   topic?: string,
   pageSize?: number
 ) {
@@ -503,10 +503,10 @@ export async function getContent(
           ],
         }),
         ...(featured && { featured: { $eq: featured } }),
-        ...(category && {
-          categories: {
+        ...(sector && {
+          sectors: {
             name: {
-              $eq: category,
+              $eq: sector,
             },
           },
         }),
@@ -525,13 +525,28 @@ export async function getContent(
       populate: {
         image: media,
         imageAuthor: media,
-        categories: true,
       },
     },
     { encodeValuesOnly: true }
   );
 
   return fetchAPI(url.href, { method: "GET" });
+}
+
+export async function getSectors(): Promise<{ id: number; name: string }[]> {
+  try {
+    const res = await fetchAPI(`${BASE_URL}/api/sectors?fields[0]=name`, {
+      method: "GET",
+    });
+    const raw = res?.data || [];
+    const unique = new Map();
+    for (const s of raw) {
+      if (!unique.has(s.name)) unique.set(s.name, { id: s.id, name: s.name });
+    }
+    return Array.from(unique.values()) as { id: number; name: string }[];
+  } catch {
+    return [];
+  }
 }
 
 export async function getTopics(): Promise<{ id: number; name: string }[]> {

@@ -38,7 +38,7 @@ export function Card({
   return (
     <Link
       href={`/${basePath}/${slug}`}
-      className="block rounded-lg overflow-hidden shadow-sm bg-white hover:shadow-md transition-shadow duration-300"
+      className="flex flex-col rounded-lg overflow-hidden shadow-sm bg-white hover:shadow-md transition-shadow duration-300"
     >
       {/* Image */}
       <div className="w-full h-64 relative group">
@@ -76,8 +76,8 @@ export function Card({
 </div>
  
       {/* Text content */}
-      <div className="p-5">
-        <h3 className="text-xl font-semibold text-gray-900 mb-2 leading-snug font-agenda-regular">
+      <div className="p-5 pb-8 flex flex-col flex-1 min-h-[280px]">
+        <h3 className="text-xl font-semibold text-gray-900 mb-4 leading-snug font-agenda-regular line-clamp-3">
           {title}
         </h3>
  
@@ -91,7 +91,7 @@ export function Card({
  
         {/*figma author section */}
 
-<div className="flex justify-between ">
+<div className="flex justify-between mt-auto">
 <div className="flex items-center bg-gray-100 px-4 py-2 w-fit shadow">
   {/* Profile Image with Figma-style cyan shadow */}
   <div
@@ -124,7 +124,7 @@ export function Card({
 </div>
 
 {/* Diagonal arrow icon */}
-  <div className="flex justify-end items-end mt-4">
+  <div className="flex justify-end items-end">
     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" className="text-[#1E9BFB]" xmlns="http://www.w3.org/2000/svg">
       <path d="M6 16L16 6M16 6H8M16 6V14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
