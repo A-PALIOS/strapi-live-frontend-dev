@@ -47,7 +47,7 @@ export default async function BlogRoute({ searchParams }: PageProps) {
 />
       )}
 
-      <section className="w-full px-6 md:px-10 lg:px-16 xl:px-20">
+      {/* <section className="w-full px-6 md:px-10 lg:px-16 xl:px-20">
   <div className="space-y-2">
     <h2 className="text-2xl sm:text-3xl font-light text-gray-900">
       <span className="italic font-semibold text-[#1E9BFB]">Interested</span>
@@ -58,7 +58,7 @@ export default async function BlogRoute({ searchParams }: PageProps) {
       Ultricies mattis felis facilisis ultricies ut
     </p>
   </div>
-</section>
+</section> */}
 
   {/* Category filters */}
       <CategoryFilter categories={categoryList} topics={topicList} />
@@ -76,11 +76,11 @@ export default async function BlogRoute({ searchParams }: PageProps) {
 /> */}
 <div>
     <ContentList
-      headline="Check out our latest articles"
+      headline=""
       path="/api/articles"
       component={BlogCard}
       featured
-      showSearch
+
       category={category}
       topic={topic}
       query={query}

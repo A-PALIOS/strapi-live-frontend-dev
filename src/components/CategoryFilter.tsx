@@ -63,7 +63,7 @@ function FilterDropdown({
             onClick={() => { onChange("all"); setOpen(false); }}
             className={`w-full text-left px-5 py-3 font-agenda-regular text-xl uppercase hover:bg-gray-50 transition-colors ${value === "all" ? "text-stone-800" : "text-neutral-400"}`}
           >
-            {placeholder}
+            All
           </button>
           {options.map((opt) => (
             <button
@@ -103,7 +103,7 @@ export default function CategoryFilter({ categories, topics }: Props) {
   };
 
   return (
-    <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20 flex items-center gap-28 border-b border-gray-300 pb-8">
+    <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20 flex items-center gap-28 border-b border-zinc-600 pb-8">
       <FilterDropdown
         value={selectedTopic}
         onChange={(v) => { setSelectedTopic(v); handleChange("topic", v); }}
