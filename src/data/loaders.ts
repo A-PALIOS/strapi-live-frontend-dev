@@ -487,6 +487,7 @@ export async function getContent(
   query?: string,
   page?: string,
   category?: string,
+  topic?: string,
   pageSize?: number
 ) {
   const url = new URL(path, BASE_URL);
@@ -509,6 +510,13 @@ export async function getContent(
             },
           },
         }),
+        ...(topic && {
+          topics: {
+            name: {
+              $eq: topic,
+            },
+          },
+        }),
       },
       pagination: {
         pageSize: pageSize ?? BLOG_PAGE_SIZE,
@@ -524,6 +532,22 @@ export async function getContent(
   );
 
   return fetchAPI(url.href, { method: "GET" });
+}
+
+export async function getTopics(): Promise<{ id: number; name: string }[]> {
+  try {
+    const res = await fetchAPI(`${BASE_URL}/api/topics?fields[0]=name`, {
+      method: "GET",
+    });
+    const raw = res?.data || [];
+    const unique = new Map();
+    for (const t of raw) {
+      if (!unique.has(t.name)) unique.set(t.name, { id: t.id, name: t.name });
+    }
+    return Array.from(unique.values()) as { id: number; name: string }[];
+  } catch {
+    return [];
+  }
 }
 
 export async function getContent2(
