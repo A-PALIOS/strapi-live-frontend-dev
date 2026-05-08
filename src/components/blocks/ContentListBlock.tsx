@@ -20,7 +20,6 @@ export default async function ContentListBlock({ searchParams }: PageProps) {
         component={BlogCard}
         featured
         showSearch
-        category={category}
         query={query}
         showPagination
         page={page}

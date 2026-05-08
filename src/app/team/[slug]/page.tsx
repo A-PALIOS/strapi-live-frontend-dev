@@ -166,7 +166,6 @@ export default async function MemberPage({ params, searchParams }: PageProps) {
           component={BlogCard}
           featured
           showSearch
-          category={category}
           query={query}
           showPagination
           page={page}

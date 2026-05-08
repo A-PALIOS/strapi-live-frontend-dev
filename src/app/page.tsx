@@ -68,7 +68,6 @@ export default async function HomeRoute({ searchParams }: PageProps) {
         showPagination
         page={page}
         query={query}
-        category={category}
       />
       <BlockRenderer blocks={contentBlocks} searchParams={searchParams} />
     </div>
