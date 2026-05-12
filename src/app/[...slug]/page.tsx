@@ -28,6 +28,7 @@ interface PageProps {
     page?: string;
     query?: string;
     category?: string;
+    sector?: string;
   }>;
 }
 

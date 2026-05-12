@@ -525,6 +525,7 @@ export async function getContent(
       populate: {
         image: media,
         imageAuthor: media,
+        sectors: true
       },
     },
     { encodeValuesOnly: true }
@@ -570,7 +571,8 @@ export async function getContent2(
   featured?: boolean,
   query?: string,
   page?: string,
-  category?: string
+  category?: string,
+  sector?: string,
 ) {
   const url = new URL(path, BASE_URL2);
 
@@ -592,6 +594,13 @@ export async function getContent2(
             },
           },
         }),
+        ...(sector && {
+          sectors: {
+            name: {
+              $eq: sector,
+            },
+          },
+        }),
       },
       pagination: {
         pageSize: BLOG_PAGE_SIZE,
@@ -601,6 +610,7 @@ export async function getContent2(
         image: media,
         imageAuthor: media,
         categories: true,
+        sectors: true
       },
     },
     { encodeValuesOnly: true }

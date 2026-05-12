@@ -14,6 +14,7 @@ export interface CardProps {
     alternativeText?: string;
   };
   categories?: { id: number | string; documentId?: string; name: string }[];
+  sectors?: { id: number | string; documentId?: string; name: string }[];
   author:string;
   price?: number;
   startDate?: string;
@@ -29,12 +30,15 @@ export function Card({
   author,
   imageAuthor,
   categories,
+  sectors,
   // price,
   createdAt,
   startDate,
   basePath,
 }: Readonly<CardProps>) {
   const primaryCategory = categories?.[0]?.name ?? null;
+  const primarySector = sectors?.[0]?.name ?? null;
+  console.log("Sector:", sectors)
   return (
     <Link
       href={`/${basePath}/${slug}`}
@@ -53,7 +57,7 @@ export function Card({
   <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/0 to-black/35 pointer-events-none" />
  
   {/* category pill (top-left) */}
-  {primaryCategory && (
+  {primarySector && (
     <div className="absolute top-3 left-3 z-10">
       <span
         className="
@@ -69,7 +73,7 @@ export function Card({
           text-md
         "
       >
-        {primaryCategory} 
+        {primarySector} 
       </span>
     </div>
   )}

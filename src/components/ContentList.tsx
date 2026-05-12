@@ -43,6 +43,8 @@ export async function ContentList({
   pageSize,
 }: Readonly<ContentListProps>) {
   const { articles, pageCount } = await loader(path, featured, query, page, sector, topic, pageSize);
+
+  console.log("ContentList articles:", articles);
   const Component = component;
 
   const alignmentClass = {
