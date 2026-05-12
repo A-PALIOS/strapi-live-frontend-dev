@@ -10,7 +10,7 @@ import NavLink from "../NavLink";
 interface HeaderProps {
   data: {
     logo: LogoProps;
-    logoWhite?: LogoProps;    // white logo for dark sections
+    logoWhite?: LogoProps; // white logo for dark sections
 
     navigation: LinkProps[];
     cta: LinkProps;
@@ -23,66 +23,70 @@ export function Header({ data }: HeaderProps) {
   const overlay: boolean = pathname !== "/";
   const [isOpen, setIsOpen] = useState(false);
 
+  const headerRef = useRef<HTMLDivElement>(null);
+  const [onDark, setOnDark] = useState(false);
 
- const headerRef = useRef<HTMLDivElement>(null);
-const [onDark, setOnDark] = useState(false);
+  useEffect(() => {
+    let raf = 0;
 
-useEffect(() => {
-  let raf = 0;
+    const calc = () => {
+      const hh = headerRef.current?.offsetHeight ?? 80;
 
-  const calc = () => {
-    const hh = headerRef.current?.offsetHeight ?? 80;
+      // Re-query zones each time to avoid stale elements after navigation
+      const zones = Array.from(
+        document.querySelectorAll<HTMLElement>('[data-header="dark"]'),
+      );
 
-    // Re-query zones each time to avoid stale elements after navigation
-    const zones = Array.from(
-      document.querySelectorAll<HTMLElement>('[data-header="dark"]')
-    );
+      const isOverAnyDark = zones.some((el) => {
+        const r = el.getBoundingClientRect();
+        // header occupies [0, hh] since it's fixed at the top
+        return r.top < hh && r.bottom > 0;
+      });
 
-    const isOverAnyDark = zones.some((el) => {
-      const r = el.getBoundingClientRect();
-      // header occupies [0, hh] since it's fixed at the top
-      return r.top < hh && r.bottom > 0;
-    });
+      setOnDark(isOverAnyDark);
+    };
 
-    setOnDark(isOverAnyDark);
-  };
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(calc);
+    };
 
-  const onScroll = () => {
-    cancelAnimationFrame(raf);
+    // Run immediately, and again on the next frame to catch newly mounted page content
+    calc();
     raf = requestAnimationFrame(calc);
-  };
 
-  // Run immediately, and again on the next frame to catch newly mounted page content
-  calc();
-  raf = requestAnimationFrame(calc);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", calc);
+    window.addEventListener("orientationchange", calc);
+    window.addEventListener("pageshow", calc); // bfcache restores
+    document.addEventListener("visibilitychange", calc);
 
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", calc);
-  window.addEventListener("orientationchange", calc);
-  window.addEventListener("pageshow", calc);         // bfcache restores
-  document.addEventListener("visibilitychange", calc);
-
-  return () => {
-    window.removeEventListener("scroll", onScroll);
-    window.removeEventListener("resize", calc);
-    window.removeEventListener("orientationchange", calc);
-    window.removeEventListener("pageshow", calc);
-    document.removeEventListener("visibilitychange", calc);
-    cancelAnimationFrame(raf);
-  };
-}, [pathname]); // 👈 re-run after each client navigation
-
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", calc);
+      window.removeEventListener("orientationchange", calc);
+      window.removeEventListener("pageshow", calc);
+      document.removeEventListener("visibilitychange", calc);
+      cancelAnimationFrame(raf);
+    };
+  }, [pathname]); // 👈 re-run after each client navigation
 
   if (!data) return null;
   const { logo, logoWhite, navigation, cta } = data;
-  console.log("data",logoWhite)
-// inside your Header component, after `const { logo, logoWhite, navigation, cta } = data;`
-const activeLogo = onDark && logoWhite ? logoWhite : logo;
-const logoAlt =
-  (onDark ? logoWhite?.image?.alternativeText : logo.image.alternativeText) ||
-  "Logo";
+  console.log("data", logoWhite);
+  // inside your Header component, after `const { logo, logoWhite, navigation, cta } = data;`
+  const activeLogo = onDark && logoWhite ? logoWhite : logo;
+  const logoAlt =
+    (onDark ? logoWhite?.image?.alternativeText : logo.image.alternativeText) ||
+    "Logo";
 
   return (
+    <>
+    {}
+    <div className="fixed top-12 right-[-55px] rotate-45 bg-amber-500 text-black px-16 py-3 font-bold shadow-xl z-50 text-sm whitespace-nowrap border border-amber-700">
+      🚧 Under Construction
+    </div>
+
     <header
       id="site-header"
       className={`w-full z-50 transition-colors duration-300 ${
@@ -93,52 +97,61 @@ const logoAlt =
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Glassy nav container */}
-<div
-  ref={headerRef}
-
-  className={`
+        <div
+          ref={headerRef}
+          className={`
     w-full flex items-center justify-between gap-6 rounded-2xl px-5 py-3
     border shadow-[0_8px_24px_rgba(0,0,0,0.15),inset_0_1px_0_rgba(255,255,255,0.25)]
     backdrop-blur-xl backdrop-saturate-150
     ${onDark ? "bg-black/20 border-white/20" : "bg-white/10 border-white/20"}
   `}
-  style={{ marginTop: 20 }}
->
+          style={{ marginTop: 20 }}
+        >
           {/* Logo */}
-<NavLink href="/" className="flex items-center shrink-0" onClick={() => setIsOpen(false)}>
-  <StrapiImage
-    src={activeLogo.image.url}
-    alt={logoAlt}
-    width={120}
-    height={120}
-    className="h-10 w-auto transition-opacity duration-200"
-  />
-</NavLink>
+          <NavLink
+            href="/"
+            className="flex items-center shrink-0"
+            onClick={() => setIsOpen(false)}
+          >
+            <StrapiImage
+              src={activeLogo.image.url}
+              alt={logoAlt}
+              width={120}
+              height={120}
+              className="h-10 w-auto transition-opacity duration-200"
+            />
+          </NavLink>
 
-       {/* separator */}
-<span
-  className={`hidden xl:inline ${
-    onDark ? "text-white/70" : "text-[#73777A]"
-  }`}
-  style={{ fontFamily: "agenda", fontStyle: "normal", fontSize: "25px", marginLeft: 12, marginRight: 12 }}
->
-  |
-</span>
+          {/* separator */}
+          <span
+            className={`hidden xl:inline ${
+              onDark ? "text-white/70" : "text-[#73777A]"
+            }`}
+            style={{
+              fontFamily: "agenda",
+              fontStyle: "normal",
+              fontSize: "25px",
+              marginLeft: 12,
+              marginRight: 12,
+            }}
+          >
+            |
+          </span>
 
-         {/* Desktop Nav */}
-<nav className="hidden xl:flex gap-8">
-  {navigation.map((item) => (
-    <NavLink
-      key={item.id}
-      href={item.href}
-      target={item.isExternal ? "_blank" : "_self"}
-      className={`${onDark ? "text-white/90 hover:text-white" : "text-[#23292E] hover:text-gray-900"} font-agenda-medium transition`}
-      style={{ fontSize: 22 }}
-    >
-      {item.text}
-    </NavLink>
-  ))}
-</nav>
+          {/* Desktop Nav */}
+          <nav className="hidden xl:flex gap-8">
+            {navigation.map((item) => (
+              <NavLink
+                key={item.id}
+                href={item.href}
+                target={item.isExternal ? "_blank" : "_self"}
+                className={`${onDark ? "text-white/90 hover:text-white" : "text-[#23292E] hover:text-gray-900"} font-agenda-medium transition`}
+                style={{ fontSize: 22 }}
+              >
+                {item.text}
+              </NavLink>
+            ))}
+          </nav>
 
           {/* CTA Button */}
           <div className="hidden xl:block ml-auto">
@@ -184,12 +197,12 @@ const logoAlt =
           </div>
 
           {/* Mobile Menu Button */}
-        {/* Mobile button icon color */}
-<button
-  onClick={() => setIsOpen((v) => !v)}
-  className={`${onDark ? "text-white/90 hover:text-white" : "text-gray-900/80 hover:text-gray-900"} xl:hidden focus:outline-none`}
-  aria-label="Toggle menu"
->
+          {/* Mobile button icon color */}
+          <button
+            onClick={() => setIsOpen((v) => !v)}
+            className={`${onDark ? "text-white/90 hover:text-white" : "text-gray-900/80 hover:text-gray-900"} xl:hidden focus:outline-none`}
+            aria-label="Toggle menu"
+          >
             {isOpen ? (
               <svg
                 className="w-7 h-7"
@@ -246,23 +259,20 @@ const logoAlt =
                   {item.text}
                 </Link>
               ))} */}
-          {navigation.map((item) => (
-    <NavLink
-      key={item.id}
-      href={item.href}
-      target={item.isExternal ? "_blank" : "_self"}
-      className={`${onDark ? "text-white/90 hover:text-white" : "text-[#23292E] hover:text-gray-900"} font-agenda-medium transition`}
-      style={{ fontSize: 22 }}
-      onClick={() => setIsOpen((v) => !v)}
-    >
-      {item.text}
-    </NavLink>
-  ))}
-
+              {navigation.map((item) => (
+                <NavLink
+                  key={item.id}
+                  href={item.href}
+                  target={item.isExternal ? "_blank" : "_self"}
+                  className={`${onDark ? "text-white/90 hover:text-white" : "text-[#23292E] hover:text-gray-900"} font-agenda-medium transition`}
+                  style={{ fontSize: 22 }}
+                  onClick={() => setIsOpen((v) => !v)}
+                >
+                  {item.text}
+                </NavLink>
+              ))}
             </nav>
 
-
-    
             <Link href={cta.href} target={cta.isExternal ? "_blank" : "_self"}>
               <button className="w-full rounded-xl px-4 py-3 text-sm font-medium transition border border-white/30 bg-white/20 hover:bg-white/30 text-white">
                 {cta.text} <span className="ml-1">→</span>
@@ -272,5 +282,6 @@ const logoAlt =
         </div>
       )}
     </header>
+    </>
   );
 }
