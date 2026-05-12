@@ -106,7 +106,7 @@ import { Card, type CardProps } from "@/components/Card";
 import { ContentList } from "@/components/ContentList";
 import { ArticleIntroSection } from "@/components/blocks/ArticleIntroSection";
 
-const SITE_URL = "https://newsite.cmtprooptiki.gr";
+const SITE_URL = "https://cmtprooptiki.gr";
 
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.jpg`;
 
@@ -160,12 +160,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = article.title || "CMT Prooptiki";
   const description = article.description || "";
 
-  const articleUrl = `https://newsite.cmtprooptiki.gr/insights/${slug}`;
+  const articleUrl = `https://cmtprooptiki.gr/insights/${slug}`;
 
   const imageUrl = getOgImageUrl(article.image?.url);
 
   return {
-    metadataBase: new URL("https://newsite.cmtprooptiki.gr"),
+    metadataBase: new URL("https://cmtprooptiki.gr"),
     title,
     description,
     alternates: {

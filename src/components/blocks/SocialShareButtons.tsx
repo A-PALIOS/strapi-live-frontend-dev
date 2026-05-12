@@ -40,7 +40,7 @@ export function SocialShareButtons({ title }: { title: string }) {
   const pathname = usePathname();
   const [canNativeShare, setCanNativeShare] = useState(false);
 
-  const siteUrl = "https://newsite.cmtprooptiki.gr";
+  const siteUrl = "https://cmtprooptiki.gr";
   const postUrl = `${siteUrl}${pathname}`;
   const encodedUrl = encodeURIComponent(postUrl);
   const encodedTitle = encodeURIComponent(title);

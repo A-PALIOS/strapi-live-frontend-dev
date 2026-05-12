@@ -24,7 +24,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://newsite.cmtprooptiki.gr"),
+  metadataBase: new URL("https://cmtprooptiki.gr"),
   title: "CMT Prooptiki",
   description: "We Have the know-how and the experience",
   icons: {
