@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Roboto } from "next/font/google";
 import { Geist_Mono } from "next/font/google";
 import "flickity/css/flickity.css";
@@ -77,6 +78,18 @@ export default async function RootLayout({
         </main>
         </NavProgressProvider>
         <Footer data={footer} />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-L0RYMWVF83"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-L0RYMWVF83');
+          `}
+        </Script>
       </body>
     </html>
   );
