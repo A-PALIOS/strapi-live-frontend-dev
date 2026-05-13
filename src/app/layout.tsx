@@ -79,7 +79,7 @@ export default async function RootLayout({
         </NavProgressProvider>
         <Footer data={footer} />
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-L0RYMWVF83"
+          src="https://www.googletagmanager.com/gtag/js?id=G-X2Q6YHTTWW"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
