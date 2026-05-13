@@ -30,7 +30,7 @@ export function RelevantProjects({
         isBlack ? " bg-black" : ""
       }`}
     >
-      <div>
+      {/* <div>
         <div className="mb-6 flex items-start justify-between gap-4">
           <div>
             {eyebrow ? (
@@ -132,7 +132,7 @@ export function RelevantProjects({
             );
           })}
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }

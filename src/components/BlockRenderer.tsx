@@ -138,6 +138,7 @@ import { LinkListAbout } from "./blocks/LinkListAbout";
 import { ImpactNavigation } from "./blocks/ImpactNavigation";
 import { KeyProjectsBlock } from "./KeyProjectsSection";
 import ContentListBlock from "./blocks/ContentListBlock";
+import {NextProject} from "./blocks/NextProject";
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[], searchParams?: Promise<{
     page?: string;
@@ -164,6 +165,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <MovingText {...block} key={index} />;
     case "blocks.milestones-block":
       return <MilestoneBlock {...block} key={index} />;
+    case "blocks.next-project":
+      return <NextProject {...block} key={index} />;
     case "blocks.vertical-accordion-block":
        return <VerticalAccordionBlock {...block} key={index} />;
     case "blocks.services-accordion-block":

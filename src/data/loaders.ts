@@ -176,7 +176,6 @@ const pageBlocksPopulate = {
         cta,
       },
     },
-
     "blocks.hero-section-services": {
       populate: {
         video: media,
@@ -184,7 +183,6 @@ const pageBlocksPopulate = {
         cta,
       },
     },
-
     "blocks.hero-section-digital": {
       populate: {
         image: media,
@@ -213,13 +211,11 @@ const pageBlocksPopulate = {
         },
       },
     },
-
     "blocks.related-service-grid": {
       populate: {
         items: true,
       },
     },
-
     "blocks.impact-navigation": {
       populate: {
         items: {
@@ -230,14 +226,18 @@ const pageBlocksPopulate = {
         },
       },
     },
-
     "blocks.info-block": {
       populate: {
         image: media,
         cta,
       },
     },
-
+    "blocks.next-project": {
+  populate: {
+    Image: media,
+    cta,
+  },
+},
     "blocks.moving-text": {
       populate: {
         image: media,
@@ -320,18 +320,6 @@ const pageBlocksPopulate = {
         },
       },
     },
-    // "blocks.key-projects": {
-    //   populate: {
-        
-    //     projects: {
-    //       populate: {
-    //         image: media,
-    //         type_of_work: true,
-    //         sector: true,
-    //       },
-    //     },
-    //   },
-    // },
     "blocks.key-projects": {
         populate: {
           projects: {

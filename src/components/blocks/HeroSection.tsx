@@ -46,16 +46,41 @@ export function HeroSection({
         {/* Top content */}
         <div className="max-w-4xl">
           {logo && (
-            <div className="mb-6">
-              <StrapiImage
-                src={logo.image.url}
-                alt={logo.image.alternativeText || "Logo"}
-                className="h-10 w-auto object-contain"
-                width={120}
-                height={40}
-              />
-            </div>
-          )}
+  <div className="mt-8 mb-8">
+    <div
+      className="
+        inline-flex items-center gap-4
+        px-5 py-4
+        rounded-sm
+      "
+    >
+      {/* Static text */}
+      <span
+        className="
+          text-[#4A4A4A]
+          text-[34px]
+          leading-none
+          font-agenda-medium
+          uppercase
+        "
+      >
+        CLIENT
+      </span>
+
+      {/* Divider */}
+      <div className="h-10 w-px bg-[#CFCFCF]" />
+
+      {/* Dynamic logo image */}
+      <StrapiImage
+        src={logo.image.url}
+        alt={logo.image.alternativeText || "Client logo"}
+        className="h-12 w-auto object-contain"
+        width={220}
+        height={60}
+      />
+    </div>
+  </div>
+)}
 
        <h1
             style={useMinContentWidth ? { width: "min-content" } : undefined}
@@ -94,35 +119,6 @@ export function HeroSection({
     {subheader}
   </p>
 )}
-
-          {cta && (
-            <div className="mt-8">
-              <Link
-                href={cta.href}
-                target={cta.isExternal ? "_blank" : "_self"}
-                className={`inline-flex items-center gap-3 rounded-md bg-[#1E9BFB] px-6 py-3 text-sm font-agenda-semibold text-white transition hover:bg-[#156DB0]`}
-                aria-label={cta.text ?? "Learn more"}
-              >
-                <span>{cta.text ?? "Learn More"}</span>
-                <span className="grid h-6 w-6 place-items-center rounded-sm bg-white/15">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    aria-hidden="true"
-                    className="h-4 w-4"
-                  >
-                    <path
-                      d="M7 17L17 7M17 7H9M17 7V15"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </span>
-              </Link>
-            </div>
-          )}
         </div>
 
         {/* Hero image */}

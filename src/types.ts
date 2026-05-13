@@ -11,6 +11,7 @@ export interface AboutUsStatementBlockProps extends Base<"blocks.about-us-statem
 export interface TwoColumnTextBlockProps extends Base<"blocks.two-column-text"> {
   id: number;
   theme: "white" | "black";
+  variant?: "default" | "stackedLabels";
   leftText: string;
   rightText: string;
 }
@@ -108,6 +109,7 @@ export interface ProcessStepsBlockProps extends Base <"blocks.process-steps"> {
   eyebrow?: string | null;
   title?: string | null;
   steps: ProcessStepItem[];
+  variant?: "default" | "compactImpact";
 }
 
 export interface StrapiMedia {
@@ -132,6 +134,13 @@ export interface ExpertiseVideoTabsBlockProps extends Base<"blocks.expertise-vid
   id: number;
   Eyebrow?: string | null;
   items: ExpertiseVideoItemProps[];
+}
+
+export interface NextProjectBlock extends Base<"blocks.next-project">
+{
+  id: number;
+  Image:StrapiMedia;
+  cta?: LinkProps;
 }
 
 export interface MetricItem {
@@ -304,6 +313,7 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
                    | "blocks.what-believe"
                 | "blocks.content-list"
                   | "blocks.mission-section"
+                  | "blocks.next-project"
                  | "blocks.about-info"
                  | "blocks.info-box"
                  | "blocks.service-info"
@@ -383,6 +393,7 @@ export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigital
   | DashboardSection5Props
   | TeamGridProps
   | ContentList
+  | NextProjectBlock
   | KeyProjectsBlockProps
   | TwoColumnTextBlockProps
   | ExpertiseVideoTabsBlockProps
