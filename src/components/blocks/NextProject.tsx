@@ -9,8 +9,8 @@ export function NextProject(block: NextProjectBlock) {
   const isExternal = block.cta?.isExternal;
 
   const content = (
-    <section className="flex items-center justify-center gap-12 border border-neutral-300 px-10 py-20 transition hover:bg-neutral-50">
-      <h2 className="text-[34px] font-normal uppercase tracking-wide text-[#2f3a42]">
+    <section className="flex flex-col md:flex-row w-full items-center justify-center gap-4 border border-neutral-300 px-6 py-10 transition hover:bg-neutral-50 md:px-10 lg:px-16 xl:px-20">
+      <h2 className="text-center md:text-left text-[64px] font-agenda-regular uppercase tracking-wide text-[#2f3a42]">
         {block.cta?.text || "CONTINUE TO NEXT PROJECT"}
       </h2>
 

@@ -68,7 +68,7 @@ export function HeroSection({
       </span>
 
       {/* Divider */}
-      <div className="h-10 w-px bg-[#CFCFCF]" />
+      <div className="h-10 w-px bg-[#323C43] font-agenda-regular rotate-[25deg]" />
 
       {/* Dynamic logo image */}
       <StrapiImage

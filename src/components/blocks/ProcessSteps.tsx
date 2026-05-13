@@ -46,7 +46,7 @@ export function ProcessSteps({
               <p
                 className={
                   isCompactImpact
-                    ? "mb-8 text-[13px] font-medium uppercase tracking-[-0.03em] text-[#05192D]"
+                    ? "mb-8 text-[24px] font-agenda-medium uppercase tracking-[-0.03em] text-[#05192D]"
                     : "mb-2 text-sm uppercase tracking-[0.18em] text-neutral-500"
                 }
               >
@@ -58,7 +58,7 @@ export function ProcessSteps({
               <h2
                 className={
                   isCompactImpact
-                    ? "max-w-[760px] font-agenda-regular text-[32px] uppercase leading-[1.08] tracking-[-0.06em] text-[#1E1E1E] md:text-[46px]"
+                    ? "max-w-[760px] font-agenda-medium text-[32px] uppercase leading-[1.08] tracking-[-0.06em] text-[#1E1E1E] md:text-[48px]"
                     : "text-3xl font-medium tracking-[-0.03em] text-[#1E1E1E] md:text-5xl"
                 }
               >
@@ -81,11 +81,11 @@ export function ProcessSteps({
 
               const compactContent = (
                 <div className="flex h-full flex-col justify-between">
-                  <h3 className="font-agenda-regular text-[22px] uppercase leading-[1] tracking-[-0.06em] text-[#05192D] md:text-[26px]">
+                  <h3 className="font-agenda-medium text-[22px] uppercase leading-[1] tracking-[-0.06em] text-[#05192D] md:text-[32px]">
                     {step.title}
                   </h3>
 
-                  <p className="mt-12 max-w-[330px] font-agenda-regular text-[15px] leading-[1.15] tracking-[-0.05em] text-[#1E1E1E] md:text-[16px]">
+                  <p className="mt-12 max-w-[330px] font-agenda-regular text-[15px] leading-[1.15] tracking-[-0.05em] text-[#1E1E1E] md:text-[24px]">
                     {step.description}
                   </p>
                 </div>
