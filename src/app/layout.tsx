@@ -87,7 +87,7 @@ export default async function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-L0RYMWVF83');
+            gtag('config', 'G-X2Q6YHTTWW');
           `}
         </Script>
       </body>
