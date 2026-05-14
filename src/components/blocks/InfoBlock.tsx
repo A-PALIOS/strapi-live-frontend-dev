@@ -15,6 +15,7 @@ export function InfoBlock({
   description,
   cta,
   image,
+  showCategoryWords,
 }: Readonly<InfoBlockProps>) {
   const descRef = useRef<HTMLParagraphElement | null>(null);
   const catRef  = useRef<HTMLDivElement | null>(null);
@@ -82,6 +83,7 @@ export function InfoBlock({
 
   // Right-side category words — synced to the same scroll trigger as the description
   useEffect(() => {
+    if (showCategoryWords === "hide") return;
     const container = catRef.current;
     const trigger   = descRef.current;
     if (!container || !trigger) return;
@@ -119,7 +121,7 @@ export function InfoBlock({
       window.removeEventListener("resize", refresh);
       ctx.revert();
     };
-  }, [pathname]);
+  }, [pathname, showCategoryWords]);
 
 //another useEffect showing pixelbypixel logic
   /*
@@ -260,19 +262,21 @@ export function InfoBlock({
           </div>
 
           {/* Right: scroll-revealed category words */}
-          <div
-            ref={catRef}
-            className="hidden md:flex md:col-span-3 flex-col justify-start items-end gap-3"
-          >
-            {["CONSULTING", "MANAGEMENT", "TRAINING"].map((word) => (
-              <span
-                key={word}
-                className="cat-word font-agenda-medium text-sky-500 text-4xl uppercase"
-              >
-                {word}
-              </span>
-            ))}
-          </div>
+          {showCategoryWords !== "hide" && (
+            <div
+              ref={catRef}
+              className="hidden md:flex md:col-span-3 flex-col justify-start items-end gap-3"
+            >
+              {["CONSULTING", "MANAGEMENT", "TRAINING"].map((word) => (
+                <span
+                  key={word}
+                  className="cat-word font-agenda-medium text-sky-500 text-4xl uppercase"
+                >
+                  {word}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Media */}

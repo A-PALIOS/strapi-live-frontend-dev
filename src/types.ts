@@ -460,6 +460,7 @@ export interface InfoBlockProps extends Base<"blocks.info-block"> {
   content: string;
   image?: ImageProps;
   cta?: LinkProps;
+  showCategoryWords?: "show" | "hide";
 }
 
 export interface MovingTextProps extends Base<"blocks.moving-text"> {
