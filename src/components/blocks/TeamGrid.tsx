@@ -23,7 +23,7 @@ export function TeamGrid({
   category,
 }: Readonly<TeamGridPropsExtended>) {
   const [currentPage2, setCurrentPage2] = useState(1);
-  const membersPerPage = 9;
+  const membersPerPage = 21;
   const [categoryList, setCategoryList] = useState<any[]>([]);
 
   const totalPages = Math.ceil(team_members.length / membersPerPage);
