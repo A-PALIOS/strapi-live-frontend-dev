@@ -21,7 +21,7 @@ function renderParagraphs(text?: string, isBlack?: boolean) {
       <p
         key={index}
         className={`
-          font-agenda-normal
+          font-agenda-regular
           text-[28px]
           leading-[1.18]
           tracking-[-0.055em]
@@ -45,7 +45,7 @@ function renderStackedLabels(leftText?: string, isScrolled?: boolean) {
       <p
         key={index}
         className={`
-          font-agenda-normal
+          font-agenda-regular
           text-[25px]
           leading-none
           tracking-[-0.055em]

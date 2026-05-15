@@ -252,7 +252,7 @@ export function Footer({ data }: { data: FooterProps }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-10">
             {column?.map((col) => (
               <div key={col.title}>
-                <h4 className="mb-3 text-base sm:text-lg font-semibold text-white/90">{col.title}</h4>
+                <h4 className="mb-3 text-base sm:text-lg md:text-3xl font-agenda-medium text-white/90">{col.title}</h4>
                 <ul className="space-y-2 text-white/75">
                   {col.link?.map((l) =>
                     l.href ? (
@@ -260,7 +260,7 @@ export function Footer({ data }: { data: FooterProps }) {
                         <Link
                           href={l.href}
                           target={l.isExternal ? "_blank" : "_self"}
-                          className="transition hover:text-white"
+                          className="transition hover:text-white font-agenda-regular text-2xl"
                         >
                           {l.text}
                         </Link>
@@ -294,7 +294,7 @@ export function Footer({ data }: { data: FooterProps }) {
             {/* button */}
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-md bg-[#1E9BFB] px-4 py-2.5 sm:px-5 sm:py-3 font-medium text-white hover:bg-[#156DB0] transition"
+              className="inline-flex items-center justify-center gap-2 rounded-md bg-[#1E9BFB] px-4 py-2.5 sm:px-5 sm:py-3 font-medium text-white hover:bg-[#156DB0] transition font-agenda-regular"
             >
               Contact us
               <span className="inline-grid place-items-center h-6 w-6 rounded bg-white text-[#1E9BFB] text-sm leading-none">
@@ -332,7 +332,7 @@ export function Footer({ data }: { data: FooterProps }) {
                     className="flex items-center gap-2 text-white/90 transition hover:text-white"
                   >
                     <span>{iconMap[iconKey] ?? <Globe className="h-4 w-4" />}</span>
-                    <span className="text-sm md:text-base">{item.text}</span>
+                    <span className="text-sm md:text-base font-agenda-regular">{item.text}</span>
                   </Link>
                 );
               })}
@@ -346,7 +346,7 @@ export function Footer({ data }: { data: FooterProps }) {
         {/* BOTTOM BAR */}
         <div className="px-5 sm:px-6 md:px-8 lg:px-10 py-6 text-white">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <p className="text-center md:text-left text-xs sm:text-sm text-white/60">
+            <p className="text-center md:text-left text-xs sm:text-sm text-white/60 font-agenda-regular">
               © {new Date().getFullYear()} {copyrightText || "Your Company Name"}. All rights reserved.
             </p>
 

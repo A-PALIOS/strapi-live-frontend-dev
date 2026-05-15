@@ -46,7 +46,7 @@ export function ExpertiseVideoTabs({
 
           <div className="relative flex h-full flex-col justify-center">
             {Eyebrow ? (
-              <p className="mb-10 text-[13px] uppercase tracking-[0.04em] text-white/95">
+              <p className="mb-10 text-[13px] font-agenda-medium uppercase tracking-[0.04em] text-white/95">
                 {Eyebrow}
               </p>
             ) : null}
@@ -64,12 +64,12 @@ export function ExpertiseVideoTabs({
                   >
                     <div className="flex items-start justify-between gap-4 px-2 py-6 md:px-3 md:py-6">
                       <div className="min-w-0 flex-1">
-                        <h3 className="text-[24px] font-light uppercase leading-[1.1] tracking-[-0.03em] text-white md:text-[32px]">
+                        <h3 className="text-[24px] font-agenda-medium uppercase leading-[1.1] tracking-[-0.03em] text-white md:text-[32px]">
                           {item.title}
                         </h3>
 
                         {isActive && item.description ? (
-                          <p className="mt-5 max-w-[520px] text-[15px] leading-[1.5] text-white/80 md:text-[17px]">
+                          <p className="mt-5 max-w-[520px] text-[15px] leading-[1.5] text-white/80 md:text-[17px] font-agenda-regular">
                             {item.description}
                           </p>
                         ) : null}

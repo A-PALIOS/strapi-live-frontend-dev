@@ -178,6 +178,7 @@ export function StatementSection({
   <p
     className="
       mx-auto
+      font-agenda-regular
       max-w-[920px]
       text-left
       text-[20px]

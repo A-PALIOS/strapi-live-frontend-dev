@@ -35,8 +35,8 @@ export function ServicesAccordionBlock({
 
       <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20 text-white">
         {/* Top bar */}
-        <div className="flex items-center justify-between text-[11px] sm:text-xs uppercase tracking-[0.16em]">
-          <span className="opacity-80">{heading}</span>
+        <div className="flex items-center justify-between md:text-3xl sm:text-xs uppercase tracking-[0.16em]">
+          <span className="opacity-80 font-agenda-medium">{heading}</span>
 
           {cta && (
             <a
@@ -44,7 +44,7 @@ export function ServicesAccordionBlock({
               target={cta.isExternal ? "_blank" : "_self"}
               className="group inline-flex items-center gap-2 opacity-90 hover:opacity-100"
             >
-              <span>{cta.text}</span>
+              <span className="font-agenda-regular text-xl">{cta.text}</span>
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -82,14 +82,14 @@ export function ServicesAccordionBlock({
                   <div className="flex items-center justify-between gap-4 py-2">
                     {/* Left: 01 — Title */}
                     <div className="flex min-w-0 items-baseline gap-3 sm:gap-4">
-                      <span className="shrink-0 font-ivypresto-light text-2xl sm:text-3xl md:text-4xl leading-none">
+                      <span className="shrink-0 font-ivypresto-light text-2xl sm:text-3xl md:text-5xl leading-none">
                         {displayIndex}
                       </span>
-                      <span className="shrink-0 text-white/70 text-xl md:text-2xl leading-none">—</span>
+                      <span className="shrink-0 text-white/70 text-xl md:text-5xl leading-none">—</span>
                       <span
                         className={[
                           "truncate",
-                          "text-xl sm:text-2xl md:text-3xl",
+                          "text-xl sm:text-2xl md:text-5xl",
                           "font-agenda-semibold",
                           isOpen ? "text-blue-400" : "text-white",
                         ].join(" ")}
@@ -131,7 +131,7 @@ export function ServicesAccordionBlock({
                           animate={{ y: 0, opacity: 1 }}
                           exit={{ y: 6, opacity: 0 }}
                           transition={transition}
-                          className="font-agenda-light max-w-2xl text-sm sm:text-[18px] leading-6 text-white/85 py-3"
+                          className="font-agenda-light max-w-2xl text-sm sm:text-[18px] md:text-4xl leading-12 text-white/85 py-3"
                         >
                           {item.description}
                         </motion.p>

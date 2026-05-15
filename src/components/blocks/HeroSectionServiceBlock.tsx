@@ -58,7 +58,7 @@ export function HeroSectionServiceBlock({
 
 {subheader && (
   <p className="mt-6 max-w-6xl 
-  font-agenda-normal 
+  font-agenda-regular 
   
    text-zinc-700
 
