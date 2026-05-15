@@ -5,6 +5,19 @@ import type { ProcessStepsBlockProps } from "@/types";
 
 type ProcessStepsVariant = "default" | "compactImpact";
 
+function renderIvyTitle(text: string) {
+  const parts = text.split(/\*([^*]+)\*/);
+  return parts.map((part, i) =>
+    i % 2 === 1 ? (
+      <span key={i} className="font-ivypresto-regular">
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  );
+}
+
 type Props = ProcessStepsBlockProps & {
   variant?: ProcessStepsVariant;
 };
@@ -55,15 +68,15 @@ export function ProcessSteps({
             )}
 
             {title && (
-              <h2
-                className={
-                  isCompactImpact
-                    ? "max-w-[760px] font-agenda-medium text-[32px] uppercase leading-[1.08] tracking-[-0.06em] text-[#1E1E1E] md:text-[48px]"
-                    : "text-3xl font-medium tracking-[-0.03em] text-[#1E1E1E] md:text-5xl"
-                }
-              >
-                {title}
-              </h2>
+              isCompactImpact ? (
+                <h2 className="max-w-[900px] font-agenda-medium text-[32px] uppercase leading-[1.08] tracking-[-0.06em] text-[#1E1E1E] md:text-[48px]">
+                  {renderIvyTitle(title)}
+                </h2>
+              ) : (
+                <h2 className="text-3xl font-medium tracking-[-0.03em] text-[#1E1E1E] md:text-5xl">
+                  {title}
+                </h2>
+              )
             )}
           </div>
         )}
