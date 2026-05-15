@@ -798,7 +798,7 @@ export async function fetchTeamMember(slug: string) {
 const keyProjectPopulate = {
   image: true,
   logo:true,
-  type_of_work: true,
+  type_of_works: true,
   sectors: true,
   secondary_menus: secondaryMenusPopulate,
   blocks: pageBlocksPopulate,

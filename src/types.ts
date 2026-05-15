@@ -920,7 +920,7 @@ export interface KeyProject {
   priority: KeyProjectPriority;
   image?: StrapiMedia | null;
   logo?: StrapiMedia | null;
-  type_of_work?: KeyProjectTaxonomy | null;
+  type_of_works?: KeyProjectTaxonomy[]
   sectors?: KeyProjectTaxonomy[];
   blocks?: Block[];
   secondary_menus?: SecondaryMenuProps[];

@@ -158,10 +158,14 @@ export function KeyProjectsBlock({
   const [selectedSector, setSelectedSector] = useState("all");
 
   const typeOptions = useMemo(() => {
-    return Array.from(
-      new Set(projects.map((p) => p.type_of_work?.name).filter(Boolean))
-    ) as string[];
-  }, [projects]);
+  return Array.from(
+    new Set(
+      projects
+        .flatMap((p) => p.type_of_works?.map((type) => type.name) ?? [])
+        .filter(Boolean)
+    )
+  ) as string[];
+}, [projects]);
 
   const sectorOptions = useMemo(() => {
   return Array.from(
@@ -176,7 +180,10 @@ export function KeyProjectsBlock({
   const filteredProjects = useMemo(() => {
   return projects.filter((project) => {
     const matchesType =
-      selectedType === "all" || project.type_of_work?.name === selectedType;
+  selectedType === "all" ||
+  project.type_of_works?.some(
+    (type) => type.name === selectedType
+  );
 
     const matchesSector =
       selectedSector === "all" ||
