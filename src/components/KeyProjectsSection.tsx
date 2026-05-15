@@ -53,11 +53,16 @@ function FilterDropdown({
       {open && (
         <div className="absolute left-0 top-full mt-2 z-50 bg-white border border-gray-200 shadow-lg min-w-[220px]">
           <button
-            onClick={() => { onChange("all"); setOpen(false); }}
-            className={`w-full text-left px-5 py-3 font-agenda-regular text-xl uppercase hover:bg-gray-50 transition-colors ${value === "all" ? "text-stone-800" : "text-neutral-400"}`}
-          >
-            {placeholder}
-          </button>
+  onClick={() => {
+    onChange("all");
+    setOpen(false);
+  }}
+  className={`w-full text-left px-5 py-3 font-agenda-regular text-xl uppercase hover:bg-gray-50 transition-colors ${
+    value === "all" ? "text-stone-800" : "text-neutral-400"
+  }`}
+>
+  ALL
+</button>
           {options.map((opt) => (
             <button
               key={opt}
