@@ -799,7 +799,7 @@ const keyProjectPopulate = {
   image: true,
   logo:true,
   type_of_work: true,
-  sector: true,
+  sectors: true,
   secondary_menus: secondaryMenusPopulate,
   blocks: pageBlocksPopulate,
 };

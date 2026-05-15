@@ -912,6 +912,7 @@ export type KeyProjectPriority = "featured" | "standard" | "small";
 export interface KeyProject {
   id: number;
   documentId?: string;
+  subtitle: string;
   title: string;
   slug: string;
   excerpt?: string;
@@ -920,7 +921,7 @@ export interface KeyProject {
   image?: StrapiMedia | null;
   logo?: StrapiMedia | null;
   type_of_work?: KeyProjectTaxonomy | null;
-  sector?: KeyProjectTaxonomy | null;
+  sectors?: KeyProjectTaxonomy | null;
   blocks?: Block[];
   secondary_menus?: SecondaryMenuProps[];
 }

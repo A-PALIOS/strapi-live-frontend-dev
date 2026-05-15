@@ -99,7 +99,7 @@ function FeaturedProject({ project }: { project: KeyProject }) {
 
       <div className="mt-5">
         <p className="font-agenda-regular text-3xl uppercase text-zinc-600">
-          {project.type_of_work?.name}
+          {project.subtitle}
         </p>
 
         <h2 className="mt-2 font-agenda-medium text-4xl uppercase leading-10 text-stone-800">
@@ -138,7 +138,7 @@ function SmallProject({ project }: { project: KeyProject }) {
 
       <div className="mt-4">
         <p className="font-agenda-regular text-3xl uppercase text-zinc-600">
-          {project.type_of_work?.name}
+          {project.subtitle}
         </p>
 
         <h3 className="mt-2 font-agenda-medium text-4xl uppercase leading-10 text-stone-800">
@@ -164,22 +164,27 @@ export function KeyProjectsBlock({
   }, [projects]);
 
   const sectorOptions = useMemo(() => {
-    return Array.from(
-      new Set(projects.map((p) => p.sector?.name).filter(Boolean))
-    ) as string[];
-  }, [projects]);
+  return Array.from(
+    new Set(
+      projects
+        .flatMap((p) => p.sectors?.map((sector) => sector.name) ?? [])
+        .filter(Boolean)
+    )
+  ) as string[];
+}, [projects]);
 
   const filteredProjects = useMemo(() => {
-    return projects.filter((project) => {
-      const matchesType =
-        selectedType === "all" || project.type_of_work?.name === selectedType;
+  return projects.filter((project) => {
+    const matchesType =
+      selectedType === "all" || project.type_of_work?.name === selectedType;
 
-      const matchesSector =
-        selectedSector === "all" || project.sector?.name === selectedSector;
+    const matchesSector =
+      selectedSector === "all" ||
+      project.sectors?.some((sector) => sector.name === selectedSector);
 
-      return matchesType && matchesSector;
-    });
-  }, [projects, selectedType, selectedSector]);
+    return matchesType && matchesSector;
+  });
+}, [projects, selectedType, selectedSector]);
 
   const renderList = useMemo(() => {
     type FeaturedItem = { type: "featured"; project: KeyProject };
@@ -228,7 +233,7 @@ export function KeyProjectsBlock({
         <FilterDropdown
           value={selectedSector}
           onChange={setSelectedSector}
-          placeholder="Sector"
+          placeholder="Services"
           options={sectorOptions}
         />
       </div>
