@@ -921,7 +921,7 @@ export interface KeyProject {
   image?: StrapiMedia | null;
   logo?: StrapiMedia | null;
   type_of_work?: KeyProjectTaxonomy | null;
-  sectors?: KeyProjectTaxonomy | null;
+  sectors?: KeyProjectTaxonomy[];
   blocks?: Block[];
   secondary_menus?: SecondaryMenuProps[];
 }
