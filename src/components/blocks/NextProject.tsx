@@ -9,23 +9,26 @@ export function NextProject(block: NextProjectBlock) {
   const isExternal = block.cta?.isExternal;
 
   const content = (
-    <section className="flex flex-col md:flex-row w-full items-center justify-center gap-4 border border-neutral-300 px-6 py-10 transition hover:bg-neutral-50 md:px-10 lg:px-16 xl:px-20">
+    <section className="flex flex-col md:flex-row w-full items-center justify-center gap-4 border-x border-t border-neutral-300 px-6 py-10 transition  md:px-10 lg:px-16 xl:px-20">
       <h2 className="text-center md:text-left text-[64px] font-agenda-regular uppercase tracking-wide text-[#2f3a42]">
         {block.cta?.text || "CONTINUE TO NEXT PROJECT"}
       </h2>
-
+      
       <div className="relative h-[108px] w-[235px] overflow-hidden">
+        <Link href={href} className="group block">
         <StrapiImage
           src={block.Image.url}
           alt={block.Image.alternativeText || "Next project"}
           fill
           className="object-cover"
         />
+        </Link>
       </div>
 
       <span className="text-[72px] leading-none text-black transition-transform group-hover:translate-x-2">
         →
       </span>
+      
     </section>
   );
 
@@ -43,8 +46,8 @@ export function NextProject(block: NextProjectBlock) {
   }
 
   return (
-    <Link href={href} className="group block">
+    <>
       {content}
-    </Link>
+    </>
   );
 }

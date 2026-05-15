@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import type { ExpertiseVideoTabsBlockProps } from "@/types";
 import { StrapiImage } from "../StrapiImage";
-// import { StrapiVideo } from "../StrapiVideo";
 
 function getStrapiMediaUrl(url?: string | null) {
   if (!url) return "";
@@ -22,17 +21,21 @@ export function ExpertiseVideoTabs({
 
   const [activeIndex, setActiveIndex] = useState(defaultIndex);
 
-  const activeItem = items[activeIndex];
-
-  console.log("activeItem", activeItem.video);
-
   if (!items?.length) return null;
 
+  const activeItem = items[activeIndex];
+
   return (
-    <section className="w-full">
-      <div style={{ background: "linear-gradient(25deg, rgb(148, 117, 96) 0%, rgb(111, 113, 118) 25%, rgb(79, 110, 133) 50%, rgb(47, 109, 157) 100%)" }}
-       className="grid w-full px-6 md:px-10 lg:px-16 xl:px-20  grid-cols-1 md:grid-cols-[48%_52%]">
-        <div className="relative overflow-hidden px-6 py-8 md:min-h-[590px] md:px-10 md:py-8">
+    <section className="w-full min-h-screen">
+      <div
+        style={{
+          background:
+            "linear-gradient(25deg, rgb(148, 117, 96) 0%, rgb(111, 113, 118) 25%, rgb(79, 110, 133) 50%, rgb(47, 109, 157) 100%)",
+        }}
+        className="grid min-h-screen w-full grid-cols-1 px-6 md:grid-cols-[48%_52%] md:px-10 lg:px-16 xl:px-20"
+      >
+        {/* LEFT CONTENT */}
+        <div className="relative overflow-hidden px-6 py-8 md:min-h-screen md:px-10 md:py-8">
           <div className="absolute inset-0 opacity-20">
             <div className="flex h-full">
               {Array.from({ length: 8 }).map((_, i) => (
@@ -41,7 +44,7 @@ export function ExpertiseVideoTabs({
             </div>
           </div>
 
-          <div className="relative h-full">
+          <div className="relative flex h-full flex-col justify-center">
             {Eyebrow ? (
               <p className="mb-10 text-[13px] uppercase tracking-[0.04em] text-white/95">
                 {Eyebrow}
@@ -112,25 +115,28 @@ export function ExpertiseVideoTabs({
           </div>
         </div>
 
-        <div className="relative min-h-[320px] overflow-hidden h-fit md:min-h-[520px]">
-          {activeItem?.video?.url ? (
-            <video
-              key={activeItem.video.url}
-              className="h-full w-full object-cover"
-              autoPlay
-              muted
-              loop
-              playsInline
-              controls={false}
-            >
-              <source src={getStrapiMediaUrl(activeItem.video.url)} />
-            </video>
-          ) : (
-            <div className="flex h-full items-center justify-center text-center text-[16px] text-[#1E2A39]/60">
-              No video selected
-            </div>
-          )}
-        </div>
+        {/* RIGHT VIDEO */}
+<div className="relative flex min-h-screen items-center justify-end overflow-hidden">
+  <div className="relative w-full max-w-[960px]">
+    {activeItem?.video?.url ? (
+      <video
+        key={activeItem.video.url}
+        className="w-full max-w-[960px] object-contain md:h-[720px] xl:h-auto"
+        autoPlay
+        muted
+        loop
+        playsInline
+        controls={false}
+      >
+        <source src={getStrapiMediaUrl(activeItem.video.url)} />
+      </video>
+    ) : (
+      <div className="flex min-h-[500px] items-center justify-center text-center text-[16px] text-white/70">
+        No video selected
+      </div>
+    )}
+  </div>
+</div>
       </div>
     </section>
   );

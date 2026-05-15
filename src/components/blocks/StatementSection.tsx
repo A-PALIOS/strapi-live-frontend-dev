@@ -22,6 +22,7 @@ export function StatementSection({
 }: Readonly<StatementSectionProps>) {
   const headingPrimaryRef = useRef<HTMLHeadingElement | null>(null);
   const headingSecondaryRef = useRef<HTMLHeadingElement | null>(null);
+
   const pathname = usePathname();
 
   const primaryLines = bodyPrimary.split("\n").filter(Boolean);
@@ -38,17 +39,26 @@ export function StatementSection({
       if (!el) return () => {};
 
       const original = (el.textContent ?? "").trim() || text;
+
       el.textContent = original;
 
       const tokens = original.match(/\S+|\s+/g) || [];
+
       el.innerHTML = tokens
-        .map((t) => (/\S/.test(t) ? `<span class="${wordClass}">${t}</span>` : t))
+        .map((t) =>
+          /\S/.test(t)
+            ? `<span class="${wordClass}">${t}</span>`
+            : t
+        )
         .join("");
 
       const ctx = gsap.context(() => {
-        const words = el.querySelectorAll<HTMLSpanElement>(`.${wordClass}`);
+        const words =
+          el.querySelectorAll<HTMLSpanElement>(`.${wordClass}`);
 
-        gsap.set(words, { color: initialColor });
+        gsap.set(words, {
+          color: initialColor,
+        });
 
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -90,6 +100,7 @@ export function StatementSection({
     );
 
     const refresh = () => ScrollTrigger.refresh();
+
     const raf = requestAnimationFrame(refresh);
 
     window.addEventListener("pageshow", refresh);
@@ -97,60 +108,88 @@ export function StatementSection({
 
     return () => {
       cancelAnimationFrame(raf);
+
       window.removeEventListener("pageshow", refresh);
       window.removeEventListener("resize", refresh);
+
       cleanupPrimary();
       cleanupSecondary();
     };
   }, [pathname, headingPrimary, headingSecondary]);
 
   return (
-    <section className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20 bg-white">
-      <div className="text-right">
+    <section
+      className="
+        w-full
+        min-h-screen
+        bg-white
+        flex
+        items-center
+        justify-end
+        px-6
+        md:px-10
+        lg:px-16
+        xl:px-24
+      "
+    >
+      <div className="w-full max-w-[1100px] text-right">
         <h2
           ref={headingPrimaryRef}
-          className="animate font-agenda-medium text-[34px] md:text-[40px] lg:text-[60px]
-                     leading-tight text-[#9B9B9B]
-                     whitespace-normal break-words [overflow-wrap:anywhere]"
+          className="
+            animate
+            font-agenda-medium
+            text-[52px]
+            sm:text-[68px]
+            md:text-[82px]
+            lg:text-[110px]
+            xl:text-[96px]
+            leading-[0.95]
+            tracking-[-0.04em]
+            text-[#9B9B9B]
+            whitespace-normal
+            break-words
+          "
         >
           {headingPrimary}
         </h2>
 
         <h2
           ref={headingSecondaryRef}
-          className="mt-1 animate font-agenda-medium text-[34px] md:text-[40px] lg:text-[60px]
-                     leading-tight text-[#9B9B9B]
-                     whitespace-normal break-words [overflow-wrap:anywhere]"
+          className="
+            mt-2
+            animate
+            font-agenda-medium
+            text-[52px]
+            sm:text-[68px]
+            md:text-[82px]
+            lg:text-[110px]
+            xl:text-[96px]
+            leading-[0.95]
+            tracking-[-0.04em]
+            text-[#9B9B9B]
+            whitespace-normal
+            break-words
+          "
         >
           {headingSecondary}
         </h2>
 
-        <div className="mt-7 text-[#2F2F2F] md:mt-8">
-          <p className="text-right text-[16px] leading-[1.28] md:text-[14px] md:leading-[1.3]">
-            {primaryLines.map((line, index) => (
-              <span
-                key={index}
-                className={`block ${
-                  index === 1
-                    ? "ml-4 md:ml-4"
-                    : index === primaryLines.length - 1
-                    ? "text-right"
-                    : "text-right"
-                }`}
-              >
-                {line}
-              </span>
-            ))}
-          </p>
-
-          <p className="mt-6 text-[16px] leading-[1.28] md:mt-7 md:text-[14px] md:leading-[1.3] text-right">
-            {secondaryLines.map((line, index) => (
-              <span key={index} className="block">
-                {line}
-              </span>
-            ))}
-          </p>
-        </div>
+      <div className="mt-8 md:mt-10 md:ml-50 ml-30">
+  <p
+    className="
+      mx-auto
+      max-w-[920px]
+      text-left
+      text-[20px]
+      md:text-[26px]
+      lg:text-[32px]
+      leading-[1.28]
+      text-[#2F2F2F]
+    "
+  >
+    {bodyPrimary}
+  </p>
+</div>
       </div>
     </section>
   );

@@ -21,7 +21,7 @@ export function ImpactLinks({
   if (!items?.length) return null;
 
   return (
-    <section className="relative w-full px-6 md:px-10 lg:px-16 xl:px-20 py-10 md:py-10 overflow-hidden text-white">
+    <section className="relative min-h-screen w-full px-6 md:px-10 lg:px-16 xl:px-20 py-10 md:py-10 overflow-hidden text-white">
       {/* Background */}
       {backgroundImage && (
         <StrapiImage
@@ -41,13 +41,13 @@ export function ImpactLinks({
         {/* Top Row */}
         <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           {eyebrow && (
-            <p className="text-sm tracking-[0.2em] text-white/70 uppercase">
+            <p className="text-3xl tracking-[0.2em] text-white uppercase font-agenda-medium">
               {eyebrow}
             </p>
           )}
 
           {introText && (
-            <p className=" text-white/70 md:text-right">
+            <p className=" text-white md:text-right text-2xl font-agenda-regular">
               {introText}
             </p>
           )}
@@ -72,7 +72,7 @@ export function ImpactLinks({
                     : "text-white hover:text-[#2F80ED]"
                 }`}
               >
-                <span className="inline-flex items-center gap-2 text-[22px] font-agenda-medium tracking-[-0.02em] md:text-[32px]">
+                <span className="inline-flex items-center gap-2 text-[22px] font-agenda-medium tracking-[-0.02em] md:text-6xl">
                   {item.title}
                   <svg
                     viewBox="0 0 24 24"
