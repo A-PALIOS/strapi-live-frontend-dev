@@ -15,10 +15,10 @@ export function ArticleIntroSection({
   publishedAt,
 }: Readonly<ArticleProps>){
   return (
-    <section className="max-w-6xl mx-auto px-4 pt-28 pb-8 md:pt-28 md:pb-16 md:mt-0 lg:py-31 lg:mt-6">
+    <section className="w-full px-4 md:px-10 lg:px-16 xl:px-20 pt-28 pb-4 md:pt-28 md:pb-6 md:mt-0 lg:pt-32 lg:pb-6 lg:mt-6 overflow-hidden">
       {/* Top row with title and author info */}
       <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center mb-6 lg:mb-11">
-        <h1 className="text-[40px] md:text-[40px] font-agenda-semibold max-w-3xl leading-snug">
+        <h1 className="text-[28px] md:text-[40px] font-agenda-semibold max-w-3xl leading-snug">
           {title}
         </h1>
 <div className="flex items-center bg-gray-100 rounded-full mt-4 mb-4 px-4 py-2 w-fit shadow">

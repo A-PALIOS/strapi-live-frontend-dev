@@ -233,7 +233,7 @@ export default async function SingleBlogRoute({
         updatedAt={""}
       />
 
-      <div className="container mx-auto px-4 md:px-6 lg:px-12 mb-24">
+      <div className="w-full px-4 md:px-6 lg:px-12 mb-24">
         <div className="flex flex-col lg:flex-row gap-12 items-start">
           <div className="w-full lg:w-2/3">
             <BlockRenderer blocks={blocks} searchParams={searchParams} />
