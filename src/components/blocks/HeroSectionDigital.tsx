@@ -20,8 +20,8 @@ const DigitalChatbot = dynamic(() => import("./DigitalChatbot"), {
 
 function useInView({
   threshold = 0,
-  rootMargin = "200px 0px 200px 0px",
-  stickyOnceSeen = true,
+  rootMargin = "100px 0px 100px 0px",
+  stickyOnceSeen = false,
 }: {
   threshold?: number | number[];
   rootMargin?: string;
@@ -67,13 +67,12 @@ export function HeroSectionDigital({
 
   const [prefersReduced, setPrefersReduced] = useState(false);
   const [tabVisible, setTabVisible] = useState(true);
+  const [etherKey, setEtherKey] = useState(0);
+
   const [lanyardReady, setLanyardReady] = useState(false);
   const [isTabletOrLarger, setIsTabletOrLarger] = useState(false);
 
-  // only used as gesture signal
   const [lanyardRevealed, setLanyardRevealed] = useState(false);
-
-  // actual chat visibility
   const [chatOpen, setChatOpen] = useState(false);
 
   const [showHint, setShowHint] = useState(false);
@@ -82,23 +81,47 @@ export function HeroSectionDigital({
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setPrefersReduced(mq.matches);
+
+    const update = () => {
+      setPrefersReduced(mq.matches);
+    };
+
     update();
+
     mq.addEventListener?.("change", update);
-    return () => mq.removeEventListener?.("change", update);
+
+    return () => {
+      mq.removeEventListener?.("change", update);
+    };
   }, []);
 
   useEffect(() => {
-    const onVis = () => setTabVisible(document.visibilityState === "visible");
+    if (typeof document === "undefined") return;
+
+    const onVis = () => {
+      const visible = document.visibilityState === "visible";
+      setTabVisible(visible);
+
+      if (visible) {
+        setEtherKey((prev) => prev + 1);
+      }
+    };
+
+    onVis();
+
     document.addEventListener("visibilitychange", onVis);
-    return () => document.removeEventListener("visibilitychange", onVis);
+
+    return () => {
+      document.removeEventListener("visibilitychange", onVis);
+    };
   }, []);
 
   const { ref, inView } = useInView({
     threshold: 0,
-    rootMargin: "200px 0px 200px 0px",
-    stickyOnceSeen: true,
+    rootMargin: "100px 0px 100px 0px",
+    stickyOnceSeen: false,
   });
 
   const etherProps = useMemo(
@@ -133,6 +156,7 @@ export function HeroSectionDigital({
     } else {
       window.addEventListener("load", makeReady, { once: true });
       const t = setTimeout(makeReady, 1200);
+
       return () => {
         window.removeEventListener("load", makeReady);
         clearTimeout(t);
@@ -142,13 +166,20 @@ export function HeroSectionDigital({
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const check = () => setIsTabletOrLarger(window.innerWidth >= 768);
+
+    const check = () => {
+      setIsTabletOrLarger(window.innerWidth >= 768);
+    };
+
     check();
+
     window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
+
+    return () => {
+      window.removeEventListener("resize", check);
+    };
   }, []);
 
-  // Open chat only when the pull gesture becomes true
   useEffect(() => {
     if (lanyardRevealed) {
       setChatOpen(true);
@@ -156,13 +187,20 @@ export function HeroSectionDigital({
   }, [lanyardRevealed]);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
     if (!lanyardReady || window.innerWidth < 1400) return;
+
     const show = setTimeout(() => {
       hintReadyRef.current = true;
       setShowHint(true);
     }, 2000);
+
     const hide = setTimeout(() => setShowHint(false), 9000);
-    return () => { clearTimeout(show); clearTimeout(hide); };
+
+    return () => {
+      clearTimeout(show);
+      clearTimeout(hide);
+    };
   }, [lanyardReady]);
 
   useEffect(() => {
@@ -173,6 +211,8 @@ export function HeroSectionDigital({
   }, [lanyardRevealed, chatOpen]);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const handleScroll = () => {
       if (window.scrollY > 180) {
         setShowHint(false);
@@ -180,8 +220,12 @@ export function HeroSectionDigital({
         setShowHint(true);
       }
     };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const canAnimate = !prefersReduced && tabVisible;
@@ -195,7 +239,12 @@ export function HeroSectionDigital({
       className="relative min-h-[78vh] overflow-hidden"
     >
       <div className="absolute inset-0 -z-10 bg-black pointer-events-auto">
-        {showEther && <LiquidEther {...etherProps} />}
+        {/* fallback background */}
+        {/* <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,rgba(30,155,251,0.45),transparent_35%),radial-gradient(circle_at_80%_70%,rgba(15,121,201,0.35),transparent_40%),linear-gradient(135deg,#050814,#07111F,#020617)]" /> */}
+        {/* <div className="absolute inset-0 bg-[linear-gradient(135deg,#020617,#07111F,#020617)]" /> */}
+        <div className="absolute inset-0 bg-[#020617]" />
+        {showEther && <LiquidEther key={etherKey} {...etherProps} />}
+
         {darken && (
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/65 pointer-events-none" />
         )}
@@ -233,16 +282,19 @@ export function HeroSectionDigital({
             className="fixed z-20 pointer-events-none select-none flex flex-col items-center gap-2"
             style={{ right: "22vw", top: "58%" }}
           >
-            {/* outer wrapper fades in */}
-            <div style={{ animation: "lanyardHintIn 0.55s cubic-bezier(0.34,1.56,0.64,1) forwards" }}>
-              {/* inner wrapper floats */}
+            <div
+              style={{
+                animation:
+                  "lanyardHintIn 0.55s cubic-bezier(0.34,1.56,0.64,1) forwards",
+              }}
+            >
               <div
                 className="flex flex-col items-center gap-2.5"
-                style={{ animation: "lanyardFloat 2.8s ease-in-out 0.6s infinite" }}
+                style={{
+                  animation: "lanyardFloat 2.8s ease-in-out 0.6s infinite",
+                }}
               >
-                {/* glass pill */}
                 <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-[#07111F]/80 px-4 py-3 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.45),0_0_0_1px_rgba(30,155,251,0.12),0_0_20px_rgba(30,155,251,0.08)]">
-                  {/* animated grab icon */}
                   <div className="relative flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border border-[#1E9BFB]/20 bg-[#1E9BFB]/10">
                     <svg
                       viewBox="0 0 24 24"
@@ -272,7 +324,6 @@ export function HeroSectionDigital({
                   </div>
                 </div>
 
-                {/* bouncing chevron */}
                 <ChevronDown className="h-4 w-4 animate-bounce text-[#1E9BFB]/60" />
               </div>
             </div>
