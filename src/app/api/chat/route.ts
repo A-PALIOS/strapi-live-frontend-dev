@@ -149,6 +149,42 @@ async function fetchPages(parentSlug: string, label: string): Promise<string> {
   }
 }
 
+// ─── Team members fetcher ─────────────────────────────────────────────────────
+
+async function fetchTeamMembers(): Promise<string> {
+  try {
+    const query = qs.stringify(
+      {
+        pagination: { pageSize: 100 },
+        fields: ["FullName", "JobTitle", "Bio"],
+        sort: ["id:asc"],
+      },
+      { encodeValuesOnly: true }
+    );
+
+    const res = await fetch(`${STRAPI_URL}/api/team-members?${query}`, {
+      next: { revalidate: 300 },
+    });
+
+    if (!res.ok) return "";
+
+    const json    = await res.json();
+    const members = json?.data ?? [];
+    if (members.length === 0) return "";
+
+    const lines = members.map((m: any) => {
+      const name  = m.FullName ?? "Unknown";
+      const title = m.JobTitle ? ` — ${m.JobTitle}` : "";
+      const bio   = m.Bio ? `: ${m.Bio}` : "";
+      return `  • ${name}${title}${bio}`;
+    });
+
+    return "\n\nCMT PROOPTIKI TEAM MEMBERS (full list):\n" + lines.join("\n");
+  } catch {
+    return "";
+  }
+}
+
 // ─── Insights fetcher ─────────────────────────────────────────────────────────
 
 async function fetchInsights(): Promise<string> {
@@ -242,12 +278,15 @@ export async function POST(req: NextRequest) {
     const needsLeadership  = matches(text, LEADERSHIP_KEYWORDS);
 
     // Fetch only what is needed, all in parallel
-    const [insightsContext, servicesContext, aboutContext, leadershipContext] = await Promise.all([
+    const [insightsContext, servicesContext, aboutContext, leadershipPageContext, teamMembersContext] = await Promise.all([
       needsInsights   ? fetchInsights()                                                          : Promise.resolve(""),
       needsServices   ? fetchPages("services",               "CMT PROOPTIKI SERVICES")           : Promise.resolve(""),
       needsAbout      ? fetchPages("about-us",               "ABOUT CMT PROOPTIKI")              : Promise.resolve(""),
       needsLeadership ? fetchPages("our-leadership-people",  "CMT PROOPTIKI LEADERSHIP & PEOPLE"): Promise.resolve(""),
+      needsLeadership ? fetchTeamMembers()                                                       : Promise.resolve(""),
     ]);
+
+    const leadershipContext = leadershipPageContext + teamMembersContext;
 
     const systemPrompt = BASE_SYSTEM_PROMPT + insightsContext + servicesContext + aboutContext + leadershipContext;
 
