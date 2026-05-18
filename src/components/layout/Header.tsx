@@ -83,9 +83,9 @@ export function Header({ data }: HeaderProps) {
   return (
     <>
     {}
-    <div className="fixed top-12 right-[-55px] rotate-45 bg-amber-500 text-black px-16 py-3 font-bold shadow-xl z-50 text-sm whitespace-nowrap border border-amber-700">
+    {/* <div className="fixed top-12 right-[-55px] rotate-45 bg-amber-500 text-black px-16 py-3 font-bold shadow-xl z-50 text-sm whitespace-nowrap border border-amber-700">
       🚧 Under Construction
-    </div>
+    </div> */}
 
     <header
       id="site-header"

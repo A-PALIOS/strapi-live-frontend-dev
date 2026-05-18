@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -28,7 +28,6 @@ function getStrapiMediaUrl(url?: string | null) {
   if (url.startsWith("http")) return url;
   return `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${url}`;
 }
- 
 
 export function TeamMemberSecondaryMenuBlock({
   items,
@@ -42,6 +41,8 @@ export function TeamMemberSecondaryMenuBlock({
   const sentinelRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const globalItems = global?.items ?? [];
+
+  const mobileMenuItems = items ?? []; // #mobile
 
   useEffect(() => {
     const nav = document.getElementById("site-header");
@@ -103,23 +104,60 @@ export function TeamMemberSecondaryMenuBlock({
 
       <div
         ref={wrapperRef}
-        className={`left-0 right-0 z-[70] border-b-1 border-[#F5F4F4] bg-white/10 backdrop-blur-lg  ${
+        className={`left-0 right-0 z-[70] border-b-1 border-[#F5F4F4] bg-white/10 backdrop-blur-lg ${
           isPinned ? "fixed top-0" : "relative"
         }`}
       >
-        {/* Top row */}
         <div className="px-6 py-5 md:px-10 md:py-6 lg:px-16 xl:px-20">
           <div className="w-full">
-            <div className="flex flex-wrap items-center gap-6 text-xl text-black">
-              {/* <button
+            {/* #mobile - logo left, burger right until lg breakpoint */}
+            <div className="flex items-center justify-between gap-6 text-xl text-black">
+              <div className="flex items-center gap-6">
+                <Link className="flex items-center" href={"/"}>
+                  <StrapiImage
+                    src={getStrapiMediaUrl("/uploads/Logo_Color_e94b003ceb.svg")}
+                    alt={"error.png"}
+                    width={200}
+                    height={200}
+                    className="object-contain"
+                  />
+                </Link>
+
+                {/* #mobile - desktop links now start from lg, not md */}
+                <div className="hidden flex-wrap items-center gap-6 lg:flex">
+                  {items.map((item) => {
+                    const isHash = item.url?.startsWith("#");
+                    const isActivePage =
+                      !!item.url && !isHash && pathname === item.url;
+
+                    return (
+                      <Link
+                        key={String(item.id ?? `${item.label}-${item.url}`)}
+                        href={item.url || "#"}
+                        className={`font-agenda-regular transition-colors duration-300 ${
+                          isActivePage
+                            ? "text-[#1E9BFB]"
+                            : "text-black/70 hover:text-black"
+                        }`}
+                        style={{ fontSize: "22px" }}
+                      >
+                        {item.label}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* #mobile - burger now stays visible until lg breakpoint */}
+              <button
                 onClick={() => setIsOpen((v) => !v)}
-                className="text-gray-700 hover:text-blue-600 focus:outline-none"
-                aria-label="Toggle menu"
+                className="text-black transition-colors lg:hidden"
+                aria-label="Toggle secondary menu"
                 aria-expanded={isOpen}
               >
                 {isOpen ? (
                   <svg
-                    className="w-6 h-6"
+                    className="h-7 w-7"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -133,7 +171,7 @@ export function TeamMemberSecondaryMenuBlock({
                   </svg>
                 ) : (
                   <svg
-                    className="w-6 h-6"
+                    className="h-7 w-7"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -146,45 +184,46 @@ export function TeamMemberSecondaryMenuBlock({
                     />
                   </svg>
                 )}
-              </button> */}
-              <Link 
-                className="flex items-center"
-                href={"/"}
-              >
-                <StrapiImage
-                  src={getStrapiMediaUrl("/uploads/Logo_Color_e94b003ceb.svg") }
-                  alt={"error.png" }
-                  width={200}
-                  height={200}
-                  className="object-contain"
-                >
-                </StrapiImage>
-              </Link>
-
-              {items.map((item) => {
-                const isHash = item.url?.startsWith("#");
-                const isActivePage = !!item.url && !isHash && pathname === item.url;
-
-                return (
-                  <Link
-                    key={String(item.id ?? `${item.label}-${item.url}`)}
-                    href={item.url || "#"}
-                    className={`font-agenda-regular transition-colors duration-300 ${
-                      isActivePage ? "text-[#1E9BFB]" : "text-black/70 hover:text-black"
-                    }`}
-                    style={{ fontSize: "22px" }}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Dropdown under the menu */}
+        {/* #mobile - mobile dropdown now stays active until lg breakpoint */}
+        {isOpen && (
+          // <div className="border-t border-black/10 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)] lg:hidden">
+          <div className="lg:hidden">
+            <div className="px-6 py-6">
+              <nav className="flex flex-col gap-5">
+                {mobileMenuItems.map((item) => {
+                  const isHash = item.url?.startsWith("#");
+                  const isActivePage =
+                    !!item.url && !isHash && pathname === item.url;
+
+                  return (
+                    <Link
+                      key={String(item.id ?? `${item.label}-${item.url}`)}
+                      href={item.url || "#"}
+                      className={`font-agenda-regular transition-colors duration-300 ${
+                        isActivePage
+                          ? "text-[#1E9BFB]"
+                          : "text-black/70 hover:text-[#1E9BFB]"
+                      }`}
+                      style={{ fontSize: "22px" }}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </nav>
+            </div>
+          </div>
+        )}
+
+        {/* Desktop global dropdown now starts from lg breakpoint */}
         {isOpen && globalItems.length > 0 && (
-          <div className="bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
+          <div className="hidden bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)] lg:block">
             <div className="ml-13 px-6 py-8">
               <nav className="flex flex-col gap-6">
                 {globalItems.map((item) => (
