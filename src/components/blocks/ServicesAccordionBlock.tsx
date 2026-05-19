@@ -35,16 +35,16 @@ export function ServicesAccordionBlock({
 
       <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20 text-white">
         {/* Top bar */}
-        <div className="flex items-center justify-between md:text-3xl sm:text-xs uppercase tracking-[0.16em]">
-          <span className="opacity-80 font-agenda-medium">{heading}</span>
+        <div className="flex items-center justify-between md:text-3xl sm:text-xs uppercase ">
+          <span className="text-white font-agenda-medium text-[24px] md:text-[32px]  uppercase tracking-[-1.6px] py-8 xl:mb-8">{heading}</span>
 
           {cta && (
             <a
               href={cta.href}
               target={cta.isExternal ? "_blank" : "_self"}
-              className="group inline-flex items-center gap-2 opacity-90 hover:opacity-100"
+              className="group inline-flex items-center hover:opacity-100"
             >
-              <span className="font-agenda-regular text-xl">{cta.text}</span>
+              <span className="font-agenda-regular md:text-xl text-[16px] tracking-[-1.1px]">{cta.text}</span>
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -62,10 +62,10 @@ export function ServicesAccordionBlock({
         </div>
 
         {/* Thin divider */}
-        <div className="mt-3 h-px w-full bg-white/25" />
+        <div className="mt-3 h-px w-full bg-white" />
 
         {/* Accordion list */}
-        <div role="list" className="divide-y divide-white/15 mt-1">
+        <div role="list" className="divide-y divide-white/35 mt-24">
           {items.map((item, index) => {
             const isOpen = index === openIndex;
             const displayIndex = String(index + 1).padStart(2, "0");
@@ -82,16 +82,16 @@ export function ServicesAccordionBlock({
                   <div className="flex items-center justify-between gap-4 py-2">
                     {/* Left: 01 — Title */}
                     <div className="flex min-w-0 items-baseline gap-3 sm:gap-4">
-                      <span className="shrink-0 font-ivypresto-light text-2xl sm:text-3xl md:text-5xl leading-none">
+                      <span className="shrink-0 font-ivypresto-light text-2xl sm:text-3xl md:text-5xl leading-none text-zinc-100/50">
                         {displayIndex}
                       </span>
-                      <span className="shrink-0 text-white/70 text-xl md:text-5xl leading-none">—</span>
+                      <span className="shrink-0 text-xl md:text-5xl leading-none text-zinc-100/50">—</span>
                       <span
                         className={[
-                          "truncate",
-                          "text-xl sm:text-2xl md:text-5xl",
-                          "font-agenda-semibold",
-                          isOpen ? "text-blue-400" : "text-white",
+                          "text-lg sm:text-2xl md:text-5xl",
+                          "font-agenda-medium",
+                          "uppercase",
+                          isOpen ? "text-blue-400" : "text-zinc-100/50",
                         ].join(" ")}
                         title={item.title}
                       >
@@ -131,7 +131,7 @@ export function ServicesAccordionBlock({
                           animate={{ y: 0, opacity: 1 }}
                           exit={{ y: 6, opacity: 0 }}
                           transition={transition}
-                          className="font-agenda-light max-w-2xl text-sm sm:text-[18px] md:text-4xl leading-12 text-white/85 py-3"
+                          className="font-agenda-light xl:ml-8  text-sm sm:text-[18px] md:text-4xl md:leading-9 sm:leading-4 text-white/85 py-3 "
                         >
                           {item.description}
                         </motion.p>

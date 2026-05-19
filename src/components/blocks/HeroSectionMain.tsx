@@ -112,7 +112,7 @@ export function HeroSectionMain({
                 <li key={index} className="inline-flex items-stretch isolate">
                   {/* Left badge */}
                   <span
-                    className="font-agenda-semibold inline-flex items-center
+                    className="font-agenda-medium inline-flex items-center
                    rounded-md rounded-r-none bg-[#1E9BFB]
                    px-4 py-2 text-white text-base md:text-5xl shadow-md
                    w-30 md:w-28 lg:w-30"
@@ -130,7 +130,7 @@ export function HeroSectionMain({
  
                   {/* Right label */}
                   <span style={{"border":"red"}}
-                    className="font-agenda-semibold inline-flex items-center
+                    className="font-agenda-medium inline-flex items-center
                    rounded-lg rounded-l-none
                    ring-1 ring-inset ring-white/30   /* use ring (box-shadow) instead of border */
                    
@@ -152,7 +152,7 @@ export function HeroSectionMain({
                 className="group ml-auto inline-flex items-center gap-3 text-slate-300 hover:text-white"
                 aria-label={cta.text ?? "Learn more"}
               >
-                <span className="text-sm md:text-base font-agenda-semibold">
+                <span className="text-sm md:text-base font-agenda-regular text-white">
                   {cta.text ?? "Learn More"}
                 </span>
  
