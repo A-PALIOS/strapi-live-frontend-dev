@@ -17,7 +17,7 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
   return (
     <section className="w-full py-12">
   <div className="w-full px-[65px] py-8 sm:py-10 md:py-12">
-    <div className="flex items-center justify-between text-[24px] uppercase ">
+    <div className="flex items-center justify-between md:text-[24px] sm:text-[24px] uppercase ">
       <span className="font-agenda-medium opacity-80">{title}</span>
 
       {cta && (
@@ -26,7 +26,7 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
           target={cta.isExternal ? "_blank" : "_self"}
           className="font-agenda-regular md:text-[18px] sm:text-sm group inline-flex items-center gap-2 opacity-90 hover:opacity-100"
         >
-          <span>{cta.text}</span>
+          <span className="font-agenda-regular md:text-[18px] sm:text-sm">{cta.text}</span>
           <svg
             viewBox="0 0 24 24"
             fill="none"

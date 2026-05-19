@@ -226,7 +226,7 @@ export function InfoBlock({
             <Link
               href={cta.href}
               target={cta.isExternal ? "_blank" : "_self"}
-              className="group inline-flex items-center gap-2 text-xs md:text-sm font-agenda-semibold uppercase tracking-wide text-gray-900 hover:text-blue-600"
+              className="group inline-flex items-center gap-2 text-lg md:text-xl font-agenda-regular uppercase tracking-wide text-gray-900 hover:text-blue-600"
             >
               {cta.text}
               <svg
@@ -252,8 +252,8 @@ export function InfoBlock({
             <p
               ref={descRef}
               className="
-                animate font-agenda-semibold text-3xl md:text-2xl lg:text-4xl
-                leading-tight text-gray-300
+                animate font-agenda-regular text-3xl md:text-2xl lg:text-5xl
+                leading-tight text-zinc-800/25
                 whitespace-normal break-words [overflow-wrap:anywhere]
               "
             >

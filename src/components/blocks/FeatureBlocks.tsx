@@ -84,9 +84,10 @@ export function FeaturesBlock({
             <div className="flex flex-col leading-none">
               <span
                 className="
+                
                   font-agenda-semibold
-                  text-4xl sm:text-5xl md:text-7xl lg:text-8xl
-                  text-gray-900
+                  text-4xl sm:text-5xl md:text-7xl lg:text-9xl
+                  text-zinc-800
                   inline-flex items-baseline gap-2 sm:gap-3
                 "
               >
@@ -137,7 +138,7 @@ export function FeaturesBlock({
         <div className="
             md:col-span-8
             md:border-l md:border-gray-200
-            md: ml-10
+            md:ml-10
             pt-4 sm:pt-0 md:pt-16 lg:pt-20
             pb-10 md:pb-16 lg:pb-20
             md:pl-10 lg:pl-16 xl:pl-20
@@ -145,10 +146,11 @@ export function FeaturesBlock({
           <p
             ref={descRef}
             className="
-              font-agenda-semibold
-              text-lg sm:text-xl md:text-2xl lg:text-3xl
+              text-left
+              font-agenda-medium
+              text-lg sm:text-xl md:text-2xl lg:text-6xl
               leading-relaxed sm:leading-relaxed md:leading-snug
-              text-gray-300
+              text-zinc-300
               whitespace-normal break-words [overflow-wrap:anywhere]
               max-w-prose md:max-w-none
             "
