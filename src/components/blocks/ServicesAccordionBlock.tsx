@@ -124,7 +124,7 @@ export function ServicesAccordionBlock({
                         exit={{ height: 0, opacity: 0 }}
                         transition={transition}
                         style={{ overflow: "hidden" }}
-                        className="pl-[4.25rem] sm:pl-[5.25rem] md:pl-[5.25rem] pr-1"
+                        className="pl-[4.25rem] sm:pl-[5.25rem] md:pl-[8.5rem] lg:pl-[5.25rem] pr-1"
                       >
                         <motion.p
                           initial={{ y: 6, opacity: 0 }}
