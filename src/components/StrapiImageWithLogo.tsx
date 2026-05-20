@@ -47,15 +47,16 @@ export function StrapiImageWithLogo(
 
       {/* Logo overlay */}
       {logo?.src && (
-        <div className="pointer-events-none absolute left-4 top-4 z-10 ">
-        <Image
-            src={getStrapiMedia(logo.src)!}
-            alt={logo.alt || "logo"}
-            width={267}
-            height={124}
-            // className="w-[30%] max-w-[100px] min-w-[48px] h-auto object-contain"
-            // className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 object-contain"
-        />
+        <div className="pointer-events-none absolute left-4 top-4 z-10">
+          <div className="relative w-[267px] h-[106px]">
+            <Image
+              src={getStrapiMedia(logo.src)!}
+              alt={logo.alt || "logo"}
+              fill
+              className="object-contain object-left-top"
+              sizes="267px"
+            />
+          </div>
         </div>
       )}
     </div>

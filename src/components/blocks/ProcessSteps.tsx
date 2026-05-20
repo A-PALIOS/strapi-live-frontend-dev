@@ -56,20 +56,25 @@ export function ProcessSteps({
             }
           >
             {eyebrow && (
-              <p
-                className={
-                  isCompactImpact
-                    ? "mb-8 text-[24px] font-agenda-medium uppercase tracking-[-0.03em] text-[#05192D]"
-                    : "mb-2 text-sm uppercase tracking-[0.18em] text-neutral-500"
-                }
-              >
-                {eyebrow}
-              </p>
+              <>
+                <p
+                  className={
+                    isCompactImpact
+                      ? "mb-8 text-[24px] font-agenda-medium uppercase tracking-[-0.03em] text-[#05192D]"
+                      : "mb-2 text-sm uppercase tracking-[0.18em] text-neutral-500"
+                  }
+                >
+                  {eyebrow}
+                </p>
+                {isCompactImpact && (
+                  <div className="mt-16 border-t -mx-6 md:-mx-10 lg:-mx-16 xl:-mx-20" style={{ borderColor: "#626262" }} />
+                )}
+              </>
             )}
 
             {title && (
               isCompactImpact ? (
-                <h2 className="max-w-[900px] font-agenda-medium text-[32px] uppercase leading-[1.08] tracking-[-0.06em] text-[#1E1E1E] md:text-[48px]">
+                <h2 className="mt-[112px] max-w-[900px] font-agenda-medium text-[32px] uppercase leading-[1.08] tracking-[-0.06em] text-[#1E1E1E] md:text-[48px]">
                   {renderIvyTitle(title)}
                 </h2>
               ) : (
