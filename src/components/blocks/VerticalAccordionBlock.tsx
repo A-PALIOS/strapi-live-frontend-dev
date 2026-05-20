@@ -26,7 +26,7 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
           target={cta.isExternal ? "_blank" : "_self"}
           className="font-agenda-regular md:text-[18px] sm:text-sm group inline-flex items-center gap-2 opacity-90 hover:opacity-100"
         >
-          <span className="font-agenda-regular md:text-[18px] sm:text-sm">{cta.text}</span>
+          <span className="font-agenda-regular md:text-[24px] sm:text-sm">{cta.text}</span>
           <svg
             viewBox="0 0 24 24"
             fill="none"
@@ -34,7 +34,7 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
             strokeWidth="1.8"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            className="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 md:ml-7 group-hover:-translate-y-0.5"
             aria-hidden="true"
           >
             <path d="M7 17L17 7M17 7H7M17 7V17" />

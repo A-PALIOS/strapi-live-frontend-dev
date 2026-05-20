@@ -214,7 +214,7 @@ export function InfoBlock({
             <Link
               href={cta.href}
               target={cta.isExternal ? "_blank" : "_self"}
-              className="group inline-flex items-center gap-2 text-lg md:text-xl font-agenda-regular uppercase tracking-wide text-gray-900 hover:text-blue-600"
+              className="group inline-flex items-center gap-2 text-lg md:text-[24px] font-agenda-regular uppercase tracking-wide text-gray-900 hover:text-blue-600"
             >
               {cta.text}
               <svg
@@ -224,7 +224,7 @@ export function InfoBlock({
                 strokeWidth="1.8"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                className="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 md:ml-7"
                 aria-hidden="true"
               >
                 <path d="M7 17L17 7M17 7H7M17 7V17" />

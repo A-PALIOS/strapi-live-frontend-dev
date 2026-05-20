@@ -44,7 +44,7 @@ export function ServicesAccordionBlock({
               target={cta.isExternal ? "_blank" : "_self"}
               className="group inline-flex items-center hover:opacity-100"
             >
-              <span className="font-agenda-regular md:text-xl text-[16px] tracking-[-1.1px]">{cta.text}</span>
+              <span className="font-agenda-regular md:text-[24px]  text-[16px] tracking-[-1.1px]">{cta.text}</span>
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -52,7 +52,7 @@ export function ServicesAccordionBlock({
                 strokeWidth="1.8"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                className="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 md:ml-7"
                 aria-hidden="true"
               >
                 <path d="M7 17L17 7M17 7H7M17 7V17" />
@@ -82,16 +82,16 @@ export function ServicesAccordionBlock({
                   <div className="flex items-center justify-between gap-4 py-2">
                     {/* Left: 01 — Title */}
                     <div className="flex min-w-0 items-baseline gap-3 sm:gap-4">
-                      <span className="shrink-0 font-ivypresto-light text-2xl sm:text-3xl md:text-5xl leading-none text-zinc-100/50">
+                      <span className={`shrink-0 font-ivypresto-light text-2xl sm:text-3xl md:text-5xl leading-none ${isOpen ? "text-blue-400" : "text-white"}`}>
                         {displayIndex}
                       </span>
-                      <span className="shrink-0 text-xl md:text-5xl leading-none text-zinc-100/50">—</span>
+                      <span className={`shrink-0 text-xl md:text-5xl leading-none ${isOpen ? "text-blue-400" : "text-white"}`}>—</span>
                       <span
                         className={[
                           "text-lg sm:text-2xl md:text-5xl md:tracking-[-2.2px]",
                           "font-agenda-medium",
                           "uppercase",
-                          isOpen ? "text-blue-400" : "text-zinc-100/50",
+                          isOpen ? "text-blue-400" : "text-white",
                         ].join(" ")}
                         title={item.title}
                       >
@@ -104,7 +104,7 @@ export function ServicesAccordionBlock({
                       className={[
                         "grid place-items-center h-8 w-8 rounded-full border transition-colors",
                         isOpen
-                          ? "border-white/60 text-white/90"
+                          ? "border-blue-400 text-blue-400"
                           : "border-white/50 text-white/70 group-hover:border-white/80 group-hover:text-white",
                       ].join(" ")}
                       aria-hidden
@@ -131,7 +131,7 @@ export function ServicesAccordionBlock({
                           animate={{ y: 0, opacity: 1 }}
                           exit={{ y: 6, opacity: 0 }}
                           transition={transition}
-                          className="font-agenda-light xl:ml-8  text-sm sm:text-[18px] md:text-4xl md:leading-9 sm:leading-4 text-white/85 py-3 md:tracking-[-2px]"
+                          className="font-agenda-light xl:ml-8  text-sm sm:text-[18px] md:text-4xl md:leading-10 sm:leading-4 text-white/85 py-3 md:tracking-[-2px]"
                         >
                           {item.description}
                         </motion.p>

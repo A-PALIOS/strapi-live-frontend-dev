@@ -32,7 +32,7 @@ export function TestimonialsBlock({ items, heading, cta }: TestimonialsBlockProp
       <Link
         href={cta.href}
         target={cta.isExternal ? "_blank" : "_self"}
-        className="inline-flex items-center font-agenda-regular text-xl font-medium text-gray-900 hover:opacity-80 transition"
+        className="inline-flex items-center font-agenda-regular text-[24px] font-medium text-gray-900 transition"
         style={{color: "#323C43"}}
       >
         {cta.text}
@@ -44,7 +44,7 @@ export function TestimonialsBlock({ items, heading, cta }: TestimonialsBlockProp
             viewBox="0 0 24 24"
             fill="currentColor"
             aria-hidden="true"
-            className="w-5 h-5 transform -rotate-135"
+            className="w-6 h-6 transform -rotate-135 md:ml-7"
             style={{ color: "#221D1D" }}
           >
             <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />

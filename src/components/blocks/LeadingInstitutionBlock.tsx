@@ -64,28 +64,28 @@ export function LeadingInstitutionBlock({
           </div>
 
           {cta && (
-            <div className="mt-4 flex justify-center md:mt-5 md:justify-start lg:mt-4">
-              <Link
-                href={cta.href}
-                target={cta.isExternal ? "_blank" : "_self"}
-                rel={cta.isExternal ? "noreferrer" : undefined}
-                className="inline-flex leading-6 items-center gap-3 font-agenda-regular text-lg font-medium text-zinc-700 transition hover:opacity-80 sm:text-xl md:text-2xl lg:text-4xl"
-              >
-                <span>{cta.text}</span>
+  <div className="mt-3 flex justify-center md:mt-14 md:justify-start">
+    <Link
+      href={cta.href}
+      target={cta.isExternal ? "_blank" : "_self"}
+      rel={cta.isExternal ? "noreferrer" : undefined}
+      className="inline-flex items-center gap-2 font-agenda-regular text-sm font-medium leading-5 text-zinc-700 transition  sm:text-base md:text-lg lg:text-[28px] border border-[#F5F4F4] border-2 px-16 py-8"
+    >
+      <span>{cta.text}</span>
 
-                <span className="flex h-9 w-9 items-center justify-center bg-[#FB7B1E] sm:h-10 sm:w-10">
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
-                    className="h-5 w-5 -rotate-135 text-white sm:h-6 sm:w-6 md:h-7 md:w-7"
-                  >
-                    <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />
-                  </svg>
-                </span>
-              </Link>
-            </div>
-          )}
+      <span className="flex h-7 w-7 items-center justify-center rounded-[2px] bg-[#FB7B1E] sm:h-8 sm:w-8">
+        <svg
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+          className="h-3.5 w-3.5 -rotate-135 text-white sm:h-4 sm:w-4 md:h-5 md:w-5"
+        >
+          <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />
+        </svg>
+      </span>
+    </Link>
+  </div>
+)}
         </div>
       </div>
     </section>

@@ -485,7 +485,7 @@ export const AnimatedTestimonials = ({
             <button
               onClick={() => setActive((active - 1 + len) % len)}
               aria-label="Previous testimonial"
-              className="flex items-center justify-center w-10 h-10 rounded-md bg-gray-200 text-gray-600 hover:bg-gray-300 transition dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600"
+              className="flex items-center justify-center w-10 h-10 rounded-md bg-gray-200 text-gray-600 hover:bg-gray-300 transition dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600 cursor-pointer"
             >
               ←
             </button>
@@ -494,7 +494,7 @@ export const AnimatedTestimonials = ({
             <button
               onClick={() => setActive((active + 1) % len)}
               aria-label="Next testimonial"
-              className="flex items-center justify-center w-10 h-10 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition dark:bg-blue-400 dark:hover:bg-blue-500"
+              className="flex items-center justify-center w-10 h-10 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition dark:bg-blue-400 dark:hover:bg-blue-500 cursor-pointer"
             >
               →
             </button>
@@ -504,10 +504,12 @@ export const AnimatedTestimonials = ({
             <button
               onClick={() => setActive((p) => (p - 1 + len) % len)}
               aria-label="Previous testimonial"
+              className="cursor-pointer"
             />
             <button
               onClick={() => setActive((p) => (p + 1) % len)}
               aria-label="Next testimonial"
+              className="cursor-pointer"
             />
           </div>
         </div>
