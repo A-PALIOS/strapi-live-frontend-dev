@@ -31,19 +31,19 @@ export function LeadingInstitutionBlock({
             {Title}
           </span>
 
-          <div className="mt-16 border-t -mx-5 sm:-mx-8 md:-mx-10 lg:-mx-14 xl:-mx-[65px]" style={{ borderColor: "#626262" }} />
+          <div className="mt-8 border-t -mx-5 sm:mt-10 sm:-mx-8 md:mt-12 md:-mx-10 lg:mt-16 lg:-mx-14 xl:-mx-[65px]" style={{ borderColor: "#626262" }} />
         </>
       )}
 
-      <div className="mt-8 flex flex-col gap-8 md:mt-10 md:flex-row md:items-stretch md:justify-between md:gap-10 lg:gap-14">
-        <div className="w-full text-center uppercase md:w-1/2 md:text-left tracking-[-2.4px]">
+      <div className="mt-8 flex flex-col gap-6 md:mt-10 md:gap-8 lg:flex-row lg:items-stretch lg:justify-between lg:gap-14">
+        <div className="w-full text-center uppercase md:text-left lg:w-1/2 tracking-[-1.3px] sm:tracking-[-1.8px] md:tracking-[-2px] lg:tracking-[-2.4px]">
           {beforeDiff && (
-            <span className="block font-agenda-medium text-3xl font-extralight leading-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-7xl">
+            <span className="block font-agenda-medium text-[28px] font-extralight leading-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-7xl">
               {beforeDiff}
             </span>
           )}
 
-          <span className="block font-agenda-medium text-3xl font-extralight leading-tight  text-gray-900 sm:text-4xl md:text-5xl lg:text-7xl">
+          <span className="block font-agenda-medium text-[28px] font-extralight leading-tight  text-gray-900 sm:text-4xl md:text-5xl lg:text-7xl">
             {middle && `${middle} `}
             <span className="font-ivypresto-regular font-medium lg:text-6xl">
               {lastWord}
@@ -51,12 +51,12 @@ export function LeadingInstitutionBlock({
           </span>
         </div>
 
-        <div className="w-full md:w-1/2 flex flex-col justify-between">
+        <div className="w-full flex flex-col lg:w-1/2">
           <div>
             {descLines.map((line, i) => (
               <p
                 key={i}
-                className="mb-4 max-w-[446px] font-agenda-regular  text-base leading-relaxed text-[#8B8B8B] sm:text-lg md:mb-5 md:text-xl lg:text-3xl tracking-[-1.6px]"
+                className="mx-auto mb-1 max-w-[457px] text-center font-agenda-regular text-base leading-tight text-[#8B8B8B] last:mb-0 sm:text-base md:mx-0 md:text-left md:text-xl lg:text-3xl tracking-[-1.1px]"
               >
                 {line}
               </p>
@@ -64,11 +64,12 @@ export function LeadingInstitutionBlock({
           </div>
 
           {cta && (
-            <div >
+            <div className="mt-4 flex justify-center md:mt-5 md:justify-start lg:mt-4">
               <Link
                 href={cta.href}
                 target={cta.isExternal ? "_blank" : "_self"}
-                className="inline-flex leading-6 items-center gap-3 font-agenda-regular text-lg font-medium text-zinc-700 transition hover:opacity-80 sm:text-xl md:text-2xl lg:text-3xl"
+                rel={cta.isExternal ? "noreferrer" : undefined}
+                className="inline-flex leading-6 items-center gap-3 font-agenda-regular text-lg font-medium text-zinc-700 transition hover:opacity-80 sm:text-xl md:text-2xl lg:text-4xl"
               >
                 <span>{cta.text}</span>
 
