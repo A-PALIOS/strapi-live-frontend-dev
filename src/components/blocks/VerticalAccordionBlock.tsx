@@ -50,7 +50,7 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
           key={`m-${idx}`}
           className="w-full rounded-2xl border border-gray-200 bg-white shadow-sm"
         >
-          <div className="relative w-full h-full rounded-2xl bg-[#1E90FF] p-6 sm:p-8 text-white shadow-[0_12px_28px_-8px_rgba(30,144,255,0.45)]">
+          <div className="relative w-full h-full rounded-2xl bg-[#1E90FF] p-6 sm:p-8 text-white" style={{ boxShadow: "0 20px 80px 10px rgba(0, 0, 0, 0.07)" }}>
             <span className="text-5xl sm:text-6xl font-ivypresto-semibold text-white/40 block mb-2">
               {String(idx + 1).padStart(2, "0")}
             </span>
@@ -83,7 +83,7 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
     </div>
 
     {/* ===== Desktop: your existing accordion with visibleItems ===== */}
-    <div className="mt-8 hidden xl:flex justify-start h-[771px] w-full max-w-8xl gap-3 transition-all duration-500 ease-in-out overflow-hidden">
+    <div className="mt-8 hidden xl:flex justify-start h-[771px] w-full max-w-8xl gap-3 transition-all duration-500 ease-in-out">
       {visibleItems.map((item) => {
         const globalIndex = items.findIndex((i) => i === item);
         const isActive = globalIndex === activeIndex;
@@ -94,30 +94,35 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
             onClick={() => !isActive && setActiveIndex(globalIndex)}
             className={[
               "transition-all duration-500 ease-in-out cursor-pointer h-full",
-              "flex items-center justify-center relative overflow-hidden",
+              "flex items-center justify-center relative",
               isActive
                 ? "flex-1 min-w-0 border-0 rounded-2xl"
-                : "flex-none w-[90px] bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md"
+                : "flex-none w-[90px] bg-white rounded-[8px] border border-[rgba(36,42,46,0.50)] hover:shadow-md"
             ].join(" ")}
           >
             {/* INACTIVE TAB */}
             {!isActive && (
-              <div className="flex flex-col items-center justify-center px-1 text-center overflow-hidden h-full w-full rounded-xl">
-                <span className="text-3xl font-ivypresto-semibold mt-2 mb-2 truncate text-gray-300">
+              <div className="flex flex-col items-center justify-between py-5 px-2 text-center overflow-hidden h-full w-full rounded-[8px]">
+                <span className="font-ivypresto-semibold" style={{ color: "rgba(36,42,46,0.25)", fontSize: "48px", fontWeight: 600, lineHeight: "56px", letterSpacing: "-2.4px" }}>
                   {String(globalIndex + 1).padStart(2, "0")}
                 </span>
-                <div className="flex-1 flex items-center justify-center">
-                  <span className="text-[22px] font-agenda-medium transform -rotate-90 origin-center whitespace-nowrap truncate max-w-[340px] customnumber2">
+                <div className="flex-1 flex items-center justify-center overflow-hidden">
+                  <span
+                    className="font-agenda-medium transform -rotate-90 origin-center whitespace-nowrap"
+                    style={{ fontSize: "40px", color: "rgba(36,42,46,0.75)", letterSpacing: "-2px", fontWeight: 500, lineHeight: "normal", maxWidth: "680px" }}
+                  >
                     {item.title}
                   </span>
                 </div>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="mb-2 h-4 w-4 text-blue-300" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+                  <path d="M0.636353 24.8999L24.6364 0.899902M0.636353 0.899902H24.6364V23.6367" stroke="#1E9BFB" strokeWidth="1.8"/>
+                </svg>
               </div>
             )}
 
             {/* ACTIVE CARD */}
             {isActive && (
-              <div className="relative w-full h-full rounded-2xl bg-[#1E90FF] p-6 sm:p-8 xl:px-[82px] xl:py-[60px] text-white shadow-[0_12px_28px_-8px_rgba(30,144,255,0.45)]">
+              <div className="relative w-full h-full rounded-2xl bg-[#1E90FF] p-6 sm:p-8 xl:px-[82px] xl:py-[60px] text-white" style={{ boxShadow: "-7px 13px 18px -12px rgba(0, 0, 0, 0.6)"}}>
                 <span className="text-[100px] font-ivypresto-semibold text-white/40 block mb-2 leading-none">
                   {String(globalIndex + 1).padStart(2, "0")}
                 </span>
