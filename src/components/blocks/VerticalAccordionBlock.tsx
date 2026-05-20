@@ -61,7 +61,7 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
 
             <div className="h-px bg-white/25 my-4 w-full" />
 
-            <p className="font-agenda-regular text-[18px] sm:text-[20px] leading-7 text-white/95">
+            <p className="font-agenda-regular text-[22px] sm:text-[28px]" style={{ lineHeight: "normal", letterSpacing: "-2.2px", color: "#EFEFEF" }}>
               {item.description}
             </p>
 
@@ -83,7 +83,7 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
     </div>
 
     {/* ===== Desktop: your existing accordion with visibleItems ===== */}
-    <div className="mt-8 hidden xl:flex justify-center h-[500px] w-full max-w-8xl gap-3 transition-all duration-500 ease-in-out overflow-hidden">
+    <div className="mt-8 hidden xl:flex justify-start h-[771px] w-full max-w-8xl gap-3 transition-all duration-500 ease-in-out overflow-hidden">
       {visibleItems.map((item) => {
         const globalIndex = items.findIndex((i) => i === item);
         const isActive = globalIndex === activeIndex;
@@ -93,11 +93,11 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
             key={globalIndex}
             onClick={() => !isActive && setActiveIndex(globalIndex)}
             className={[
-              "transition-all duration-500 ease-in-out flex-shrink-0 cursor-pointer h-full",
+              "transition-all duration-500 ease-in-out cursor-pointer h-full",
               "flex items-center justify-center relative overflow-hidden",
               isActive
-                ? "w-[75%] border-0 rounded-2xl"
-                : "w-15 sm:w-15 md:w-15 lg:w-15 bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md"
+                ? "flex-1 min-w-0 border-0 rounded-2xl"
+                : "flex-none w-[90px] bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md"
             ].join(" ")}
           >
             {/* INACTIVE TAB */}
@@ -117,18 +117,18 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
 
             {/* ACTIVE CARD */}
             {isActive && (
-              <div className="relative w-full h-full rounded-2xl bg-[#1E90FF] p-6 sm:p-8 md:p-10 text-white shadow-[0_12px_28px_-8px_rgba(30,144,255,0.45)]">
-                <span className="text-5xl sm:text-6xl font-ivypresto-semibold text-white/40 block mb-2">
+              <div className="relative w-full h-full rounded-2xl bg-[#1E90FF] p-6 sm:p-8 xl:px-[82px] xl:py-[60px] text-white shadow-[0_12px_28px_-8px_rgba(30,144,255,0.45)]">
+                <span className="text-[100px] font-ivypresto-semibold text-white/40 block mb-2 leading-none">
                   {String(globalIndex + 1).padStart(2, "0")}
                 </span>
 
-                <h3 className="text-4xl font-agenda-medium text-white">
+                <h3 className="text-[64px] tracking-[-3.2px] font-agenda-medium text-white">
                   {item.title}
                 </h3>
 
                 <div className="h-px bg-white/25 my-4 w-full" />
 
-                <p className="font-agenda-regular text-[20px] leading-7 text-white/95 max-w-3xl">
+                <p className="font-agenda-regular" style={{ fontSize: "clamp(18px, 2.8vw, 35px)", lineHeight: "normal", letterSpacing: "-2.2px", color: "#EFEFEF" }}>
                   {item.description}
                 </p>
 
