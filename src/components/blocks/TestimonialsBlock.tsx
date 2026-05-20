@@ -26,7 +26,7 @@ export function TestimonialsBlock({ items, heading, cta }: TestimonialsBlockProp
 
       <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20">
   {/* Heading + CTA on one line */}
-  <div className="flex items-center justify-between mb-6 ">
+  <div className="flex items-center justify-between mb-6 tracking-[-2px]">
     <h3 className="text-3xl font-agenda-medium">{heading}</h3>
     {cta && (
       <Link

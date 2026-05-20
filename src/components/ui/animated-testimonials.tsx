@@ -379,7 +379,7 @@ export const AnimatedTestimonials = ({
   return (
     <div className="w-full mx-auto max-w-7xl px-6 md:px-10 lg:px-16 xl:px-20 py-20 font-sans antialiased">
     
-      <div className="relative grid grid-cols-1  xl:grid-cols-2">
+      <div className="relative grid grid-cols-1  xl:grid-cols-2 ">
         <div>
           <div className="relative aspect-square w-full max-w-[400px]">
             {/* No SSR for this subtree; we mount it client-side only via the hydration gate above */}
@@ -403,7 +403,7 @@ export const AnimatedTestimonials = ({
                     }}
                     exit={{ opacity: 0, scale: 0.95, rotate: rotateSeed }}
                     transition={{ duration: 0.35, ease: "easeInOut" }}
-                    className="absolute inset-0 origin-bottom"
+                    className="absolute inset-0 origin-bottom "
                   >
                     <Image
                       src={src}
@@ -411,7 +411,7 @@ export const AnimatedTestimonials = ({
                       width={500}
                       height={500}
                       draggable={false}
-                      className="h-full w-full rounded-3xl object-cover object-center"
+                      className="h-full w-full rounded-3xl object-cover object-center "
                       priority={isActive}
                     />
                   </motion.div>
@@ -453,7 +453,8 @@ export const AnimatedTestimonials = ({
         className="
           mt-11
           relative z-10
-          text-2xl leading-[1.35]
+          text-3xl leading-[1.35]
+          tracking-[-1px]
           text-[#221D1D]/50
           font-agenda-regular
           line-clamp-6

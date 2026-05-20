@@ -88,7 +88,7 @@ export function ServicesAccordionBlock({
                       <span className="shrink-0 text-xl md:text-5xl leading-none text-zinc-100/50">—</span>
                       <span
                         className={[
-                          "text-lg sm:text-2xl md:text-5xl",
+                          "text-lg sm:text-2xl md:text-5xl tracking-[-2.2px]",
                           "font-agenda-medium",
                           "uppercase",
                           isOpen ? "text-blue-400" : "text-zinc-100/50",
@@ -131,7 +131,7 @@ export function ServicesAccordionBlock({
                           animate={{ y: 0, opacity: 1 }}
                           exit={{ y: 6, opacity: 0 }}
                           transition={transition}
-                          className="font-agenda-light xl:ml-8  text-sm sm:text-[18px] md:text-4xl md:leading-9 sm:leading-4 text-white/85 py-3 "
+                          className="font-agenda-light xl:ml-8  text-sm sm:text-[18px] md:text-4xl md:leading-9 sm:leading-4 text-white/85 py-3 tracking-[-2px]"
                         >
                           {item.description}
                         </motion.p>

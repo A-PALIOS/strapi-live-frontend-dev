@@ -27,7 +27,7 @@ export function LeadingInstitutionBlock({
     <section className="w-full bg-white px-5 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12 lg:px-14 xl:px-[65px]">
       {Title && (
         <>
-          <span className="block text-center font-agenda-medium text-lg  uppercase text-zinc-800 sm:text-xl md:text-2xl lg:text-3xl md:text-left">
+          <span className="block text-center font-agenda-medium text-lg  uppercase text-zinc-800 sm:text-xl md:text-2xl lg:text-3xl md:text-left tracking-[-1.6px]">
             {Title}
           </span>
 
@@ -36,16 +36,16 @@ export function LeadingInstitutionBlock({
       )}
 
       <div className="mt-8 flex flex-col gap-8 md:mt-10 md:flex-row md:items-start md:justify-between md:gap-10 lg:gap-14">
-        <div className="w-full text-center uppercase md:w-1/2 md:text-left">
+        <div className="w-full text-center uppercase md:w-1/2 md:text-left tracking-[-2.4px]">
           {beforeDiff && (
-            <span className="block font-agenda-medium text-3xl font-extralight leading-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl">
+            <span className="block font-agenda-medium text-3xl font-extralight leading-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-7xl">
               {beforeDiff}
             </span>
           )}
 
-          <span className="block font-agenda-medium text-3xl font-extralight leading-tight  text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl">
+          <span className="block font-agenda-medium text-3xl font-extralight leading-tight  text-gray-900 sm:text-4xl md:text-5xl lg:text-7xl">
             {middle && `${middle} `}
-            <span className="font-ivypresto-regular font-medium ">
+            <span className="font-ivypresto-regular font-medium lg:text-6xl">
               {lastWord}
             </span>
           </span>
@@ -55,14 +55,14 @@ export function LeadingInstitutionBlock({
           {descLines.map((line, i) => (
             <p
               key={i}
-              className="mb-4 max-w-[446px] font-agenda-regular  text-base leading-relaxed text-[#8B8B8B] sm:text-lg md:mb-5 md:text-xl lg:text-3xl"
+              className="mb-4 max-w-[446px] font-agenda-regular  text-base leading-relaxed text-[#8B8B8B] sm:text-lg md:mb-5 md:text-xl lg:text-3xl tracking-[-1.6px]"
             >
               {line}
             </p>
           ))}
 
           {cta && (
-            <div className="mt-6">
+            <div >
               <Link
                 href={cta.href}
                 target={cta.isExternal ? "_blank" : "_self"}

@@ -253,7 +253,7 @@ export function InfoBlock({
               ref={descRef}
               className="
                 animate font-agenda-regular text-3xl md:text-2xl lg:text-5xl
-                leading-tight text-zinc-800/25
+                leading-tight text-zinc-800/25 tracking-[-2.4px]
                 whitespace-normal break-words [overflow-wrap:anywhere]
               "
             >

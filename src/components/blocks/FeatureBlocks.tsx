@@ -152,7 +152,7 @@ export function FeaturesBlock({
               leading-relaxed sm:leading-relaxed md:leading-snug
               text-zinc-300
               whitespace-normal break-words [overflow-wrap:anywhere]
-              max-w-prose md:max-w-none
+              max-w-prose md:max-w-none tracking-[-2.8px]
             "
           >
             {description}
