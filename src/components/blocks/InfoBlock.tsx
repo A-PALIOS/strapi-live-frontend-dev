@@ -245,8 +245,11 @@ export function InfoBlock({
           )}
         </div>
 
+        {/* Full-width divider */}
+        <div className="mt-16 border-t -mx-6 md:-mx-10 lg:-mx-16 xl:-mx-20" style={{ borderColor: "#626262" }} />
+
         {/* Body */}
-        <div className="mt-6 grid grid-cols-1 gap-10 md:mt-8 md:grid-cols-12">
+        <div className="mt-[104px] grid grid-cols-1 gap-10 md:grid-cols-12">
           {/* Left: animated description */}
           <div className="md:col-span-9">
             <p
@@ -265,7 +268,7 @@ export function InfoBlock({
           {showCategoryWords !== "hide" && (
             <div
               ref={catRef}
-              className="hidden md:flex md:col-span-3 flex-col justify-start items-end gap-3"
+              className="hidden md:flex md:col-span-3 flex-col justify-start items-end gap-3 pt-3"
             >
               {["CONSULTING", "MANAGEMENT", "TRAINING"].map((word) => (
                 <span

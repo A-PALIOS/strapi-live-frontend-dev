@@ -62,7 +62,7 @@ export function ServicesAccordionBlock({
         </div>
 
         {/* Thin divider */}
-        <div className="mt-3 h-px w-full bg-white" />
+        <div className="mt-3 h-px bg-white -mx-6 md:-mx-10 lg:-mx-16 xl:-mx-20" />
 
         {/* Accordion list */}
         <div role="list" className="divide-y divide-white/35 mt-24">

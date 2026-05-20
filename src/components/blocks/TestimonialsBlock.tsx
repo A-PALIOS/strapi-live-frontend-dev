@@ -54,6 +54,8 @@ export function TestimonialsBlock({ items, heading, cta }: TestimonialsBlockProp
     )}
   </div>
 
+  {/* Full-width divider */}
+  <div className="mt-16 border-t -mx-6 md:-mx-10 lg:-mx-16 xl:-mx-20" style={{ borderColor: "#626262" }} />
 
       {/* <div className="max-w-5xl w-full px-4 flex flex-col md:flex-row items-center justify-between gap-8">
         <div className="flex flex-col items-center md:items-start text-center md:text-left">
