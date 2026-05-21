@@ -132,7 +132,7 @@ export function StatementSection({
         xl:px-24
       "
     >
-      <div className="w-full max-w-[1100px] text-right">
+      <div className="w-full max-w-[1140px] text-right">
         <h2
           ref={headingPrimaryRef}
           className="
@@ -176,17 +176,8 @@ export function StatementSection({
 
       <div className="mt-8 md:mt-10 md:ml-50 ml-30">
   <p
-    className="
-      mx-auto
-      font-agenda-regular
-      max-w-[920px]
-      text-left
-      text-[20px]
-      md:text-[26px]
-      lg:text-[32px]
-      leading-[1.28]
-      text-[#2F2F2F]
-    "
+    className="ml-auto font-agenda-regular max-w-[1140px] text-right"
+    style={{ color: "#3F4449", fontSize: "clamp(20px, 2.8vw, 40px)", fontWeight: 400, lineHeight: "normal", letterSpacing: "-2px" }}
   >
     {bodyPrimary}
   </p>

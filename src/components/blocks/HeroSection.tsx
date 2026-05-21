@@ -44,7 +44,7 @@ export function HeroSection({
     >
       <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20">
         {/* Top content */}
-        <div className="max-w-4xl">
+        <div className="max-w-6xl">
           {logo && (
   <div className="mt-8 mb-8">
     <div
@@ -102,20 +102,10 @@ export function HeroSection({
           </h1>
 
 {subheader && (
-  <p className={`
-          mt-6 max-w-6xl 
-          font-agenda-regular 
-          
-          
-          text-[18px]
-          leading-[1.28]
-          tracking-[-0.03em]
-          
-          ${theme === "black" ? "text-white":"text-zinc-700"}
-          sm:text-[19px]
-          md:text-[20px]
-          lg:text-[21px]
-   `}>
+  <p
+    className="mt-6 max-w-[1000px] font-agenda-regular"
+    style={{ color: theme === "black" ? "#FFFFFF" : "#3F4449", fontSize: "clamp(20px, 2.8vw, 40px)", fontWeight: 400, lineHeight: "normal", letterSpacing: "-2px" }}
+  >
     {subheader}
   </p>
 )}

@@ -16,7 +16,7 @@ export function LinkListAbout({
     >
       <div className="w-full px-6 py-16 md:px-10 md:py-20 lg:px-16 xl:px-20">
         <div
-          className="min-h-[500px] w-full rounded-[24px] px-6 py-10 text-white md:px-10 md:py-14 lg:px-14 xl:px-20"
+          className="min-h-[500px] w-full rounded-[24px] px-6 py-14 text-white md:px-10 lg:px-14 xl:px-20"
           style={{
             background: `
               linear-gradient(
@@ -32,7 +32,10 @@ export function LinkListAbout({
           {/* Top bar */}
           <div className="flex items-center justify-between gap-4">
             {heading ? (
-              <span className="font-agenda-medium text-[11px] uppercase tracking-[0.08em] text-white/90 md:text-[12px]">
+              <span
+                style={{ letterSpacing: "-1.6px" }}
+                className="font-agenda text-[32px] font-normal leading-[24px] uppercase text-[#FEFEFE]"
+              >
                 {heading}
               </span>
             ) : null}
@@ -42,7 +45,8 @@ export function LinkListAbout({
                 href={cta.href}
                 target={cta.isExternal ? "_blank" : "_self"}
                 rel={cta.isExternal ? "noreferrer" : undefined}
-                className="group inline-flex items-center gap-2 font-agenda-medium text-[10px] uppercase tracking-[0.08em] text-white/85 transition hover:text-white md:text-[11px]"
+                style={{ lineHeight: "24px", letterSpacing: "-1.2px" }}
+                className="group inline-flex items-center gap-2 font-agenda text-[24px] font-normal uppercase text-[#FEFEFE] transition hover:opacity-80"
               >
                 <span>{cta.text}</span>
                 <svg
@@ -61,10 +65,10 @@ export function LinkListAbout({
             ) : null}
           </div>
 
-          <div className="mt-5 h-px w-full bg-white/30" />
+          <div className="mt-14 h-px bg-white -mx-6 md:-mx-10 lg:-mx-14 xl:-mx-20" />
 
           {/* Outer border */}
-          <div className="mt-10 border border-white/35 px-6 py-6 md:px-8">
+          <div className="mt-32 rounded-[8px] border border-white px-14 py-8">
             {items.map((item, index) => {
               const isLast = index === items.length - 1;
 
@@ -76,11 +80,11 @@ export function LinkListAbout({
                   rel={item.isExternal ? "noreferrer" : undefined}
                   className={[
                     "group flex w-full items-start justify-between gap-4 text-left",
-                    "transition-colors duration-300 hover:text-white",
-                    !isLast ? "mb-6 border-b border-white/30 pb-6" : "",
+                    "transition-opacity duration-300 hover:opacity-80",
+                    !isLast ? "mb-6 border-b border-white pb-6" : "",
                   ].join(" ")}
                 >
-                  <span className="block font-agenda-medium text-[18px] uppercase leading-[1.15] text-white/95 transition group-hover:text-white md:text-[20px]">
+                  <span className="block text-left font-agenda-medium text-[40px] font-medium uppercase leading-normal tracking-[-0.05em] text-[#FEFEFE]">
                     {item.title}
                   </span>
 
@@ -91,7 +95,7 @@ export function LinkListAbout({
                     strokeWidth="1.8"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="h-5 w-5 shrink-0 text-white/90 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                    className="h-5 w-5 shrink-0 text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
                     aria-hidden="true"
                   >
                     <path d="M7 17L17 7M17 7H7M17 7V17" />
