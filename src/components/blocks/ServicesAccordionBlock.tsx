@@ -79,7 +79,7 @@ export function ServicesAccordionBlock({
                   aria-controls={`svc-desc-${item.id}`}
                   className="group w-full text-left"
                 >
-                  <div className="flex items-center justify-between gap-4 py-2">
+                  <div className="flex items-center justify-between gap-4 py-2 cursor-pointer">
                     {/* Left: 01 — Title */}
                     <div className="flex min-w-0 items-baseline gap-3 sm:gap-4">
                       <span className={`shrink-0 font-ivypresto-light text-2xl sm:text-3xl md:text-5xl leading-none ${isOpen ? "text-blue-400" : "text-white"}`}>

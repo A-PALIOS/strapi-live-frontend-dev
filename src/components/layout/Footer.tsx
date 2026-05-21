@@ -286,7 +286,7 @@ export function Footer({ data }: { data: FooterProps }) {
               </div>
 
               {/* text */}
-              <p className="mt-3 sm:mt-0 text-center sm:text-left text-base sm:text-lg md:text-xl font-agenda-medium tracking-wide text-white/90">
+              <p className="mt-3 sm:mt-0 text-center sm:text-left text-base sm:text-lg md:text-3xl md:ml-8 font-agenda-medium tracking-wide text-white">
                 Let’s explore how we can support your goals together.
               </p>
             </div>
@@ -350,21 +350,33 @@ export function Footer({ data }: { data: FooterProps }) {
               © {new Date().getFullYear()} {copyrightText || "Your Company Name"}. All rights reserved.
             </p>
 
-            <div className="flex items-center justify-center gap-2.5 sm:gap-3">
-              {socialLink?.map((s) => {
-                const iconKey = String(s.icon || "").toLowerCase();
-                return s.url ? (
-                  <Link
-                    key={s.id}
-                    href={s.url}
-                    target="_blank"
-                    aria-label={iconKey}
-                    className="rounded p-2 bg-white/10 hover:bg-white/20 transition"
-                  >
-                    {iconMap[iconKey] ?? <Globe className="h-4 w-4" />}
-                  </Link>
-                ) : null;
-              })}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10">
+              <div className="flex items-center gap-10 sm:gap-12">
+                <p className="text-center md:text-left text-xs sm:text-sm text-white/60 font-agenda-regular">
+                  Cookies
+                </p>
+
+                <p className="text-center md:text-left text-xs sm:text-sm text-white/60 font-agenda-regular">
+                  Privacy Policy
+                </p>
+              </div>
+
+              <div className="flex items-center justify-center gap-6 sm:gap-7">
+                {socialLink?.map((s) => {
+                  const iconKey = String(s.icon || "").toLowerCase();
+                  return s.url ? (
+                    <Link
+                      key={s.id}
+                      href={s.url}
+                      target="_blank"
+                      aria-label={iconKey}
+                      className="rounded p-2 bg-white/10 hover:bg-white/20 transition"
+                    >
+                      {iconMap[iconKey] ?? <Globe className="h-4 w-4" />}
+                    </Link>
+                  ) : null;
+                })}
+              </div>
             </div>
           </div>
         </div>
