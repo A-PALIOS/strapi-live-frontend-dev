@@ -26,56 +26,56 @@ export function ExpertiseVideoTabs({
   const activeItem = items[activeIndex];
 
   return (
-    <section className="w-full min-h-screen">
-      <div
-        style={{
-          background:
-            "linear-gradient(25deg, rgb(148, 117, 96) 0%, rgb(111, 113, 118) 25%, rgb(79, 110, 133) 50%, rgb(47, 109, 157) 100%)",
-        }}
-        className="grid min-h-screen w-full grid-cols-1 px-6 md:grid-cols-[48%_52%] md:px-10 lg:px-16 xl:px-20"
-      >
-        {/* LEFT CONTENT */}
-        <div className="relative overflow-hidden px-6 py-8 md:min-h-screen md:px-10 md:py-8">
-          <div className="absolute inset-0 opacity-20">
-            <div className="flex h-full">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className="h-full flex-1" />
-              ))}
-            </div>
+    <section
+      className="w-full overflow-hidden"
+      style={{
+        background:
+          "linear-gradient(25deg, #947560 0%, #6f7176 25%, #4f6e85 50%, #2f6d9d 100%)",
+      }}
+    >
+      <div className="relative grid min-h-screen w-full grid-cols-1 grid-rows-[auto_1fr] md:grid-cols-2">
+        {/* EYEBROW ROW — spans both columns, z-10 so it sits above the video */}
+        {Eyebrow ? (
+          <div className="relative z-10 col-span-1 md:col-span-2">
+            <p
+              style={{ letterSpacing: "-1.6px" }}
+              className="px-6 pt-8 pb-6 font-agenda-medium text-[32px] font-medium uppercase leading-normal text-white md:px-10 md:pt-10 lg:px-14 xl:px-20"
+            >
+              {Eyebrow}
+            </p>
+            <div className="h-px bg-white" />
           </div>
+        ) : null}
 
-          <div className="relative flex h-full flex-col justify-center">
-            {Eyebrow ? (
-              <p className="mb-10 text-[13px] font-agenda-medium uppercase tracking-[0.04em] text-white/95">
-                {Eyebrow}
-              </p>
-            ) : null}
-
-            <div className="rounded-[4px] border border-white/20 bg-white/5 p-2 md:p-3">
+        {/* LEFT CONTENT */}
+        <div className="relative z-10 pl-8 pr-6 py-10 md:pl-[80px] md:pr-[80px] md:py-14">
+          <div className="flex h-full flex-col justify-center">
+            <div className="rounded-[8px] border border-white p-4">
               {items.map((item, index) => {
                 const isActive = index === activeIndex;
 
                 return (
-                  <button
+                  <div
                     key={item.id}
-                    type="button"
-                    onClick={() => setActiveIndex(index)}
-                    className="group block w-full text-left"
+                    className={
+                      index !== items.length - 1
+                        ? "border-b border-white/30 py-10"
+                        : "pt-10 pb-10"
+                    }
                   >
-                    <div className="flex items-start justify-between gap-4 px-2 py-6 md:px-3 md:py-6">
-                      <div className="min-w-0 flex-1">
-                        <h3 className="text-[24px] font-agenda-medium uppercase leading-[1.1] tracking-[-0.03em] text-white md:text-[32px]">
-                          {item.title}
-                        </h3>
+                    <button
+                      type="button"
+                      onClick={() => setActiveIndex(index)}
+                      className="group flex w-full items-start justify-between gap-4 text-left"
+                    >
+                      <h3
+                        style={{ letterSpacing: "-1.2px" }}
+                        className="font-agenda-medium text-[20px] uppercase leading-normal tracking-[-0.05em] text-white whitespace-nowrap md:text-[30px]"
+                      >
+                        {item.title}
+                      </h3>
 
-                        {isActive && item.description ? (
-                          <p className="mt-5 max-w-[520px] text-[15px] leading-[1.5] text-white/80 md:text-[17px] font-agenda-regular">
-                            {item.description}
-                          </p>
-                        ) : null}
-                      </div>
-
-                      <span className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                      <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center text-white">
                         {item.icon?.url ? (
                           <StrapiImage
                             src={item.icon.url}
@@ -92,51 +92,73 @@ export function ExpertiseVideoTabs({
                             strokeWidth="1.8"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            className="h-5 w-5"
+                            className={[
+                              "h-5 w-5 shrink-0 transition-transform duration-300",
+                              isActive ? "rotate-90" : "rotate-0",
+                            ].join(" ")}
                             aria-hidden="true"
                           >
-                            {isActive ? (
-                              <path d="M7 7L17 17M17 17H7M17 17V7" />
-                            ) : (
-                              <path d="M7 17L17 7M17 7H7M17 7V17" />
-                            )}
+                            <path d="M7 17L17 7M17 7H7M17 7V17" />
                           </svg>
                         )}
                       </span>
-                    </div>
+                    </button>
 
-                    {index !== items.length - 1 ? (
-                      <div className="mx-2 h-px bg-white/30 md:mx-3" />
+                    {isActive && item.description ? (
+                      <p className="mt-5 font-agenda-medium text-[32px] font-medium leading-[1.2] tracking-[-0.05em] text-[#FEFEFE]">
+                        {item.description}
+                      </p>
                     ) : null}
-                  </button>
+                  </div>
                 );
               })}
             </div>
           </div>
         </div>
 
-        {/* RIGHT VIDEO */}
-<div className="relative flex min-h-screen items-center justify-end overflow-hidden">
-  <div className="relative w-full max-w-[960px]">
-    {activeItem?.video?.url ? (
-      <video
-        key={activeItem.video.url}
-        className="w-full max-w-[960px] object-contain md:h-[720px] xl:h-auto"
-        autoPlay
-        muted
-        loop
-        playsInline
-        controls={false}
-      >
-        <source src={getStrapiMediaUrl(activeItem.video.url)} />
-      </video>
-    ) : (
-      <div className="flex min-h-[500px] items-center justify-center text-center text-[16px] text-white/70">
-        No video selected
-      </div>
-    )}
-  </div>
-</div>
+        {/* RIGHT COLUMN placeholder — keeps the grid slot so left doesn't expand */}
+        <div className="hidden md:block" style={{ backgroundColor: "white" }} />
+
+        {/* RIGHT VIDEO — absolutely positioned from section top, shorter than full height */}
+        <div
+          className="absolute right-0 top-0 hidden w-1/2 overflow-hidden md:block"
+          style={{ height: "calc(100% - 120px)", borderRadius: "0 0 16px 0" }}
+        >
+          {activeItem?.video?.url ? (
+            <video
+              key={activeItem.video.url}
+              className="absolute inset-0 h-full w-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls={false}
+            >
+              <source src={getStrapiMediaUrl(activeItem.video.url)} />
+            </video>
+          ) : (
+            <div className="flex h-full items-center justify-center text-center text-[16px] text-white/70">
+              No video selected
+            </div>
+          )}
+        </div>
+
+        {/* MOBILE VIDEO — shown only on small screens, below the accordion */}
+        <div className="relative min-h-[300px] overflow-hidden md:hidden">
+          {activeItem?.video?.url ? (
+            <video
+              key={activeItem.video.url}
+              className="absolute inset-0 h-full w-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls={false}
+            >
+              <source src={getStrapiMediaUrl(activeItem.video.url)} />
+            </video>
+          ) : null}
+        </div>
       </div>
     </section>
   );
