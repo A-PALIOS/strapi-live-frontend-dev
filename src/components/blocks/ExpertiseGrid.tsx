@@ -54,7 +54,7 @@ function ExpertiseItem({
             ease: [0.22, 1, 0.36, 1],
             delay: index * 0.2 + 0.15,
           }}
-          className="pt-[2px] font-agenda-light text-[15px] leading-none tracking-[-0.03em] text-[#9a9a9a] md:text-[18px]"
+          className="pt-[2px] font-agenda-light text-[15px] leading-none tracking-[-0.03em] text-[#9a9a9a] md:text-3xl"
         >
           {item.number}
         </motion.span>
@@ -67,7 +67,7 @@ function ExpertiseItem({
               duration: 0.55,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="font-agenda-medium text-[26px] leading-[1] tracking-[-0.045em] text-[#231f20] md:text-[39px]"
+            className="font-agenda-medium text-[26px] leading-[1] tracking-[-0.045em] text-[#231f20] md:text-5xl"
           >
             {item.title}
           </motion.h3>
@@ -80,7 +80,7 @@ function ExpertiseItem({
               ease: [0.22, 1, 0.36, 1],
               delay: 0.12,
             }}
-            className="mt-3 max-w-[520px] font-agenda-light text-[16px] leading-[1.22] tracking-[-0.035em] text-[#5b5b5b] md:mt-4 md:text-[23px]"
+            className="mt-3 max-w-[820px] font-agenda-regular text-[16px] leading-normal  text-[#5b5b5b] md:mt-4 md:text-3xl"
           >
             {item.description}
           </motion.p>
@@ -98,7 +98,7 @@ export function ExpertiseGrid({
     <section className="w-full min-h-screen px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20">
       <div className="w-full">
         {eyebrow && (
-          <p className="mb-8 font-agenda-medium text-[14px] uppercase leading-none tracking-[0.02em] text-black md:mb-10">
+          <p className="mb-8 font-agenda-medium text-3xl uppercase leading-none tracking-[-1.6px] text-black md:mb-10">
             {eyebrow}
           </p>
         )}

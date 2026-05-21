@@ -37,9 +37,9 @@ export function ImpactLinks({
       <div className="absolute inset-0 " />
 
       {/* Content */}
-      <div className="relative max-w-[1920px]  py-16  md:py-24">
+      <div className="relative max-w-[1920px]  ">
         {/* Top Row */}
-        <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-center md:justify-between ">
           {eyebrow && (
             <p className="text-3xl tracking-[0.2em] text-white uppercase font-agenda-medium">
               {eyebrow}
@@ -54,10 +54,10 @@ export function ImpactLinks({
         </div>
 
         {/* Divider */}
-        <div className="mb-10 h-px w-full bg-white/20" />
+        <div className="mb-27 h-px w-full bg-white/20" />
 
         {/* Links */}
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-30">
           {items.map((item) => {
             const isHighlighted = item.isHighlighted;
 
@@ -81,7 +81,7 @@ export function ImpactLinks({
                     strokeWidth="1.8"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 md:h-7 md:w-7"
+                    className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 md:h-20 md:w-20"
                     aria-hidden="true"
                   >
                     <path d="M7 17L17 7M17 7H7M17 7V17" />
