@@ -40,7 +40,7 @@ export function RelatedServiceGrid({
     <section className={`w-full ${isBlack ? "bg-black" : "bg-white"}`}>
       <div className="w-full px-6 py-10 md:px-10 md:py-12 lg:px-16 xl:px-20">
         {eyebrow && (
-          <p className={`mb-3 text-[15px] font-agenda-medium uppercase tracking-[0.08em] ${isBlack ? "text-white" : "text-black"}`}>
+          <p className={`mb-3 text-3xl font-agenda-medium uppercase tracking-[-1.6px] ${isBlack ? "text-white" : "text-black"}`}>
             {eyebrow}
           </p>
         )}

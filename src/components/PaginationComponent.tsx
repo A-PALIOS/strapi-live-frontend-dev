@@ -71,7 +71,7 @@ const PaginationArrow: FC<PaginationArrowProps> = ({
       className={`px-2 py-2 rounded-sm transition-colors
         ${isDisabled
           ? "bg-gray-200 text-white cursor-not-allowed"
-          : "bg-gray-800 text-white hover:bg-gray-700"
+          : "bg-gray-800 text-white hover:bg-gray-700 cursor-pointer"
         }`}
       aria-disabled={isDisabled}
       disabled={isDisabled}
@@ -112,7 +112,7 @@ export function PaginationComponent({ pageCount }: Readonly<PaginationProps>) {
     >
       <ul className="flex items-center space-x-4">
         {/* Left arrow - disabled if on first page */}
-        <li>
+        <li className="cursor-pointer">
           <PaginationArrow
             direction="left"
             href={createPageURL(currentPage - 1)}
@@ -126,7 +126,7 @@ export function PaginationComponent({ pageCount }: Readonly<PaginationProps>) {
           </span>
         </li> */}
         {/* Right arrow - disabled if on last page */}
-        <li>
+        <li className="cursor-pointer">
           <PaginationArrow
             direction="right"
             href={createPageURL(currentPage + 1)}

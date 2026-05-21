@@ -14,7 +14,7 @@ export function ImpactNavigation({
       <div className="mx-auto max-w-[1750px] px-6 py-6 md:px-10">
         {/* Eyebrow */}
         {eyebrow ? (
-          <p className="mb-6 text-[15px] font-agenda-regular uppercase tracking-[0.18em] text-[#1e1e1e]">
+          <p className="mb-6 text-3xl font-agenda-regular uppercase tracking-[-1.6px] text-[#1e1e1e]">
             {eyebrow}
           </p>
         ) : null}
