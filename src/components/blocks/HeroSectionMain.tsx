@@ -87,7 +87,7 @@ export function HeroSectionMain({
             
             <span
               className="text-slate-100 font-ivypresto-light tracking-tight leading-[0.92]
-                            text-4xl sm:text-5xl md:text-6xl lg:text-7xl"
+                            text-3xl sm:text-5xl md:text-6xl lg:text-7xl"
             >
               {" "}
 
