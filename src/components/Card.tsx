@@ -81,7 +81,7 @@ export function Card({
  
       {/* Text content */}
       <div className="p-5 pb-8 flex flex-col flex-1 min-h-[280px]">
-        <h3 className="text-xl font-semibold text-gray-900 mb-4 leading-snug font-agenda-regular line-clamp-3">
+        <h3 className="font-agenda-regular font-normal text-2xl leading-[normal] tracking-[-1.2px] text-[#242A2E] mb-4 line-clamp-3">
           {title}
         </h3>
  

@@ -16,29 +16,29 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
 
   return (
     <section className="w-full py-12">
-  <div className="w-full px-[65px] py-8 sm:py-10 md:py-12">
-    <div className="flex items-center justify-between md:text-[24px] sm:text-[24px] uppercase ">
-      <span className="font-agenda-medium opacity-80">{title}</span>
+  <div className="w-full px-4 sm:px-8 md:px-12 xl:px-[65px] py-8 sm:py-10 md:py-12">
+    <div className="flex items-center justify-between mb-6 tracking-[-2px] uppercase">
+      <h3 className="text-3xl font-agenda-medium">{title}</h3>
 
       {cta && (
         <a
           href={cta.href}
           target={cta.isExternal ? "_blank" : "_self"}
-          className="font-agenda-regular md:text-[18px] sm:text-sm group inline-flex items-center gap-2 opacity-90 hover:opacity-100"
+          className="inline-flex items-center font-agenda-regular text-[24px] font-medium text-gray-900 transition"
+          style={{ color: "#323C43" }}
         >
-          <span className="font-agenda-regular md:text-[24px] sm:text-sm">{cta.text}</span>
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 md:ml-7 group-hover:-translate-y-0.5"
-            aria-hidden="true"
-          >
-            <path d="M7 17L17 7M17 7H7M17 7V17" />
-          </svg>
+          {cta.text}
+          <div style={{ marginLeft: "10px" }} className="flex items-center justify-center rounded">
+            <svg
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+              className="w-6 h-6 transform -rotate-135 md:ml-7"
+              style={{ color: "#221D1D" }}
+            >
+              <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />
+            </svg>
+          </div>
         </a>
       )}
     </div>
