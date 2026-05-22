@@ -105,7 +105,7 @@ export function ExpertiseVideoTabs({
                     </button>
 
                     {isActive && item.description ? (
-                      <p className="mt-5 font-agenda-medium text-[32px] font-medium leading-[1.2] tracking-[-0.05em] text-[#FEFEFE]">
+                      <p className="mt-5 font-agenda-medium md:text-[32px] sm:text-[24px] font-medium leading-[1.2] tracking-[-0.05em] text-[#FEFEFE]">
                         {item.description}
                       </p>
                     ) : null}

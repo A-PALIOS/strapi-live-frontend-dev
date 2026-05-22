@@ -41,13 +41,13 @@ export function ImpactLinks({
         {/* Top Row */}
         <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-center md:justify-between ">
           {eyebrow && (
-            <p className="text-3xl tracking-[0.2em] text-white uppercase font-agenda-medium">
+            <p className="text-3xl tracking-[-1.6px] text-white uppercase font-agenda-medium">
               {eyebrow}
             </p>
           )}
 
           {introText && (
-            <p className=" text-white md:text-right text-2xl font-agenda-regular">
+            <p className=" text-white md:text-right text-2xl font-agenda-regular tracking-[-1.2px]">
               {introText}
             </p>
           )}

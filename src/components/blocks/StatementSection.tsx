@@ -177,7 +177,7 @@ export function StatementSection({
       <div className="mt-8 md:mt-10 md:ml-50 ml-30">
   <p
     className="ml-auto font-agenda-regular max-w-[1140px] text-right"
-    style={{ color: "#3F4449", fontSize: "clamp(20px, 2.8vw, 40px)", fontWeight: 400, lineHeight: "normal", letterSpacing: "-2px" }}
+    style={{ color: "#3F4449", fontSize: "clamp(20px, 2.8vw, 40px)", fontWeight: 400, lineHeight: "normal", letterSpacing: "-0.05em" }}
   >
     {bodyPrimary}
   </p>
