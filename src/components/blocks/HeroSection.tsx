@@ -14,6 +14,7 @@ export function HeroSection({
 
 }: Readonly<HeroSectionProps>) {
     const useMinContentWidth = headingWidth === "min-content";
+    const useBalance = headingWidth === "balance";
 
     const themes = {
     white: "bg-white/40 border-white/20 text-black",
@@ -98,7 +99,17 @@ export function HeroSection({
               ${useMinContentWidth ? "w-auto" : "w-full"}
             `}
           >
-            {heading}
+            {useBalance && heading.includes("&")
+              ? (() => {
+                  const [before, ...rest] = heading.split("&");
+                  return (
+                    <>
+                      {before.trimEnd()} &<br />
+                      {rest.join("&").trimStart()}
+                    </>
+                  );
+                })()
+              : heading}
           </h1>
 
 {subheader && (

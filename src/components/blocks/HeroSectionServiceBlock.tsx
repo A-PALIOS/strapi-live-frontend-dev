@@ -16,7 +16,8 @@ export function HeroSectionServiceBlock({
   darken = false,
   headingWidth,
 }: Readonly<HeroSectionServiceProps>) {
-   const useMinContentWidth = headingWidth === "min-content";
+  const useMinContentWidth = headingWidth === "min-content";
+  const useBalance = headingWidth === "balance";
   console.log("Video: ",video);
   return (
     <section
@@ -53,7 +54,17 @@ export function HeroSectionServiceBlock({
               ${useMinContentWidth ? "w-auto" : "w-full"}
             `}
           >
-            {heading}
+            {useBalance && heading.includes("&")
+              ? (() => {
+                  const [before, ...rest] = heading.split("&");
+                  return (
+                    <>
+                      {before.trimEnd()} &<br />
+                      {rest.join("&").trimStart()}
+                    </>
+                  );
+                })()
+              : heading}
           </h1>
 
 {subheader && (
