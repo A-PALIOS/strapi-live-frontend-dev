@@ -139,7 +139,7 @@ export function HeroSection({
               <StrapiImage
                 src={image.url}
                 alt={image.alternativeText || "Hero image"}
-                className="h-[260px]  object-cover sm:h-[360px] lg:h-[576px]"
+                className="h-[360px] object-cover sm:h-[420px] lg:h-[576px]"
                 width={1728}
                 height={900}
               />
