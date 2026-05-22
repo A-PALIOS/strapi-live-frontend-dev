@@ -43,7 +43,7 @@ function FilterDropdown({
     <div ref={ref} className="relative flex-shrink-0">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex items-center gap-2 font-agenda-regular text-3xl uppercase text-neutral-400 outline-none cursor-pointer"
+        className="flex items-center gap-2 font-agenda-regular md:text-3xl text-2xl uppercase text-neutral-400 outline-none cursor-pointer"
       >
         {label}
         <svg
