@@ -34,7 +34,7 @@ export function LinkListAbout({
             {heading ? (
               <span
                 style={{ letterSpacing: "-1.6px" }}
-                className="font-agenda text-[32px] font-normal leading-[24px] uppercase text-[#FEFEFE]"
+                className="font-agenda text-[20px] font-normal leading-[24px] uppercase text-[#FEFEFE] md:text-[28px] lg:text-[32px]"
               >
                 {heading}
               </span>
@@ -46,7 +46,7 @@ export function LinkListAbout({
                 target={cta.isExternal ? "_blank" : "_self"}
                 rel={cta.isExternal ? "noreferrer" : undefined}
                 style={{ lineHeight: "24px", letterSpacing: "-1.2px" }}
-                className="group inline-flex items-center gap-2 font-agenda text-[24px] font-normal uppercase text-[#FEFEFE] transition hover:opacity-80"
+                className="group inline-flex items-center gap-2 font-agenda text-[14px] font-normal uppercase text-[#FEFEFE] transition hover:opacity-80 md:text-[18px] lg:text-[24px]"
               >
                 <span>{cta.text}</span>
                 <svg
@@ -68,7 +68,7 @@ export function LinkListAbout({
           <div className="mt-14 h-px bg-white -mx-6 md:-mx-10 lg:-mx-14 xl:-mx-20" />
 
           {/* Outer border */}
-          <div className="mt-32 rounded-[8px] border border-white px-14 py-8">
+          <div className="mt-10 rounded-[8px] border border-white px-4 py-6 md:mt-20 md:px-8 md:py-8 lg:mt-32 lg:px-14">
             {items.map((item, index) => {
               const isLast = index === items.length - 1;
 
@@ -84,7 +84,7 @@ export function LinkListAbout({
                     !isLast ? "mb-6 border-b border-white pb-6" : "",
                   ].join(" ")}
                 >
-                  <span className="block text-left font-agenda-medium text-[40px] font-medium uppercase leading-normal tracking-[-0.05em] text-[#FEFEFE]">
+                  <span className="block text-left font-agenda-medium text-[22px] font-medium uppercase leading-normal tracking-[-0.05em] text-[#FEFEFE] md:text-[32px] lg:text-[40px]">
                     {item.title}
                   </span>
 

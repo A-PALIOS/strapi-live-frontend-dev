@@ -36,7 +36,7 @@ export function AccordionAbout({
     >
       <div className="w-full px-6 py-16 md:px-10 md:py-20 lg:px-16 xl:px-20">
         <div
-          className="min-h-[500px] w-full rounded-[24px] px-6 py-14 text-white md:px-10 lg:px-14 xl:px-20"
+          className="min-h-[500px] w-full rounded-[24px] px-6 py-10 text-white md:px-10 md:py-14 lg:px-14 xl:px-20"
           style={{
             background: `
               linear-gradient(
@@ -51,12 +51,12 @@ export function AccordionAbout({
         >
           {/* Top bar */}
           <div className="flex items-center justify-between gap-4">
-            <span style={{ letterSpacing: "-1.6px" }} className="font-agenda text-[32px] font-normal leading-[24px] uppercase tracking-[-0.05em] text-[#FEFEFE]">
+            <span style={{ letterSpacing: "-1.6px" }} className="font-agenda text-[20px] font-normal leading-[24px] uppercase tracking-[-0.05em] text-[#FEFEFE] md:text-[28px] lg:text-[32px]">
               {heading}
             </span>
 
             {cta && (
-              <a style={{ lineHeight: "24px", letterSpacing: "-1.2px" }} href={cta.href} target={cta.isExternal ? "_blank" : "_self"} rel={cta.isExternal ? "noreferrer" : undefined} className="group inline-flex items-center gap-2 font-agenda text-[24px] font-normal leading-[24px] uppercase tracking-[-0.05em] text-[#FEFEFE] transition hover:opacity-80"
+              <a style={{ lineHeight: "24px", letterSpacing: "-1.2px" }} href={cta.href} target={cta.isExternal ? "_blank" : "_self"} rel={cta.isExternal ? "noreferrer" : undefined} className="group inline-flex items-center gap-2 font-agenda text-[14px] font-normal leading-[24px] uppercase tracking-[-0.05em] text-[#FEFEFE] transition hover:opacity-80 md:text-[18px] lg:text-[24px]"
               >
                 <span>{cta.text}</span>
                 <svg
@@ -78,7 +78,7 @@ export function AccordionAbout({
           <div className="mt-14 h-px bg-white -mx-6 md:-mx-10 lg:-mx-14 xl:-mx-20" />
 
           {/* ONE border outside items.map */}
-          <div className="mt-32 border rounded-[8px] border-white py-8 px-14 ">
+          <div className="mt-10 border rounded-[8px] border-white py-6 px-4 md:mt-20 md:py-8 md:px-8 lg:mt-32 lg:px-14">
             {items.map((item, index) => {
               const isOpen = index === openIndex;
 
@@ -87,7 +87,7 @@ export function AccordionAbout({
                   key={item.id}
                   className={
                     index !== items.length - 1
-                      ? "mb-6 border-b border-white pb-6"
+                      ? "mb-4 border-b border-white pb-4 md:mb-6 md:pb-6"
                       : ""
                   }
                 >
@@ -99,7 +99,7 @@ export function AccordionAbout({
                     aria-controls={`svc-desc-${item.id}`}
                     className="group flex w-full items-start justify-between gap-4 text-left cursor-pointer"
                   >
-                    <span className="block text-left font-agenda-medium text-[40px] font-medium uppercase leading-normal tracking-[-0.05em] text-[#FEFEFE]">
+                    <span className="block text-left font-agenda-medium text-[22px] font-medium uppercase leading-normal tracking-[-0.05em] text-[#FEFEFE] md:text-[32px] lg:text-[40px]">
                       {item.title}
                     </span>
 
@@ -136,7 +136,7 @@ export function AccordionAbout({
                           animate={{ y: 0, opacity: 1 }}
                           exit={{ y: 8, opacity: 0 }}
                           transition={transition}
-                          className="mt-5 max-w-[960px] font-agenda-medium text-[32px] font-medium leading-[1.2] tracking-[-0.05em] text-[#FEFEFE]"
+                          className="mt-5 max-w-[960px] font-agenda-medium text-[16px] font-medium leading-[1.2] tracking-[-0.05em] text-[#FEFEFE] md:text-[22px] lg:text-[32px]"
                         >
                           {item.description}
                         </motion.p>

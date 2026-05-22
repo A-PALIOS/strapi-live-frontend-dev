@@ -70,7 +70,7 @@ export function ExpertiseVideoTabs({
                     >
                       <h3
                         style={{ letterSpacing: "-1.2px" }}
-                        className="font-agenda-medium text-[20px] uppercase leading-normal tracking-[-0.05em] text-white whitespace-nowrap md:text-[30px]"
+                        className="font-agenda-medium text-[18px] uppercase leading-normal tracking-[-0.05em] text-white whitespace-nowrap md:text-[30px]"
                       >
                         {item.title}
                       </h3>
