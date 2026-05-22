@@ -235,7 +235,7 @@ export function KeyProjectsBlock({
         </div>
       )}
 
-      <div className="mb-12 flex items-center flex-col lg:flex-row gap-0 lg:gap-28 border-b border-gray-300 pb-8 w-full">
+      <div className="mb-12 flex items-center flex-col lg:flex-row gap-10 lg:gap-28 border-b border-gray-300 pb-8 w-full">
         <FilterDropdown
           value={selectedType}
           onChange={setSelectedType}

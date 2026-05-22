@@ -7,9 +7,11 @@ import { useRef } from "react";
 function ExpertiseItem({
   item,
   index,
+  isLast,
 }: {
   item: ExpertiseGridBlockProps["items"][number];
   index: number;
+  isLast?: boolean;
 }) {
   const textRef = useRef<HTMLDivElement | null>(null);
 
@@ -40,7 +42,7 @@ function ExpertiseItem({
           ease: [0.22, 1, 0.36, 1],
           delay: index * 0.2,
         }}
-        className="absolute left-0 top-0 h-px w-full origin-left bg-[#cfcfcf]"
+        className={`absolute left-0 top-0 h-px w-full origin-left bg-[#cfcfcf] ${isLast ? "hidden md:block" : ""}`}
       />
 
       <div className="grid grid-cols-[32px_1fr] gap-x-3 md:grid-cols-[44px_1fr] md:gap-x-4">
@@ -105,7 +107,7 @@ export function ExpertiseGrid({
 
         <div className="grid grid-cols-1 gap-x-10 gap-y-8 md:grid-cols-2">
           {items?.map((item, index) => (
-            <ExpertiseItem key={item.id ?? index} item={item} index={index} />
+            <ExpertiseItem key={item.id ?? index} item={item} index={index} isLast={index === items.length - 1} />
           ))}
         </div>
       </div>
