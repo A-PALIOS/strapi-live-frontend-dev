@@ -106,10 +106,10 @@ export function HeroSectionServiceBlock({
         {/* Hero image */}
         {video?.url && (
           <div className="mt-14 md:mt-16">
-            <div className="relative w-full aspect-[16/9] lg:aspect-[21/9] overflow-hidden rounded-2xl max-w-[1728px] mx-auto">
+            <div className="relative w-full aspect-[1/1] md:aspect-[16/9] lg:aspect-[21/9] overflow-hidden rounded-2xl max-w-[1728px] mx-auto">
               <video
               key={video.url}
-              className="object-cover"
+              className="w-full h-full object-cover"
               autoPlay
               muted
               loop
