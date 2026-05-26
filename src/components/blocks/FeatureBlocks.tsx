@@ -96,7 +96,7 @@ export function FeaturesBlock({
                   aria-hidden="true"
                   viewBox="0 0 120 40"
                   className="
-                    h-8 w-16 sm:h-12 sm:w-24 md:h-16 md:w-32 lg:h-20 lg:w-40
+                    hidden lg:block h-8 w-16 sm:h-12 sm:w-24 md:h-16 md:w-32 lg:h-20 lg:w-40
                     shrink-0 translate-y-4 sm:translate-y-6 md:translate-y-10 lg:translate-y-12
                   "
                   fill="none"
