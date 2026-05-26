@@ -11,7 +11,7 @@ export function ImpactNavigation({
 
   return (
     <section className="w-full">
-      <div className="mx-auto max-w-[1750px] px-6 py-6 md:px-10">
+      <div className="mx-auto max-w-[1750px] px-6 pt-6 pb-0 md:px-10">
         {/* Eyebrow */}
         {eyebrow ? (
           <p className="mb-6 text-3xl font-agenda-regular uppercase tracking-[-1.6px] text-[#1e1e1e]">
@@ -42,7 +42,7 @@ export function ImpactNavigation({
                 `}
               >
                 {/* Title */}
-                <h3 className="max-w-[420px] font-agenda-regular text-[24px] uppercase leading-[0.95] tracking-[-0.055em] md:text-[32px] lg:text-[35px]">
+                <h3 className="max-w-[600px] font-agenda-regular text-4xl uppercase leading-[0.95] tracking-[-0.055em] md:text-5xl lg:text-7xl">
                   {item.title}
                 </h3>
 

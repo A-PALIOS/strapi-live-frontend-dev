@@ -139,6 +139,7 @@ import { ImpactNavigation } from "./blocks/ImpactNavigation";
 import { KeyProjectsBlock } from "./KeyProjectsSection";
 import ContentListBlock from "./blocks/ContentListBlock";
 import {NextProject} from "./blocks/NextProject";
+import { HeroSectionDigitalCards } from "./blocks/HeroSectionDigitalCards";
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[], searchParams?: Promise<{
     page?: string;
@@ -155,6 +156,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <HeroSectionServiceBlock {...block} key={index} />
      case "blocks.hero-section-digital":
       return <HeroSectionDigital {...block} key={index} />;
+    case "blocks.hero-section-digital-cards":
+      return <HeroSectionDigitalCards {...block} key={index} />;
     case "blocks.info-block":
       return <InfoBlock {...block} key={index} />;
     case "blocks.content-list":

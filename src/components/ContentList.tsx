@@ -64,7 +64,7 @@ export async function ContentList({
 
       {showSearch ? (
         <div className="flex justify-between items-end  mb-6 gap-4 lg:gap-0">
-          <Search />
+          {/* <Search /> */}
           {showPagination && <PaginationComponent pageCount={pageCount} />}
 
         </div>)

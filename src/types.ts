@@ -310,6 +310,7 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
                  | "blocks.featured-article"
                  | "blocks.hero-section-services"
                  | "blocks.impact-navigation"
+                 | "blocks.hero-section-digital-cards"
                    | "blocks.what-believe"
                 | "blocks.content-list"
                   | "blocks.mission-section"
@@ -362,7 +363,7 @@ interface Base<
   data?: D;
 }
 
-export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigitalProps | HeroSectionServiceProps | InfoBlockProps | MovingTextProps | MilestonesBlockProps
+export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigitalProps | HeroSectionDigitalCardsProps | HeroSectionServiceProps | InfoBlockProps | MovingTextProps | MilestonesBlockProps
  | VerticalAccordionBlockProps | ServicesAccordionBlockProps | AccordionAboutBlockProps | LinkListAboutBlockProps
  | LogoCarouselBlockProps | TestimonialsBlockProps 
  | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | InfoBoxProps | ServiceInfoProps | MissionProps | MagicBentoProps | TimeLineProps | WhatWeBelieveProps
@@ -445,6 +446,16 @@ export interface HeroSectionDigitalProps extends Base<"blocks.hero-section-digit
   heading: string;
   subheader?:string;
   image: ImageProps;
+  cta?: LinkProps;
+  logo?: LogoProps;
+  author?: string;
+  darken?: boolean;
+}
+
+export interface HeroSectionDigitalCardsProps extends Base<"blocks.hero-section-digital-cards"> {
+  theme: "black" | "blue";
+  heading: string;
+  subheader?:string;
   cta?: LinkProps;
   logo?: LogoProps;
   author?: string;

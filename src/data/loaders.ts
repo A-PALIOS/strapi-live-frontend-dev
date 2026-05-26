@@ -190,6 +190,12 @@ const pageBlocksPopulate = {
         cta,
       },
     },
+     "blocks.hero-section-digital-cards": {
+      populate: {
+        logo: logoPopulate,
+        cta,
+      },
+    },
 
     "blocks.sticky-menu": {
       populate: {

@@ -246,7 +246,7 @@ export function Footer({ data }: { data: FooterProps }) {
 
     {/* black panel with guttered sides */}
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="rounded-md bg-[#0F2633]/90 shadow-[0_0_0_1px_rgba(255,255,255,0.06)]">
+      <div className=" bg-[#0F2633]/90 shadow-[0_0_0_1px_rgba(255,255,255,0.06)]">
         {/* LINKS GRID */}
         <div className="px-5 sm:px-6 md:px-8 lg:px-10 py-8 sm:py-10 text-white">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-10">

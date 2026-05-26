@@ -144,7 +144,7 @@ export function ExpertiseVideoTabs({
         </div>
 
         {/* MOBILE VIDEO — shown only on small screens, below the accordion */}
-        <div className="relative min-h-[300px] overflow-hidden md:hidden">
+        <div className="relative hidden lg:block min-h-[300px] overflow-hidden md:hidden">
           {activeItem?.video?.url ? (
             <video
               key={activeItem.video.url}
