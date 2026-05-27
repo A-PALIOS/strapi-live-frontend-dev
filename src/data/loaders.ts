@@ -370,7 +370,6 @@ const pageBlocksPopulate = {
         cta,
       },
     },
-
     "blocks.process-steps": {
       populate: {
         steps: true,
@@ -421,6 +420,13 @@ const pageBlocksPopulate = {
         cta,
       },
     },
+    "blocks.automation-stats": {
+      populate: {
+        items: true,
+      },
+    },
+
+
 
     "blocks.coverflow-showcase": {
       populate: {
@@ -441,6 +447,8 @@ const pageBlocksPopulate = {
         cta,
       },
     },
+
+    "blocks.integrations-section": true,
   },
 };
 

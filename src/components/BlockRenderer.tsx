@@ -140,7 +140,8 @@ import { KeyProjectsBlock } from "./KeyProjectsSection";
 import ContentListBlock from "./blocks/ContentListBlock";
 import {NextProject} from "./blocks/NextProject";
 import { HeroSectionDigitalCards } from "./blocks/HeroSectionDigitalCards";
-
+import { AutomationStats } from "./blocks/AutomationStats";
+import IntegrationsSection from "./blocks/IntegrationsSection";
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[], searchParams?: Promise<{
     page?: string;
     query?: string;
@@ -238,6 +239,13 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <AICardsBlock {...block} key={index} />;
     case "blocks.impact-links":
       return <ImpactLinks {...block} key={index} />;
+
+   case "blocks.automation-stats":
+      return <AutomationStats {...block} key={index} />;
+
+    case "blocks.integrations-section":
+      return <IntegrationsSection {...block} key={index} />;
+      
     case "blocks.use-cases-section":
       return <UseCasesSection data={block} key={index} />;
     case "blocks.case-highlight":

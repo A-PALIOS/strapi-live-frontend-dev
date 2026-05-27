@@ -262,6 +262,21 @@ export interface FeaturedArticleProps extends Base<"blocks.featured-article"> {
   publishedAt: string;
 }
 
+export type AutomationStatIcon = "clock" | "check" | "trend" | "shield";
+
+export interface AutomationStatItem {
+  id: number;
+  label: string;
+  value: string;
+  description: string;
+  icon?: AutomationStatIcon;
+}
+
+export interface AutomationStatsBlockProps {
+  __component: "blocks.automation-stats";
+  id: number;
+  items: AutomationStatItem[];
+}
 
 
 // export interface FeaturedArticleProps {
@@ -345,9 +360,11 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks
           | "blocks.dashboard-section3"
           | "blocks.dashboard-section4"
           | "blocks.dashboard-section5"
+          | "blocks.integrations-section"
           | "blocks.impact-links"
            |"blocks.team-grid"
            | "blocks.key-projects"
+           | "blocks.automation-stats"
            | "blocks.expertise-grid";
 
 interface Base<
@@ -382,6 +399,7 @@ export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigital
   | SecondaryMenuProps
   | AICardsBlockProps
   | UseCasesSectionProps
+  | IntegrationsSectionProps
   | CoverflowShowcaseProps
   | CompanyHighlightsBlockProps
   | StatementSectionBlock
@@ -391,6 +409,7 @@ export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigital
   | DashboardSection2Props
   | DashboardSection3Props
   | DashboardSection4Props
+    | AutomationStatsBlockProps
   | DashboardSection5Props
   | TeamGridProps
   | ContentList
@@ -571,6 +590,7 @@ export interface AICardItem {
 export interface AICardsBlockProps extends Base<"blocks.ai-cards"> {
   Title: string;        // matches your Strapi field: Title
   Cards: AICardItem[];  // matches your Strapi field: Cards
+  layout?: "default" | "six_columns";
 }
 
 
@@ -684,7 +704,10 @@ export interface AboutSectionProps extends Base<"blocks.about-section"> {
   infographic: ImageProps;
 }
 
-
+export interface IntegrationsSectionProps extends Base<"blocks.integrations-section"> {
+  title: string;
+  
+}
 
 export interface DashboardSection1Props extends Base<"blocks.dashboard-section1"> {
   title: string;

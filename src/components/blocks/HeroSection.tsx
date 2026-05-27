@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { StrapiImage } from "../StrapiImage";
 import type { HeroSectionProps } from "@/types";
+import IntegrationsSection from "./IntegrationsSection";
 
 export function HeroSection({
   heading,

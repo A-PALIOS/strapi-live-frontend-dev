@@ -197,7 +197,7 @@ export function HeroSectionDigitalCards({
       ref={ref as any}
       id="heropage"
       data-header="dark"
-      className="relative min-h-[78vh] overflow-hidden"
+      className="relative min-h-[100vh] overflow-hidden pt-20 md:pt-24 lg:pt-28"
     >
       {/* Background */}
       <div className="absolute inset-0 -z-10 bg-black pointer-events-auto">
@@ -234,17 +234,7 @@ export function HeroSectionDigitalCards({
 
       {/* Content */}
       <div
-        className="
-          relative z-10 mx-auto flex h-full max-w-7xl items-center px-6 pb-16 pt-96 pointer-events-none lg:px-8
-          md:pr-[44vw]
-          max-[1400px]:pt-72
-          max-[1400px]:md:pr-[40vw]
-          max-[1200px]:pt-56
-          max-[1200px]:md:pr-[38vw]
-          max-[1024px]:pt-44
-          max-[1024px]:md:pr-[34vw]
-          max-[767px]:pt-32
-        "
+        className="relative z-10 w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20 pointer-events-none"
       >
         <div className="max-w-3xl text-white max-[1400px]:max-w-2xl max-[1024px]:max-w-xl">
           {logo && (
@@ -261,11 +251,10 @@ export function HeroSectionDigitalCards({
 
           <h1
             className="
-              text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl
-              max-[1400px]:text-5xl
-              max-[1200px]:text-4xl
-              max-[1024px]:text-4xl
-              max-[767px]:text-3xl
+              text-[44px] leading-[0.95] tracking-[-0.055em]
+              whitespace-normal break-words [overflow-wrap:anywhere]
+              md:text-[62px] lg:text-[68px]
+              font-agenda-medium
             "
           >
             <BlurText
@@ -285,13 +274,8 @@ export function HeroSectionDigitalCards({
           </h1>
 
           <p
-            className="
-              mt-6 max-w-2xl text-base/7 font-agenda-regular text-white/90 sm:text-lg/8
-              max-[1400px]:max-w-xl
-              max-[1200px]:mt-5 max-[1200px]:max-w-lg
-              max-[1024px]:text-base/7
-              max-[767px]:mt-4 max-[767px]:text-sm/6
-            "
+            className="mt-6 max-w-[1000px] font-agenda-regular"
+            style={{ color: "#FFFFFF", fontSize: "clamp(20px, 2.8vw, 40px)", fontWeight: 400, lineHeight: "normal", letterSpacing: "-2px" }}
           >
             {subheader}
           </p>
