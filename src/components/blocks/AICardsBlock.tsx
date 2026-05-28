@@ -9,13 +9,13 @@ export function AICardsBlock({ Title, Cards, layout }: AICardsBlockProps) {
     : "grid-cols-1 md:grid-cols-2 lg:grid-cols-4";
 
   return (
-    <section className="w-full bg-[#030912] px-6 py-8 md:px-10 lg:px-16 xl:px-20 text-white">
+    <section className="w-full bg-[#030912] px-6 md:px-10 lg:px-10 xl:px-11 py-16 md:py-20 text-white">
       <div className={isSixCardsLayout ? "w-full px-4 md:px-6 lg:px-8" : "container mx-auto px-4"}>
         {Title && (
           <h2
             className={
               isSixCardsLayout
-                ? "mb-8 text-2xl font-semibold md:text-3xl"
+                ? "mb-8 text-2xl font-agenda-medium md:text-3xl px-3"
                 : "mb-6 text-2xl font-semibold"
             }
           >
@@ -111,11 +111,11 @@ export function AICardsBlock({ Title, Cards, layout }: AICardsBlockProps) {
                   </div>
                 )}
 
-                <h3 className="mb-3 text-[15px] font-semibold leading-[1.3] text-white">
+                <h3 className="mb-3 text-2xl font-agenda-medium leading-[1.3] text-white">
                   {card.Title}
                 </h3>
 
-                <p className="text-[12px] leading-[1.65] text-white/70">
+                <p className="text-lg font-agenda-regular leading-[1.65] text-white/70">
                   {card.description}
                 </p>
               </div>
