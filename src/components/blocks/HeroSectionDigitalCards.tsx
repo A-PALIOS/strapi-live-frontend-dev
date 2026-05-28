@@ -262,7 +262,7 @@ export function HeroSectionDigitalCards({
               delay={120}
               animateBy="words"
               direction="top"
-              className="inline text-[#5227FF]"
+              className="inline text-white"
             />{" "}
             <BlurText
               text={rest}

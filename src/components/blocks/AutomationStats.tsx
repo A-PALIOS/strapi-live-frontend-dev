@@ -37,7 +37,7 @@ export function AutomationStats({
   if (!items?.length) return null;
 
   return (
-    <section className="w-full bg-[#030912] px-6 py-8 md:px-10 lg:px-16 xl:px-20">
+    <section className="w-full bg-[#030912] px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20">
       <div className="w-full rounded-[28px] border border-white/10 bg-white/[0.03] px-6 py-8 shadow-[0_0_60px_rgba(41,148,242,0.08)] backdrop-blur-md md:px-10 lg:px-14">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {items.map((item, index) => {

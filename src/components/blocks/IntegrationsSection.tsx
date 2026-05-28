@@ -112,7 +112,7 @@ function MarqueeRow({
 // ─── Main section ─────────────────────────────────────────────────────────────
 export default function IntegrationsSection() {
   return (
-    <section className="overflow-hidden bg-[#0d0d1a] py-24">
+    <section className="overflow-hidden bg-[#030912] py-24">
       <div className="mx-auto mb-14 max-w-3xl px-4 text-center">
         <h2 className="text-5xl font-bold leading-tight text-white md:text-6xl">
           Practical technology,{" "}
