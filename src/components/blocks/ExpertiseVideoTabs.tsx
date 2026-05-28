@@ -121,7 +121,7 @@ export function ExpertiseVideoTabs({
 
         {/* RIGHT VIDEO — absolutely positioned from section top, shorter than full height */}
         <div
-          className="absolute right-0 top-0 hidden w-1/2 overflow-hidden md:block"
+          className="absolute right-0 top-0 hidden w-1/2 overflow-hidden lg:block"
           style={{ height: "calc(100% - 120px)", borderRadius: "0 0 16px 0" }}
         >
           {activeItem?.video?.url ? (
@@ -144,7 +144,7 @@ export function ExpertiseVideoTabs({
         </div>
 
         {/* MOBILE VIDEO — shown only on small screens, below the accordion */}
-        <div className="relative hidden lg:block min-h-[300px] overflow-hidden md:hidden">
+        {/* <div className="relative hidden lg:block min-h-[300px] overflow-hidden md:hidden">
           {activeItem?.video?.url ? (
             <video
               key={activeItem.video.url}
@@ -158,7 +158,7 @@ export function ExpertiseVideoTabs({
               <source src={getStrapiMediaUrl(activeItem.video.url)} />
             </video>
           ) : null}
-        </div>
+        </div> */}
       </div>
     </section>
   );
