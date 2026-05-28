@@ -13,22 +13,22 @@ export function CaseHighlight({ data }: Props) {
   console.log("eyebrow:", data);
 
   return (
-    <section className="relative overflow-hidden  bg-[#071426] text-white">
+    <section className="relative overflow-hidden px-6 md:px-10 lg:px-10 xl:px-23 py-16 md:py-20 bg-[#030912] text-white">
       {/* subtle border */}
       <div className="absolute inset-0  border border-white/10" />
 
-      <div className="relative mx-auto grid container gap-10 px-6 py-10 md:grid-cols-2 md:items-center">
+      <div className="relative  grid container gap-10 px-6 py-10 md:grid-cols-2 md:items-center">
         {/* LEFT */}
         <div>
           {Eyebrow ? (
-            <p className="text-sm font-medium text-white/70">{Eyebrow}</p>
+            <p className="text-sm font-agenda-medium text-white/70">{Eyebrow}</p>
           ) : null}
 
-          <h2 className="mt-3 text-2xl font-semibold leading-tight md:text-3xl">
+          <h2 className="mt-3 text-2xl font-agenda-medium leading-tight md:text-3xl">
             {title}
           </h2>
 
-          <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/75 md:text-base">
+          <p className="mt-4 max-w-xl font-agenda-regular text-sm leading-relaxed text-white/75 md:text-base">
             {description}
           </p>
 
@@ -129,7 +129,7 @@ export function CaseHighlight({ data }: Props) {
         />
 
         {/* text */}
-        <span className="relative z-10 text-sm font-semibold tracking-[0.03em]">
+        <span className="relative z-10 text-lg font-agenda-medium tracking-[0.03em]">
           {cta.text}
         </span>
 

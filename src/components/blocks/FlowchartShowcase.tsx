@@ -10,7 +10,7 @@ export function FlowchartShowcase({
   return (
     <section className="relative w-full overflow-hidden bg-[#030912] px-6 py-12 md:px-10 md:py-16 lg:px-16 xl:px-20">
       {title && (
-        <h2 className="mb-8 text-2xl font-agenda-medium leading-tight text-white md:text-3xl">
+        <h2 className="mb-8 text-2xl font-agenda-medium leading-tight text-white md:text-[32px]">
           {title}
         </h2>
       )}

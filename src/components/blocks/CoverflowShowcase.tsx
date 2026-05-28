@@ -71,21 +71,21 @@ export function CoverflowShowcase({ ...block }: CoverflowShowcaseProps) {
   const startIndex = block.startIndex ?? 0;
 
   return (
-    <section id={block.sectionId || undefined} className="relative w-full py-14 bg-[#071426]">
+    <section id={block.sectionId || undefined} className="relative w-full py-14 bg-[#030912]">
 
 
-   <section className="relative overflow-hidden  bg-[#071426] text-white">
-      <div className="mx-auto grid min-h-[740px] max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-20 md:px-10 lg:grid-cols-2 lg:gap-6 lg:px-16 xl:px-24 2xl:px-32">
+   <section className="relative overflow-hidden bg-[#030912] text-white">
+      <div className=" grid min-h-[740px] max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-12 md:px-10 md:py-16 xl:px-20 lg:grid-cols-2 lg:gap-6 lg:px-16 xl:px-20 2xl:px-20">
         <div className="relative z-auto max-w-[520px]">
           <p className="mb-4 text-sm uppercase tracking-[0.24em] text-white/45">
             Digital Experiences
           </p>
 
-          <h2 className="max-w-[520px] text-[42px] font-semibold leading-[0.98] tracking-[-0.04em] text-white md:text-[56px]">
+          <h2 className="max-w-[520px] text-[32px] font-agenda-medium leading-[0.98] tracking-[-0.04em] text-white md:text-[40px]">
 Discover the websites we’ve built      
     </h2>
 
-          <p className="mt-6 max-w-[520px] text-[20px] leading-[1.45] text-white/55 md:text-[22px]">
+          <p className="mt-6 max-w-[520px] font-agenda-regular text-[20px] leading-[1.45] text-white/55 md:text-[22px]">
          Take a closer look at the websites and digital solutions
 we've created for our clients. Each project is designed to
 deliver performance, usability, and modern design.

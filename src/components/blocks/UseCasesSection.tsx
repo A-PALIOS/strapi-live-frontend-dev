@@ -10,8 +10,8 @@ export function UseCasesSection({ data }: { data: UseCasesSectionProps }) {
   console.log("UseCasesSection data:", data);
 
   return (
-    <section className="relative overflow-hidden  bg-[#071426] text-white">
-      <div className="mx-auto grid container gap-10 px-6 py-10 md:grid-cols-2 md:items-center">
+    <section className="w-full bg-[#030912] px-6 md:px-10 lg:px-10 xl:px-18 py-16 md:py-20 overflow-hidden  bg-[#030912] text-white ">
+      <div className="grid container gap-10 px-6 py-10 md:grid-cols-2 md:items-center">
         {/* Left */}
         <div>
           {data.eyebrow ? (
