@@ -9,7 +9,7 @@ export function AICardsBlock({ Title, Cards, layout }: AICardsBlockProps) {
     : "grid-cols-1 md:grid-cols-2 lg:grid-cols-4";
 
   return (
-    <section className="w-full bg-[#071426] py-10 text-white">
+    <section className="w-full bg-[#030912] px-6 py-8 md:px-10 lg:px-16 xl:px-20 text-white">
       <div className={isSixCardsLayout ? "w-full px-4 md:px-6 lg:px-8" : "container mx-auto px-4"}>
         {Title && (
           <h2
