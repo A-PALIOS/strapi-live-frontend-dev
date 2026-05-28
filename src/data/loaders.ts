@@ -305,7 +305,11 @@ const pageBlocksPopulate = {
         },
       },
     },
-
+"blocks.flowchart-showcase": {
+  populate: {
+    image: media,
+  },
+},
     "blocks.timeline-block": {
       populate: {
         items: {

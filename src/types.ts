@@ -3,6 +3,13 @@ export interface BadgeItem {
   label: string;
 }
 
+export interface FlowchartShowcaseBlockProps {
+  __component: "blocks.flowchart-showcase";
+  id: number;
+  title: string;
+  image: StrapiMedia;
+}
+
 export interface AboutUsStatementBlockProps extends Base<"blocks.about-us-statement"> {
   id: number;
   text: string;
@@ -410,6 +417,7 @@ export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigital
   | DashboardSection3Props
   | DashboardSection4Props
     | AutomationStatsBlockProps
+    | FlowchartShowcaseBlockProps
   | DashboardSection5Props
   | TeamGridProps
   | ContentList

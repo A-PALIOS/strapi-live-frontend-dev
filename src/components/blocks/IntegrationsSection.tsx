@@ -114,12 +114,12 @@ export default function IntegrationsSection() {
   return (
     <section className="overflow-hidden bg-[#030912] py-24">
       <div className="mx-auto mb-14 max-w-3xl px-4 text-center">
-        <h2 className="text-5xl font-bold leading-tight text-white md:text-6xl">
+        <h2 className="text-5xl font-agenda-medium leading-[0.95] tracking-[-0.055em] text-white md:text-6xl">
           Practical technology,{" "}
           <br className="hidden md:block" />
           built around your needs
         </h2>
-        <p className="mt-4 text-lg text-gray-400">
+        <p className="mt-4 font-agenda-regular text-lg text-gray-400">
           Technologies we work with{" "}
         </p>
       </div>
@@ -129,12 +129,12 @@ export default function IntegrationsSection() {
         <MarqueeRow items={row2} reverse={true} />
       </div>
       <div className="mx-auto mt-12 max-w-3xl px-4 text-center">
-<p className="mt-4 text-lg text-gray-400">
+<p className="mt-4 font-agenda-regular text-lg text-gray-400">
           Always the right{" "}
-          <span className="text-[#ea5a5a]">tool</span> for the right problem.
+          <span className="text-[#06b6d4]">tool</span> for the right problem.
         </p>
         </div>
-      <div className="mt-12 flex justify-center">
+      {/* <div className="mt-12 flex justify-center">
         
         <a
           href="#"
@@ -146,7 +146,7 @@ export default function IntegrationsSection() {
         >
           Browse all integrations
         </a>
-      </div>
+      </div> */}
 
       <style>{`
         @keyframes marquee-forward {

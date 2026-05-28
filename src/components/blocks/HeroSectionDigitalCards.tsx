@@ -201,7 +201,7 @@ export function HeroSectionDigitalCards({
     >
       {/* Background */}
       <div className="absolute inset-0 -z-10 bg-black pointer-events-auto">
-        <div className="absolute inset-0 bg-[#120F17]" />
+        <div className="absolute inset-0 bg-black" />
 
         {showAntigravity && (
           <div className="absolute inset-0 h-full w-full">

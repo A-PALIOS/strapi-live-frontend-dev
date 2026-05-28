@@ -142,6 +142,9 @@ import {NextProject} from "./blocks/NextProject";
 import { HeroSectionDigitalCards } from "./blocks/HeroSectionDigitalCards";
 import { AutomationStats } from "./blocks/AutomationStats";
 import IntegrationsSection from "./blocks/IntegrationsSection";
+import { FlowchartShowcase } from "./blocks/FlowchartShowcase";
+
+
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[], searchParams?: Promise<{
     page?: string;
     query?: string;
@@ -242,7 +245,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
 
    case "blocks.automation-stats":
       return <AutomationStats {...block} key={index} />;
-
+  case "blocks.flowchart-showcase":
+      return <FlowchartShowcase {...block} key={index}/>;
     case "blocks.integrations-section":
       return <IntegrationsSection {...block} key={index} />;
       

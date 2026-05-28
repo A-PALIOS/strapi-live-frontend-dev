@@ -57,15 +57,15 @@ export function AutomationStats({
                 </div>
 
                 <div>
-                  <p className="mb-1 font-agenda-regular text-sm text-white/70">
+                  <p className="mb-1 font-agenda-regular text-lg text-white/70">
                     {item.label}
                   </p>
 
-                  <p className="font-agenda-medium text-4xl leading-none tracking-[-0.04em] text-white md:text-5xl">
+                  <p className="font-agenda-medium text-5xl leading-[0.95] tracking-[-0.055em] text-white md:text-6xl">
                     {item.value}
                   </p>
 
-                  <p className="mt-2 max-w-[190px] font-agenda-regular text-sm leading-[1.4] text-white/65">
+                  <p className="mt-2 max-w-[190px] font-agenda-regular text-lg leading-[1.4] text-white/65">
                     {item.description}
                   </p>
                 </div>
