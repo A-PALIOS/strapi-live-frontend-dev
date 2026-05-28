@@ -143,6 +143,7 @@ import { HeroSectionDigitalCards } from "./blocks/HeroSectionDigitalCards";
 import { AutomationStats } from "./blocks/AutomationStats";
 import IntegrationsSection from "./blocks/IntegrationsSection";
 import { FlowchartShowcase } from "./blocks/FlowchartShowcase";
+import { HeroSectionDigitalWeb } from "./blocks/HeroSectionDigitalWeb";
 
 
 function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryMenus?: any[], searchParams?: Promise<{
@@ -162,6 +163,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <HeroSectionDigital {...block} key={index} />;
     case "blocks.hero-section-digital-cards":
       return <HeroSectionDigitalCards {...block} key={index} />;
+    case "blocks.hero-section-digital-web":
+      return <HeroSectionDigitalWeb {...block} key={index} />;
     case "blocks.info-block":
       return <InfoBlock {...block} key={index} />;
     case "blocks.content-list":

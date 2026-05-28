@@ -196,6 +196,13 @@ const pageBlocksPopulate = {
         cta,
       },
     },
+      "blocks.hero-section-digital-web": {
+      populate: {
+        logo: logoPopulate,
+        cta,
+      },
+    },
+
 
     "blocks.sticky-menu": {
       populate: {

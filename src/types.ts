@@ -324,7 +324,10 @@ export interface ArticleProps {
 
 
 
-type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" | "blocks.hero-section-digital" | "blocks.info-block" | "blocks.moving-text" 
+type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" 
+| "blocks.hero-section-digital" 
+| "blocks.hero-section-digital-web"
+| "blocks.info-block" | "blocks.moving-text" 
                 | "blocks.milestones-block" | "blocks.vertical-accordion-block" 
                 | "blocks.services-accordion-block" | "blocks.logo-carousel-block"
                  | "blocks.testimonials-block" | "blocks.features-block" | "blocks.accordion-about" | "blocks.link-list-about"
@@ -387,7 +390,9 @@ interface Base<
   data?: D;
 }
 
-export type Block = HeroSectionMainProps | HeroSectionProps | HeroSectionDigitalProps | HeroSectionDigitalCardsProps | HeroSectionServiceProps | InfoBlockProps | MovingTextProps | MilestonesBlockProps
+export type Block = HeroSectionMainProps | HeroSectionProps
+ | HeroSectionDigitalProps | HeroSectionDigitalCardsProps | HeroSectionDigitalWebProps
+| HeroSectionServiceProps | InfoBlockProps | MovingTextProps | MilestonesBlockProps
  | VerticalAccordionBlockProps | ServicesAccordionBlockProps | AccordionAboutBlockProps | LinkListAboutBlockProps
  | LogoCarouselBlockProps | TestimonialsBlockProps 
  | FeaturesBlockProps | FeaturedArticleProps | AboutSectionProps | AboutInfoProps | InfoBoxProps | ServiceInfoProps | MissionProps | MagicBentoProps | TimeLineProps | WhatWeBelieveProps
@@ -489,6 +494,16 @@ export interface HeroSectionDigitalCardsProps extends Base<"blocks.hero-section-
   darken?: boolean;
 }
 
+
+export interface HeroSectionDigitalWebProps extends Base<"blocks.hero-section-digital-web"> {
+  theme: "black" | "blue";
+  heading: string;
+  subheader?:string;
+  cta?: LinkProps;
+  logo?: LogoProps;
+  author?: string;
+  darken?: boolean;
+}
 
 export interface InfoBlockProps extends Base<"blocks.info-block"> {
   theme: "black" | "red";

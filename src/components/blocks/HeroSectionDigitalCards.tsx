@@ -1,5 +1,5 @@
 "use client";
-
+ 
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
@@ -7,13 +7,13 @@ import { ChevronDown } from "lucide-react";
 import { StrapiImage } from "../StrapiImage";
 import type { HeroSectionDigitalCardsProps } from "@/types";
 import BlurText from "../ui/BlurText";
-
+ 
 const Antigravity = dynamic(() => import("../ui/Antigravity"), {
   ssr: false,
 });
-
-
-
+ 
+ 
+ 
 function useInView({
   threshold = 0,
   rootMargin = "100px 0px 100px 0px",
@@ -26,34 +26,34 @@ function useInView({
   const ref = useRef<HTMLElement | null>(null);
   const [inViewRaw, setInViewRaw] = useState(false);
   const onceSeenRef = useRef(false);
-
+ 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-
+ 
     const io = new IntersectionObserver(
       ([entry]) => {
         const visible = entry.isIntersecting;
-
+ 
         if (visible) onceSeenRef.current = true;
-
+ 
         setInViewRaw(visible);
       },
       { threshold, rootMargin }
     );
-
+ 
     io.observe(el);
-
+ 
     return () => io.disconnect();
   }, [threshold, rootMargin]);
-
+ 
   const inView = stickyOnceSeen
     ? inViewRaw || onceSeenRef.current
     : inViewRaw;
-
+ 
   return { ref, inView };
 }
-
+ 
 export function HeroSectionDigitalCards({
   heading,
   subheader,
@@ -63,112 +63,112 @@ export function HeroSectionDigitalCards({
 }: Readonly<HeroSectionDigitalCardsProps>) {
   const [firstWord, ...restWords] = (heading ?? "").split(" ");
   const rest = restWords.join(" ");
-
+ 
   const [prefersReduced, setPrefersReduced] = useState(false);
   const [tabVisible, setTabVisible] = useState(true);
-
+ 
   const [lanyardReady, setLanyardReady] = useState(false);
   const [lanyardRevealed, setLanyardRevealed] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
-
+ 
   const [showHint, setShowHint] = useState(false);
-
+ 
   const hintReadyRef = useRef(false);
   const hintRevealedRef = useRef(false);
-
+ 
   useEffect(() => {
     if (typeof window === "undefined") return;
-
+ 
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-
+ 
     const update = () => {
       setPrefersReduced(mq.matches);
     };
-
+ 
     update();
-
+ 
     mq.addEventListener?.("change", update);
-
+ 
     return () => {
       mq.removeEventListener?.("change", update);
     };
   }, []);
-
+ 
   useEffect(() => {
     if (typeof document === "undefined") return;
-
+ 
     const onVis = () => {
       setTabVisible(document.visibilityState === "visible");
     };
-
+ 
     onVis();
-
+ 
     document.addEventListener("visibilitychange", onVis);
-
+ 
     return () => {
       document.removeEventListener("visibilitychange", onVis);
     };
   }, []);
-
+ 
   const { ref, inView } = useInView({
     threshold: 0,
     rootMargin: "100px 0px 100px 0px",
     stickyOnceSeen: false,
   });
-
+ 
   useEffect(() => {
     if (typeof window === "undefined") return;
-
+ 
     const makeReady = () =>
       requestAnimationFrame(() => setLanyardReady(true));
-
+ 
     if (document.readyState === "complete") {
       makeReady();
     } else {
       window.addEventListener("load", makeReady, { once: true });
-
+ 
       const t = setTimeout(makeReady, 1200);
-
+ 
       return () => {
         window.removeEventListener("load", makeReady);
         clearTimeout(t);
       };
     }
   }, []);
-
+ 
   useEffect(() => {
     if (lanyardRevealed) {
       setChatOpen(true);
     }
   }, [lanyardRevealed]);
-
+ 
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!lanyardReady || window.innerWidth < 1400) return;
-
+ 
     const show = setTimeout(() => {
       hintReadyRef.current = true;
       setShowHint(true);
     }, 2000);
-
+ 
     const hide = setTimeout(() => setShowHint(false), 9000);
-
+ 
     return () => {
       clearTimeout(show);
       clearTimeout(hide);
     };
   }, [lanyardReady]);
-
+ 
   useEffect(() => {
     if (lanyardRevealed || chatOpen) {
       hintRevealedRef.current = true;
       setShowHint(false);
     }
   }, [lanyardRevealed, chatOpen]);
-
+ 
   useEffect(() => {
     if (typeof window === "undefined") return;
-
+ 
     const handleScroll = () => {
       if (window.scrollY > 180) {
         setShowHint(false);
@@ -179,19 +179,19 @@ export function HeroSectionDigitalCards({
         setShowHint(true);
       }
     };
-
+ 
     window.addEventListener("scroll", handleScroll, {
       passive: true,
     });
-
+ 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
+ 
   const canAnimate = !prefersReduced && tabVisible;
   const showAntigravity = canAnimate && inView;
-
+ 
   return (
     <section
       ref={ref as any}
@@ -202,7 +202,7 @@ export function HeroSectionDigitalCards({
       {/* Background */}
       <div className="absolute inset-0 -z-10 bg-black pointer-events-auto">
         <div className="absolute inset-0 bg-black" />
-
+ 
         {showAntigravity && (
           <div className="absolute inset-0 h-full w-full">
             <Antigravity
@@ -224,14 +224,14 @@ export function HeroSectionDigitalCards({
             />
           </div>
         )}
-
+ 
         {darken && (
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/65 pointer-events-none" />
         )}
       </div>
-
-
-
+ 
+ 
+ 
       {/* Content */}
       <div
         className="relative z-10 w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20 pointer-events-none"
@@ -248,7 +248,7 @@ export function HeroSectionDigitalCards({
               />
             </div>
           )}
-
+ 
           <h1
             className="
               text-[44px] leading-[0.95] tracking-[-0.055em]
@@ -272,14 +272,14 @@ export function HeroSectionDigitalCards({
               className="inline text-white"
             />
           </h1>
-
+ 
           <p
             className="mt-6 max-w-[1000px] font-agenda-regular"
             style={{ color: "#FFFFFF", fontSize: "clamp(20px, 2.8vw, 40px)", fontWeight: 400, lineHeight: "normal", letterSpacing: "-2px" }}
           >
             {subheader}
           </p>
-
+ 
           {cta && (
             <Link
               href={cta.href}
@@ -295,7 +295,7 @@ export function HeroSectionDigitalCards({
               <span className="text-sm font-agenda-semibold md:text-base">
                 {cta.text ?? "Learn More"}
               </span>
-
+ 
               <span className="mr-3 grid h-7 w-7 place-items-center rounded-md bg-[#5227FF] text-white transition-transform duration-200 group-hover:translate-y-0.5 sm:mr-6 md:h-8 md:w-8">
                 <svg
                   viewBox="0 0 24 24"
