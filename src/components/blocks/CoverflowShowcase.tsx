@@ -77,7 +77,7 @@ export function CoverflowShowcase({ ...block }: CoverflowShowcaseProps) {
    <section className="relative overflow-hidden bg-[#030912] text-white">
       <div className=" grid min-h-[740px] max-w-[1440px] grid-cols-1 items-center gap-10 px-6 py-12 md:px-10 md:py-16 xl:px-20 lg:grid-cols-2 lg:gap-6 lg:px-16 xl:px-20 2xl:px-20">
         <div className="relative z-auto max-w-[520px]">
-          <p className="mb-4 text-sm uppercase tracking-[0.24em] text-white/45">
+          <p className="mb-4 text-sm font-agenda-medium uppercase tracking-[0.24em] text-white/45">
             Digital Experiences
           </p>
 

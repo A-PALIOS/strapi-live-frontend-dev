@@ -21,14 +21,14 @@ export function CaseHighlight({ data }: Props) {
         {/* LEFT */}
         <div>
           {Eyebrow ? (
-            <p className="text-sm font-agenda-medium text-white/70">{Eyebrow}</p>
+            <p className="text-lg font-agenda-medium text-white/70">{Eyebrow}</p>
           ) : null}
 
-          <h2 className="mt-3 text-2xl font-agenda-medium leading-tight md:text-3xl">
+          <h2 className="mt-3 text-2xl font-agenda-medium leading-tight md:text-4xl">
             {title}
           </h2>
 
-          <p className="mt-4 max-w-xl font-agenda-regular text-sm leading-relaxed text-white/75 md:text-base">
+          <p className="mt-4 max-w-xl font-agenda-regular text-lg leading-relaxed text-white/75 md:text-lg">
             {description}
           </p>
 

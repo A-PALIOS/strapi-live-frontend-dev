@@ -249,10 +249,10 @@ export function CoverflowShowcaseAppleTVDemo({
 
     {/* text block */}
     <span className="relative z-auto flex flex-col items-start leading-none">
-      <span className="text-[15px] font-semibold tracking-[0.03em]">
+      <span className="text-[24px] font-agenda-medium tracking-[0.03em]">
         {buttonText}
       </span>
-      <span className="mt-1 text-[11px] font-medium uppercase tracking-[0.22em] text-cyan-300/80">
+      <span className="mt-1 text-[16px] font-agenda-medium uppercase tracking-[0.22em] text-cyan-300/80">
         Interactive showcase
       </span>
     </span>

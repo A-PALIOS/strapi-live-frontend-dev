@@ -15,10 +15,10 @@ export function UseCasesSection({ data }: { data: UseCasesSectionProps }) {
         {/* Left */}
         <div>
           {data.eyebrow ? (
-            <p className="text-sm font-medium text-white/70">{data.eyebrow}</p>
+            <p className="text-lg font-agenda-medium text-white/70">{data.eyebrow}</p>
           ) : null}
 
-          <h2 className="mt-2 text-2xl font-semibold leading-snug md:text-3xl">
+          <h2 className="mt-2 text-2xl font-agenda-medium leading-snug md:text-4xl">
             {data.title}
           </h2>
 
@@ -30,7 +30,7 @@ export function UseCasesSection({ data }: { data: UseCasesSectionProps }) {
                     <span className="text-xs leading-none">✓</span>
                   )}
                 </span>
-                <span className="leading-relaxed">{item.text}</span>
+                <span className="leading-relaxed font-agenda-regular text-xl">{item.text}</span>
               </li>
             ))}
           </ul>
@@ -125,7 +125,7 @@ export function UseCasesSection({ data }: { data: UseCasesSectionProps }) {
           "
         />
 
-        <span className="relative z-10 text-sm font-semibold tracking-[0.03em]">
+        <span className="relative z-10 text-lg font-agenda-medium tracking-[0.03em]">
           {data.cta.text}
         </span>
 
