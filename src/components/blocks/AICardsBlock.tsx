@@ -10,15 +10,9 @@ export function AICardsBlock({ Title, Cards, layout }: AICardsBlockProps) {
 
   return (
     <section className="w-full bg-[#030912] px-6 md:px-10 lg:px-10 xl:px-11 py-16 md:py-20 text-white">
-      <div className={isSixCardsLayout ? "w-full px-4 md:px-6 lg:px-8" : "w-full px-4 md:px-6 lg:px-8"}>
+      <div className="w-full px-4 md:px-6 lg:px-8">
         {Title && (
-          <h2
-            className={
-              isSixCardsLayout
-                ? "mb-8 text-2xl font-agenda-medium md:text-[32px] px-3"
-                : "mb-6 text-[32px] font-agenda-medium px-3"
-            }
-          >
+          <h2 className="mb-8 text-2xl font-agenda-medium md:text-[32px] px-3">
             {Title}
           </h2>
         )}
@@ -26,34 +20,6 @@ export function AICardsBlock({ Title, Cards, layout }: AICardsBlockProps) {
         <div className={`grid ${gridClass} gap-4`}>
           {Cards?.map((card) => {
             const iconUrl = card.Icon_Image?.url;
-
-            if (!isSixCardsLayout) {
-              return (
-                <div
-                  key={card.id}
-                  className="rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur"
-                >
-                  <div className="mb-3 flex items-center gap-3">
-                    {iconUrl ? (
-                      <StrapiImage
-                        src={iconUrl}
-                        alt={
-                          card.Icon_Image?.alternativeText ||
-                          card?.Title ||
-                          "Card icon"
-                        }
-                        width={50}
-                        height={28}
-                      />
-                    ) : null}
-
-                    <h3 className="text-lg font-medium">{card.Title}</h3>
-                  </div>
-
-                  <p className="text-sm opacity-80">{card.description}</p>
-                </div>
-              );
-            }
 
             return (
               <div
