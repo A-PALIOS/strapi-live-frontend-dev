@@ -7,6 +7,8 @@ import Link from "next/link";
 export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlockProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
+  const [active, setActive] = useState(0);
+
   const visibleCount = 5;
   const getVisibleItems = () => {
     const start = Math.max(0, Math.min(activeIndex - 1, items.length - visibleCount));
@@ -17,51 +19,73 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
   return (
     <section className="w-full py-12">
   <div className="w-full px-4 sm:px-8 md:px-12 xl:px-[65px] py-8 sm:py-10 md:py-12">
-    <div className="flex items-center justify-between mb-6 tracking-[-2px] uppercase">
-      <h3 className="text-3xl font-agenda-medium">{title}</h3>
+    <div className="mb-6 flex flex-col gap-3 tracking-[-2px] uppercase md:flex-row md:items-center md:justify-between">
+  <h3 className="text-3xl font-agenda-medium">
+    {title}
+  </h3>
 
-      {cta && (
-        <a
-          href={cta.href}
-          target={cta.isExternal ? "_blank" : "_self"}
-          className="inline-flex items-center font-agenda-regular text-[24px] font-medium text-gray-900 transition"
-          style={{ color: "#323C43" }}
-        >
-          {cta.text}
-          <div style={{ marginLeft: "10px" }} className="flex items-center justify-center rounded">
-            <svg
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              aria-hidden="true"
-              className="w-6 h-6 transform -rotate-135 md:ml-7"
-              style={{ color: "#221D1D" }}
-            >
-              <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />
-            </svg>
-          </div>
-        </a>
-      )}
-    </div>
+  {cta && (
+    <a
+      href={cta.href}
+      target={cta.isExternal ? "_blank" : "_self"}
+      className="inline-flex items-center self-start font-agenda-regular text-[20px] md:text-[24px] font-medium text-gray-900 transition"
+      style={{ color: "#323C43" }}
+    >
+      {cta.text}
 
-    {/* ===== Mobile/Tablet: show ALL items as full-width cards ===== */}
-    <div className="mt-8 xl:hidden space-y-3">
-      {items.map((item, idx) => (
-        <div
-          key={`m-${idx}`}
-          className="w-full rounded-2xl border border-gray-200 bg-white shadow-sm"
+      <div
+        style={{ marginLeft: "10px" }}
+        className="flex items-center justify-center rounded"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+          className="h-5 w-5 -rotate-135 md:h-6 md:w-6 md:ml-7"
+          style={{ color: "#221D1D" }}
         >
-          <div className="relative w-full h-full rounded-2xl bg-[#1E90FF] p-6 sm:p-8 text-white" style={{ boxShadow: "0 20px 80px 10px rgba(0, 0, 0, 0.07)" }}>
-            <span className="text-5xl sm:text-6xl font-ivypresto-semibold text-white/40 block mb-2">
+          <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />
+        </svg>
+      </div>
+    </a>
+  )}
+</div>
+
+    {/* ===== Mobile/Tablet: accordion cards like screenshot ===== */}
+<div className="mt-8 xl:hidden space-y-4">
+  {items.map((item, idx) => {
+    const isOpen = active === idx;
+
+    return (
+      <div
+        key={`m-${idx}`}
+        className="w-full cursor-pointer"
+        onClick={() => setActive(isOpen ? -1 : idx)}
+      >
+        {isOpen ? (
+          <div
+            className="rounded-xl bg-[#1E90E0] px-8 py-8 text-white"
+            style={{
+              boxShadow: "0 20px 80px 10px rgba(0, 0, 0, 0.07)",
+            }}
+          >
+            <span className="mb-4 block font-ivypresto-semibold text-5xl text-white/25">
               {String(idx + 1).padStart(2, "0")}
             </span>
 
-            <h3 className="text-3xl sm:text-4xl font-agenda-medium text-white">
+            <h3 className="font-agenda-medium text-[22px] leading-tight text-white">
               {item.title}
             </h3>
 
-            <div className="h-px bg-white/25 my-4 w-full" />
+            <div className="my-5 h-px w-full bg-white/30" />
 
-            <p className="font-agenda-regular text-[22px] sm:text-[28px]" style={{ lineHeight: "normal", letterSpacing: "-2.2px", color: "#EFEFEF" }}>
+            <p
+              className="font-agenda-regular text-[15px] text-[#EFEFEF]"
+              style={{
+                lineHeight: "1.35",
+                letterSpacing: "-0.4px",
+              }}
+            >
               {item.description}
             </p>
 
@@ -70,17 +94,38 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
                 <Link
                   href={item.cta.href}
                   target={item.cta.isExternal ? "_blank" : "_self"}
-                  className="inline-flex items-center gap-2 rounded-md bg-white/95 px-4 py-2 text-sm text-gray-900 shadow hover:bg-white"
+                  className="inline-flex items-center gap-2 rounded-md bg-white px-4 py-2 text-sm text-gray-900 shadow-sm transition hover:bg-gray-100"
+                  onClick={(e) => e.stopPropagation()}
                 >
                   {item.cta.text || "Learn More"}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-3.5 w-3.5 shrink-0" aria-hidden="true"><path d="M7 17L17 7M17 7H7M17 7V17" /></svg>
+
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-3.5 w-3.5 shrink-0"
+                    aria-hidden="true"
+                  >
+                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                  </svg>
                 </Link>
               </div>
             )}
           </div>
-        </div>
-      ))}
-    </div>
+        ) : (
+          <div className="flex h-[56px] w-full items-center justify-center rounded-xl border border-[#BDBDBD] bg-white transition-all duration-200 hover:bg-gray-50">
+            <span className="font-ivypresto-semibold text-5xl leading-none text-[#D3D3D3]">
+              {String(idx + 1).padStart(2, "0")}
+            </span>
+          </div>
+        )}
+      </div>
+    );
+  })}
+</div>
 
     {/* ===== Desktop: your existing accordion with visibleItems ===== */}
     <div className="mt-8 hidden xl:flex justify-start h-[771px] w-full max-w-8xl gap-3 transition-all duration-500 ease-in-out">

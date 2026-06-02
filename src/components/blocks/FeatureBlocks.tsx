@@ -68,7 +68,9 @@ export function FeaturesBlock({
     };
   }, [pathname, description]);
 
-  const [left, right = ""] = (heading || "").split(" ");
+  const words = (heading || "").trim().split(/\s+/);
+const left = words[0] || "";
+const right = words.slice(1).join(" ");
 
   return (
     <section className="w-full">
@@ -77,17 +79,20 @@ export function FeaturesBlock({
         {/* Left column: stacked heading + decorative SVG */}
         <div className="
             md:col-span-4
-            py-10 sm:py-14 md:py-16 lg:py-20
-            flex md:block items-start md:items-stretch
+            lg:py-20
+            pt-20
+    flex justify-center md:justify-start
+    md:block
+    text-center md:text-left
           ">
           <div className="inline-flex items-start gap-2 sm:gap-3">
-            <div className="flex flex-col leading-none">
+            <div className="flex flex-row md:flex-col items-center md:items-start leading-none">
               <span
                 className="
                   font-agenda-semibold
-                  text-4xl sm:text-5xl md:text-7xl lg:text-8xl
-                  text-zinc-800
-                  inline-flex items-baseline gap-2 sm:gap-3
+    text-4xl sm:text-5xl md:text-7xl lg:text-8xl
+    text-zinc-800 
+    inline-flex items-baseline gap-2 sm:gap-3
                 "
                 style={{ letterSpacing: "clamp(-2px, -0.5vw, -6px)" }}
               >
@@ -115,7 +120,12 @@ export function FeaturesBlock({
               </span>
 
               {/* Right word drops to next line naturally, with responsive size */}
-              <span className="font-agenda-semibold mt-1 sm:mt-2 text-4xl sm:text-5xl md:text-7xl lg:text-8xl text-gray-900" style={{ letterSpacing: "clamp(-2px, -0.5vw, -6px)" }}>
+              <span className="font-agenda-semibold
+    mt-0 md:mt-2
+    text-4xl sm:text-5xl md:text-7xl lg:text-8xl
+    text-gray-900
+    text-center md:text-left
+    ml-2 md:ml-0" style={{ letterSpacing: "clamp(-2px, -0.5vw, -6px)" }}>
                 {right}
               </span>
             </div>
