@@ -131,11 +131,11 @@ export const AnimatedTestimonials = ({
               ease: "easeInOut",
             }}
           >
-            <h3 className="font-agenda-medium text-4xl">
+            <h3 className="font-agenda-medium sm:pt-0 pt-8 text-center sm:text-left  md:text-4xl text-3xl">
               {testimonials[active].name}
             </h3>
 
-            <p className="mt-2 text-lg text-[#242a2e80] dark:text-neutral-500">
+            <p className="text-center sm:text-left text-lg text-[#242a2e80] dark:text-neutral-500">
               {testimonials[active].designation}
             </p>
 
@@ -158,10 +158,13 @@ export const AnimatedTestimonials = ({
                 className="
                   relative z-10 mt-11
                   line-clamp-6
-                  text-3xl leading-[1.35]
+                  sm:text-3xl
+                  text-xl leading-[1.35]
                   tracking-[-1px]
                   text-[#221D1D]/50
                   font-agenda-regular
+                  text-center
+                  sm:text-left
                 "
               >
                 {testimonials[active].quote}
@@ -170,7 +173,7 @@ export const AnimatedTestimonials = ({
           </motion.div>
 
           {/* NAVIGATION */}
-          <div className="flex items-center gap-3 pt-12 md:pt-0">
+          <div className="flex items-center justify-center md:justify-start gap-3 pt-12 md:pt-0">
             {/* PREV */}
             <button
               onClick={() =>

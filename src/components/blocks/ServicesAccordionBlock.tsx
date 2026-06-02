@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { ServicesAccordionBlockProps } from "@/types";
 import { StrapiImage } from "../StrapiImage";
+import {StrapiVideo} from "../StrapiVideo";
 import { AnimatePresence, motion, useReducedMotion, type Transition } from "framer-motion";
 
 export function ServicesAccordionBlock({
@@ -23,14 +24,15 @@ export function ServicesAccordionBlock({
     <section id="services" data-header="dark" className="relative">
       {/* Background */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <StrapiImage
-          src={image.url}
-          alt={image.alternativeText || "Background"}
-          className="w-full h-full object-cover"
-          width={1920}
-          height={1080}
+        <StrapiVideo
+          className="w-full h-full object-cover object-center md:object-[55%_center] lg:object-center"
+          src={image?.url || ""}
+          controls={false}
+          autoPlay
+          loop
+          muted
         />
-        <div className="absolute inset-0" />
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-950/70 via-slate-900/50 to-black/60" />
       </div>
 
       <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20 text-white">
@@ -131,7 +133,7 @@ export function ServicesAccordionBlock({
                           animate={{ y: 0, opacity: 1 }}
                           exit={{ y: 6, opacity: 0 }}
                           transition={transition}
-                          className="font-agenda-light xl:ml-8  text-sm sm:text-[18px] md:text-4xl md:leading-10 sm:leading-4 text-white/85 py-3 md:tracking-[-2px]"
+                          className="font-agenda-light xl:ml-8  text-sm sm:text-[18px] md:text-4xl md:leading-10 sm:leading-4 text-white py-3 md:tracking-[-2px]"
                         >
                           {item.description}
                         </motion.p>
