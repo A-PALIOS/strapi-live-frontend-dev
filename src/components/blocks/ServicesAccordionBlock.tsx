@@ -25,14 +25,15 @@ export function ServicesAccordionBlock({
       {/* Background */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <StrapiVideo
-          className="w-full h-full object-cover object-center md:object-[55%_center] lg:object-center"
+          className="w-full h-full object-cover object-center md:object-[55%_center] lg:object-center opacity-80"
           src={image?.url || ""}
           controls={false}
           autoPlay
           loop
           muted
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-950/70 via-slate-900/50 to-black/60" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,15,29,0.12)_0%,rgba(0,15,29,0.12)_100%),linear-gradient(90deg,rgba(8,50,85,0.45)_0%,rgba(30,90,140,0.38)_45%,rgba(126,69,30,0.18)_65%,rgba(8,50,85,0.42)_100%)]
+" />
       </div>
 
       <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20 text-white">

@@ -33,6 +33,7 @@ export function StrapiVideo({
       autoPlay={autoPlay}
       loop={loop}
       muted={muted}
+      playsInline
       poster={poster}
     >
       Your browser does not support the video tag.
