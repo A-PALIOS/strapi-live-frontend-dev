@@ -42,7 +42,7 @@ export function Card({
   return (
     <Link
       href={`/${basePath}/${slug}`}
-      className="flex flex-col rounded-lg overflow-hidden shadow-sm bg-white hover:shadow-md transition-shadow duration-300"
+      className="flex flex-col rounded-lg max-h-[500px] overflow-hidden shadow-sm bg-white hover:shadow-md transition-shadow duration-300"
     >
       {/* Image */}
       <div className="w-full h-64 relative group">
@@ -81,7 +81,7 @@ export function Card({
  
       {/* Text content */}
       <div className="p-5 pb-8 flex flex-col flex-1 min-h-[280px]">
-        <h3 className="font-agenda-regular font-normal text-2xl leading-[normal] tracking-[-1.2px] text-[#242A2E] mb-4 line-clamp-3">
+        <h3 className="font-agenda-regular font-normal text-2xl leading-[normal] tracking-[-1.2px] text-zinc-800 mb-4 line-clamp-3">
           {title}
         </h3>
  
@@ -96,7 +96,7 @@ export function Card({
         {/*figma author section */}
 
 <div className="flex justify-between mt-auto">
-<div className="px-2 py-0.5 bg-zinc-800/5 rounded-[5px] inline-flex justify-start items-center gap-2">
+<div className="px-2 py-0.5  rounded-[5px] inline-flex justify-start items-center gap-2">
   {imageAuthor?.url && (
     <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0" style={{ boxShadow: "-2.54px 0px 3.8px 0px #1E9BFB" }}>
       <StrapiImage
@@ -108,7 +108,7 @@ export function Card({
       />
     </div>
   )}
-  <div className="h-9 inline-flex flex-col justify-center items-start gap-[3px]">
+  <div className="h-9 inline-flex flex-col justify-center items-start gap-[3px] px-3">
     <span className="text-sky-500 text-xs font-normal font-agenda-regular">{author}</span>
     <span className="text-zinc-800 text-xs font-normal font-agenda-regular">{formatDate(startDate ?? createdAt)}</span>
   </div>

@@ -10,9 +10,8 @@ export function formatDate(dateString: string): string {
 
     // Format the date using Intl.DateTimeFormat for more consistent results
     const formatter = new Intl.DateTimeFormat("en-US", {
-      weekday: "long",
       year: "numeric",
-      month: "long",
+      month: "numeric",
       day: "numeric",
     });
 

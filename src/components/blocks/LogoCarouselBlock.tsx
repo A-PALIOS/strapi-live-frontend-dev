@@ -67,14 +67,20 @@ export function LogoCarouselBlock({
       }}
     >
       <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20">
-        {/* Tabs */}
-        <div
-  className="mb-6 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap"
+      {/* Tabs */}
+<div
+  className="
+    mb-6
+    flex flex-nowrap items-center justify-between gap-2
+    w-full
+    md:justify-start md:gap-3
+  "
   role="tablist"
   aria-label="Logo categories"
 >
   {types.map((t) => {
     const isActive = t === activeType;
+
     return (
       <button
         key={t}
@@ -82,13 +88,42 @@ export function LogoCarouselBlock({
         aria-selected={isActive}
         onClick={() => setActiveType(t)}
         className={[
-          "px-4 py-2 rounded text-lg sm:text-2xl font-medium transition font-agenda-medium cursor-pointer text-center w-full sm:w-auto",
+          `
+          h-[34px]
+          flex-1
+          rounded-[3px]
+          border
+          px-2
+          text-[12px]
+          sm:text-xs
+          md:h-[36px]
+          md:flex-none
+          md:w-[95px]
+          lg:h-auto
+          lg:w-auto
+          lg:px-4
+          lg:py-2
+          lg:text-2xl
+          leading-none
+          font-agenda-medium
+          font-medium
+          transition
+          cursor-pointer
+          text-center
+          uppercase
+          whitespace-nowrap
+          `,
           isActive
-            ? "bg-[#1e9bfb] shadow text-white"
-            : "bg-white/30 hover:bg-white/50 backdrop-blur",
+            ? "border-[#1e9bfb] bg-[#1e9bfb] text-white shadow"
+            : "border-[#dddddd] bg-white text-[#111827] hover:bg-gray-50",
         ].join(" ")}
       >
-        {t}
+      <span className="lg:hidden">
+    {t === "ACADEMIC INSTITUTIONS" ? "ACADEMICS" : t}
+  </span>
+  <span className="hidden lg:inline">
+    {t}
+  </span>
       </button>
     );
   })}

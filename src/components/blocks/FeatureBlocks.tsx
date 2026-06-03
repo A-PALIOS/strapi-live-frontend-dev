@@ -90,7 +90,7 @@ const right = words.slice(1).join(" ");
               <span
                 className="
                   font-agenda-semibold
-    text-4xl sm:text-5xl md:text-7xl lg:text-8xl
+    text-4xl sm:text-5xl md:text-7xl lg:text-[88px]
     text-zinc-800 
     inline-flex items-baseline gap-2 sm:gap-3
                 "
@@ -122,7 +122,7 @@ const right = words.slice(1).join(" ");
               {/* Right word drops to next line naturally, with responsive size */}
               <span className="font-agenda-semibold
     mt-0 md:mt-2
-    text-4xl sm:text-5xl md:text-7xl lg:text-8xl
+    text-4xl sm:text-5xl md:text-7xl lg:text-[88px]
     text-gray-900
     text-center md:text-left
     ml-2 md:ml-0" style={{ letterSpacing: "clamp(-2px, -0.5vw, -6px)" }}>
