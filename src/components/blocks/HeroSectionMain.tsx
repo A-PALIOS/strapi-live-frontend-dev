@@ -26,7 +26,7 @@ export function HeroSectionMain({
     : ["WE HAVE THE KNOW HOW AND |", "THE EXPERIENCE IN"];
     console.log("firstLine:", firstLine)
   return (
-    <section id="hero" data-header="dark" className="relative lg:min-h-screen">
+    <section id="hero" data-header="dark" className="relative min-h-[100dvh]">
       {/* Background */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <StrapiImage
@@ -40,11 +40,14 @@ export function HeroSectionMain({
       </div>
  
       {/* Content (no horizontal centering) */}
-      <div className="relative isolate pt-16 md:pt-52 lg:pt-60 pb-20 md:pb-28 lg:h-screen lg:flex lg:items-center">
+      <div className="relative isolate h-[100dvh] flex flex-col pt-16 pb-10 lg:h-screen lg:flex-row lg:items-center">
         {/* left rail container */}
-        <div className="w-full text-left pl-6 sm:pl-12 lg:pl-24 xl:pl-28">
+        <div className="w-full text-left px-6 sm:px-12 lg:pl-24 lg:pr-0 xl:pl-28 xl:pr-0 flex-1 flex flex-col lg:block">
+          {/* Text group — centered vertically on mobile, left-rail on desktop */}
+          <div className="flex-1 flex flex-col items-center justify-center lg:flex-initial lg:block">
+
           {/* tiny welcome row */}
-          <div className="mb-6 mt-16 sm:mt-6 flex items-center justify-center lg:justify-start gap-3 text-slate-300">
+          <div className="mb-6 flex items-center justify-center lg:justify-start gap-3 text-slate-300">
             {logo && (
               <StrapiImage
                 src={logo.image.url}
@@ -54,19 +57,19 @@ export function HeroSectionMain({
                 height={24}
               />
             )}
-            <span className="text-base text-white md:text-3xl font-agenda-medium">
+            <span className="text-base text-white md:text-3xl font-agenda-medium uppercase">
               Welcome to CMT Prooptiki
             </span>
           </div>
- 
+
          {/* Headline block */}
 
 {/* Mobile only */}
-<div className="flex flex-col items-center text-center lg:hidden">
+<div className="flex flex-col items-center text-center gap-2 lg:hidden">
   {/* line 1 */}
-  <span
+  <span 
     className="
-      font-agenda-semibold text-slate-100 !my-0 leading-[0.95]
+      font-agenda-medium text-slate-100 !my-0 leading-[0.95]
       text-3xl sm:text-4xl md:text-5xl
     "
   >
@@ -76,7 +79,7 @@ export function HeroSectionMain({
   {/* line 2 */}
   <span
     className="
-      font-agenda-semibold text-slate-100 !my-0 leading-[0.95]
+      font-agenda-medium text-slate-100 !my-0 leading-[0.95]
       text-3xl sm:text-4xl md:text-5xl
     "
   >
@@ -86,8 +89,8 @@ export function HeroSectionMain({
   {/* line 3 - FlipWords */}
   <span
     className="
-      text-slate-100 font-ivypresto-light tracking-tight leading-[0.92]
-      text-3xl sm:text-5xl md:text-6xl
+      text-slate-100 font-ivypresto-semibold tracking-tight leading-[0.92]
+      text-[27px] sm:text-5xl md:text-6xl
     "
   >
     <span className="inline-flex align-baseline">
@@ -146,9 +149,10 @@ export function HeroSectionMain({
     </span>
   </motion.div>
 </div>
- 
+          </div>{/* end text group */}
+
           {/* Milestones + Learn More row */}
-          <div className="mt-50 flex flex-wrap items-center justify-between gap-4">
+          <div className="mt-auto lg:mt-50 flex flex-wrap items-center justify-between gap-4">
             {/* Milestones */}
             <ul className="hidden lg:flex sm:hidden md:hidden lg:flex-wrap items-center gap-4">
               {milestones.map((item, index) => (
