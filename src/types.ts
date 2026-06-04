@@ -582,6 +582,7 @@ export interface FooterProps {
   column: {
     title: string;
     link: LinkProps[];
+    href:string;
   }[];
     // 👇 use the correct shapes
   socialLink: SocialLink[];
