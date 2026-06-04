@@ -38,8 +38,9 @@ export function ServicesAccordionBlock({
 
       <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20 text-white">
         {/* Top bar */}
-        <div className="flex items-center justify-between md:text-3xl sm:text-xs uppercase ">
-          <span className="text-white font-agenda-medium text-[24px] md:text-[32px]  uppercase tracking-[-1.6px] py-8 xl:mb-8">{heading}</span>
+        <div className="flex flex-col items-start md:flex-row md:items-center md:justify-between md:text-3xl sm:text-xs uppercase py-8 xl:mb-8">
+          <span className="md:hidden text-white font-agenda-medium text-[24px] uppercase tracking-[-1.6px]">FROM INSIGHT TO IMPACT</span>
+          <span className="hidden md:inline text-white font-agenda-medium md:text-[32px] uppercase tracking-[-1.6px]">{heading}</span>
 
           {cta && (
             <a
