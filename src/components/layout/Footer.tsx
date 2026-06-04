@@ -56,7 +56,7 @@ const iconMap: Record<string, JSX.Element> = {
 };
 
 export function Footer({ data }: { data: FooterProps }) {
-  if (!data) return null;
+  const [people, setPeople] = useState<TooltipPerson[]>([]);
 
   const {
     logo,
@@ -69,9 +69,7 @@ export function Footer({ data }: { data: FooterProps }) {
     socialLink,
     bottomLink,
     contactBackground
-  } = data;
-
-  const [people, setPeople] = useState<TooltipPerson[]>([]);
+  } = data ?? {};
  
   useEffect(() => {
     const ac = new AbortController();
@@ -136,6 +134,8 @@ export function Footer({ data }: { data: FooterProps }) {
  
     return () => ac.abort();
   }, []);
+
+  if (!data) return null;
 
   return (
    <footer id="footer" data-header="dark" className="text-gray-800">

@@ -37,9 +37,12 @@ export const metadata: Metadata = {
 };
 
 async function loader() {
-  const { data } = await getGlobalSettings();
-  if (!data) throw new Error("Failed to fetch global settings");
-  return { header: data?.header, footer: data?.footer };
+  try {
+    const { data } = await getGlobalSettings();
+    return { header: data?.header ?? null, footer: data?.footer ?? null };
+  } catch {
+    return { header: null, footer: null };
+  }
 }
 
 export default async function RootLayout({
