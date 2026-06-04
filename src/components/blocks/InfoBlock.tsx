@@ -189,7 +189,7 @@ export function InfoBlock({
         {/* Top bar */}
 <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-start">
   <div className="inline-flex max-w-full items-center gap-3 flex-wrap">
-    <div className="font-agenda-medium text-3xl font-bold leading-tight text-gray-900 tracking-tight m-0">
+    <div className="font-agenda-medium sm:text-3xl text-[24px] font-bold leading-tight text-gray-900 tracking-tight m-0">
       {headline}
     </div>
 
@@ -214,7 +214,7 @@ export function InfoBlock({
         target={cta.isExternal ? "_blank" : "_self"}
         className="
           group inline-flex items-center gap-2
-          text-3xl md:text-[24px]
+          text-[20px] md:text-[24px]
           font-agenda-regular uppercase tracking-wide
           text-gray-900 hover:text-[#1E9BFB]
         "

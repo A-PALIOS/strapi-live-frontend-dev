@@ -32,7 +32,7 @@ export function LeadingInstitutionBlock({
       {Title && (
         <>
           <div className="flex flex-col items-start gap-4">
-            <span className="block text-left font-agenda-medium text-lg uppercase text-zinc-800 tracking-[-1.6px] sm:text-xl md:text-2xl lg:text-3xl">
+            <span className="block text-left font-agenda-medium text-[24px] uppercase text-zinc-800 tracking-[-1.6px] sm:text-xl md:text-2xl lg:text-3xl">
               {Title}
             </span>
 
@@ -44,7 +44,7 @@ export function LeadingInstitutionBlock({
     rel={cta.isExternal ? "noreferrer" : undefined}
     className="group inline-flex items-center gap-2 font-agenda-regular text-lg font-normal uppercase leading-none tracking-[-0.2px] text-[#221D1D] transition hover:text-[#1E9BFB] lg:hidden"
   >
-    <span>{cta.text}</span>
+    <span className="text-[20px]">{cta.text}</span>
 
     <svg
       viewBox="0 0 24 24"

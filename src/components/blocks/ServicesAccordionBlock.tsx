@@ -40,7 +40,7 @@ export function ServicesAccordionBlock({
         {/* Top bar */}
         <div className="flex flex-col items-start md:flex-row md:items-center md:justify-between md:text-3xl sm:text-xs uppercase py-8 xl:mb-8">
           <span className="md:hidden text-white font-agenda-medium text-[24px] uppercase tracking-[-1.6px]">FROM INSIGHT TO IMPACT</span>
-          <span className="hidden md:inline text-white font-agenda-medium md:text-[32px] uppercase tracking-[-1.6px]">{heading}</span>
+          <span className="hidden md:inline text-white font-agenda-medium text-[24px] md:text-[32px] uppercase tracking-[-1.6px]">{heading}</span>
 
           {cta && (
             <a
@@ -48,7 +48,7 @@ export function ServicesAccordionBlock({
               target={cta.isExternal ? "_blank" : "_self"}
               className="group inline-flex items-center hover:opacity-100"
             >
-              <span className="font-agenda-regular md:text-[24px]  text-[16px] tracking-[-1.1px]">{cta.text}</span>
+              <span className="font-agenda-regular md:text-[24px]  text-[20px] tracking-[-1.1px]">{cta.text}</span>
               <svg
                 viewBox="0 0 24 24"
                 fill="none"

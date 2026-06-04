@@ -27,12 +27,12 @@ export function TestimonialsBlock({ items, heading, cta }: TestimonialsBlockProp
       <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20">
   {/* Heading + CTA on one line */}
   <div className="flex flex-col items-start gap-4 mb-6 tracking-[-2px] lg:flex-row lg:items-center lg:justify-between">
-    <h3 className="text-3xl font-agenda-medium">{heading}</h3>
+    <h3 className="sm:text-3xl text-[24px] font-agenda-medium">{heading}</h3>
     {cta && (
       <Link
         href={cta.href}
         target={cta.isExternal ? "_blank" : "_self"}
-        className="inline-flex items-center font-agenda-regular text-[24px] font-medium text-gray-900 transition"
+        className="inline-flex items-center font-agenda-regular sm:text-[24px] text-[20px] font-medium text-gray-900 transition"
         style={{color: "#323C43"}}
       >
         {cta.text}

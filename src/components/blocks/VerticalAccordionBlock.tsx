@@ -20,7 +20,7 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
     <section className="w-full py-12">
   <div className="w-full px-4 sm:px-8 md:px-12 xl:px-[65px] py-8 sm:py-10 md:py-12">
     <div className="mb-6 flex flex-col gap-3 tracking-[-2px] uppercase md:flex-row md:items-center md:justify-between">
-  <h3 className="text-3xl font-agenda-medium">
+  <h3 className="sm:text-3xl text-[24px] font-agenda-medium">
     {title}
   </h3>
 
