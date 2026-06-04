@@ -96,10 +96,10 @@ export async function ContentList({
       <div className="px-6 md:px-10 lg:px-16 xl:px-20">
         {/* Mobile + Tablet row */}
         <div className="lg:hidden">
-        <div className="mb-6 flex items-end justify-between gap-4 py-5">
+        <div className="mb-6 flex items-end justify-between gap-4 py-5 tracking-[-1.2px]">
           {headline && (
             <h3
-              className={`text-[23px] font-bold ${alignmentClass} font-agenda-medium`}
+              className={`text-[22px] sm:text-[24px] font-bold ${alignmentClass} font-agenda-medium`}
             >
               {headline}
             </h3>

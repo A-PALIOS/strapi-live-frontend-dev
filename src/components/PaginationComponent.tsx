@@ -68,7 +68,7 @@ const PaginationArrow: FC<PaginationArrowProps> = ({
         e.preventDefault();
         router.push(href, { scroll: false });
       }}
-      className={`px-2 py-2 rounded-sm transition-colors
+      className={`px-3 py-2 sm:px-2 sm:py-2 rounded-sm transition-colors
         ${isDisabled
           ? "bg-gray-200 text-white cursor-not-allowed"
           : "bg-gray-800 text-white hover:bg-gray-700 cursor-pointer"
@@ -78,13 +78,13 @@ const PaginationArrow: FC<PaginationArrowProps> = ({
     >
       {isLeft ? (
         // Left long arrow SVG
-        <svg width="24" height="24" viewBox="0 0 36 36" fill="none" className="inline-block" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 36 36" fill="none" className="inline-block w-4 h-4 sm:w-6 sm:h-6" xmlns="http://www.w3.org/2000/svg">
           <line x1="26" y1="18" x2="10" y2="18" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
           <polyline points="16,12 10,18 16,24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       ) : (
         // Right long arrow SVG
-        <svg width="24" height="24" viewBox="0 0 36 36" fill="none" className="inline-block" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 36 36" fill="none" className="inline-block w-4 h-4 sm:w-6 sm:h-6" xmlns="http://www.w3.org/2000/svg">
           <line x1="10" y1="18" x2="26" y2="18" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
           <polyline points="20,12 26,18 20,24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
@@ -110,7 +110,7 @@ export function PaginationComponent({ pageCount }: Readonly<PaginationProps>) {
       aria-label="Pagination"
       className="flex justify-center mt-10"
     >
-      <ul className="flex items-center space-x-4">
+      <ul className="flex items-center sm:space-x-4 space-x-3">
         {/* Left arrow - disabled if on first page */}
         <li className="cursor-pointer">
           <PaginationArrow
