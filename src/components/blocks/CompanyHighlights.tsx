@@ -30,7 +30,7 @@ export function CompanyHighlights({
           </h2>
         )}
 
-        <div className="w-full bg-white grid grid-cols-1 border-t border-[#d9d9d9] px-6 lg:px-10 xl:px-16 2xl:px-20 2xl:grid-cols-3 2xl:min-h-[60vh] /* #mobile */">
+        <div className="w-full bg-white grid grid-cols-1 border-t border-[#d9d9d9] px-6 lg:px-10 xl:px-16 2xl:px-20 xl:grid-cols-3 xl:min-h-[60vh] /* #mobile */">
           {items?.map((item, index) => (
             <article
               key={item.id ?? index}
@@ -77,7 +77,7 @@ export function CompanyHighlights({
               "
             >
               {item.icon && (
-                <div className="flex justify-center 2xl:justify-start /* #mobile */">
+                <div className="flex justify-center xl:justify-start /* #mobile */">
                   <StrapiImage
                     src={item.icon.url}
                     alt={item.icon.alternativeText || "icon"}
@@ -96,7 +96,7 @@ export function CompanyHighlights({
                 </div>
               )}
 
-              <div className="mt-6 2xl:mt-auto /* #mobile */">
+              <div className="mt-6 xl:mt-auto /* #mobile */">
                 <h3
                   className="
                     font-agenda-regular
