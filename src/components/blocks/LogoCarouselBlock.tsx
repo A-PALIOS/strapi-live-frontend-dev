@@ -81,6 +81,13 @@ export function LogoCarouselBlock({
   {types.map((t) => {
     const isActive = t === activeType;
 
+    const mobileLabel: Record<string, string> = {
+      "PUBLIC SECTOR": "PUBLIC",
+      "PRIVATE SECTOR": "PRIVATE",
+      "ACADEMIC INSTITUTIONS": "ACADEMIC",
+    };
+    const shortLabel = mobileLabel[t.toUpperCase()] ?? t;
+
     return (
       <button
         key={t}
@@ -118,12 +125,8 @@ export function LogoCarouselBlock({
             : "border-[#dddddd] bg-white text-[#111827] hover:bg-gray-50",
         ].join(" ")}
       >
-      <span className="lg:hidden">
-    {t === "ACADEMIC INSTITUTIONS" ? "ACADEMICS" : t}
-  </span>
-  <span className="hidden lg:inline">
-    {t}
-  </span>
+        <span className="lg:hidden">{shortLabel}</span>
+        <span className="hidden lg:inline">{t}</span>
       </button>
     );
   })}
