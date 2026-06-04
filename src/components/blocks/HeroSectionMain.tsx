@@ -44,70 +44,113 @@ export function HeroSectionMain({
         {/* left rail container */}
         <div className="w-full text-left pl-6 sm:pl-12 lg:pl-24 xl:pl-28">
           {/* tiny welcome row */}
-          <div className="mb-6 mt-16 sm:mt-6 flex items-center gap-3 text-slate-300">
+          <div className="mb-6 mt-16 sm:mt-6 flex items-center justify-center lg:justify-start gap-3 text-slate-300">
             {logo && (
               <StrapiImage
                 src={logo.image.url}
                 alt={logo.image.alternativeText || "Logo"}
-                className="h-10 w-auto"
+                className="h-10 w-auto hidden lg:block"
                 width={24}
                 height={24}
               />
             )}
-            <span className="text-sm text-white md:text-3xl font-agenda-medium">
+            <span className="text-base text-white md:text-3xl font-agenda-medium">
               Welcome to CMT Prooptiki
             </span>
           </div>
  
-          {/* Headline block */}
-          {/* line 1 – typewriter */}
-          <span className="font-agenda-semibold text-slate-100 !my-0 leading-[0.95]
-                       text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
-              {firstLine || "WE HAVE THE KNOW HOW AND |"}
-            </span>
+         {/* Headline block */}
 
-            
-
-            {/* {secondLine || "the experience in"} */}
-            
-          
- 
-          {/* line 2 – 'the experience in' + flipping word */}
-          <motion.div
-            // initial={{ opacity: 0, y: 6 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            // transition={{ delay: 3, duration: 0.35 }}
-            className="mt-2"
-          >
-            <span className="font-agenda-semibold text-slate-100 !my-0 leading-[0.95]
-                       text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
-              {secondLine || "THE EXPERIENCE IN"}
-            </span>
-            
-            <span
-              className="text-slate-100 font-ivypresto-light tracking-tight leading-[0.92]
-                            text-3xl sm:text-5xl md:text-6xl lg:text-7xl"
-            >
-              {" "}
-
-
-              <span className="inline-flex align-baseline">
-  <span className="relative inline-block overflow-hidden align-baseline">
-    <FlipWords
-      className="text-slate-100 leading-[0.92] uppercase"
-      words={words}
-    />
+{/* Mobile only */}
+<div className="flex flex-col items-center text-center lg:hidden">
+  {/* line 1 */}
+  <span
+    className="
+      font-agenda-semibold text-slate-100 !my-0 leading-[0.95]
+      text-3xl sm:text-4xl md:text-5xl
+    "
+  >
+    WE HAVE THE KNOW HOW
   </span>
-</span>
-           
-            </span>
-          </motion.div>
+
+  {/* line 2 */}
+  <span
+    className="
+      font-agenda-semibold text-slate-100 !my-0 leading-[0.95]
+      text-3xl sm:text-4xl md:text-5xl
+    "
+  >
+    AND THE EXPERIENCE IN
+  </span>
+
+  {/* line 3 - FlipWords */}
+  <span
+    className="
+      text-slate-100 font-ivypresto-light tracking-tight leading-[0.92]
+      text-3xl sm:text-5xl md:text-6xl
+    "
+  >
+    <span className="inline-flex align-baseline">
+      <span className="relative inline-block overflow-hidden align-baseline">
+        <FlipWords
+          className="text-slate-100 leading-[0.92] uppercase"
+          words={words}
+        />
+      </span>
+    </span>
+  </span>
+</div>
+
+{/* Desktop only */}
+<div className="hidden lg:block">
+  {/* line 1 – typewriter */}
+  <span
+    className="
+      font-agenda-semibold text-slate-100 !my-0 leading-[0.95]
+      text-6xl
+    "
+  >
+    {firstLine || "WE HAVE THE KNOW HOW AND |"}
+  </span>
+
+  {/* line 2 – 'the experience in' + flipping word */}
+  <motion.div
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    className="mt-2"
+  >
+    <span
+      className="
+        font-agenda-semibold text-slate-100 !my-0 leading-[0.95]
+        text-6xl
+      "
+    >
+      {secondLine || "THE EXPERIENCE IN"}
+    </span>
+
+    <span
+      className="
+        text-slate-100 font-ivypresto-light tracking-tight leading-[0.92]
+        text-7xl
+      "
+    >
+      {" "}
+      <span className="inline-flex align-baseline">
+        <span className="relative inline-block overflow-hidden align-baseline">
+          <FlipWords
+            className="text-slate-100 leading-[0.92] uppercase"
+            words={words}
+          />
+        </span>
+      </span>
+    </span>
+  </motion.div>
+</div>
  
           {/* Milestones + Learn More row */}
           <div className="mt-50 flex flex-wrap items-center justify-between gap-4">
             {/* Milestones */}
-            <ul className="flex flex-wrap items-center gap-4">
+            <ul className="hidden lg:flex sm:hidden md:hidden lg:flex-wrap items-center gap-4">
               {milestones.map((item, index) => (
                 <li key={index} className="inline-flex items-stretch isolate">
                   {/* Left badge */}
@@ -146,34 +189,42 @@ export function HeroSectionMain({
             </ul>
  
             {cta && (
-              <Link
-                href={cta.href}
-                target={cta.isExternal ? "_blank" : "_self"}
-                className="group ml-auto inline-flex items-center gap-3 text-slate-300 hover:text-white"
-                aria-label={cta.text ?? "Learn more"}
-              >
-                <span className="text-sm md:text-base font-agenda-regular text-white">
-                  {cta.text ?? "Learn More"}
-                </span>
- 
-                {/* orange square */}
-                <span
-                  className="mr-3 sm:mr-6 grid place-items-center w-7 h-7 md:w-8 md:h-8
-                 rounded-md bg-[#FF8A00] text-white
-                 transition-transform duration-200 group-hover:translate-y-0.5"
-                >
-                  {/* FULL down arrow (filled) */}
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
-                    className="w-4 h-4"
-                  >
-                    <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />
-                  </svg>
-                </span>
-              </Link>
-            )}
+  <Link
+    href={cta.href}
+    target={cta.isExternal ? "_blank" : "_self"}
+    className="
+      group
+      mx-auto lg:ml-auto lg:mr-0
+      inline-flex items-center gap-3
+      text-slate-300 hover:text-white
+    "
+    aria-label={cta.text ?? "Learn more"}
+  >
+    <span className="text-2xl font-agenda-regular text-white">
+      {cta.text ?? "Learn More"}
+    </span>
+
+    {/* orange square */}
+    <span
+      className="
+        grid place-items-center
+        w-7 h-7 md:w-8 md:h-8
+        rounded-md bg-[#FF8A00] text-white
+        transition-transform duration-200 group-hover:translate-y-0.5
+      "
+    >
+      {/* FULL down arrow (filled) */}
+      <svg
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden="true"
+        className="w-4 h-4"
+      >
+        <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />
+      </svg>
+    </span>
+  </Link>
+)}
           </div>
  
           {(author || publishedAt) && (

@@ -113,28 +113,22 @@ export async function ContentList({
         </div>
         </div>
 
-        {/* Desktop headline */}
-        {headline && (
-          <h3
-            className={`mb-8 hidden text-2xl font-bold sm:text-3xl lg:block ${alignmentClass} font-agenda-medium`}
-          >
-            {headline}
-          </h3>
-        )}
+        <div className="mb-8 hidden items-baseline justify-between gap-4 lg:flex">
+  {headline ? (
+    <h3
+      className={`text-2xl font-bold sm:text-3xl ${alignmentClass} font-agenda-medium`}
+    >
+      {headline}
+    </h3>
+  ) : (
+    <div />
+  )}
 
-        {/* Desktop pagination / controls */}
-        <div className="hidden lg:block">
-          {showSearch ? (
-            <div className="mb-6 flex items-end justify-between gap-4 lg:gap-0">
-              {/* <Search /> */}
-              {showPagination && <PaginationComponent pageCount={pageCount} />}
-            </div>
-          ) : (
-            <div className="mb-6 flex justify-end">
-              {showPagination && <PaginationComponent pageCount={pageCount} />}
-            </div>
-          )}
-        </div>
+  <div className="flex translate-y-0 items-center gap-4">
+    {/* {showSearch && <Search />} */}
+    {showPagination && <PaginationComponent pageCount={pageCount} />}
+  </div>
+</div>
       </div>
 
       <div

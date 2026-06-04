@@ -108,7 +108,7 @@ export function CompanyHighlights({
                     sm:text-[48px]
                     md:text-[64px]
                     lg:text-[78px]
-                    xl:text-[92px]
+                    xl:text-[80px]
                     2xl:text-8xl
 
                     /* #mobile */
