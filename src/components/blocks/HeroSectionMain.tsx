@@ -44,7 +44,7 @@ export function HeroSectionMain({
         {/* left rail container */}
         <div className="w-full text-left px-6 sm:px-12 lg:pl-24 lg:pr-0 xl:pl-28 xl:pr-0 flex-1 flex flex-col lg:block">
           {/* Text group — centered vertically on mobile, left-rail on desktop */}
-          <div className="flex-1 flex flex-col items-center justify-center lg:flex-initial lg:block">
+          <div className="flex-1 flex flex-col items-center justify-center lg:flex-initial xl:block">
 
           {/* tiny welcome row */}
           <div className="mb-6 flex items-center justify-center lg:justify-start gap-3 text-slate-300">
@@ -52,7 +52,7 @@ export function HeroSectionMain({
               <StrapiImage
                 src={logo.image.url}
                 alt={logo.image.alternativeText || "Logo"}
-                className="h-10 w-auto hidden lg:block"
+                className="h-10 w-auto hidden xl:block"
                 width={24}
                 height={24}
               />
@@ -65,7 +65,7 @@ export function HeroSectionMain({
          {/* Headline block */}
 
 {/* Mobile only */}
-<div className="flex flex-col items-center text-center gap-2 lg:hidden">
+<div className="flex flex-col items-center text-center gap-2 xl:hidden">
   {/* line 1 */}
   <span 
     className="
@@ -105,7 +105,7 @@ export function HeroSectionMain({
 </div>
 
 {/* Desktop only */}
-<div className="hidden lg:block">
+<div className="hidden xl:block">
   {/* line 1 – typewriter */}
   <span
     className="
@@ -198,7 +198,8 @@ export function HeroSectionMain({
     target={cta.isExternal ? "_blank" : "_self"}
     className="
       group
-      mx-auto lg:ml-auto lg:mr-0
+      mx-auto xl:ml-auto xl:mr-0
+      lg:py-10 xl:py-0 
       inline-flex items-center gap-3
       text-slate-300 hover:text-white
     "

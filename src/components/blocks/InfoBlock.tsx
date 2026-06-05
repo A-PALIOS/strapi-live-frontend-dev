@@ -247,8 +247,8 @@ export function InfoBlock({
             <p
               ref={descRef}
               className="
-                animate font-agenda-regular text-2xl md:text-2xl lg:text-5xl justify-center
-                leading-tight text-zinc-800/25 tracking-[-2.4px]
+                animate font-agenda-regular text-2xl md:text-2xl xl:text-5xl justify-center
+                leading-tight text-zinc-800/25 xl:tracking-[-2.4px] lg:tracking[-1.6px]
                 whitespace-normal break-words [overflow-wrap:anywhere]
               "
             >
@@ -265,7 +265,7 @@ export function InfoBlock({
               {["CONSULTING", "MANAGEMENT", "TRAINING"].map((word) => (
                 <span
                   key={word}
-                  className="cat-word font-agenda-medium text-sky-500 text-4xl uppercase"
+                  className="cat-word font-agenda-medium text-sky-500 xl:text-4xl text-2xl uppercase"
                 >
                   {word}
                 </span>

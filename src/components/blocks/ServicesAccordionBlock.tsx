@@ -41,7 +41,7 @@ export function ServicesAccordionBlock({
         <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-start py-8 xl:mb-8">
           <div className="inline-flex max-w-full items-center gap-3 flex-wrap">
             <span className="lg:hidden text-white font-agenda-medium text-[24px] uppercase tracking-[-1.6px]">FROM INSIGHT TO IMPACT</span>
-            <span className="hidden lg:inline text-white font-agenda-medium text-[24px] md:text-[32px] uppercase tracking-[-1.6px]">{heading}</span>
+            <span className="hidden lg:inline text-white font-agenda-medium text-[24px] xl:text-[32px] uppercase tracking-[-1.6px]">{heading}</span>
           </div>
 
           {cta && (
@@ -51,7 +51,7 @@ export function ServicesAccordionBlock({
                 target={cta.isExternal ? "_blank" : "_self"}
                 className="group inline-flex items-center gap-2 hover:opacity-100"
               >
-                <span className="font-agenda-regular text-[20px] md:text-[24px] tracking-[-1.1px]">{cta.text}</span>
+                <span className="font-agenda-regular text-[20px] xl:text-[24px] tracking-[-1.1px]">{cta.text}</span>
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
