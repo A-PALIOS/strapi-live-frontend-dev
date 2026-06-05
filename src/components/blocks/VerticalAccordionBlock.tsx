@@ -19,37 +19,37 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
   return (
     <section className="w-full py-12">
   <div className="w-full px-4 sm:px-8 md:px-12 xl:px-[65px] py-8 sm:py-10 md:py-12">
-    <div className="mb-6 flex flex-col gap-3 tracking-[-2px] uppercase md:flex-row md:items-center md:justify-between">
-  <h3 className="sm:text-3xl text-[24px] font-agenda-medium">
-    {title}
-  </h3>
-
-  {cta && (
-    <a
-      href={cta.href}
-      target={cta.isExternal ? "_blank" : "_self"}
-      className="inline-flex items-center self-start font-agenda-regular text-[20px] md:text-[24px] font-medium text-gray-900 transition"
-      style={{ color: "#323C43" }}
-    >
-      {cta.text}
-
-      <div
-        style={{ marginLeft: "10px" }}
-        className="flex items-center justify-center rounded"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          aria-hidden="true"
-          className="h-5 w-5 -rotate-135 md:h-6 md:w-6 md:ml-7"
-          style={{ color: "#221D1D" }}
-        >
-          <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />
-        </svg>
+    <div className="mb-6 flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-start">
+      <div className="inline-flex max-w-full items-center gap-3 flex-wrap">
+        <h3 className="font-agenda-medium text-[24px] sm:text-3xl uppercase tracking-[-2px]">
+          {title}
+        </h3>
       </div>
-    </a>
-  )}
-</div>
+
+      {cta && (
+        <div className="block lg:inline-block">
+          <a
+            href={cta.href}
+            target={cta.isExternal ? "_blank" : "_self"}
+            className="group inline-flex items-center gap-2 font-agenda-regular text-[20px] md:text-[24px] uppercase tracking-wide text-gray-900 transition hover:text-[#1E9BFB]"
+          >
+            {cta.text}
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              className="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+            >
+              <path d="M7 17L17 7M17 7H7M17 7V17" />
+            </svg>
+          </a>
+        </div>
+      )}
+    </div>
 
     {/* ===== Mobile/Tablet: accordion cards like screenshot ===== */}
 <div className="mt-8 xl:hidden space-y-4">

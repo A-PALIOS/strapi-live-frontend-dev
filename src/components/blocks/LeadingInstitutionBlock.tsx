@@ -31,35 +31,38 @@ export function LeadingInstitutionBlock({
     <section className="w-full bg-white px-5 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12 lg:px-14 xl:px-[65px]">
       {Title && (
         <>
-          <div className="flex flex-col items-start gap-4">
-            <span className="block text-left font-agenda-medium text-[24px] uppercase text-zinc-800 tracking-[-1.6px] sm:text-xl md:text-2xl lg:text-3xl">
-              {Title}
-            </span>
+          <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-start">
+            <div className="inline-flex max-w-full items-center gap-3 flex-wrap">
+              <span className="block text-left font-agenda-medium text-[24px] uppercase text-zinc-800 tracking-[-1.6px] sm:text-xl md:text-2xl lg:text-3xl">
+                {Title}
+              </span>
+            </div>
 
-            {/* Mobile + tablet CTA */}
-{cta && (
-  <Link
-    href={cta.href}
-    target={cta.isExternal ? "_blank" : "_self"}
-    rel={cta.isExternal ? "noreferrer" : undefined}
-    className="group inline-flex items-center gap-2 font-agenda-regular text-lg font-normal uppercase leading-none tracking-[-0.2px] text-[#221D1D] transition hover:text-[#1E9BFB] lg:hidden"
-  >
-    <span className="text-[20px]">{cta.text}</span>
-
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className="h-3 w-3 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-    >
-      <path d="M7 17L17 7M17 7H7M17 7V17" />
-    </svg>
-  </Link>
-)}
+            {/* CTA */}
+            {cta && (
+              <div className="block lg:inline-block">
+                <Link
+                  href={cta.href}
+                  target={cta.isExternal ? "_blank" : "_self"}
+                  rel={cta.isExternal ? "noreferrer" : undefined}
+                  className="group inline-flex items-center gap-2 font-agenda-regular font-normal uppercase leading-none tracking-[-0.2px] text-[#221D1D] transition hover:text-[#1E9BFB] lg:hidden"
+                >
+                  <span className="text-[20px] md:text-[24px]">{cta.text}</span>
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    className="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  >
+                    <path d="M7 17L17 7M17 7H7M17 7V17" />
+                  </svg>
+                </Link>
+              </div>
+            )}
           </div>
 
           <div

@@ -38,30 +38,34 @@ export function ServicesAccordionBlock({
 
       <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20 text-white">
         {/* Top bar */}
-        <div className="flex flex-col items-start md:flex-row md:items-center md:justify-between md:text-3xl sm:text-xs uppercase py-8 xl:mb-8">
-          <span className="md:hidden text-white font-agenda-medium text-[24px] uppercase tracking-[-1.6px]">FROM INSIGHT TO IMPACT</span>
-          <span className="hidden md:inline text-white font-agenda-medium text-[24px] md:text-[32px] uppercase tracking-[-1.6px]">{heading}</span>
+        <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-start py-8 xl:mb-8">
+          <div className="inline-flex max-w-full items-center gap-3 flex-wrap">
+            <span className="lg:hidden text-white font-agenda-medium text-[24px] uppercase tracking-[-1.6px]">FROM INSIGHT TO IMPACT</span>
+            <span className="hidden lg:inline text-white font-agenda-medium text-[24px] md:text-[32px] uppercase tracking-[-1.6px]">{heading}</span>
+          </div>
 
           {cta && (
-            <a
-              href={cta.href}
-              target={cta.isExternal ? "_blank" : "_self"}
-              className="group inline-flex items-center hover:opacity-100"
-            >
-              <span className="font-agenda-regular md:text-[24px]  text-[20px] tracking-[-1.1px]">{cta.text}</span>
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 md:ml-7"
-                aria-hidden="true"
+            <div className="block lg:inline-block">
+              <a
+                href={cta.href}
+                target={cta.isExternal ? "_blank" : "_self"}
+                className="group inline-flex items-center gap-2 hover:opacity-100"
               >
-                <path d="M7 17L17 7M17 7H7M17 7V17" />
-              </svg>
-            </a>
+                <span className="font-agenda-regular text-[20px] md:text-[24px] tracking-[-1.1px]">{cta.text}</span>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  aria-hidden="true"
+                >
+                  <path d="M7 17L17 7M17 7H7M17 7V17" />
+                </svg>
+              </a>
+            </div>
           )}
         </div>
 
@@ -92,7 +96,7 @@ export function ServicesAccordionBlock({
                       <span className={`shrink-0 text-xl md:text-5xl leading-none ${isOpen ? "text-blue-400" : "text-white"}`}>—</span>
                       <span
                         className={[
-                          "text-lg sm:text-2xl md:text-5xl md:tracking-[-2.2px]",
+                          "text-[23px] sm:text-2xl md:text-5xl md:tracking-[-2.2px]",
                           "font-agenda-medium",
                           "uppercase",
                           isOpen ? "text-blue-400" : "text-white",
@@ -128,14 +132,14 @@ export function ServicesAccordionBlock({
                         exit={{ height: 0, opacity: 0 }}
                         transition={transition}
                         style={{ overflow: "hidden" }}
-                        className="pl-[4.25rem] sm:pl-[5.25rem] md:pl-[8.5rem] lg:pl-[5.25rem] pr-1"
+                        className="pl-[0rem] sm:pl-[5.25rem] md:pl-[8.5rem] lg:pl-[5.25rem] pr-1"
                       >
                         <motion.p
                           initial={{ y: 6, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
                           exit={{ y: 6, opacity: 0 }}
                           transition={transition}
-                          className="font-agenda-light xl:ml-8  text-sm sm:text-[18px] md:text-4xl md:leading-10 sm:leading-4 text-white py-3 md:tracking-[-2px]"
+                          className="font-agenda-light xl:ml-8  text-[19px] sm:text-[24px] md:text-4xl md:leading-10 sm:leading-4 text-white py-3 md:tracking-[-2px]"
                         >
                           {item.description}
                         </motion.p>

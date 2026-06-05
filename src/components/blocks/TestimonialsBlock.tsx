@@ -25,32 +25,33 @@ export function TestimonialsBlock({ items, heading, cta }: TestimonialsBlockProp
     <section className="w-full py-12">
 
       <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20">
-  {/* Heading + CTA on one line */}
-  <div className="flex flex-col items-start gap-4 mb-6 tracking-[-2px] lg:flex-row lg:items-center lg:justify-between">
-    <h3 className="sm:text-3xl text-[24px] font-agenda-medium">{heading}</h3>
+  {/* Heading + CTA */}
+  <div className="mb-6 flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-start">
+    <div className="inline-flex max-w-full items-center gap-3 flex-wrap">
+      <h3 className="font-agenda-medium text-[24px] sm:text-3xl uppercase tracking-[-2px]">{heading}</h3>
+    </div>
     {cta && (
-      <Link
-        href={cta.href}
-        target={cta.isExternal ? "_blank" : "_self"}
-        className="inline-flex items-center font-agenda-regular sm:text-[24px] text-[20px] font-medium text-gray-900 transition"
-        style={{color: "#323C43"}}
-      >
-        {cta.text}
-        <div
-          style={{ marginLeft: "10px" }}
-          className="flex items-center justify-center rounded"
+      <div className="block lg:inline-block">
+        <Link
+          href={cta.href}
+          target={cta.isExternal ? "_blank" : "_self"}
+          className="group inline-flex items-center gap-2 font-agenda-regular text-[20px] md:text-[24px] uppercase tracking-wide text-gray-900 transition hover:text-[#1E9BFB]"
         >
+          {cta.text}
           <svg
             viewBox="0 0 24 24"
-            fill="currentColor"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
             aria-hidden="true"
-            className="w-6 h-6 transform -rotate-135 md:ml-7"
-            style={{ color: "#221D1D" }}
+            className="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
           >
-            <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />
+            <path d="M7 17L17 7M17 7H7M17 7V17" />
           </svg>
-        </div>
-      </Link>
+        </Link>
+      </div>
     )}
   </div>
 
