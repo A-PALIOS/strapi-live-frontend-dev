@@ -90,13 +90,13 @@ export function ServicesAccordionBlock({
                   <div className="flex items-center justify-between gap-4 py-2 cursor-pointer">
                     {/* Left: 01 — Title */}
                     <div className="flex min-w-0 items-baseline gap-3 sm:gap-4">
-                      <span className={`shrink-0 font-ivypresto-light text-2xl sm:text-3xl md:text-5xl leading-none ${isOpen ? "text-blue-400" : "text-white"}`}>
+                      <span className={`shrink-0 font-ivypresto-light text-2xl sm:text-3xl xl:text-5xl lg:text-[32px] leading-none ${isOpen ? "text-blue-400" : "text-white"}`}>
                         {displayIndex}
                       </span>
-                      <span className={`shrink-0 text-xl md:text-5xl leading-none ${isOpen ? "text-blue-400" : "text-white"}`}>—</span>
+                      <span className={`shrink-0 text-xl xl:text-5xl lg:text-[32px] leading-none ${isOpen ? "text-blue-400" : "text-white"}`}>—</span>
                       <span
                         className={[
-                          "text-[23px] sm:text-2xl md:text-5xl md:tracking-[-2.2px]",
+                          "text-[23px] sm:text-2xl xl:text-5xl lg:text-[32px] md:tracking-[-2.2px]",
                           "font-agenda-medium",
                           "uppercase",
                           isOpen ? "text-blue-400" : "text-white",
@@ -132,14 +132,14 @@ export function ServicesAccordionBlock({
                         exit={{ height: 0, opacity: 0 }}
                         transition={transition}
                         style={{ overflow: "hidden" }}
-                        className="pl-[0rem] sm:pl-[5.25rem] md:pl-[8.5rem] lg:pl-[5.25rem] pr-1"
+                        className="pl-[0rem] sm:pl-[5.25rem] md:pl-[8.5rem] xl:pl-[5.25rem] lg:pl-[6.00rem] pr-1"
                       >
                         <motion.p
                           initial={{ y: 6, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
                           exit={{ y: 6, opacity: 0 }}
                           transition={transition}
-                          className="font-agenda-light xl:ml-8  text-[19px] sm:text-[24px] md:text-4xl md:leading-10 sm:leading-4 text-white py-3 md:tracking-[-2px]"
+                          className="font-agenda-light xl:ml-8  text-[19px] sm:text-[24px] lg:text-[24px] xl:text-4xl md:leading-10 sm:leading-4 text-white py-3 xl:tracking-[-2px] lg:tracking-[-1.2px]"
                         >
                           {item.description}
                         </motion.p>
