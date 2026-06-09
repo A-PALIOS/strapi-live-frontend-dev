@@ -40,7 +40,7 @@ export function HeroSectionMain({
       </div>
  
       {/* Content (no horizontal centering) */}
-      <div className="relative isolate h-[100dvh] flex flex-col pt-16 pb-10 lg:h-screen lg:flex-row lg:items-center">
+      <div className="relative isolate h-[100dvh] flex flex-col xl:pt-16 lg:pt-36 pb-10 lg:h-screen lg:flex-row lg:items-center">
         {/* left rail container */}
         <div className="w-full text-left px-6 sm:px-12 lg:pl-24 lg:pr-0 xl:pl-28 xl:pr-0 flex-1 flex flex-col lg:block">
           {/* Text group — centered vertically on mobile, left-rail on desktop */}
