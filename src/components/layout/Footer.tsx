@@ -162,7 +162,7 @@ export function Footer({ data }: { data: FooterProps }) {
         {/* decorative SVG: hidden on small screens, positioned safely on md+ */}
         <svg
           viewBox="0 0 120 40"
-          className="pointer-events-none absolute -top-4 right-0 lg:hidden xl:block w-28 h-20"
+          className="pointer-events-none absolute -top-4 right-0 hidden xl:block w-28 h-20"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
