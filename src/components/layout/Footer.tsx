@@ -147,10 +147,10 @@ export function Footer({ data }: { data: FooterProps }) {
       boxShadow: "0px 8px 30px rgba(0, 0, 0, 0.18)",
     }}
   >
-    <div className="mx-auto grid max-w-7xl grid-cols-1 md:grid-cols-2 items-start md:items-center gap-10 md:gap-14">
+    <div className="mx-auto grid max-w-7xl grid-cols-1 xl:grid-cols-2 items-start xl:items-center gap-10 xl:gap-14">
       {/* Left: Headline */}
       <div className="relative">
-        <h2 className="leading-tight tracking-tight">
+        <h2 className="leading-tight tracking-tight text-center xl:text-left">
           <span className="font-agenda-medium block text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
             Partner with Us to
           </span>
@@ -162,7 +162,7 @@ export function Footer({ data }: { data: FooterProps }) {
         {/* decorative SVG: hidden on small screens, positioned safely on md+ */}
         <svg
           viewBox="0 0 120 40"
-          className="pointer-events-none absolute -top-4 right-0 lg: hidden xl:block w-28 h-20"
+          className="pointer-events-none absolute -top-4 right-0 lg:hidden xl:block w-28 h-20"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -177,57 +177,40 @@ export function Footer({ data }: { data: FooterProps }) {
       </div>
 
       {/* Right: Form */}
-      <form className="w-full max-w-xl md:ml-auto space-y-5">
-        {/* Company size */}
-        {/* <div className="relative">
-          <label className="sr-only" htmlFor="company-size">Company size</label>
-          <select
-            id="company-size"
-            className="w-full bg-transparent border-b border-white/70 placeholder-white text-white outline-none appearance-none pb-2 pr-8"
-            defaultValue="small"
-          >
-            <option value="small" className="text-black">Small</option>
-            <option value="medium" className="text-black">Medium</option>
-            <option value="large" className="text-black">Large</option>
-          </select>
-          <span className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 pr-1">▾</span>
-        </div> */}
-          {/* Name */}
-        <div>
-          <label className="sr-only" htmlFor="footer-name">Name</label>
-          <input
-            id="footer-name"
-            type="text"
-            placeholder="Your Name"
-            className="w-full bg-transparent border-b border-white/70 placeholder-white text-white outline-none pb-2"
-          />
-        </div>
+      <form className="w-full max-w-3xl mx-auto xl:mx-0 flex flex-col space-y-5 text-center xl:text-left">
+  <div className="w-full">
+    <label className="sr-only" htmlFor="footer-name">Name</label>
+    <input
+      id="footer-name"
+      type="text"
+      placeholder="Your Name"
+      className="w-full bg-transparent border-b border-white/70 placeholder-white text-white outline-none pb-2"
+    />
+  </div>
 
-        {/* Email */}
-        <div>
-          <label className="sr-only" htmlFor="footer-email">Email</label>
-          <input
-            id="footer-email"
-            type="email"
-            placeholder="Your Email"
-            className="w-full bg-transparent border-b border-white/70 placeholder-white text-white outline-none pb-2"
-          />
-        </div>
+  <div className="w-full">
+    <label className="sr-only" htmlFor="footer-email">Email</label>
+    <input
+      id="footer-email"
+      type="email"
+      placeholder="Your Email"
+      className="w-full bg-transparent border-b border-white/70 placeholder-white text-white outline-none pb-2"
+    />
+  </div>
 
-        {/* CTA input bar */}
-        <div className="relative">
-          <button
-  type="button"
-  className="w-full h-12 sm:h-14 md:h-16 rounded-md bg-white text-black font-agenda-regular text-lg sm:text-xl flex items-center justify-between px-4 sm:px-5 hover:bg-gray-100 transition cursor-pointer" 
->
-  <span className="opacity-70">Let’s talk</span>
+  <div className="relative w-full">
+    <button
+      type="button"
+      className="w-full h-12 sm:h-14 md:h-16 rounded-md bg-white text-black font-agenda-regular text-lg sm:text-xl flex items-center justify-between px-4 sm:px-5 hover:bg-gray-100 transition cursor-pointer"
+    >
+      <span className="opacity-70">Let’s talk</span>
 
-  <span className="w-10 h-10 sm:w-11 sm:h-11 rounded-md bg-[#1E9BFB] hover:bg-[#156DB0] transition flex items-center justify-center text-white text-xl">
-    →
-  </span>
-</button>
-        </div>
-      </form>
+      <span className="w-10 h-10 sm:w-11 sm:h-11 rounded-md bg-[#1E9BFB] hover:bg-[#156DB0] transition flex items-center justify-center text-white text-xl">
+        →
+      </span>
+    </button>
+  </div>
+</form>
     </div>
   </div>
 
@@ -256,7 +239,7 @@ export function Footer({ data }: { data: FooterProps }) {
                   href={col?.href}
                   className="transition hover:text-white font-agenda-regular text-lg"
                 >
-        <h4 className="mb-0 sm:mb-3 text-base sm:text-lg md:text-3xl font-agenda-medium text-white/90 text-center sm:text-left">
+        <h4 className="mb-0 sm:mb-3 text-base sm:text-lg md:text-3xl font-agenda-medium text-white/90 text-center xl:text-left">
           {col.title}
         </h4>
         </Link>
@@ -332,7 +315,7 @@ export function Footer({ data }: { data: FooterProps }) {
             {/* button */}
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center gap-2 rounded-md bg-[#1E9BFB] px-4 py-2.5 sm:px-6 sm:py-3 font-medium text-white hover:bg-[#156DB0] transition font-agenda-regular"
+              className="inline-flex items-center justify-center gap-2 rounded-md bg-[#1E9BFB] px-4 py-2.5 sm:px-5 sm:py-3 xl:px-6 font-medium text-white hover:bg-[#156DB0] transition font-agenda-regular"
             >
               Contact us
               <span className="inline-grid place-items-center h-6 w-6 rounded bg-white text-[#1E9BFB] text-sm leading-none">
@@ -347,78 +330,82 @@ export function Footer({ data }: { data: FooterProps }) {
         <div className="h-px bg-white/15" />
 
         {/* CONTACT ROW (logo + address/email/phone) */}
-        <div className="px-5 sm:px-6 md:px-8 lg:px-10 py-6 text-white">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div className="flex items-center gap-6">
-              {logo?.image?.url && (
-                <StrapiImage
-                  src={logo.image.url}
-                  alt={logo.image.alternativeText || ""}
-                  width={170}
-                  height={56}
-                  className="opacity-95"
-                />
-              )}
-            </div>
+<div className="px-5 sm:px-6 md:px-8 lg:px-10 py-6 text-white">
+  <div className="flex flex-col md:flex-row items-center md:items-center justify-center md:justify-between gap-6 text-center md:text-left">
+    <div className="flex items-center justify-center md:justify-start gap-6 w-full md:w-auto">
+      {logo?.image?.url && (
+        <StrapiImage
+          src={logo.image.url}
+          alt={logo.image.alternativeText || ""}
+          width={170}
+          height={56}
+          className="opacity-95 mx-auto md:mx-0"
+        />
+      )}
+    </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:auto-cols-fr md:grid-flow-col gap-4 sm:gap-6">
-              {bottomLink?.map((item) => {
-                const iconKey = String(item.icon || "").toLowerCase();
-                return (
-                  <Link
-                    key={item.id}
-                    href={item.url || "#"}
-                    className="flex items-center gap-2 text-white/90 transition hover:text-white"
-                  >
-                    <span>{iconMap[iconKey] ?? <Globe className="h-4 w-4" />}</span>
-                    <span className="text-sm md:text-base font-agenda-regular">{item.text}</span>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:auto-cols-fr md:grid-flow-col gap-4 sm:gap-6 w-full md:w-auto justify-items-center md:justify-items-start">
+      {bottomLink?.map((item) => {
+        const iconKey = String(item.icon || "").toLowerCase();
 
-        {/* divider */}
-        <div className="h-px bg-white/15" />
+        return (
+          <Link
+            key={item.id}
+            href={item.url || "#"}
+            className="flex items-center justify-center md:justify-start gap-2 text-white/90 transition hover:text-white"
+          >
+            <span>{iconMap[iconKey] ?? <Globe className="h-4 w-4" />}</span>
+            <span className="text-sm md:text-base font-agenda-regular">
+              {item.text}
+            </span>
+          </Link>
+        );
+      })}
+    </div>
+  </div>
+</div>
 
-        {/* BOTTOM BAR */}
-        <div className="px-5 sm:px-6 md:px-8 lg:px-10 py-6 text-white">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <p className="text-center md:text-left text-xs sm:text-sm text-white/60 font-agenda-regular">
-              © {new Date().getFullYear()} {copyrightText || "Your Company Name"}. All rights reserved.
-            </p>
+{/* divider */}
+<div className="h-px bg-white/15" />
 
-            <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10">
-              <div className="flex items-center gap-10 sm:gap-12">
-                <p className="text-center md:text-left text-xs sm:text-sm text-white/60 font-agenda-regular">
-                  Cookies
-                </p>
+{/* BOTTOM BAR */}
+<div className="px-5 sm:px-6 md:px-8 lg:px-10 py-6 text-white">
+  <div className="flex flex-col md:flex-row items-center md:items-center justify-center md:justify-between gap-4 text-center md:text-left">
+    <p className="text-xs sm:text-sm text-white/60 font-agenda-regular">
+      © {new Date().getFullYear()} {copyrightText || "Your Company Name"}. All rights reserved.
+    </p>
 
-                <p className="text-center md:text-left text-xs sm:text-sm text-white/60 font-agenda-regular">
-                  Privacy Policy
-                </p>
-              </div>
+    <div className="flex flex-col sm:flex-row sm:items-center justify-center md:justify-end gap-6 sm:gap-10 w-full md:w-auto">
+      <div className="flex items-center justify-center gap-10 sm:gap-12">
+        <p className="text-xs sm:text-sm text-white/60 font-agenda-regular">
+          Cookies
+        </p>
 
-              <div className="flex items-center justify-center gap-6 sm:gap-7">
-                {socialLink?.map((s) => {
-                  const iconKey = String(s.icon || "").toLowerCase();
-                  return s.url ? (
-                    <Link
-                      key={s.id}
-                      href={s.url}
-                      target="_blank"
-                      aria-label={iconKey}
-                      className="rounded p-2 bg-white/10 hover:bg-white/20 transition"
-                    >
-                      {iconMap[iconKey] ?? <Globe className="h-4 w-4" />}
-                    </Link>
-                  ) : null;
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
+        <p className="text-xs sm:text-sm text-white/60 font-agenda-regular">
+          Privacy Policy
+        </p>
+      </div>
+
+      <div className="flex items-center justify-center gap-6 sm:gap-7">
+        {socialLink?.map((s) => {
+          const iconKey = String(s.icon || "").toLowerCase();
+
+          return s.url ? (
+            <Link
+              key={s.id}
+              href={s.url}
+              target="_blank"
+              aria-label={iconKey}
+              className="rounded p-2 bg-white/10 hover:bg-white/20 transition"
+            >
+              {iconMap[iconKey] ?? <Globe className="h-4 w-4" />}
+            </Link>
+          ) : null;
+        })}
+      </div>
+    </div>
+  </div>
+</div>
       
     </div>
   </section>

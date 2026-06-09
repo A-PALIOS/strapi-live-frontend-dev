@@ -89,23 +89,54 @@ export function ServicesAccordionBlock({
                 >
                   <div className="flex items-center justify-between gap-4 py-2 cursor-pointer">
                     {/* Left: 01 — Title */}
-                    <div className="flex min-w-0 items-baseline gap-3 sm:gap-4">
-                      <span className={`shrink-0 font-ivypresto-light text-2xl sm:text-3xl xl:text-5xl lg:text-[32px] leading-none ${isOpen ? "text-blue-400" : "text-white"}`}>
-                        {displayIndex}
-                      </span>
-                      <span className={`shrink-0 text-xl xl:text-5xl lg:text-[32px] leading-none ${isOpen ? "text-blue-400" : "text-white"}`}>—</span>
-                      <span
-                        className={[
-                          "text-[23px] sm:text-2xl xl:text-5xl lg:text-[32px] md:tracking-[-2.2px]",
-                          "font-agenda-medium",
-                          "uppercase",
-                          isOpen ? "text-blue-400" : "text-white",
-                        ].join(" ")}
-                        title={item.title}
-                      >
-                        {item.title}
-                      </span>
-                    </div>
+<div className="min-w-0 flex-1">
+  {/* Mobile / tablet */}
+  <span
+    className={[
+      "block lg:hidden",
+      "font-agenda-medium uppercase",
+      "text-[23px] sm:text-2xl leading-[1.05]",
+      "break-words whitespace-normal",
+      isOpen ? "text-blue-400" : "text-white",
+    ].join(" ")}
+    title={item.title}
+  >
+    <span className="font-ivypresto-light">{displayIndex}</span>
+    <span className="mx-3">—</span>
+    {item.title}
+  </span>
+
+  {/* Desktop */}
+  <div className="hidden lg:flex min-w-0 items-baseline gap-3 sm:gap-4">
+    <span
+      className={`shrink-0 font-ivypresto-light text-2xl sm:text-3xl xl:text-5xl lg:text-[32px] leading-none ${
+        isOpen ? "text-blue-400" : "text-white"
+      }`}
+    >
+      {displayIndex}
+    </span>
+
+    <span
+      className={`shrink-0 text-xl xl:text-5xl lg:text-[32px] leading-none ${
+        isOpen ? "text-blue-400" : "text-white"
+      }`}
+    >
+      —
+    </span>
+
+    <span
+      className={[
+        "text-[23px] sm:text-2xl xl:text-5xl lg:text-[32px] md:tracking-[-2.2px]",
+        "font-agenda-medium",
+        "uppercase",
+        isOpen ? "text-blue-400" : "text-white",
+      ].join(" ")}
+      title={item.title}
+    >
+      {item.title}
+    </span>
+  </div>
+</div>
 
                     {/* Right: plus/minus circle */}
                     <div
