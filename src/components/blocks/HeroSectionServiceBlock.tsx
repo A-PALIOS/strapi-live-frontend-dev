@@ -68,7 +68,7 @@ export function HeroSectionServiceBlock({
           </h1>
 
 {subheader && (
-  <p className="mt-6 max-w-6xl font-agenda-regular" style={{ color: "#3F4449", fontSize: "clamp(20px, 2.8vw, 40px)", fontWeight: 400, lineHeight: "normal", letterSpacing: "-2px" }}>
+  <p className="mt-6 max-w-6xl font-agenda-regular xl:tracking-[-2px] tracking-[-1px]" style={{ color: "#3F4449", fontSize: "clamp(20px, 2.8vw, 40px)", fontWeight: 400, lineHeight: "normal"}}>
     {subheader}
   </p>
 )}
