@@ -33,7 +33,7 @@ export function ExpertiseVideoTabs({
           "linear-gradient(25deg, #947560 0%, #6f7176 25%, #4f6e85 50%, #2f6d9d 100%)",
       }}
     >
-      <div className="relative grid min-h-screen w-full grid-cols-1 grid-rows-[auto_1fr] md:grid-cols-2">
+      <div className="relative grid min-h-screen w-full grid-cols-1 grid-rows-[auto_1fr] xl:grid-cols-2">
         {/* EYEBROW ROW — spans both columns, z-10 so it sits above the video */}
         {Eyebrow ? (
           <div className="relative z-10 col-span-1 md:col-span-2">
@@ -117,11 +117,11 @@ export function ExpertiseVideoTabs({
         </div>
 
         {/* RIGHT COLUMN placeholder — keeps the grid slot so left doesn't expand */}
-        <div className="hidden md:block" style={{ backgroundColor: "white" }} />
+        <div className="hidden xl:block" style={{ backgroundColor: "white" }} />
 
         {/* RIGHT VIDEO — absolutely positioned from section top, shorter than full height */}
         <div
-          className="absolute right-0 top-0 hidden w-1/2 overflow-hidden lg:block"
+          className="absolute right-0 top-0 hidden w-1/2 overflow-hidden xl:block"
           style={{ height: "calc(100% - 120px)", borderRadius: "0 0 16px 0" }}
         >
           {activeItem?.video?.url ? (
