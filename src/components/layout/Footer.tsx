@@ -239,7 +239,7 @@ export function Footer({ data }: { data: FooterProps }) {
                   href={col?.href}
                   className="transition hover:text-white font-agenda-regular text-lg"
                 >
-        <h4 className="mb-0 sm:mb-3 text-base sm:text-lg md:text-3xl font-agenda-medium text-white/90 text-left xl:text-left">
+        <h4 className="mb-0 sm:mb-3 text-base sm:text-lg md:text-3xl font-agenda-medium text-white/90 text-center sm:text-left xl:text-left">
           {col.title}
         </h4>
         </Link>

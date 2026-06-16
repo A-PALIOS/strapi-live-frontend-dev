@@ -51,7 +51,7 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
       )}
     </div>
 
-    <div className="mt-16 border-t -mx-5 sm:-mx-6 md:-mx-8 lg:-mx-10 xl:-mx-16" style={{ borderColor: "#626262" }}></div>
+    <div className="mt-16 border-t -mx-4 sm:-mx-8 md:-mx-12 xl:-mx-[65px]" style={{ borderColor: "#626262" }}></div>
 
     {/* ===== Mobile/Tablet: accordion cards like screenshot ===== */}
 <div className="mt-8 xl:hidden space-y-4">
