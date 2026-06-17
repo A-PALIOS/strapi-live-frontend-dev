@@ -66,11 +66,11 @@ export function ExpertiseVideoTabs({
                     <button
                       type="button"
                       onClick={() => setActiveIndex(index)}
-                      className="group flex w-full items-start justify-between gap-4 text-left"
+                      className="group flex w-full cursor-pointer items-start justify-between gap-4 text-left"
                     >
                       <h3
                         style={{ letterSpacing: "-1.2px" }}
-                        className="font-agenda-medium text-[18px] uppercase leading-normal tracking-[-0.05em] text-white whitespace-nowrap md:text-[30px]"
+                        className="font-agenda-medium text-[18px] uppercase leading-normal tracking-[-0.05em] text-white whitespace-nowrap md:text-[30px] lg:text-[32px]"
                       >
                         {item.title}
                       </h3>
@@ -105,7 +105,7 @@ export function ExpertiseVideoTabs({
                     </button>
 
                     {isActive && item.description ? (
-                      <p className="mt-5 font-agenda-medium md:text-[32px] sm:text-[24px] font-medium leading-[1.2] tracking-[-0.05em] text-[#FEFEFE]">
+                      <p className="mt-5 font-agenda-medium md:text-[24px] sm:text-[24px] font-medium leading-[1.2] tracking-[-0.05em] text-[#FEFEFE]">
                         {item.description}
                       </p>
                     ) : null}

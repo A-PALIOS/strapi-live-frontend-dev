@@ -630,7 +630,7 @@ export interface ServicesAccordionBlockProps {
   id: number;
   heading:string;
   items: ServiceAccordionItem[];
-  image: StrapiMedia | null;
+  image: ImageProps;
   cta?: LinkProps;
 }
 
