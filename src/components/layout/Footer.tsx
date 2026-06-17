@@ -354,7 +354,7 @@ export function Footer({ data }: { data: FooterProps }) {
             href={item.url || "#"}
             className="flex items-center justify-center md:justify-start gap-2 text-white/90 transition hover:text-white"
           >
-            <span>{iconMap[iconKey] ?? <Globe className="h-4 w-4" />}</span>
+            {item.icon && <span>{iconMap[iconKey] ?? <Globe className="h-4 w-4" />}</span>}
             <span className="text-sm md:text-base font-agenda-regular">
               {item.text}
             </span>
