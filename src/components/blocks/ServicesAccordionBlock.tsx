@@ -163,14 +163,14 @@ export function ServicesAccordionBlock({
                         exit={{ height: 0, opacity: 0 }}
                         transition={transition}
                         style={{ overflow: "hidden" }}
-                        className="pl-[0rem] sm:pl-[5.25rem] md:pl-[8.5rem] xl:pl-[5.25rem] lg:pl-[6.00rem] pr-1"
+                        className="pl-[0rem] sm:pl-[4.25rem] md:pl-[4.5rem] xl:pl-[5.25rem] lg:pl-[6.00rem] pr-1"
                       >
                         <motion.p
                           initial={{ y: 6, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
                           exit={{ y: 6, opacity: 0 }}
                           transition={transition}
-                          className="font-agenda-light xl:ml-8  text-[19px] sm:text-[24px] lg:text-[24px] xl:text-4xl md:leading-10 sm:leading-4 text-white py-3 xl:tracking-[-2px] lg:tracking-[-1.2px]"
+                          className="font-agenda-light xl:ml-8  text-[19px] sm:text-[24px] lg:text-[24px] xl:text-4xl md:leading-8 sm:leading-6 text-white py-3 xl:tracking-[-2px] lg:tracking-[-1.2px]"
                         >
                           {item.description}
                         </motion.p>

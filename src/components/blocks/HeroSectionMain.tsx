@@ -201,7 +201,7 @@ export function HeroSectionMain({
       mx-auto xl:ml-auto xl:mr-0
       lg:py-10 xl:py-0 
       inline-flex items-center gap-3
-      text-slate-300 hover:text-white lg:pl-24
+      text-slate-300 hover:text-white lg:pl-24 lg:pr-15
     "
     aria-label={cta.text ?? "Learn more"}
   >

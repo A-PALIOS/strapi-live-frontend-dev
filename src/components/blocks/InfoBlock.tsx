@@ -247,7 +247,7 @@ export function InfoBlock({
             <p
               ref={descRef}
               className="
-                animate font-agenda-regular text-2xl md:text-2xl xl:text-5xl justify-center text-center
+                animate font-agenda-regular text-2xl md:text-2xl xl:text-5xl justify-center text-center md:text-left
                 leading-tight text-zinc-800/25 xl:tracking-[-2.4px] lg:tracking[-1.6px]
                 whitespace-normal break-words [overflow-wrap:anywhere]
               "
