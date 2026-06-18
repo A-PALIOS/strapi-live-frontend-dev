@@ -93,7 +93,7 @@ export function ExpertiseVideoTabs({
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             className={[
-                              "h-5 w-5 shrink-0 transition-transform duration-300",
+                              "h-7 w-7 shrink-0 transition-transform duration-300",
                               isActive ? "rotate-90" : "rotate-0",
                             ].join(" ")}
                             aria-hidden="true"
