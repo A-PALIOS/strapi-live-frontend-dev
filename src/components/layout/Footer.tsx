@@ -347,18 +347,28 @@ export function Footer({ data }: { data: FooterProps }) {
     <div className="grid grid-cols-1 sm:grid-cols-2 md:auto-cols-fr md:grid-flow-col gap-4 sm:gap-6 w-full md:w-auto justify-items-center md:justify-items-start">
       {bottomLink?.map((item) => {
         const iconKey = String(item.icon || "").toLowerCase();
+        const inner = (
+          <>
+            {item.icon && <span>{iconMap[iconKey] ?? <Globe className="h-4 w-4" />}</span>}
+            <span className="text-sm md:text-base font-agenda-regular">{item.text}</span>
+          </>
+        );
 
-        return (
+        return item.icon ? (
           <Link
             key={item.id}
             href={item.url || "#"}
             className="flex items-center justify-center md:justify-start gap-2 text-white/90 transition hover:text-white"
           >
-            {item.icon && <span>{iconMap[iconKey] ?? <Globe className="h-4 w-4" />}</span>}
-            <span className="text-sm md:text-base font-agenda-regular">
-              {item.text}
-            </span>
+            {inner}
           </Link>
+        ) : (
+          <div
+            key={item.id}
+            className="flex items-center justify-center md:justify-start gap-2 text-white/90 md:pl-19"
+          >
+            {inner}
+          </div>
         );
       })}
     </div>
