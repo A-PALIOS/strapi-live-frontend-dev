@@ -402,12 +402,12 @@ export function Footer({ data }: { data: FooterProps }) {
         <p className="text-xs sm:text-sm text-white/60 font-agenda-regular">
           Cookies Policy
         </p>
-        <Link href={'/api/documents/privacy-policy'} target="_blank">
+        <Link href={'/docs/privacy-policy'} target="_blank">
         <p className="text-xs sm:text-sm text-white/60 font-agenda-regular">
           Privacy Policy
         </p>
         </Link>
-        <Link href={'/api/documents/quality-policy'} target="_blank">
+        <Link href={'/docs/quality-policy'} target="_blank">
           <p className="text-xs sm:text-sm text-white/60 font-agenda-regular">
             Quality Policy
           </p>
