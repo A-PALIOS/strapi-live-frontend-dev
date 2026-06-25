@@ -388,12 +388,18 @@ export function Footer({ data }: { data: FooterProps }) {
     <div className="flex flex-col sm:flex-row sm:items-center justify-center md:justify-end gap-6 sm:gap-10 w-full md:w-auto">
       <div className="flex items-center justify-center gap-10 sm:gap-12">
         <p className="text-xs sm:text-sm text-white/60 font-agenda-regular">
-          Cookies
+          Cookies Policy
         </p>
-
+        <Link href={'http://5.77.39.26:1337/uploads/Politiki_Dorodokias_gia_site_ver_1_e3e6f7a6cb.pdf'}>
         <p className="text-xs sm:text-sm text-white/60 font-agenda-regular">
           Privacy Policy
         </p>
+        </Link>
+        <Link href={'http://5.77.39.26:1337/uploads/Politiki_Poiotitas_gia_site_ver3_1c0dec6f9e.pdf'}>
+          <p className="text-xs sm:text-sm text-white/60 font-agenda-regular">
+            Quality Policy
+          </p>
+        </Link>
       </div>
 
       <div className="flex items-center justify-center gap-6 sm:gap-7">

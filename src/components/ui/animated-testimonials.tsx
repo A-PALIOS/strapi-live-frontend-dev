@@ -186,7 +186,7 @@ export const AnimatedTestimonials = ({
                 ${
                   active === 0
                     ? "cursor-not-allowed bg-gray-100 text-gray-300"
-                    : "cursor-pointer bg-gray-200 text-gray-600 hover:bg-gray-300 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600"
+                    : "cursor-pointer bg-blue-500 text-white hover:bg-blue-600"
                 }
               `}
             >
@@ -204,8 +204,8 @@ export const AnimatedTestimonials = ({
                 flex h-10 w-10 items-center justify-center rounded-md transition
                 ${
                   active === len - 1
-                    ? "cursor-not-allowed bg-blue-200 text-white"
-                    : "cursor-pointer bg-blue-500 text-white hover:bg-blue-600 dark:bg-blue-400 dark:hover:bg-blue-500"
+                    ? "cursor-not-allowed bg-gray-100 text-gray-300"
+                    : "cursor-pointer bg-blue-500 text-white hover:bg-blue-600"
                 }
               `}
             >

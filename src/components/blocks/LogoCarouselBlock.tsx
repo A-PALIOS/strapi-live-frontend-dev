@@ -66,13 +66,14 @@ export function LogoCarouselBlock({
         background: "white",
       }}
     >
-      <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20">
+      <div className="w-full py-3 px-6 md:px-10 lg:px-16 xl:px-20">
       {/* Tabs */}
 <div
   className="
     mb-6
     flex flex-nowrap items-center justify-between gap-2
     w-full
+    pb-20
     md:justify-start md:gap-3
   "
   role="tablist"
@@ -137,7 +138,7 @@ export function LogoCarouselBlock({
         {/* Infinite Logo Carousel (single track, duplicated content) */}
         {filtered.length > 0 ? (
           <div
-            className="w-full inline-flex flex-nowrap overflow-hidden
+            className="w-full inline-flex pb-10 flex-nowrap overflow-hidden
                [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]"
           >
             <ul

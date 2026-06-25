@@ -173,10 +173,11 @@ export function Header({ data }: HeaderProps) {
                     fontStyle: "normal",
                     fontSize: 18,
                   }}
+                  className="cursor-pointer"
                 >
                   {cta.text}
                 </span>
-                <span className="flex items-center justify-center w-7 h-7 bg-white rounded-md">
+                <span className="flex items-center justify-center w-7 h-7 bg-white rounded-md cursor-pointer">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-4 h-4 text-[#1E9BFB]"
