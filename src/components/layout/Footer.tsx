@@ -235,14 +235,20 @@ export function Footer({ data }: { data: FooterProps }) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 sm:gap-10 sm:justify-items-center">
     {column?.slice(0, 2).map((col) => (
       <div key={col.title} className="py-4 sm:py-0 border-b border-white/15 sm:border-b-0">
-        <Link
-                  href={col?.href}
-                  className="transition hover:text-white font-agenda-regular text-lg"
-                >
-        <h4 className="mb-0 sm:mb-3 text-base sm:text-lg md:text-3xl font-agenda-medium text-white/90 text-center sm:text-left xl:text-left">
-          {col.title}
-        </h4>
-        </Link>
+        {col?.href ? (
+          <Link
+            href={col.href}
+            className="transition hover:text-white font-agenda-regular text-lg"
+          >
+            <h4 className="mb-0 sm:mb-3 text-base sm:text-lg md:text-3xl font-agenda-medium text-white/90 text-center sm:text-left xl:text-left">
+              {col.title}
+            </h4>
+          </Link>
+        ) : (
+          <h4 className="mb-0 sm:mb-3 text-base sm:text-lg md:text-3xl font-agenda-medium text-white/90 text-center sm:text-left xl:text-left">
+            {col.title}
+          </h4>
+        )}
         <ul className="hidden sm:block space-y-2 text-white/75">
           {col.link?.map((l) =>
             l.href ? (
@@ -264,14 +270,20 @@ export function Footer({ data }: { data: FooterProps }) {
       <div className="flex flex-col sm:gap-2 w-full ">
         {column.slice(2).map((col) => (
           <div key={col.title} className="py-4 sm:py-0 border-b border-white/15 sm:border-b-0">
-             <Link
-                      href={col.href}
-                      className="transition hover:text-white font-agenda-regular text-lg"
-                    >
-            <h4 className="mb-0 sm:mb-3 text-base sm:text-lg md:text-3xl font-agenda-medium text-white/90 text-center sm:text-left">
-              {col.title}
-            </h4>
-            </Link>
+            {col.href ? (
+              <Link
+                href={col.href}
+                className="transition hover:text-white font-agenda-regular text-lg"
+              >
+                <h4 className="mb-0 sm:mb-3 text-base sm:text-lg md:text-3xl font-agenda-medium text-white/90 text-center sm:text-left">
+                  {col.title}
+                </h4>
+              </Link>
+            ) : (
+              <h4 className="mb-0 sm:mb-3 text-base sm:text-lg md:text-3xl font-agenda-medium text-white/90 text-center sm:text-left">
+                {col.title}
+              </h4>
+            )}
             <ul className="hidden sm:block space-y-2 text-white/75">
               {col.link?.map((l) =>
                 l.href ? (
