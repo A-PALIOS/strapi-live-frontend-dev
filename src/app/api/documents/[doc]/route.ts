@@ -9,9 +9,10 @@ const DOCS: Record<string, string> = {
 
 export async function GET(
   _req: NextRequest,
-  { params }: { params: { doc: string } }
+  { params }: { params: Promise<{ doc: string }> }
 ) {
-  const url = DOCS[params.doc];
+  const { doc } = await params;
+  const url = DOCS[doc];
   if (!url) {
     return new NextResponse("Not found", { status: 404 });
   }
@@ -25,7 +26,7 @@ export async function GET(
   return new NextResponse(body, {
     headers: {
       "Content-Type": "application/pdf",
-      "Content-Disposition": `inline; filename="${params.doc}.pdf"`,
+      "Content-Disposition": `inline; filename="${doc}.pdf"`,
       "Cache-Control": "public, max-age=3600",
     },
   });
