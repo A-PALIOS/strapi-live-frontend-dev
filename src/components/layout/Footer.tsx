@@ -402,12 +402,12 @@ export function Footer({ data }: { data: FooterProps }) {
         <p className="text-xs sm:text-sm text-white/60 font-agenda-regular">
           Cookies Policy
         </p>
-        <Link href={'http://5.77.39.26:1337/uploads/Politiki_Dorodokias_gia_site_ver_1_e3e6f7a6cb.pdf'}>
+        <Link href={'/api/documents/privacy-policy'} target="_blank">
         <p className="text-xs sm:text-sm text-white/60 font-agenda-regular">
           Privacy Policy
         </p>
         </Link>
-        <Link href={'http://5.77.39.26:1337/uploads/Politiki_Poiotitas_gia_site_ver3_1c0dec6f9e.pdf'}>
+        <Link href={'/api/documents/quality-policy'} target="_blank">
           <p className="text-xs sm:text-sm text-white/60 font-agenda-regular">
             Quality Policy
           </p>
