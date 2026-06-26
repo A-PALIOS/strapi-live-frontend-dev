@@ -27,6 +27,12 @@ export function Header({ data }: HeaderProps) {
   const [onDark, setOnDark] = useState(false);
 
   useEffect(() => {
+    const header = document.getElementById("site-header");
+    if (header) {
+      header.style.transform = "";
+      header.style.transition = "";
+    }
+
     let raf = 0;
 
     const calc = () => {
@@ -155,7 +161,7 @@ export function Header({ data }: HeaderProps) {
 
           {/* CTA Button */}
           <div className="hidden xl:block ml-auto">
-            <Link href={cta.href ?? "/"} target={cta.isExternal ? "_blank" : "_self"}>
+            <Link href={cta.href} target={cta.isExternal ? "_blank" : "_self"}>
               <button
                 className="flex items-center gap-3 rounded-xl px-6 py-3 text-base text-white transition shadow"
                 style={{
@@ -274,7 +280,7 @@ export function Header({ data }: HeaderProps) {
               ))}
             </nav>
 
-            <Link href={cta.href ?? "/"} target={cta.isExternal ? "_blank" : "_self"}>
+            <Link href={cta.href} target={cta.isExternal ? "_blank" : "_self"}>
               <button className="w-full rounded-xl px-4 py-3 text-sm font-medium transition border border-white/30 bg-white/20 hover:bg-white/30 text-white">
                 {cta.text} <span className="ml-1">→</span>
               </button>
