@@ -540,6 +540,7 @@ export interface UseCaseItem {
 export interface UseCasesSectionProps extends Base<"blocks.use-cases-section"> {
   eyebrow?: string;
   title: string;
+  description?: string;
   items: UseCaseItem[];
   cta?: LinkProps;     // uses your existing LinkProps
   image: ImageProps;   // uses your existing ImageProps
@@ -615,7 +616,7 @@ export interface AICardItem {
 export interface AICardsBlockProps extends Base<"blocks.ai-cards"> {
   Title: string;        // matches your Strapi field: Title
   Cards: AICardItem[];  // matches your Strapi field: Cards
-  layout?: "default" | "six_columns";
+  layout?: "default" | "six_columns" | "left_layout";
 }
 
 
