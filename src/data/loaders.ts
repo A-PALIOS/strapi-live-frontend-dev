@@ -286,28 +286,22 @@ const pageBlocksPopulate = {
     "blocks.dashboard-section3": true,
     "blocks.dashboard-section4": true,
     "blocks.dashboard-section5": true,
-    "blocks.dashboard-cmt": {
-      populate: {
-        items: {
-          populate: {
-            image: media,
-          },
-        },
-      },
-    },
     "blocks.statement-section": true,
     "blocks.about-us-statement": true,
     "blocks.two-column-text": true,
+
     "blocks.mission-section": {
       populate: {
         values: true,
       },
     },
+
     "blocks.what-believe": {
       populate: {
         items: true,
       },
     },
+
     "blocks.magic-bento-block": {
       populate: {
         items: {
@@ -357,12 +351,14 @@ const pageBlocksPopulate = {
         items: true,
       },
     },
+
     "blocks.what-sets-us-apart": {
       populate: {
         rightList: true,
         topImage: media,
       },
     },
+
     "blocks.services-accordion-block": {
       populate: {
         items: true,
@@ -370,6 +366,7 @@ const pageBlocksPopulate = {
         cta,
       },
     },
+
     "blocks.accordion-about": {
       populate: {
         items: true,
@@ -377,6 +374,7 @@ const pageBlocksPopulate = {
         cta,
       },
     },
+
     "blocks.link-list-about": {
       populate: {
         items: true,
@@ -409,11 +407,13 @@ const pageBlocksPopulate = {
         },
       },
     },
+
     "blocks.expertise-grid": {
       populate: {
         items: true,
       },
     },
+
     "blocks.ai-cards": {
       populate: {
         Cards: {
@@ -436,6 +436,9 @@ const pageBlocksPopulate = {
         items: true,
       },
     },
+
+
+
     "blocks.coverflow-showcase": {
       populate: {
         items: {
