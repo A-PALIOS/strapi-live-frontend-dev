@@ -152,7 +152,7 @@ export function HeroSection() {
                       <option>Crete</option>
                     </select>
                   </div>
-                  <div className="mt-5 rounded-xl bg-cyan-400/10 p-3 text-sm text-cyan-100">
+                  <div className="mt-5 rounded-xl bg-cyan-400/10 p-3 text-sm text-cyan-100 font-agenda-medium">
                     Active filter: <span className="font-agenda-medium">{region}</span>
                   </div>
                 </div>
@@ -212,7 +212,7 @@ export function CapabilitiesSection() {
               key={card.title}
               className="group rounded-[24px] border border-white/10 bg-white/[0.04] p-5 transition hover:-translate-y-1 hover:border-cyan-300/30 hover:bg-white/[0.06]"
             >
-              <div className="mb-4 inline-flex rounded-xl bg-cyan-400/10 px-3 py-1 text-sm text-white-200">
+              <div className="mb-4 font-agenda-medium inline-flex rounded-xl bg-cyan-400/10 px-3 py-1 text-sm text-white-200">
                 {card.stat}
               </div>
               <h3 className="text-xl font-agenda-medium">{card.title}</h3>
@@ -491,7 +491,7 @@ export function WhyDashboardsSection() {
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {whyDashboardItems.map(([title, text]) => (
                 <div key={title} className="rounded-2xl bg-[#0a1b35] p-4">
-                  <h3 className="font-agenda-mediumv text-lg">{title}</h3>
+                  <h3 className="font-agenda-medium text-lg">{title}</h3>
                   <p className="mt-2 text-md font-agenda-regular leading-7 text-white/65">{text}</p>
                 </div>
               ))}
@@ -512,7 +512,7 @@ export function WhyDashboardsSection() {
                   className="flex items-center justify-between rounded-2xl bg-[#0a1b35] px-5 py-4"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-cyan-400/10 text-cyan-300">
+                    <div className="flex h-10 w-10 items-center font-agenda-medium justify-center rounded-full bg-cyan-400/10 text-cyan-300">
                       0{i + 1}
                     </div>
                     <span className="font-agenda-medium">{item}</span>
@@ -534,22 +534,22 @@ export function CtaSection() {
       <div className="w-full px-6 md:px-10 lg:px-10 xl:px-23 py-16 md:py-20">
         <div className="rounded-[32px] border border-cyan-300/10 bg-[linear-gradient(135deg,rgba(27,139,255,0.18),rgba(10,27,53,0.95))] p-8 text-center md:p-12">
           <p className="text-sm uppercase font-agenda-regular tracking-[0.24em] text-sky-500">
-            Call to action
+            Get started
           </p>
           <h2 className="mt-3 text-3xl font-agenda-medium md:text-4xl">
-            See your data in action
+            Turn your data into a live decision-making tool
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-white/70 leading-8 font-agenda-regular">
-            This live mockup shows how your Dashboard page could feel on the site:
-            premium, interactive, and aligned with the rest of your Digital section.
+            Get a branded, interactive dashboard that connects your data sources, automates
+            reporting, and gives your team the real-time visibility they need to act faster.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <button className="rounded-full bg-[#1b8bff] px-6 py-3 font-agenda-medium text-white transition hover:scale-[1.02]">
-              Request a Demo
-            </button>
-            <button className="rounded-full border border-white/15 bg-white/5 px-6 py-3 text-white/90 transition hover:bg-white/10 font-agenda-medium">
+            <a
+              href="mailto:media@artius.gr"
+              className="rounded-full border border-white/15 bg-white/5 px-6 py-3 text-white/90 transition hover:bg-white/10 font-agenda-medium"
+            >
               Contact Our Team
-            </button>
+            </a>
           </div>
         </div>
       </div>
