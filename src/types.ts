@@ -375,7 +375,8 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section"
            |"blocks.team-grid"
            | "blocks.key-projects"
            | "blocks.automation-stats"
-           | "blocks.expertise-grid";
+           | "blocks.expertise-grid"
+           | "blocks.dashboard-cmt";
 
 interface Base<
   T extends ComponentType,

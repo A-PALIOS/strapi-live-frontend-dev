@@ -517,7 +517,6 @@ export function WhyDashboardsSection() {
                     </div>
                     <span className="font-agenda-medium">{item}</span>
                   </div>
-                  <span className="text-white/35 font-agenda-medium">→</span>
                 </div>
               ))}
             </div>
