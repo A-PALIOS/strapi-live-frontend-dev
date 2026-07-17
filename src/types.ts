@@ -430,7 +430,8 @@ export type Block = HeroSectionMainProps | HeroSectionProps
   | KeyProjectsBlockProps
   | TwoColumnTextBlockProps
   | ExpertiseVideoTabsBlockProps
-  | ExpertiseGridBlockProps;
+  | ExpertiseGridBlockProps
+  | DashboardCmtProps;
 
 export interface HeroSectionMainProps extends Base<"blocks.hero-section-main"> {
   theme: "black" | "blue";
@@ -754,6 +755,17 @@ export interface DashboardSection4Props extends Base<"blocks.dashboard-section4"
 export interface DashboardSection5Props extends Base<"blocks.dashboard-section5"> {
   title: string;
 
+}
+
+export interface DashboardItemProps {
+  id: number;
+  url: string;
+  image: ImageProps;
+}
+
+export interface DashboardCmtProps extends Base<"blocks.dashboard-cmt"> {
+  title: string;
+  items: DashboardItemProps[];
 }
 
 

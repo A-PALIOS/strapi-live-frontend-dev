@@ -121,6 +121,7 @@ import DashboardSection2 from "./blocks/DashboardSection2";
 import DashboardSection3 from "./blocks/DashboardSection3";
 import DashboardSection4 from "./blocks/DashboardSection4";
 import DashboardSection5 from "./blocks/DashboardSection5";
+import { DashboardCmt } from "./blocks/DashboardCmt";
 import { StatementSection } from "./blocks/StatementSection";
 import { CompanyHighlights } from "./blocks/CompanyHighlights";
 import { AboutUsStatement } from "./blocks/AboutUsStatement";
@@ -271,6 +272,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <DashboardSection4 {...block} key={index} />;
     case "blocks.dashboard-section5":
       return <DashboardSection5 {...block} key={index} />;
+    case "blocks.dashboard-cmt":
+      return <DashboardCmt {...block} key={index} />;
     case "blocks.sticky-menu": {
       const aboutInfoBlocks = allBlocks.filter(
         (b): b is Block & { __component: "blocks.about-info" } =>

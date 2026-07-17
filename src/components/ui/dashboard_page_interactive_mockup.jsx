@@ -73,14 +73,7 @@ export function HeroSection() {
               Transform complex data into clear insights with powerful interactive dashboards designed for teams, executives, and organizations that need better visibility.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-4">
-              <button className="rounded-full bg-[#1b8bff] px-6 py-3 font-agenda-medium text-white shadow-lg shadow-blue-900/40 transition hover:scale-[1.02]">
-                Request a Demo
-              </button>
-              <button className="rounded-full border border-white/15 bg-white/5 px-6 py-3 font-agenda-medium text-white/90 backdrop-blur transition hover:bg-white/10">
-                Explore Examples
-              </button>
-            </div>
+            
 
             <div className="mt-10 grid max-w-2xl grid-cols-2 gap-4 md:grid-cols-4">
               {heroMetrics.map((item) => (
