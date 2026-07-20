@@ -445,6 +445,406 @@ function BoxChevronParticles({ hovered }: { hovered: boolean }) {
   );
 }
 
+// ─── "dataflow" variant — flowing wave ribbon + chart panel glyphs ──────────
+
+function DataFlowParticles({ active }: { active: boolean }) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    if (!active) return;
+
+    const canvas = canvasRef.current;
+    const container = canvas?.parentElement;
+    if (!canvas || !container) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let frame = 0;
+    let w = 0, h = 0, dpr = 1;
+    let fade = 0;
+
+    const rand = (a: number, b: number) => a + Math.random() * (b - a);
+
+    const resize = () => {
+      w = container.clientWidth;
+      h = container.clientHeight;
+      dpr = window.devicePixelRatio || 1;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    const mouse = { x: 0.5, y: 0.5, inside: false };
+    const onMouseMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      mouse.x = (e.clientX - rect.left) / rect.width;
+      mouse.y = (e.clientY - rect.top) / rect.height;
+      mouse.inside = true;
+    };
+    const onMouseLeave = () => {
+      mouse.inside = false;
+    };
+    container.addEventListener("mousemove", onMouseMove);
+    container.addEventListener("mouseleave", onMouseLeave);
+
+    // Path the ribbon flows along, t: 0 (lower-left) → 1 (upper-right)
+    const wavePoint = (t: number) => ({
+      x: -0.08 + t * 1.18,
+      y:
+        1.02 -
+        t * 0.92 +
+        Math.sin(t * Math.PI * 2.3) * 0.11 +
+        Math.sin(t * Math.PI * 5.1 + 1.3) * 0.04,
+    });
+
+    const waveNormal = (t: number) => {
+      const eps = 0.001;
+      const a = wavePoint(Math.max(0, t - eps));
+      const b = wavePoint(Math.min(1, t + eps));
+      const dx = b.x - a.x, dy = b.y - a.y;
+      const len = Math.hypot(dx, dy) || 1;
+      return { x: -dy / len, y: dx / len };
+    };
+
+    const flowParticles = Array.from({ length: 1700 }, () => ({
+      t: Math.random(),
+      speed: rand(0.00006, 0.00016),
+      offset: rand(-1, 1),
+      size: rand(1.3, 3.2),
+      alpha: rand(0.45, 1),
+      seed: rand(0, 1000),
+    }));
+
+    const dustParticles = Array.from({ length: 260 }, () => ({
+      x: Math.random(),
+      y: Math.random(),
+      vx: rand(-0.02, 0.02),
+      vy: rand(-0.02, 0.02),
+      size: rand(0.4, 1),
+      alpha: rand(0.08, 0.28),
+      seed: rand(0, 1000),
+    }));
+
+    type Panel = {
+      x: number; y: number; w: number; h: number;
+      kind: "line" | "bars" | "donut" | "table" | "database" | "file" | "tableIcon" | "cloud" | "api";
+      seed: number;
+      hover: number;
+    };
+
+    const panels: Panel[] = [
+      { x: 0.07, y: 0.11, w: 0.34, h: 0.24, kind: "line", seed: 10, hover: 0 },
+      { x: 0.68, y: 0.16, w: 0.28, h: 0.46, kind: "bars", seed: 40, hover: 0 },
+      { x: 0.30, y: 0.42, w: 0.22, h: 0.22, kind: "donut", seed: 70, hover: 0 },
+      { x: 0.04, y: 0.46, w: 0.20, h: 0.18, kind: "bars", seed: 55, hover: 0 },
+      { x: 0.58, y: 0.68, w: 0.36, h: 0.24, kind: "table", seed: 90, hover: 0 },
+      { x: 0.02, y: 0.74, w: 0.14, h: 0.14, kind: "database", seed: 25, hover: 0 },
+      { x: 0.20, y: 0.74, w: 0.14, h: 0.14, kind: "tableIcon", seed: 33, hover: 0 },
+      { x: 0.44, y: 0.02, w: 0.13, h: 0.13, kind: "file", seed: 60, hover: 0 },
+      { x: 0.44, y: 0.19, w: 0.14, h: 0.14, kind: "cloud", seed: 48, hover: 0 },
+      { x: 0.40, y: 0.76, w: 0.14, h: 0.14, kind: "api", seed: 66, hover: 0 },
+    ];
+
+    const drawRoundedRect = (x: number, y: number, rw: number, rh: number, r: number) => {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + rw, y, x + rw, y + rh, r);
+      ctx.arcTo(x + rw, y + rh, x, y + rh, r);
+      ctx.arcTo(x, y + rh, x, y, r);
+      ctx.arcTo(x, y, x + rw, y, r);
+      ctx.closePath();
+    };
+
+    const drawDatabaseIcon = (cx: number, cy: number, size: number) => {
+      const rx = size * 0.42, ry = size * 0.15, bodyH = size * 0.62;
+      const top = cy - bodyH / 2, bottom = cy + bodyH / 2;
+      ctx.beginPath();
+      ctx.moveTo(cx - rx, top);
+      ctx.lineTo(cx - rx, bottom);
+      ctx.moveTo(cx + rx, top);
+      ctx.lineTo(cx + rx, bottom);
+      ctx.stroke();
+      [top, cy, bottom].forEach((y) => {
+        ctx.beginPath();
+        ctx.ellipse(cx, y, rx, ry, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      });
+    };
+
+    const drawFileIcon = (cx: number, cy: number, size: number) => {
+      const fw = size * 0.5, fh = size * 0.64;
+      const x = cx - fw / 2, y = cy - fh / 2;
+      const fold = fw * 0.3;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + fw - fold, y);
+      ctx.lineTo(x + fw, y + fold);
+      ctx.lineTo(x + fw, y + fh);
+      ctx.lineTo(x, y + fh);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x + fw - fold, y);
+      ctx.lineTo(x + fw - fold, y + fold);
+      ctx.lineTo(x + fw, y + fold);
+      ctx.stroke();
+      for (let i = 0; i < 3; i++) {
+        const ly = y + fh * 0.46 + i * fh * 0.16;
+        ctx.beginPath();
+        ctx.moveTo(x + fw * 0.16, ly);
+        ctx.lineTo(x + fw * 0.84, ly);
+        ctx.stroke();
+      }
+    };
+
+    const drawTableIcon = (cx: number, cy: number, size: number) => {
+      const tw = size * 0.62, th = size * 0.5;
+      const x = cx - tw / 2, y = cy - th / 2;
+      ctx.strokeRect(x, y, tw, th);
+      const rowH = th / 3;
+      ctx.beginPath();
+      ctx.moveTo(x, y + rowH);
+      ctx.lineTo(x + tw, y + rowH);
+      ctx.moveTo(x, y + rowH * 2);
+      ctx.lineTo(x + tw, y + rowH * 2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x + tw * 0.42, y);
+      ctx.lineTo(x + tw * 0.42, y + th);
+      ctx.stroke();
+    };
+
+    const drawCloudIcon = (cx: number, cy: number, size: number) => {
+      const baseY = cy + size * 0.16;
+      const r1 = size * 0.15, r2 = size * 0.21, r3 = size * 0.16;
+      const x1 = cx - size * 0.26, x2 = cx + size * 0.02, x3 = cx + size * 0.28;
+
+      ctx.beginPath();
+      ctx.moveTo(x1 - r1, baseY);
+      ctx.arc(x1, baseY - r1 * 0.2, r1, Math.PI, Math.PI * 1.85);
+      ctx.arc(x2, baseY - r2 * 0.55, r2, Math.PI * 1.1, Math.PI * 1.95);
+      ctx.arc(x3, baseY - r3 * 0.2, r3, Math.PI * 1.25, 0);
+      ctx.lineTo(x1 - r1, baseY);
+      ctx.closePath();
+      ctx.stroke();
+    };
+
+    const drawApiIcon = (cx: number, cy: number, size: number) => {
+      ctx.font = `${Math.max(11, size * 0.34)}px sans-serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("API", cx, cy);
+
+      const gap = size * 0.44;
+      ctx.beginPath();
+      ctx.moveTo(cx - gap, cy - size * 0.22);
+      ctx.lineTo(cx - gap - size * 0.1, cy);
+      ctx.lineTo(cx - gap, cy + size * 0.22);
+      ctx.moveTo(cx + gap, cy - size * 0.22);
+      ctx.lineTo(cx + gap + size * 0.1, cy);
+      ctx.lineTo(cx + gap, cy + size * 0.22);
+      ctx.stroke();
+    };
+
+    const drawPanel = (panel: Panel, time: number, alpha: number) => {
+      const wobbleX = Math.sin(time * 0.0038 + panel.seed) * 8 * panel.hover;
+      const wobbleY = Math.cos(time * 0.0032 + panel.seed * 1.3) * 8 * panel.hover;
+      const float = Math.sin(time * 0.0012 + panel.seed) * 4 + wobbleY;
+      const px = panel.x * w + wobbleX;
+      const py = panel.y * h + float;
+      const pw = panel.w * w;
+      const ph = panel.h * h;
+
+      ctx.save();
+      ctx.globalAlpha = alpha;
+
+      const badgeKinds: Panel["kind"][] = ["database", "file", "tableIcon", "cloud", "api"];
+      if (badgeKinds.includes(panel.kind)) {
+        const cx = px + pw / 2, cy = py + ph / 2;
+        const r = Math.min(pw, ph) / 2;
+
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(10, 22, 42, ${0.55 + panel.hover * 0.15})`;
+        ctx.fill();
+        ctx.strokeStyle = `rgba(120, 170, 255, ${0.35 + panel.hover * 0.4})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        ctx.strokeStyle = "rgba(150, 205, 255, 0.95)";
+        ctx.fillStyle = "rgba(150, 205, 255, 0.95)";
+        ctx.lineWidth = 1.4;
+        if (panel.kind === "database") {
+          drawDatabaseIcon(cx, cy, r * 1.3);
+        } else if (panel.kind === "file") {
+          drawFileIcon(cx, cy, r * 1.5);
+        } else if (panel.kind === "tableIcon") {
+          drawTableIcon(cx, cy, r * 1.5);
+        } else if (panel.kind === "cloud") {
+          drawCloudIcon(cx, cy, r * 1.6);
+        } else {
+          drawApiIcon(cx, cy, r * 1.4);
+        }
+
+        ctx.restore();
+        return;
+      }
+
+      drawRoundedRect(px, py, pw, ph, 10);
+      ctx.fillStyle = `rgba(10, 22, 42, ${0.55 + panel.hover * 0.15})`;
+      ctx.fill();
+      ctx.strokeStyle = `rgba(120, 170, 255, ${0.35 + panel.hover * 0.4})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      ctx.strokeStyle = "rgba(120, 190, 255, 0.9)";
+      ctx.fillStyle = "rgba(120, 190, 255, 0.9)";
+
+      const pad = Math.min(pw, ph) * 0.16;
+
+      if (panel.kind === "line") {
+        const pts = [0.05, 0.4, 0.2, 0.6, 0.35, 0.9, 0.55, 0.7, 0.8, 0.3, 1, 0.55];
+        const linePoints: { x: number; y: number }[] = [];
+        for (let i = 0; i < pts.length; i += 2) {
+          linePoints.push({
+            x: px + pad + pts[i] * (pw - pad * 2),
+            y: py + ph - pad - pts[i + 1] * (ph - pad * 2),
+          });
+        }
+        ctx.beginPath();
+        linePoints.forEach((p, i) => {
+          if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+        });
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        linePoints.forEach((p) => {
+          ctx.beginPath();
+          ctx.fillStyle = "rgba(150, 205, 255, 0.95)";
+          ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      } else if (panel.kind === "bars") {
+        const heights = [0.32, 0.48, 0.4, 0.62, 0.8, 1];
+        const padX = pw * 0.1;
+        const padTop = ph * 0.1;
+        const padBottom = ph * 0.08;
+        const usableH = ph - padTop - padBottom;
+        const gap = (pw - padX * 2) / heights.length;
+        const bw = gap * 0.62;
+        heights.forEach((hr, i) => {
+          const bh = hr * usableH;
+          const bx = px + padX + i * gap + (gap - bw) / 2;
+          const by = py + ph - padBottom - bh;
+          ctx.globalAlpha = alpha * (0.55 + hr * 0.45);
+          ctx.fillRect(bx, by, bw, bh);
+        });
+        ctx.globalAlpha = alpha;
+      } else if (panel.kind === "donut") {
+        const cx = px + pw / 2, cy = py + ph / 2;
+        const r = Math.min(pw, ph) / 2 - pad * 0.4;
+        ctx.lineWidth = Math.max(3, r * 0.22);
+        ctx.beginPath();
+        ctx.strokeStyle = "rgba(120, 170, 255, 0.25)";
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.strokeStyle = "rgba(120, 190, 255, 0.95)";
+        ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * 0.78);
+        ctx.stroke();
+        ctx.fillStyle = "rgba(230, 240, 255, 0.95)";
+        ctx.font = `${Math.max(11, r * 0.42)}px sans-serif`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("78%", cx, cy);
+      } else if (panel.kind === "table") {
+        const rows = 4;
+        const rowH = (ph - pad * 2) / rows;
+        for (let i = 0; i < rows; i++) {
+          const ry = py + pad + i * rowH + rowH * 0.5;
+          ctx.globalAlpha = alpha * 0.7;
+          ctx.fillRect(px + pad, ry - 1, pw - pad * 2.6, 2);
+          ctx.globalAlpha = alpha * 0.9;
+          ctx.fillRect(px + pw - pad * 1.7, ry - 1, pad * 0.9, 2);
+        }
+        ctx.globalAlpha = alpha;
+      }
+
+      ctx.restore();
+    };
+
+    const draw = (time: number) => {
+      ctx.clearRect(0, 0, w, h);
+      fade += (1 - fade) * 0.04;
+
+      dustParticles.forEach((p) => {
+        p.x += p.vx / w; p.y += p.vy / h;
+        if (p.x < 0) p.x = 1; if (p.x > 1) p.x = 0;
+        if (p.y < 0) p.y = 1; if (p.y > 1) p.y = 0;
+        const twinkle = 0.5 + Math.sin(time * 0.002 + p.seed) * 0.3;
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(120, 170, 255, ${p.alpha * twinkle * fade})`;
+        ctx.arc(p.x * w, p.y * h, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      flowParticles.forEach((p) => {
+        p.t += p.speed * 16;
+        if (p.t > 1) p.t -= 1;
+
+        const base = wavePoint(p.t);
+        const n = waveNormal(p.t);
+        const thickness = 34 * Math.sin(p.t * Math.PI); // taper at both ends
+        const ox = p.offset * thickness;
+        const x = base.x * w + n.x * ox + Math.sin(time * 0.0015 + p.seed) * 1.5;
+        const y = base.y * h + n.y * ox + Math.cos(time * 0.0015 + p.seed) * 1.5;
+
+        const twinkle = 0.55 + Math.sin(time * 0.003 + p.seed) * 0.45;
+        const hue = 190 + p.t * 40; // cyan → blue along the flow
+        ctx.beginPath();
+        ctx.fillStyle = `hsla(${hue}, 90%, 65%, ${p.alpha * twinkle * fade})`;
+        ctx.arc(x, y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      panels.forEach((panel) => {
+        const px = panel.x * w, py = panel.y * h, pw = panel.w * w, ph = panel.h * h;
+        const margin = 10;
+        const isHovered =
+          mouse.inside &&
+          mouse.x * w >= px - margin &&
+          mouse.x * w <= px + pw + margin &&
+          mouse.y * h >= py - margin &&
+          mouse.y * h <= py + ph + margin;
+        panel.hover += ((isHovered ? 1 : 0) - panel.hover) * 0.08;
+        drawPanel(panel, time, fade);
+      });
+
+      frame = requestAnimationFrame(draw);
+    };
+
+    frame = requestAnimationFrame(draw);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", resize);
+      container.removeEventListener("mousemove", onMouseMove);
+      container.removeEventListener("mouseleave", onMouseLeave);
+    };
+  }, [active]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="pointer-events-none absolute inset-0 h-full w-full"
+    />
+  );
+}
+
 // ─── Main export ─────────────────────────────────────────────────────────────
 
 export function HeroSectionDigitalWeb({
@@ -551,6 +951,74 @@ export function HeroSectionDigitalWeb({
                 </span>
               </Link>
             )}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // ── "dataflow" variant ────────────────────────────────────────────────────
+  if (variant === "dataflow") {
+    return (
+      <section
+        ref={ref as any}
+        id="heropage"
+        data-header="dark"
+        className="relative min-h-[100vh] overflow-hidden bg-[#050b16]"
+      >
+        <div className="relative z-10 grid min-h-[100vh] items-center gap-10 px-6 py-24 md:grid-cols-2 md:px-10 lg:px-16 xl:px-20">
+          {/* Left: text */}
+          <div className="max-w-xl">
+            {logo && (
+              <div className="mb-6">
+                <StrapiImage
+                  src={logo.image.url}
+                  alt={logo.image.alternativeText || "Logo"}
+                  className="h-10 w-auto"
+                  width={120}
+                  height={120}
+                />
+              </div>
+            )}
+
+            <h1
+              className="
+                whitespace-normal break-words font-agenda-medium
+                text-[44px] leading-[0.95] tracking-[-0.055em]
+                [overflow-wrap:anywhere] text-white
+                md:text-[62px] lg:text-[68px]
+              "
+            >
+              <BlurText text={firstWord} delay={120} animateBy="words" direction="top" className="inline text-white" />{" "}
+              <BlurText text={rest} delay={180} animateBy="words" direction="top" className="inline text-white" />
+            </h1>
+
+            <p
+              className="mt-6 font-agenda-regular text-white/75"
+              style={{ fontSize: "clamp(18px, 2.2vw, 32px)", fontWeight: 400, lineHeight: "normal", letterSpacing: "-1.5px" }}
+            >
+              {subheader}
+            </p>
+
+            {cta && (
+              <Link
+                href={cta.href}
+                target={cta.isExternal ? "_blank" : "_self"}
+                className="group mt-12 inline-flex items-center gap-3 rounded-full bg-[#2563eb] px-6 py-3 text-white transition-transform duration-200 hover:-translate-y-0.5"
+              >
+                <span className="text-sm font-agenda-semibold md:text-base">{cta.text ?? "Learn More"}</span>
+                <span className="grid h-6 w-6 place-items-center rounded-md bg-white/15 transition-transform duration-200 group-hover:translate-x-0.5">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-3.5 w-3.5">
+                    <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />
+                  </svg>
+                </span>
+              </Link>
+            )}
+          </div>
+
+          {/* Right: flowing data wave — hidden on mobile, too dense/cramped to fit well below md */}
+          <div className="relative hidden h-[480px] w-full md:block lg:h-[560px]">
+            <DataFlowParticles active={showParticles} />
           </div>
         </div>
       </section>

@@ -376,7 +376,8 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section"
            | "blocks.key-projects"
            | "blocks.automation-stats"
            | "blocks.expertise-grid"
-           | "blocks.dashboard-cmt";
+           | "blocks.dashboard-cmt"
+           | "blocks.integrated-team-section";
 
 interface Base<
   T extends ComponentType,
@@ -412,6 +413,7 @@ export type Block = HeroSectionMainProps | HeroSectionProps
   | SecondaryMenuProps
   | AICardsBlockProps
   | UseCasesSectionProps
+  | IntegratedTeamSectionProps
   | IntegrationsSectionProps
   | CoverflowShowcaseProps
   | CompanyHighlightsBlockProps
@@ -499,7 +501,7 @@ export interface HeroSectionDigitalCardsProps extends Base<"blocks.hero-section-
 
 export interface HeroSectionDigitalWebProps extends Base<"blocks.hero-section-digital-web"> {
   theme: "black" | "blue";
-  enum: "brackets" | "code";
+  enum: "brackets" | "code" | "dataflow";
   heading: string;
   subheader?:string;
   cta?: LinkProps;
@@ -546,6 +548,22 @@ export interface UseCasesSectionProps extends Base<"blocks.use-cases-section"> {
   items: UseCaseItem[];
   cta?: LinkProps;     // uses your existing LinkProps
   image: ImageProps;   // uses your existing ImageProps
+}
+
+// Integrated Team Section (blocks.integrated-team-section)
+export interface IntegratedTeamItem {
+  id: number;
+  icon?: ImageProps;
+  title: string;
+  description: string;
+}
+
+export interface IntegratedTeamSectionProps extends Base<"blocks.integrated-team-section"> {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  items: IntegratedTeamItem[];
+  image: ImageProps;
 }
 
 // Case Highlight (Strapi component: blocks.case-highlight)

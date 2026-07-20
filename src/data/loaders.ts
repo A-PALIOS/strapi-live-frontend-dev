@@ -431,6 +431,16 @@ const pageBlocksPopulate = {
         cta,
       },
     },
+    "blocks.integrated-team-section": {
+      populate: {
+        items: {
+          populate: {
+            icon: media,
+          },
+        },
+        image: media,
+      },
+    },
     "blocks.automation-stats": {
       populate: {
         items: true,

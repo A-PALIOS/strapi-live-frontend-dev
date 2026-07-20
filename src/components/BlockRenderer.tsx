@@ -113,6 +113,7 @@ import { WhatWeBelieve } from "@/components/blocks/WhatWeBelieve";
 import { Mission } from "@/components/blocks/Mission";
 import {AICardsBlock} from "@/components/blocks/AICardsBlock"
 import { UseCasesSection } from "./blocks/UseCasesSection";
+import { IntegratedTeamSection } from "./blocks/IntegratedTeamSection";
 import { CaseHighlight } from "./blocks/CaseHighlight";
 import { InfoBox } from "./blocks/InfoBox";
 import { CoverflowShowcase } from "@/components/blocks/CoverflowShowcase";
@@ -256,6 +257,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       
     case "blocks.use-cases-section":
       return <UseCasesSection data={block} key={index} />;
+    case "blocks.integrated-team-section":
+      return <IntegratedTeamSection data={block} key={index} />;
     case "blocks.case-highlight":
       return <CaseHighlight data={block} key={index} />;
     case "blocks.company-highlights":
