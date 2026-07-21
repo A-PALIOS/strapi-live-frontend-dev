@@ -286,6 +286,15 @@ const pageBlocksPopulate = {
     "blocks.dashboard-section3": true,
     "blocks.dashboard-section4": true,
     "blocks.dashboard-section5": true,
+    "blocks.dashboard-cmt": {
+      populate: {
+        items: {
+          populate: {
+            image: media,
+          },
+        },
+      },
+    },
     "blocks.statement-section": true,
     "blocks.about-us-statement": true,
     "blocks.two-column-text": true,
