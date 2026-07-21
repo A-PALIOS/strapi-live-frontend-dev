@@ -32,6 +32,13 @@ const nextConfig: NextConfig = {
     eslint: {
     ignoreDuringBuilds: true,
   },
+  webpack: (config) => {
+    config.watchOptions = {
+      ...config.watchOptions,
+      ignored: ['**/dashboards.cmtprooptiki.gr/**', '**/node_modules/**'],
+    };
+    return config;
+  },
   images: {
     remotePatterns: [
       {

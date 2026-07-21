@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# cPanel subdomain folder created inside public_html on the server
+/dashboards.cmtprooptiki.gr
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
