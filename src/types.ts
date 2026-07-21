@@ -501,7 +501,7 @@ export interface HeroSectionDigitalCardsProps extends Base<"blocks.hero-section-
 
 export interface HeroSectionDigitalWebProps extends Base<"blocks.hero-section-digital-web"> {
   theme: "black" | "blue";
-  enum: "brackets" | "code" | "dataflow";
+  enum: "brackets" | "code" | "dataflow" | "dashboard";
   heading: string;
   subheader?:string;
   cta?: LinkProps;

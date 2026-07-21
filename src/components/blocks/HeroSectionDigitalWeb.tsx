@@ -845,6 +845,130 @@ function DataFlowParticles({ active }: { active: boolean }) {
   );
 }
 
+// ─── "dashboard" variant — floating KPI cards + chart panel ─────────────────
+
+function DashboardHeroVisual() {
+  const lineD =
+    "M0,58 C14,52 22,30 36,32 C50,34 56,18 70,20 C84,22 90,6 100,4";
+
+  return (
+    <div className="relative mx-auto h-[420px] w-full max-w-xl sm:h-[460px] lg:h-[540px]">
+      <style jsx>{`
+        @keyframes dashFloat {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+      `}</style>
+
+      <div className="absolute left-1/2 top-1/2 h-[85%] w-[85%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/20 blur-[90px]" />
+
+      {/* Main panel */}
+      <div className="absolute left-[16%] right-0 top-[10%] h-[78%] rounded-2xl border border-blue-400/25 bg-[#0a1330]/90 p-4 shadow-2xl shadow-black/40 backdrop-blur sm:p-5">
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-1.5">
+            <div className="h-2 w-20 rounded-full bg-white/15" />
+            <div className="h-2 w-14 rounded-full bg-white/10" />
+          </div>
+          <div className="flex gap-1">
+            <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
+            <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
+            <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
+          </div>
+        </div>
+
+        <div className="mt-4 h-[38%] w-full rounded-xl border border-white/5 bg-[#081026]/70 p-3">
+          <svg viewBox="0 0 100 60" preserveAspectRatio="none" className="h-full w-full">
+            <defs>
+              <linearGradient id="heroLineStroke" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#5B8CFF" />
+                <stop offset="100%" stopColor="#8B6BFF" />
+              </linearGradient>
+              <linearGradient id="heroLineFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="rgba(91,140,255,0.35)" />
+                <stop offset="100%" stopColor="rgba(91,140,255,0)" />
+              </linearGradient>
+            </defs>
+            <path d={`${lineD} L100,60 L0,60 Z`} fill="url(#heroLineFill)" stroke="none" />
+            <path d={lineD} fill="none" stroke="url(#heroLineStroke)" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+        </div>
+
+        <div className="mt-3 grid grid-cols-3 gap-3">
+          <div className="flex h-20 items-end gap-1.5 rounded-xl border border-white/5 bg-[#081026]/70 p-3">
+            {[0.4, 0.6, 0.5, 0.75, 1].map((v, i) => (
+              <div
+                key={i}
+                className="flex-1 rounded-t-sm bg-gradient-to-t from-blue-500 to-indigo-400"
+                style={{ height: `${v * 100}%` }}
+              />
+            ))}
+          </div>
+
+          <div className="flex h-20 items-center justify-center rounded-xl border border-white/5 bg-[#081026]/70">
+            <svg viewBox="0 0 36 36" className="h-14 w-14">
+              <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="4" />
+              <circle
+                cx="18"
+                cy="18"
+                r="15"
+                fill="none"
+                stroke="url(#heroLineStroke)"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeDasharray={`${0.78 * 2 * Math.PI * 15} ${2 * Math.PI * 15}`}
+                transform="rotate(-90 18 18)"
+              />
+              <text x="18" y="21" textAnchor="middle" fontSize="9" fill="white">
+                78%
+              </text>
+            </svg>
+          </div>
+
+          <div className="flex h-20 flex-col justify-center gap-2 rounded-xl border border-white/5 bg-[#081026]/70 p-3">
+            <div className="h-1.5 w-full rounded-full bg-white/15" />
+            <div className="h-1.5 w-2/3 rounded-full bg-white/10" />
+            <div className="h-1.5 w-full rounded-full bg-white/15" />
+            <div className="h-1.5 w-1/2 rounded-full bg-white/10" />
+          </div>
+        </div>
+      </div>
+
+      {/* Floating stat cards */}
+      <div
+        className="absolute left-0 top-0 w-[42%] rounded-xl border border-blue-400/25 bg-[#0a1330]/95 p-3 shadow-xl shadow-black/40 sm:p-4"
+        style={{ animation: "dashFloat 6s ease-in-out infinite" }}
+      >
+        <div className="text-xs text-white/60 sm:text-sm">Total Projects</div>
+        <div className="mt-1 font-agenda-medium text-xl text-white sm:text-2xl">24</div>
+        <div className="mt-1 text-xs text-emerald-400 sm:text-sm">↑ +12%</div>
+      </div>
+
+      <div
+        className="absolute right-0 top-[24%] w-[44%] rounded-xl border border-blue-400/25 bg-[#0a1330]/95 p-3 shadow-xl shadow-black/40 sm:p-4"
+        style={{ animation: "dashFloat 7s ease-in-out infinite 1.2s" }}
+      >
+        <div className="text-xs text-white/60 sm:text-sm">Completion Rate</div>
+        <div className="mt-1 font-agenda-medium text-xl text-white sm:text-2xl">78%</div>
+        <div className="mt-1 text-xs text-emerald-400 sm:text-sm">↑ +8%</div>
+      </div>
+
+      <div
+        className="absolute bottom-[6%] left-0 w-[42%] rounded-xl border border-blue-400/25 bg-[#0a1330]/95 p-3 shadow-xl shadow-black/40 sm:p-4"
+        style={{ animation: "dashFloat 6.5s ease-in-out infinite 0.6s" }}
+      >
+        <div className="text-xs text-white/60 sm:text-sm">Active Clients</div>
+        <div className="mt-1 font-agenda-medium text-xl text-white sm:text-2xl">56</div>
+        <div className="mt-1 text-xs text-emerald-400 sm:text-sm">↑ +14%</div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Main export ─────────────────────────────────────────────────────────────
 
 export function HeroSectionDigitalWeb({
@@ -852,11 +976,18 @@ export function HeroSectionDigitalWeb({
   subheader,
   cta,
   logo,
+  author,
   darken = false,
   enum: variant,
 }: Readonly<HeroSectionDigitalWebProps>) {
   const [firstWord, ...restWords] = (heading ?? "").split(" ");
   const rest = restWords.join(" ");
+
+  // ── "dashboard" variant heading split — last two words get the gradient ──
+  const headingWords = (heading ?? "").trim().split(" ").filter(Boolean);
+  const highlightCount = Math.min(2, headingWords.length);
+  const dashboardPlain = headingWords.slice(0, headingWords.length - highlightCount).join(" ");
+  const dashboardHighlight = headingWords.slice(headingWords.length - highlightCount).join(" ");
 
   // ── "code" variant state ──
   const [hovered, setHovered] = useState(false);
@@ -951,6 +1082,85 @@ export function HeroSectionDigitalWeb({
                 </span>
               </Link>
             )}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // ── "dashboard" variant ───────────────────────────────────────────────────
+  if (variant === "dashboard") {
+    return (
+      <section
+        id="heropage"
+        data-header="dark"
+        className="relative min-h-[100vh] overflow-hidden bg-[#050b16]"
+      >
+        <div className="relative z-10 grid min-h-[100vh] items-center gap-10 px-6 py-24 md:grid-cols-2 md:px-10 lg:px-16 xl:px-20">
+          {/* Left: text */}
+          <div className="max-w-xl">
+            {logo && (
+              <div className="mb-6">
+                <StrapiImage
+                  src={logo.image.url}
+                  alt={logo.image.alternativeText || "Logo"}
+                  className="h-10 w-auto"
+                  width={120}
+                  height={120}
+                />
+              </div>
+            )}
+
+            <p className="mb-4 font-agenda-semibold text-sm uppercase tracking-[0.35em] text-indigo-300">
+              {author || "Dashboards"}
+            </p>
+
+            <h1
+              className="
+                whitespace-normal break-words font-agenda-medium
+                text-[44px] leading-[0.95] tracking-[-0.055em]
+                [overflow-wrap:anywhere] text-white
+                md:text-[62px] lg:text-[68px]
+              "
+            >
+              {dashboardPlain && (
+                <>
+                  <BlurText text={dashboardPlain} delay={120} animateBy="words" direction="top" className="inline text-white" />{" "}
+                </>
+              )}
+              <BlurText
+                text={dashboardHighlight}
+                delay={180}
+                animateBy="words"
+                direction="top"
+                className="inline bg-gradient-to-r from-[#5B8CFF] to-[#8B6BFF] bg-clip-text text-blue-500"
+              />
+            </h1>
+
+            <p
+              className="mt-6 font-agenda-regular text-white/75"
+              style={{ fontSize: "clamp(18px, 2.2vw, 32px)", fontWeight: 400, lineHeight: "normal", letterSpacing: "-1.5px" }}
+            >
+              {subheader}
+            </p>
+
+            {cta && (
+              <Link
+                href={cta.href}
+                target={cta.isExternal ? "_blank" : "_self"}
+                className="group mt-12 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#4F6BF6] to-[#7C4DFF] px-7 py-3.5 text-white shadow-lg shadow-blue-900/30 transition-transform duration-200 hover:-translate-y-0.5"
+              >
+                <span className="text-sm font-agenda-semibold md:text-base">{cta.text ?? "Discuss Your Dashboard Needs"}</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-4 w-4">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </Link>
+            )}
+          </div>
+
+          {/* Right: floating dashboard mockup — hidden on mobile */}
+          <div className="hidden md:block">
+            <DashboardHeroVisual />
           </div>
         </div>
       </section>
