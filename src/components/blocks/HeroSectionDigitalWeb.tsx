@@ -847,12 +847,82 @@ function DataFlowParticles({ active }: { active: boolean }) {
 
 // ─── "dashboard" variant — floating KPI cards + chart panel ─────────────────
 
-function DashboardHeroVisual() {
+function DashboardHeroVisual({
+  active,
+  revealed,
+  reduced,
+}: {
+  active: boolean;
+  revealed: boolean;
+  reduced: boolean;
+}) {
   const lineD =
     "M0,58 C14,52 22,30 36,32 C50,34 56,18 70,20 C84,22 90,6 100,4";
 
+  const bars = [0.4, 0.6, 0.5, 0.75, 1];
+  const donutTarget = 0.78;
+
+  const [progress, setProgress] = useState(0);
+  const startedRef = useRef(false);
+  const rafRef = useRef<number | null>(null);
+
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    if (!revealed || startedRef.current) return;
+    startedRef.current = true;
+
+    if (reduced) {
+      setProgress(1);
+      return;
+    }
+
+    const duration = 1400;
+    const start = performance.now();
+    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      setProgress(easeOutCubic(t));
+      if (t < 1) {
+        rafRef.current = requestAnimationFrame(tick);
+      }
+    };
+    rafRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [revealed, reduced]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (reduced) return;
+    const rect = wrapRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    setTilt({ x: py * -6, y: px * 8 });
+  };
+
+  const resetTilt = () => setTilt({ x: 0, y: 0 });
+
+  const totalProjects = Math.round(24 * progress);
+  const completionRate = Math.round(78 * progress);
+  const activeClients = Math.round(56 * progress);
+  const liveDashboards = Math.round(12 * progress);
+  const growthDelta = Math.round(12 * progress);
+  const completionDelta = (8 * progress).toFixed(0);
+  const clientsDelta = Math.round(14 * progress);
+  const dashboardsDelta = Math.round(5 * progress);
+
   return (
-    <div className="relative mx-auto h-[420px] w-full max-w-xl sm:h-[460px] lg:h-[540px]">
+    <div
+      ref={wrapRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={resetTilt}
+      className="relative mx-auto h-[420px] w-full max-w-xl [perspective:1200px] sm:h-[460px] lg:h-[540px]"
+    >
       <style jsx>{`
         @keyframes dashFloat {
           0%,
@@ -863,107 +933,231 @@ function DashboardHeroVisual() {
             transform: translateY(-10px);
           }
         }
+        @keyframes dashPulse {
+          0%,
+          100% {
+            opacity: 0.55;
+          }
+          50% {
+            opacity: 1;
+          }
+        }
+        @keyframes dashShine {
+          0% {
+            transform: translateX(-120%) skewX(-12deg);
+          }
+          100% {
+            transform: translateX(220%) skewX(-12deg);
+          }
+        }
+        @keyframes dashGlow {
+          0%,
+          100% {
+            opacity: 0.2;
+            transform: translate(-50%, -50%) scale(1);
+          }
+          50% {
+            opacity: 0.35;
+            transform: translate(-50%, -50%) scale(1.08);
+          }
+        }
+        @keyframes dashBreathe {
+          0%,
+          100% {
+            transform: scaleY(1);
+          }
+          50% {
+            transform: scaleY(0.9);
+          }
+        }
+        @keyframes dashSpin {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
       `}</style>
 
-      <div className="absolute left-1/2 top-1/2 h-[85%] w-[85%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/20 blur-[90px]" />
+      <div
+        className="absolute left-1/2 top-1/2 h-[85%] w-[85%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/20 blur-[90px]"
+        style={active ? { animation: "dashGlow 5s ease-in-out infinite" } : undefined}
+      />
 
-      {/* Main panel */}
-      <div className="absolute left-[16%] right-0 top-[10%] h-[78%] rounded-2xl border border-blue-400/25 bg-[#0a1330]/90 p-4 shadow-2xl shadow-black/40 backdrop-blur sm:p-5">
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col gap-1.5">
-            <div className="h-2 w-20 rounded-full bg-white/15" />
-            <div className="h-2 w-14 rounded-full bg-white/10" />
-          </div>
-          <div className="flex gap-1">
-            <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
-            <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
-            <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
-          </div>
-        </div>
+      <div
+        className="relative h-full w-full transition-transform duration-300 ease-out [transform-style:preserve-3d]"
+        style={{ transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` }}
+      >
+        {/* Main panel */}
+        <div
+          className={`absolute left-[16%] right-0 top-[10%] h-[78%] overflow-hidden rounded-2xl border border-blue-400/25 bg-[#0a1330]/90 p-4 shadow-2xl shadow-black/40 backdrop-blur transition-all duration-700 ease-out sm:p-5 ${
+            revealed ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+          }`}
+        >
+          {active && (
+            <div
+              className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+              style={{ animation: "dashShine 5.5s ease-in-out infinite" }}
+            />
+          )}
 
-        <div className="mt-4 h-[38%] w-full rounded-xl border border-white/5 bg-[#081026]/70 p-3">
-          <svg viewBox="0 0 100 60" preserveAspectRatio="none" className="h-full w-full">
-            <defs>
-              <linearGradient id="heroLineStroke" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#5B8CFF" />
-                <stop offset="100%" stopColor="#8B6BFF" />
-              </linearGradient>
-              <linearGradient id="heroLineFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="rgba(91,140,255,0.35)" />
-                <stop offset="100%" stopColor="rgba(91,140,255,0)" />
-              </linearGradient>
-            </defs>
-            <path d={`${lineD} L100,60 L0,60 Z`} fill="url(#heroLineFill)" stroke="none" />
-            <path d={lineD} fill="none" stroke="url(#heroLineStroke)" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-        </div>
-
-        <div className="mt-3 grid grid-cols-3 gap-3">
-          <div className="flex h-20 items-end gap-1.5 rounded-xl border border-white/5 bg-[#081026]/70 p-3">
-            {[0.4, 0.6, 0.5, 0.75, 1].map((v, i) => (
-              <div
-                key={i}
-                className="flex-1 rounded-t-sm bg-gradient-to-t from-blue-500 to-indigo-400"
-                style={{ height: `${v * 100}%` }}
+          <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-1.5">
+              <div className="h-2 w-20 rounded-full bg-white/15" />
+              <div className="h-2 w-14 rounded-full bg-white/10" />
+            </div>
+            <div className="flex items-center gap-2">
+              <span
+                className="h-1.5 w-1.5 rounded-full bg-emerald-400"
+                style={active ? { animation: "dashPulse 2s ease-in-out infinite" } : undefined}
               />
-            ))}
+              <div className="flex gap-1">
+                <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
+                <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
+                <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
+              </div>
+            </div>
           </div>
 
-          <div className="flex h-20 items-center justify-center rounded-xl border border-white/5 bg-[#081026]/70">
-            <svg viewBox="0 0 36 36" className="h-14 w-14">
-              <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="4" />
-              <circle
-                cx="18"
-                cy="18"
-                r="15"
+          <div className="mt-4 h-[38%] w-full rounded-xl border border-white/5 bg-[#081026]/70 p-3">
+            <svg viewBox="0 0 100 60" preserveAspectRatio="none" className="h-full w-full">
+              <defs>
+                <linearGradient id="heroLineStroke" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#5B8CFF" />
+                  <stop offset="100%" stopColor="#8B6BFF" />
+                </linearGradient>
+                <linearGradient id="heroLineFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(91,140,255,0.35)" />
+                  <stop offset="100%" stopColor="rgba(91,140,255,0)" />
+                </linearGradient>
+              </defs>
+              <path
+                d={`${lineD} L100,60 L0,60 Z`}
+                fill="url(#heroLineFill)"
+                stroke="none"
+                style={{ opacity: progress }}
+              />
+              <path
+                d={lineD}
                 fill="none"
                 stroke="url(#heroLineStroke)"
-                strokeWidth="4"
+                strokeWidth="2"
                 strokeLinecap="round"
-                strokeDasharray={`${0.78 * 2 * Math.PI * 15} ${2 * Math.PI * 15}`}
-                transform="rotate(-90 18 18)"
+                pathLength={1}
+                strokeDasharray={1}
+                strokeDashoffset={1 - progress}
               />
-              <text x="18" y="21" textAnchor="middle" fontSize="9" fill="white">
-                78%
-              </text>
+              {active && progress >= 1 && (
+                <circle r="1.6" fill="#c7d7ff">
+                  <animateMotion dur="3.2s" repeatCount="indefinite" path={lineD} />
+                </circle>
+              )}
             </svg>
           </div>
 
-          <div className="flex h-20 flex-col justify-center gap-2 rounded-xl border border-white/5 bg-[#081026]/70 p-3">
-            <div className="h-1.5 w-full rounded-full bg-white/15" />
-            <div className="h-1.5 w-2/3 rounded-full bg-white/10" />
-            <div className="h-1.5 w-full rounded-full bg-white/15" />
-            <div className="h-1.5 w-1/2 rounded-full bg-white/10" />
+          <div className="mt-3 grid grid-cols-3 gap-3">
+            <div className="flex h-20 items-end gap-1.5 rounded-xl border border-white/5 bg-[#081026]/70 p-3">
+              {bars.map((v, i) => (
+                <div
+                  key={i}
+                  className="flex-1 rounded-t-sm bg-gradient-to-t from-blue-500 to-indigo-400 transition-[height] duration-700 ease-out"
+                  style={{
+                    height: `${v * 100 * progress}%`,
+                    transitionDelay: `${i * 70}ms`,
+                    animationName: active && progress >= 1 ? "dashBreathe" : "none",
+                    animationDuration: "2.4s",
+                    animationTimingFunction: "ease-in-out",
+                    animationIterationCount: "infinite",
+                    animationDelay: `${i * 0.15}s`,
+                    transformOrigin: "bottom",
+                  }}
+                />
+              ))}
+            </div>
+
+            <div className="relative flex h-20 items-center justify-center rounded-xl border border-white/5 bg-[#081026]/70">
+              {active && (
+                <div
+                  className="pointer-events-none absolute h-14 w-14 rounded-full opacity-40"
+                  style={{
+                    background: "conic-gradient(from 0deg, transparent 0%, #5B8CFF 12%, transparent 26%)",
+                    animation: "dashSpin 4s linear infinite",
+                  }}
+                />
+              )}
+              <svg viewBox="0 0 36 36" className="h-14 w-14">
+                <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="4" />
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="15"
+                  fill="none"
+                  stroke="url(#heroLineStroke)"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  strokeDasharray={`${donutTarget * progress * 2 * Math.PI * 15} ${2 * Math.PI * 15}`}
+                  transform="rotate(-90 18 18)"
+                />
+                <text x="18" y="21" textAnchor="middle" fontSize="9" fill="white">
+                  {completionRate}%
+                </text>
+              </svg>
+            </div>
+
+            <div className="flex h-20 flex-col justify-center gap-2 rounded-xl border border-white/5 bg-[#081026]/70 p-3">
+              <div className="h-1.5 w-full origin-left rounded-full bg-white/15 transition-transform duration-700" style={{ transform: `scaleX(${progress})` }} />
+              <div className="h-1.5 w-2/3 origin-left rounded-full bg-white/10 transition-transform delay-100 duration-700" style={{ transform: `scaleX(${progress})` }} />
+              <div className="h-1.5 w-full origin-left rounded-full bg-white/15 transition-transform delay-200 duration-700" style={{ transform: `scaleX(${progress})` }} />
+              <div className="h-1.5 w-1/2 origin-left rounded-full bg-white/10 transition-transform delay-300 duration-700" style={{ transform: `scaleX(${progress})` }} />
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Floating stat cards */}
-      <div
-        className="absolute left-0 top-0 w-[42%] rounded-xl border border-blue-400/25 bg-[#0a1330]/95 p-3 shadow-xl shadow-black/40 sm:p-4"
-        style={{ animation: "dashFloat 6s ease-in-out infinite" }}
-      >
-        <div className="text-xs text-white/60 sm:text-sm">Total Projects</div>
-        <div className="mt-1 font-agenda-medium text-xl text-white sm:text-2xl">24</div>
-        <div className="mt-1 text-xs text-emerald-400 sm:text-sm">↑ +12%</div>
-      </div>
+        {/* Floating stat cards */}
+        <div
+          className={`absolute left-0 top-0 w-[42%] rounded-xl border border-blue-400/25 bg-[#0a1330]/95 p-3 shadow-xl shadow-black/40 transition-all duration-700 ease-out sm:p-4 ${
+            revealed ? "translate-x-0 opacity-100" : "-translate-x-6 opacity-0"
+          }`}
+          style={active ? { animation: "dashFloat 6s ease-in-out infinite" } : undefined}
+        >
+          <div className="text-xs text-white/60 sm:text-sm">Total Projects</div>
+          <div className="mt-1 font-agenda-medium text-xl text-white sm:text-2xl">{totalProjects}</div>
+          <div className="mt-1 text-xs text-emerald-400 sm:text-sm">↑ +{growthDelta}%</div>
+        </div>
 
-      <div
-        className="absolute right-0 top-[24%] w-[44%] rounded-xl border border-blue-400/25 bg-[#0a1330]/95 p-3 shadow-xl shadow-black/40 sm:p-4"
-        style={{ animation: "dashFloat 7s ease-in-out infinite 1.2s" }}
-      >
-        <div className="text-xs text-white/60 sm:text-sm">Completion Rate</div>
-        <div className="mt-1 font-agenda-medium text-xl text-white sm:text-2xl">78%</div>
-        <div className="mt-1 text-xs text-emerald-400 sm:text-sm">↑ +8%</div>
-      </div>
+        <div
+          className={`absolute right-0 top-[24%] w-[44%] rounded-xl border border-blue-400/25 bg-[#0a1330]/95 p-3 shadow-xl shadow-black/40 transition-all duration-700 ease-out sm:p-4 ${
+            revealed ? "translate-x-0 opacity-100" : "translate-x-6 opacity-0"
+          }`}
+          style={active ? { animation: "dashFloat 7s ease-in-out infinite 1.2s", transitionDelay: "150ms" } : { transitionDelay: "150ms" }}
+        >
+          <div className="text-xs text-white/60 sm:text-sm">Completion Rate</div>
+          <div className="mt-1 font-agenda-medium text-xl text-white sm:text-2xl">{completionRate}%</div>
+          <div className="mt-1 text-xs text-emerald-400 sm:text-sm">↑ +{completionDelta}%</div>
+        </div>
 
-      <div
-        className="absolute bottom-[6%] left-0 w-[42%] rounded-xl border border-blue-400/25 bg-[#0a1330]/95 p-3 shadow-xl shadow-black/40 sm:p-4"
-        style={{ animation: "dashFloat 6.5s ease-in-out infinite 0.6s" }}
-      >
-        <div className="text-xs text-white/60 sm:text-sm">Active Clients</div>
-        <div className="mt-1 font-agenda-medium text-xl text-white sm:text-2xl">56</div>
-        <div className="mt-1 text-xs text-emerald-400 sm:text-sm">↑ +14%</div>
+        <div
+          className={`absolute bottom-[6%] left-0 w-[42%] rounded-xl border border-blue-400/25 bg-[#0a1330]/95 p-3 shadow-xl shadow-black/40 transition-all duration-700 ease-out sm:p-4 ${
+            revealed ? "translate-x-0 opacity-100" : "-translate-x-6 opacity-0"
+          }`}
+          style={active ? { animation: "dashFloat 6.5s ease-in-out infinite 0.6s", transitionDelay: "300ms" } : { transitionDelay: "300ms" }}
+        >
+          <div className="text-xs text-white/60 sm:text-sm">Active Clients</div>
+          <div className="mt-1 font-agenda-medium text-xl text-white sm:text-2xl">{activeClients}</div>
+          <div className="mt-1 text-xs text-emerald-400 sm:text-sm">↑ +{clientsDelta}%</div>
+        </div>
+
+        <div
+          className={`absolute bottom-[-4%] right-[4%] w-[40%] rounded-xl border border-blue-400/25 bg-[#0a1330]/95 p-3 shadow-xl shadow-black/40 transition-all duration-700 ease-out sm:p-4 ${
+            revealed ? "translate-x-0 opacity-100" : "translate-x-6 opacity-0"
+          }`}
+          style={active ? { animation: "dashFloat 6.8s ease-in-out infinite 0.9s", transitionDelay: "450ms" } : { transitionDelay: "450ms" }}
+        >
+          <div className="text-xs text-white/60 sm:text-sm">Live Dashboards</div>
+          <div className="mt-1 font-agenda-medium text-xl text-white sm:text-2xl">{liveDashboards}</div>
+          <div className="mt-1 text-xs text-emerald-400 sm:text-sm">↑ +{dashboardsDelta}%</div>
+        </div>
       </div>
     </div>
   );
@@ -1092,6 +1286,7 @@ export function HeroSectionDigitalWeb({
   if (variant === "dashboard") {
     return (
       <section
+        ref={ref as any}
         id="heropage"
         data-header="dark"
         className="relative min-h-[100vh] overflow-hidden bg-[#050b16]"
@@ -1160,7 +1355,7 @@ export function HeroSectionDigitalWeb({
 
           {/* Right: floating dashboard mockup — hidden on mobile */}
           <div className="hidden md:block">
-            <DashboardHeroVisual />
+            <DashboardHeroVisual active={showParticles} revealed={inView} reduced={prefersReduced} />
           </div>
         </div>
       </section>
