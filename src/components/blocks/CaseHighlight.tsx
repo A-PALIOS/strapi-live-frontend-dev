@@ -161,7 +161,7 @@ export function CaseHighlight({ data }: Props) {
         {/* RIGHT */}
         {image?.url ? (
         <div className="relative">
-          <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+          <div className="relative aspect-[17/10] w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5">
             <StrapiImage
               src={image?.url}
               alt={image?.alternativeText || title}
