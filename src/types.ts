@@ -375,7 +375,9 @@ type ComponentType ="blocks.hero-section-main" | "blocks.hero-section"
            |"blocks.team-grid"
            | "blocks.key-projects"
            | "blocks.automation-stats"
-           | "blocks.expertise-grid";
+           | "blocks.expertise-grid"
+           | "blocks.dashboard-cmt"
+           | "blocks.integrated-team-section";
 
 interface Base<
   T extends ComponentType,
@@ -411,6 +413,7 @@ export type Block = HeroSectionMainProps | HeroSectionProps
   | SecondaryMenuProps
   | AICardsBlockProps
   | UseCasesSectionProps
+  | IntegratedTeamSectionProps
   | IntegrationsSectionProps
   | CoverflowShowcaseProps
   | CompanyHighlightsBlockProps
@@ -430,7 +433,8 @@ export type Block = HeroSectionMainProps | HeroSectionProps
   | KeyProjectsBlockProps
   | TwoColumnTextBlockProps
   | ExpertiseVideoTabsBlockProps
-  | ExpertiseGridBlockProps;
+  | ExpertiseGridBlockProps
+  | DashboardCmtProps;
 
 export interface HeroSectionMainProps extends Base<"blocks.hero-section-main"> {
   theme: "black" | "blue";
@@ -497,7 +501,7 @@ export interface HeroSectionDigitalCardsProps extends Base<"blocks.hero-section-
 
 export interface HeroSectionDigitalWebProps extends Base<"blocks.hero-section-digital-web"> {
   theme: "black" | "blue";
-  enum: "brackets" | "code";
+  enum: "brackets" | "code" | "dataflow" | "dashboard";
   heading: string;
   subheader?:string;
   cta?: LinkProps;
@@ -540,9 +544,26 @@ export interface UseCaseItem {
 export interface UseCasesSectionProps extends Base<"blocks.use-cases-section"> {
   eyebrow?: string;
   title: string;
+  description?: string;
   items: UseCaseItem[];
   cta?: LinkProps;     // uses your existing LinkProps
   image: ImageProps;   // uses your existing ImageProps
+}
+
+// Integrated Team Section (blocks.integrated-team-section)
+export interface IntegratedTeamItem {
+  id: number;
+  icon?: ImageProps;
+  title: string;
+  description: string;
+}
+
+export interface IntegratedTeamSectionProps extends Base<"blocks.integrated-team-section"> {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  items: IntegratedTeamItem[];
+  image: ImageProps;
 }
 
 // Case Highlight (Strapi component: blocks.case-highlight)
@@ -615,7 +636,7 @@ export interface AICardItem {
 export interface AICardsBlockProps extends Base<"blocks.ai-cards"> {
   Title: string;        // matches your Strapi field: Title
   Cards: AICardItem[];  // matches your Strapi field: Cards
-  layout?: "default" | "six_columns";
+  layout?: "default" | "six_columns" | "left_layout";
 }
 
 
@@ -630,7 +651,7 @@ export interface ServicesAccordionBlockProps {
   id: number;
   heading:string;
   items: ServiceAccordionItem[];
-  image: StrapiMedia | null;
+  image: ImageProps;
   cta?: LinkProps;
 }
 
@@ -753,6 +774,17 @@ export interface DashboardSection4Props extends Base<"blocks.dashboard-section4"
 export interface DashboardSection5Props extends Base<"blocks.dashboard-section5"> {
   title: string;
 
+}
+
+export interface DashboardItemProps {
+  id: number;
+  url: string;
+  image: ImageProps;
+}
+
+export interface DashboardCmtProps extends Base<"blocks.dashboard-cmt"> {
+  title: string;
+  items: DashboardItemProps[];
 }
 
 

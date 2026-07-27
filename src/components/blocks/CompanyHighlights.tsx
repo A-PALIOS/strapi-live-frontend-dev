@@ -30,7 +30,7 @@ export function CompanyHighlights({
           </h2>
         )}
 
-        <div className="w-full bg-white grid grid-cols-1 border-t border-[#d9d9d9] px-6 lg:px-10 xl:px-16 2xl:px-20 xl:grid-cols-3 xl:min-h-[60vh] /* #mobile */">
+        <div className="w-full bg-white grid grid-cols-1 border-t border-[#d9d9d9] px-6 lg:px-10 xl:px-16 2xl:px-20 lg:grid-cols-3 lg:min-h-[60vh] /* #mobile */">
           {items?.map((item, index) => (
             <article
               key={item.id ?? index}
@@ -67,9 +67,9 @@ export function CompanyHighlights({
                 2xl:pb-[18px]
                 2xl:items-start
                 2xl:text-left
-                2xl:border-r
-                2xl:border-[#d9d9d9]
-                last:2xl:border-r-0
+                lg:border-r
+                lg:border-[#d9d9d9]
+                last:lg:border-r-0
 
                 items-align-center
 
@@ -107,7 +107,7 @@ export function CompanyHighlights({
 
                     sm:text-[48px]
                     md:text-[64px]
-                    lg:text-[78px]
+                    lg:text-[72px]
                     xl:text-[80px]
                     2xl:text-8xl
 

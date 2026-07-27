@@ -445,6 +445,724 @@ function BoxChevronParticles({ hovered }: { hovered: boolean }) {
   );
 }
 
+// ─── "dataflow" variant — flowing wave ribbon + chart panel glyphs ──────────
+
+function DataFlowParticles({ active }: { active: boolean }) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    if (!active) return;
+
+    const canvas = canvasRef.current;
+    const container = canvas?.parentElement;
+    if (!canvas || !container) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let frame = 0;
+    let w = 0, h = 0, dpr = 1;
+    let fade = 0;
+
+    const rand = (a: number, b: number) => a + Math.random() * (b - a);
+
+    const resize = () => {
+      w = container.clientWidth;
+      h = container.clientHeight;
+      dpr = window.devicePixelRatio || 1;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    const mouse = { x: 0.5, y: 0.5, inside: false };
+    const onMouseMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      mouse.x = (e.clientX - rect.left) / rect.width;
+      mouse.y = (e.clientY - rect.top) / rect.height;
+      mouse.inside = true;
+    };
+    const onMouseLeave = () => {
+      mouse.inside = false;
+    };
+    container.addEventListener("mousemove", onMouseMove);
+    container.addEventListener("mouseleave", onMouseLeave);
+
+    // Path the ribbon flows along, t: 0 (lower-left) → 1 (upper-right)
+    const wavePoint = (t: number) => ({
+      x: -0.08 + t * 1.18,
+      y:
+        1.02 -
+        t * 0.92 +
+        Math.sin(t * Math.PI * 2.3) * 0.11 +
+        Math.sin(t * Math.PI * 5.1 + 1.3) * 0.04,
+    });
+
+    const waveNormal = (t: number) => {
+      const eps = 0.001;
+      const a = wavePoint(Math.max(0, t - eps));
+      const b = wavePoint(Math.min(1, t + eps));
+      const dx = b.x - a.x, dy = b.y - a.y;
+      const len = Math.hypot(dx, dy) || 1;
+      return { x: -dy / len, y: dx / len };
+    };
+
+    const flowParticles = Array.from({ length: 1700 }, () => ({
+      t: Math.random(),
+      speed: rand(0.00006, 0.00016),
+      offset: rand(-1, 1),
+      size: rand(1.3, 3.2),
+      alpha: rand(0.45, 1),
+      seed: rand(0, 1000),
+    }));
+
+    const dustParticles = Array.from({ length: 260 }, () => ({
+      x: Math.random(),
+      y: Math.random(),
+      vx: rand(-0.02, 0.02),
+      vy: rand(-0.02, 0.02),
+      size: rand(0.4, 1),
+      alpha: rand(0.08, 0.28),
+      seed: rand(0, 1000),
+    }));
+
+    type Panel = {
+      x: number; y: number; w: number; h: number;
+      kind: "line" | "bars" | "donut" | "table" | "database" | "file" | "tableIcon" | "cloud" | "api";
+      seed: number;
+      hover: number;
+    };
+
+    const panels: Panel[] = [
+      { x: 0.07, y: 0.11, w: 0.34, h: 0.24, kind: "line", seed: 10, hover: 0 },
+      { x: 0.68, y: 0.16, w: 0.28, h: 0.46, kind: "bars", seed: 40, hover: 0 },
+      { x: 0.30, y: 0.42, w: 0.22, h: 0.22, kind: "donut", seed: 70, hover: 0 },
+      { x: 0.04, y: 0.46, w: 0.20, h: 0.18, kind: "bars", seed: 55, hover: 0 },
+      { x: 0.58, y: 0.68, w: 0.36, h: 0.24, kind: "table", seed: 90, hover: 0 },
+      { x: 0.02, y: 0.74, w: 0.14, h: 0.14, kind: "database", seed: 25, hover: 0 },
+      { x: 0.20, y: 0.74, w: 0.14, h: 0.14, kind: "tableIcon", seed: 33, hover: 0 },
+      { x: 0.44, y: 0.02, w: 0.13, h: 0.13, kind: "file", seed: 60, hover: 0 },
+      { x: 0.44, y: 0.19, w: 0.14, h: 0.14, kind: "cloud", seed: 48, hover: 0 },
+      { x: 0.40, y: 0.76, w: 0.14, h: 0.14, kind: "api", seed: 66, hover: 0 },
+    ];
+
+    const drawRoundedRect = (x: number, y: number, rw: number, rh: number, r: number) => {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + rw, y, x + rw, y + rh, r);
+      ctx.arcTo(x + rw, y + rh, x, y + rh, r);
+      ctx.arcTo(x, y + rh, x, y, r);
+      ctx.arcTo(x, y, x + rw, y, r);
+      ctx.closePath();
+    };
+
+    const drawDatabaseIcon = (cx: number, cy: number, size: number) => {
+      const rx = size * 0.42, ry = size * 0.15, bodyH = size * 0.62;
+      const top = cy - bodyH / 2, bottom = cy + bodyH / 2;
+      ctx.beginPath();
+      ctx.moveTo(cx - rx, top);
+      ctx.lineTo(cx - rx, bottom);
+      ctx.moveTo(cx + rx, top);
+      ctx.lineTo(cx + rx, bottom);
+      ctx.stroke();
+      [top, cy, bottom].forEach((y) => {
+        ctx.beginPath();
+        ctx.ellipse(cx, y, rx, ry, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      });
+    };
+
+    const drawFileIcon = (cx: number, cy: number, size: number) => {
+      const fw = size * 0.5, fh = size * 0.64;
+      const x = cx - fw / 2, y = cy - fh / 2;
+      const fold = fw * 0.3;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + fw - fold, y);
+      ctx.lineTo(x + fw, y + fold);
+      ctx.lineTo(x + fw, y + fh);
+      ctx.lineTo(x, y + fh);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x + fw - fold, y);
+      ctx.lineTo(x + fw - fold, y + fold);
+      ctx.lineTo(x + fw, y + fold);
+      ctx.stroke();
+      for (let i = 0; i < 3; i++) {
+        const ly = y + fh * 0.46 + i * fh * 0.16;
+        ctx.beginPath();
+        ctx.moveTo(x + fw * 0.16, ly);
+        ctx.lineTo(x + fw * 0.84, ly);
+        ctx.stroke();
+      }
+    };
+
+    const drawTableIcon = (cx: number, cy: number, size: number) => {
+      const tw = size * 0.62, th = size * 0.5;
+      const x = cx - tw / 2, y = cy - th / 2;
+      ctx.strokeRect(x, y, tw, th);
+      const rowH = th / 3;
+      ctx.beginPath();
+      ctx.moveTo(x, y + rowH);
+      ctx.lineTo(x + tw, y + rowH);
+      ctx.moveTo(x, y + rowH * 2);
+      ctx.lineTo(x + tw, y + rowH * 2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x + tw * 0.42, y);
+      ctx.lineTo(x + tw * 0.42, y + th);
+      ctx.stroke();
+    };
+
+    const drawCloudIcon = (cx: number, cy: number, size: number) => {
+      const baseY = cy + size * 0.16;
+      const r1 = size * 0.15, r2 = size * 0.21, r3 = size * 0.16;
+      const x1 = cx - size * 0.26, x2 = cx + size * 0.02, x3 = cx + size * 0.28;
+
+      ctx.beginPath();
+      ctx.moveTo(x1 - r1, baseY);
+      ctx.arc(x1, baseY - r1 * 0.2, r1, Math.PI, Math.PI * 1.85);
+      ctx.arc(x2, baseY - r2 * 0.55, r2, Math.PI * 1.1, Math.PI * 1.95);
+      ctx.arc(x3, baseY - r3 * 0.2, r3, Math.PI * 1.25, 0);
+      ctx.lineTo(x1 - r1, baseY);
+      ctx.closePath();
+      ctx.stroke();
+    };
+
+    const drawApiIcon = (cx: number, cy: number, size: number) => {
+      ctx.font = `${Math.max(11, size * 0.34)}px sans-serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("API", cx, cy);
+
+      const gap = size * 0.44;
+      ctx.beginPath();
+      ctx.moveTo(cx - gap, cy - size * 0.22);
+      ctx.lineTo(cx - gap - size * 0.1, cy);
+      ctx.lineTo(cx - gap, cy + size * 0.22);
+      ctx.moveTo(cx + gap, cy - size * 0.22);
+      ctx.lineTo(cx + gap + size * 0.1, cy);
+      ctx.lineTo(cx + gap, cy + size * 0.22);
+      ctx.stroke();
+    };
+
+    const drawPanel = (panel: Panel, time: number, alpha: number) => {
+      const wobbleX = Math.sin(time * 0.0038 + panel.seed) * 8 * panel.hover;
+      const wobbleY = Math.cos(time * 0.0032 + panel.seed * 1.3) * 8 * panel.hover;
+      const float = Math.sin(time * 0.0012 + panel.seed) * 4 + wobbleY;
+      const px = panel.x * w + wobbleX;
+      const py = panel.y * h + float;
+      const pw = panel.w * w;
+      const ph = panel.h * h;
+
+      ctx.save();
+      ctx.globalAlpha = alpha;
+
+      const badgeKinds: Panel["kind"][] = ["database", "file", "tableIcon", "cloud", "api"];
+      if (badgeKinds.includes(panel.kind)) {
+        const cx = px + pw / 2, cy = py + ph / 2;
+        const r = Math.min(pw, ph) / 2;
+
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(10, 22, 42, ${0.55 + panel.hover * 0.15})`;
+        ctx.fill();
+        ctx.strokeStyle = `rgba(120, 170, 255, ${0.35 + panel.hover * 0.4})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        ctx.strokeStyle = "rgba(150, 205, 255, 0.95)";
+        ctx.fillStyle = "rgba(150, 205, 255, 0.95)";
+        ctx.lineWidth = 1.4;
+        if (panel.kind === "database") {
+          drawDatabaseIcon(cx, cy, r * 1.3);
+        } else if (panel.kind === "file") {
+          drawFileIcon(cx, cy, r * 1.5);
+        } else if (panel.kind === "tableIcon") {
+          drawTableIcon(cx, cy, r * 1.5);
+        } else if (panel.kind === "cloud") {
+          drawCloudIcon(cx, cy, r * 1.6);
+        } else {
+          drawApiIcon(cx, cy, r * 1.4);
+        }
+
+        ctx.restore();
+        return;
+      }
+
+      drawRoundedRect(px, py, pw, ph, 10);
+      ctx.fillStyle = `rgba(10, 22, 42, ${0.55 + panel.hover * 0.15})`;
+      ctx.fill();
+      ctx.strokeStyle = `rgba(120, 170, 255, ${0.35 + panel.hover * 0.4})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      ctx.strokeStyle = "rgba(120, 190, 255, 0.9)";
+      ctx.fillStyle = "rgba(120, 190, 255, 0.9)";
+
+      const pad = Math.min(pw, ph) * 0.16;
+
+      if (panel.kind === "line") {
+        const pts = [0.05, 0.4, 0.2, 0.6, 0.35, 0.9, 0.55, 0.7, 0.8, 0.3, 1, 0.55];
+        const linePoints: { x: number; y: number }[] = [];
+        for (let i = 0; i < pts.length; i += 2) {
+          linePoints.push({
+            x: px + pad + pts[i] * (pw - pad * 2),
+            y: py + ph - pad - pts[i + 1] * (ph - pad * 2),
+          });
+        }
+        ctx.beginPath();
+        linePoints.forEach((p, i) => {
+          if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+        });
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        linePoints.forEach((p) => {
+          ctx.beginPath();
+          ctx.fillStyle = "rgba(150, 205, 255, 0.95)";
+          ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      } else if (panel.kind === "bars") {
+        const heights = [0.32, 0.48, 0.4, 0.62, 0.8, 1];
+        const padX = pw * 0.1;
+        const padTop = ph * 0.1;
+        const padBottom = ph * 0.08;
+        const usableH = ph - padTop - padBottom;
+        const gap = (pw - padX * 2) / heights.length;
+        const bw = gap * 0.62;
+        heights.forEach((hr, i) => {
+          const bh = hr * usableH;
+          const bx = px + padX + i * gap + (gap - bw) / 2;
+          const by = py + ph - padBottom - bh;
+          ctx.globalAlpha = alpha * (0.55 + hr * 0.45);
+          ctx.fillRect(bx, by, bw, bh);
+        });
+        ctx.globalAlpha = alpha;
+      } else if (panel.kind === "donut") {
+        const cx = px + pw / 2, cy = py + ph / 2;
+        const r = Math.min(pw, ph) / 2 - pad * 0.4;
+        ctx.lineWidth = Math.max(3, r * 0.22);
+        ctx.beginPath();
+        ctx.strokeStyle = "rgba(120, 170, 255, 0.25)";
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.strokeStyle = "rgba(120, 190, 255, 0.95)";
+        ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * 0.78);
+        ctx.stroke();
+        ctx.fillStyle = "rgba(230, 240, 255, 0.95)";
+        ctx.font = `${Math.max(11, r * 0.42)}px sans-serif`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("78%", cx, cy);
+      } else if (panel.kind === "table") {
+        const rows = 4;
+        const rowH = (ph - pad * 2) / rows;
+        for (let i = 0; i < rows; i++) {
+          const ry = py + pad + i * rowH + rowH * 0.5;
+          ctx.globalAlpha = alpha * 0.7;
+          ctx.fillRect(px + pad, ry - 1, pw - pad * 2.6, 2);
+          ctx.globalAlpha = alpha * 0.9;
+          ctx.fillRect(px + pw - pad * 1.7, ry - 1, pad * 0.9, 2);
+        }
+        ctx.globalAlpha = alpha;
+      }
+
+      ctx.restore();
+    };
+
+    const draw = (time: number) => {
+      ctx.clearRect(0, 0, w, h);
+      fade += (1 - fade) * 0.04;
+
+      dustParticles.forEach((p) => {
+        p.x += p.vx / w; p.y += p.vy / h;
+        if (p.x < 0) p.x = 1; if (p.x > 1) p.x = 0;
+        if (p.y < 0) p.y = 1; if (p.y > 1) p.y = 0;
+        const twinkle = 0.5 + Math.sin(time * 0.002 + p.seed) * 0.3;
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(120, 170, 255, ${p.alpha * twinkle * fade})`;
+        ctx.arc(p.x * w, p.y * h, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      flowParticles.forEach((p) => {
+        p.t += p.speed * 16;
+        if (p.t > 1) p.t -= 1;
+
+        const base = wavePoint(p.t);
+        const n = waveNormal(p.t);
+        const thickness = 34 * Math.sin(p.t * Math.PI); // taper at both ends
+        const ox = p.offset * thickness;
+        const x = base.x * w + n.x * ox + Math.sin(time * 0.0015 + p.seed) * 1.5;
+        const y = base.y * h + n.y * ox + Math.cos(time * 0.0015 + p.seed) * 1.5;
+
+        const twinkle = 0.55 + Math.sin(time * 0.003 + p.seed) * 0.45;
+        const hue = 190 + p.t * 40; // cyan → blue along the flow
+        ctx.beginPath();
+        ctx.fillStyle = `hsla(${hue}, 90%, 65%, ${p.alpha * twinkle * fade})`;
+        ctx.arc(x, y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      panels.forEach((panel) => {
+        const px = panel.x * w, py = panel.y * h, pw = panel.w * w, ph = panel.h * h;
+        const margin = 10;
+        const isHovered =
+          mouse.inside &&
+          mouse.x * w >= px - margin &&
+          mouse.x * w <= px + pw + margin &&
+          mouse.y * h >= py - margin &&
+          mouse.y * h <= py + ph + margin;
+        panel.hover += ((isHovered ? 1 : 0) - panel.hover) * 0.08;
+        drawPanel(panel, time, fade);
+      });
+
+      frame = requestAnimationFrame(draw);
+    };
+
+    frame = requestAnimationFrame(draw);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", resize);
+      container.removeEventListener("mousemove", onMouseMove);
+      container.removeEventListener("mouseleave", onMouseLeave);
+    };
+  }, [active]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="pointer-events-none absolute inset-0 h-full w-full"
+    />
+  );
+}
+
+// ─── "dashboard" variant — floating KPI cards + chart panel ─────────────────
+
+function DashboardHeroVisual({
+  active,
+  revealed,
+  reduced,
+}: {
+  active: boolean;
+  revealed: boolean;
+  reduced: boolean;
+}) {
+  const lineD =
+    "M0,58 C14,52 22,30 36,32 C50,34 56,18 70,20 C84,22 90,6 100,4";
+
+  const bars = [0.4, 0.6, 0.5, 0.75, 1];
+  const donutTarget = 0.78;
+
+  const [progress, setProgress] = useState(0);
+  const startedRef = useRef(false);
+  const rafRef = useRef<number | null>(null);
+
+  const wrapRef = useRef<HTMLDivElement | null>(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    if (!revealed || startedRef.current) return;
+    startedRef.current = true;
+
+    if (reduced) {
+      setProgress(1);
+      return;
+    }
+
+    const duration = 1400;
+    const start = performance.now();
+    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      setProgress(easeOutCubic(t));
+      if (t < 1) {
+        rafRef.current = requestAnimationFrame(tick);
+      }
+    };
+    rafRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [revealed, reduced]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (reduced) return;
+    const rect = wrapRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    setTilt({ x: py * -6, y: px * 8 });
+  };
+
+  const resetTilt = () => setTilt({ x: 0, y: 0 });
+
+  const totalProjects = Math.round(24 * progress);
+  const completionRate = Math.round(78 * progress);
+  const activeClients = Math.round(56 * progress);
+  const liveDashboards = Math.round(12 * progress);
+  const growthDelta = Math.round(12 * progress);
+  const completionDelta = (8 * progress).toFixed(0);
+  const clientsDelta = Math.round(14 * progress);
+  const dashboardsDelta = Math.round(5 * progress);
+
+  return (
+    <div
+      ref={wrapRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={resetTilt}
+      className="relative mx-auto h-[420px] w-full max-w-xl [perspective:1200px] sm:h-[460px] lg:h-[540px]"
+    >
+      <style jsx>{`
+        @keyframes dashFloat {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+        @keyframes dashPulse {
+          0%,
+          100% {
+            opacity: 0.55;
+          }
+          50% {
+            opacity: 1;
+          }
+        }
+        @keyframes dashShine {
+          0% {
+            transform: translateX(-120%) skewX(-12deg);
+          }
+          100% {
+            transform: translateX(220%) skewX(-12deg);
+          }
+        }
+        @keyframes dashGlow {
+          0%,
+          100% {
+            opacity: 0.2;
+            transform: translate(-50%, -50%) scale(1);
+          }
+          50% {
+            opacity: 0.35;
+            transform: translate(-50%, -50%) scale(1.08);
+          }
+        }
+        @keyframes dashBreathe {
+          0%,
+          100% {
+            transform: scaleY(1);
+          }
+          50% {
+            transform: scaleY(0.9);
+          }
+        }
+        @keyframes dashSpin {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+      `}</style>
+
+      <div
+        className="absolute left-1/2 top-1/2 h-[85%] w-[85%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-600/20 blur-[90px]"
+        style={active ? { animation: "dashGlow 5s ease-in-out infinite" } : undefined}
+      />
+
+      <div
+        className="relative h-full w-full transition-transform duration-300 ease-out [transform-style:preserve-3d]"
+        style={{ transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` }}
+      >
+        {/* Main panel */}
+        <div
+          className={`absolute left-[16%] right-0 top-[10%] h-[78%] overflow-hidden rounded-2xl border border-blue-400/25 bg-[#0a1330]/90 p-4 shadow-2xl shadow-black/40 backdrop-blur transition-all duration-700 ease-out sm:p-5 ${
+            revealed ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+          }`}
+        >
+          {active && (
+            <div
+              className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+              style={{ animation: "dashShine 5.5s ease-in-out infinite" }}
+            />
+          )}
+
+          <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-1.5">
+              <div className="h-2 w-20 rounded-full bg-white/15" />
+              <div className="h-2 w-14 rounded-full bg-white/10" />
+            </div>
+            <div className="flex items-center gap-2">
+              <span
+                className="h-1.5 w-1.5 rounded-full bg-emerald-400"
+                style={active ? { animation: "dashPulse 2s ease-in-out infinite" } : undefined}
+              />
+              <div className="flex gap-1">
+                <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
+                <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
+                <span className="h-1.5 w-1.5 rounded-full bg-white/25" />
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-4 h-[38%] w-full rounded-xl border border-white/5 bg-[#081026]/70 p-3">
+            <svg viewBox="0 0 100 60" preserveAspectRatio="none" className="h-full w-full">
+              <defs>
+                <linearGradient id="heroLineStroke" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#5B8CFF" />
+                  <stop offset="100%" stopColor="#8B6BFF" />
+                </linearGradient>
+                <linearGradient id="heroLineFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(91,140,255,0.35)" />
+                  <stop offset="100%" stopColor="rgba(91,140,255,0)" />
+                </linearGradient>
+              </defs>
+              <path
+                d={`${lineD} L100,60 L0,60 Z`}
+                fill="url(#heroLineFill)"
+                stroke="none"
+                style={{ opacity: progress }}
+              />
+              <path
+                d={lineD}
+                fill="none"
+                stroke="url(#heroLineStroke)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                pathLength={1}
+                strokeDasharray={1}
+                strokeDashoffset={1 - progress}
+              />
+              {active && progress >= 1 && (
+                <circle r="1.6" fill="#c7d7ff">
+                  <animateMotion dur="3.2s" repeatCount="indefinite" path={lineD} />
+                </circle>
+              )}
+            </svg>
+          </div>
+
+          <div className="mt-3 grid grid-cols-3 gap-3">
+            <div className="flex h-20 items-end gap-1.5 rounded-xl border border-white/5 bg-[#081026]/70 p-3">
+              {bars.map((v, i) => (
+                <div
+                  key={i}
+                  className="flex-1 rounded-t-sm bg-gradient-to-t from-blue-500 to-indigo-400 transition-[height] duration-700 ease-out"
+                  style={{
+                    height: `${v * 100 * progress}%`,
+                    transitionDelay: `${i * 70}ms`,
+                    animationName: active && progress >= 1 ? "dashBreathe" : "none",
+                    animationDuration: "2.4s",
+                    animationTimingFunction: "ease-in-out",
+                    animationIterationCount: "infinite",
+                    animationDelay: `${i * 0.15}s`,
+                    transformOrigin: "bottom",
+                  }}
+                />
+              ))}
+            </div>
+
+            <div className="relative flex h-20 items-center justify-center rounded-xl border border-white/5 bg-[#081026]/70">
+              {active && (
+                <div
+                  className="pointer-events-none absolute h-14 w-14 rounded-full opacity-40"
+                  style={{
+                    background: "conic-gradient(from 0deg, transparent 0%, #5B8CFF 12%, transparent 26%)",
+                    animation: "dashSpin 4s linear infinite",
+                  }}
+                />
+              )}
+              <svg viewBox="0 0 36 36" className="h-14 w-14">
+                <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="4" />
+                <circle
+                  cx="18"
+                  cy="18"
+                  r="15"
+                  fill="none"
+                  stroke="url(#heroLineStroke)"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  strokeDasharray={`${donutTarget * progress * 2 * Math.PI * 15} ${2 * Math.PI * 15}`}
+                  transform="rotate(-90 18 18)"
+                />
+                <text x="18" y="21" textAnchor="middle" fontSize="9" fill="white">
+                  {completionRate}%
+                </text>
+              </svg>
+            </div>
+
+            <div className="flex h-20 flex-col justify-center gap-2 rounded-xl border border-white/5 bg-[#081026]/70 p-3">
+              <div className="h-1.5 w-full origin-left rounded-full bg-white/15 transition-transform duration-700" style={{ transform: `scaleX(${progress})` }} />
+              <div className="h-1.5 w-2/3 origin-left rounded-full bg-white/10 transition-transform delay-100 duration-700" style={{ transform: `scaleX(${progress})` }} />
+              <div className="h-1.5 w-full origin-left rounded-full bg-white/15 transition-transform delay-200 duration-700" style={{ transform: `scaleX(${progress})` }} />
+              <div className="h-1.5 w-1/2 origin-left rounded-full bg-white/10 transition-transform delay-300 duration-700" style={{ transform: `scaleX(${progress})` }} />
+            </div>
+          </div>
+        </div>
+
+        {/* Floating stat cards */}
+        <div
+          className={`absolute left-0 top-0 w-[42%] rounded-xl border border-blue-400/25 bg-[#0a1330]/95 p-3 shadow-xl shadow-black/40 transition-all duration-700 ease-out sm:p-4 ${
+            revealed ? "translate-x-0 opacity-100" : "-translate-x-6 opacity-0"
+          }`}
+          style={active ? { animation: "dashFloat 6s ease-in-out infinite" } : undefined}
+        >
+          <div className="text-xs text-white/60 sm:text-sm">Total Projects</div>
+          <div className="mt-1 font-agenda-medium text-xl text-white sm:text-2xl">{totalProjects}</div>
+          <div className="mt-1 text-xs text-emerald-400 sm:text-sm">↑ +{growthDelta}%</div>
+        </div>
+
+        <div
+          className={`absolute right-0 top-[24%] w-[44%] rounded-xl border border-blue-400/25 bg-[#0a1330]/95 p-3 shadow-xl shadow-black/40 transition-all duration-700 ease-out sm:p-4 ${
+            revealed ? "translate-x-0 opacity-100" : "translate-x-6 opacity-0"
+          }`}
+          style={active ? { animation: "dashFloat 7s ease-in-out infinite 1.2s", transitionDelay: "150ms" } : { transitionDelay: "150ms" }}
+        >
+          <div className="text-xs text-white/60 sm:text-sm">Completion Rate</div>
+          <div className="mt-1 font-agenda-medium text-xl text-white sm:text-2xl">{completionRate}%</div>
+          <div className="mt-1 text-xs text-emerald-400 sm:text-sm">↑ +{completionDelta}%</div>
+        </div>
+
+        <div
+          className={`absolute bottom-[6%] left-0 w-[42%] rounded-xl border border-blue-400/25 bg-[#0a1330]/95 p-3 shadow-xl shadow-black/40 transition-all duration-700 ease-out sm:p-4 ${
+            revealed ? "translate-x-0 opacity-100" : "-translate-x-6 opacity-0"
+          }`}
+          style={active ? { animation: "dashFloat 6.5s ease-in-out infinite 0.6s", transitionDelay: "300ms" } : { transitionDelay: "300ms" }}
+        >
+          <div className="text-xs text-white/60 sm:text-sm">Active Clients</div>
+          <div className="mt-1 font-agenda-medium text-xl text-white sm:text-2xl">{activeClients}</div>
+          <div className="mt-1 text-xs text-emerald-400 sm:text-sm">↑ +{clientsDelta}%</div>
+        </div>
+
+        <div
+          className={`absolute bottom-[-4%] right-[4%] w-[40%] rounded-xl border border-blue-400/25 bg-[#0a1330]/95 p-3 shadow-xl shadow-black/40 transition-all duration-700 ease-out sm:p-4 ${
+            revealed ? "translate-x-0 opacity-100" : "translate-x-6 opacity-0"
+          }`}
+          style={active ? { animation: "dashFloat 6.8s ease-in-out infinite 0.9s", transitionDelay: "450ms" } : { transitionDelay: "450ms" }}
+        >
+          <div className="text-xs text-white/60 sm:text-sm">Live Dashboards</div>
+          <div className="mt-1 font-agenda-medium text-xl text-white sm:text-2xl">{liveDashboards}</div>
+          <div className="mt-1 text-xs text-emerald-400 sm:text-sm">↑ +{dashboardsDelta}%</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Main export ─────────────────────────────────────────────────────────────
 
 export function HeroSectionDigitalWeb({
@@ -452,11 +1170,18 @@ export function HeroSectionDigitalWeb({
   subheader,
   cta,
   logo,
+  author,
   darken = false,
   enum: variant,
 }: Readonly<HeroSectionDigitalWebProps>) {
   const [firstWord, ...restWords] = (heading ?? "").split(" ");
   const rest = restWords.join(" ");
+
+  // ── "dashboard" variant heading split — last two words get the gradient ──
+  const headingWords = (heading ?? "").trim().split(" ").filter(Boolean);
+  const highlightCount = Math.min(2, headingWords.length);
+  const dashboardPlain = headingWords.slice(0, headingWords.length - highlightCount).join(" ");
+  const dashboardHighlight = headingWords.slice(headingWords.length - highlightCount).join(" ");
 
   // ── "code" variant state ──
   const [hovered, setHovered] = useState(false);
@@ -551,6 +1276,154 @@ export function HeroSectionDigitalWeb({
                 </span>
               </Link>
             )}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // ── "dashboard" variant ───────────────────────────────────────────────────
+  if (variant === "dashboard") {
+    return (
+      <section
+        ref={ref as any}
+        id="heropage"
+        data-header="dark"
+        className="relative min-h-[100vh] overflow-hidden bg-[#050b16]"
+      >
+        <div className="relative z-10 grid min-h-[100vh] items-center gap-10 px-6 py-24 md:grid-cols-2 md:px-10 lg:px-16 xl:px-20">
+          {/* Left: text */}
+          <div className="max-w-xl">
+            {logo && (
+              <div className="mb-6">
+                <StrapiImage
+                  src={logo.image.url}
+                  alt={logo.image.alternativeText || "Logo"}
+                  className="h-10 w-auto"
+                  width={120}
+                  height={120}
+                />
+              </div>
+            )}
+
+            <p className="mb-4 font-agenda-semibold text-sm uppercase tracking-[0.35em] text-indigo-300">
+              {author || "Dashboards"}
+            </p>
+
+            <h1
+              className="
+                whitespace-normal break-words font-agenda-medium
+                text-[44px] leading-[0.95] tracking-[-0.055em]
+                [overflow-wrap:anywhere] text-white
+                md:text-[62px] lg:text-[68px]
+              "
+            >
+              {dashboardPlain && (
+                <>
+                  <BlurText text={dashboardPlain} delay={120} animateBy="words" direction="top" className="inline text-white" />{" "}
+                </>
+              )}
+              <BlurText
+                text={dashboardHighlight}
+                delay={180}
+                animateBy="words"
+                direction="top"
+                className="inline bg-gradient-to-r from-[#5B8CFF] to-[#8B6BFF] bg-clip-text text-blue-500"
+              />
+            </h1>
+
+            <p
+              className="mt-6 font-agenda-regular text-white/75"
+              style={{ fontSize: "clamp(18px, 2.2vw, 32px)", fontWeight: 400, lineHeight: "normal", letterSpacing: "-1.5px" }}
+            >
+              {subheader}
+            </p>
+
+            {cta && (
+              <Link
+                href={cta.href}
+                target={cta.isExternal ? "_blank" : "_self"}
+                className="group mt-12 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#4F6BF6] to-[#7C4DFF] px-7 py-3.5 text-white shadow-lg shadow-blue-900/30 transition-transform duration-200 hover:-translate-y-0.5"
+              >
+                <span className="text-sm font-agenda-semibold md:text-base">{cta.text ?? "Discuss Your Dashboard Needs"}</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-4 w-4">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </Link>
+            )}
+          </div>
+
+          {/* Right: floating dashboard mockup — hidden on mobile */}
+          <div className="hidden md:block">
+            <DashboardHeroVisual active={showParticles} revealed={inView} reduced={prefersReduced} />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // ── "dataflow" variant ────────────────────────────────────────────────────
+  if (variant === "dataflow") {
+    return (
+      <section
+        ref={ref as any}
+        id="heropage"
+        data-header="dark"
+        className="relative min-h-[100vh] overflow-hidden bg-[#050b16]"
+      >
+        <div className="relative z-10 grid min-h-[100vh] items-center gap-10 px-6 py-24 md:grid-cols-2 md:px-10 lg:px-16 xl:px-20">
+          {/* Left: text */}
+          <div className="max-w-xl">
+            {logo && (
+              <div className="mb-6">
+                <StrapiImage
+                  src={logo.image.url}
+                  alt={logo.image.alternativeText || "Logo"}
+                  className="h-10 w-auto"
+                  width={120}
+                  height={120}
+                />
+              </div>
+            )}
+
+            <h1
+              className="
+                whitespace-normal break-words font-agenda-medium
+                text-[44px] leading-[0.95] tracking-[-0.055em]
+                [overflow-wrap:anywhere] text-white
+                md:text-[62px] lg:text-[68px]
+              "
+            >
+              <BlurText text={firstWord} delay={120} animateBy="words" direction="top" className="inline text-white" />{" "}
+              <BlurText text={rest} delay={180} animateBy="words" direction="top" className="inline text-white" />
+            </h1>
+
+            <p
+              className="mt-6 font-agenda-regular text-white/75"
+              style={{ fontSize: "clamp(18px, 2.2vw, 32px)", fontWeight: 400, lineHeight: "normal", letterSpacing: "-1.5px" }}
+            >
+              {subheader}
+            </p>
+
+            {cta && (
+              <Link
+                href={cta.href}
+                target={cta.isExternal ? "_blank" : "_self"}
+                className="group mt-12 inline-flex items-center gap-3 rounded-full bg-[#2563eb] px-6 py-3 text-white transition-transform duration-200 hover:-translate-y-0.5"
+              >
+                <span className="text-sm font-agenda-semibold md:text-base">{cta.text ?? "Learn More"}</span>
+                <span className="grid h-6 w-6 place-items-center rounded-md bg-white/15 transition-transform duration-200 group-hover:translate-x-0.5">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-3.5 w-3.5">
+                    <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />
+                  </svg>
+                </span>
+              </Link>
+            )}
+          </div>
+
+          {/* Right: flowing data wave — hidden on mobile, too dense/cramped to fit well below md */}
+          <div className="relative hidden h-[480px] w-full md:block lg:h-[560px]">
+            <DataFlowParticles active={showParticles} />
           </div>
         </div>
       </section>

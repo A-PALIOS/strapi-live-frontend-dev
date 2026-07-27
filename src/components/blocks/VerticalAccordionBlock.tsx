@@ -51,6 +51,8 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
       )}
     </div>
 
+    <div className="mt-16 border-t -mx-4 sm:-mx-8 md:-mx-12 xl:-mx-[65px]" style={{ borderColor: "#626262" }}></div>
+
     {/* ===== Mobile/Tablet: accordion cards like screenshot ===== */}
 <div className="mt-8 xl:hidden space-y-4">
   {items.map((item, idx) => {
@@ -73,14 +75,14 @@ export function VerticalAccordionBlock({ title,items,cta }: VerticalAccordionBlo
               {String(idx + 1).padStart(2, "0")}
             </span>
 
-            <h3 className="font-agenda-medium text-[22px] leading-tight text-white">
+            <h3 className="font-agenda-medium text-[22px] lg:text-[40px] leading-tight text-white">
               {item.title}
             </h3>
 
             <div className="my-5 h-px w-full bg-white/30" />
 
             <p
-              className="font-agenda-regular text-[15px] text-[#EFEFEF]"
+              className="font-agenda-regular text-[15px] lg:text-[24px] text-[#EFEFEF]"
               style={{
                 lineHeight: "1.35",
                 letterSpacing: "-0.4px",

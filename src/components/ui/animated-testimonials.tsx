@@ -68,54 +68,54 @@ export const AnimatedTestimonials = ({
     <div className="mx-auto w-full max-w-7xl px-6 py-20 font-sans antialiased md:px-10 lg:px-16 xl:px-20">
       <div className="relative grid grid-cols-1 xl:grid-cols-2">
         {/* IMAGE SIDE */}
-        <div>
-          <div className="relative aspect-square w-full max-w-[400px]">
-            <AnimatePresence initial={false}>
-              {testimonials.map((t, index) => {
-                const src = getStrapiMedia(t.src);
+<div className="flex justify-center xl:justify-start">
+  <div className="relative aspect-square w-full max-w-[400px]">
+    <AnimatePresence initial={false}>
+      {testimonials.map((t, index) => {
+        const src = getStrapiMedia(t.src);
 
-                if (!src) return null;
+        if (!src) return null;
 
-                const rotateSeed = seededRotates[index];
-                const isActive = index === active;
+        const rotateSeed = seededRotates[index];
+        const isActive = index === active;
 
-                return (
-                  <motion.div
-                    key={`slide-${index}`}
-                    initial={false}
-                    animate={{
-                      opacity: isActive ? 1 : 0.7,
-                      scale: isActive ? 1 : 0.95,
-                      rotate: isActive ? 0 : rotateSeed,
-                      zIndex: isActive ? 40 : len + 2 - index,
-                      y: 0,
-                    }}
-                    exit={{
-                      opacity: 0,
-                      scale: 0.95,
-                      rotate: rotateSeed,
-                    }}
-                    transition={{
-                      duration: 0.35,
-                      ease: "easeInOut",
-                    }}
-                    className="absolute inset-0 origin-bottom"
-                  >
-                    <Image
-                      src={src}
-                      alt={t.name}
-                      width={500}
-                      height={500}
-                      draggable={false}
-                      priority={isActive}
-                      className="h-full w-full rounded-3xl object-cover object-center"
-                    />
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-          </div>
-        </div>
+        return (
+          <motion.div
+            key={`slide-${index}`}
+            initial={false}
+            animate={{
+              opacity: isActive ? 1 : 0.7,
+              scale: isActive ? 1 : 0.95,
+              rotate: isActive ? 0 : rotateSeed,
+              zIndex: isActive ? 40 : len + 2 - index,
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              scale: 0.95,
+              rotate: rotateSeed,
+            }}
+            transition={{
+              duration: 0.35,
+              ease: "easeInOut",
+            }}
+            className="absolute inset-0 origin-bottom"
+          >
+            <Image
+              src={src}
+              alt={t.name}
+              width={500}
+              height={500}
+              draggable={false}
+              priority={isActive}
+              className="h-full w-full rounded-3xl object-cover object-center"
+            />
+          </motion.div>
+        );
+      })}
+    </AnimatePresence>
+  </div>
+</div>
 
         {/* CONTENT SIDE */}
         <div className="flex flex-col justify-between py-4">
@@ -131,11 +131,11 @@ export const AnimatedTestimonials = ({
               ease: "easeInOut",
             }}
           >
-            <h3 className="font-agenda-medium sm:pt-0 pt-8 text-center sm:text-left  md:text-4xl text-3xl">
+            <h3 className="font-agenda-medium sm:pt-0 pt-8 text-center xl:text-left  md:text-4xl text-3xl">
               {testimonials[active].name}
             </h3>
 
-            <p className="text-center sm:text-left text-lg text-[#242a2e80] dark:text-neutral-500">
+            <p className="text-center xl:text-left text-lg text-[#242a2e80] dark:text-neutral-500">
               {testimonials[active].designation}
             </p>
 
@@ -164,7 +164,7 @@ export const AnimatedTestimonials = ({
                   text-[#221D1D]/50
                   font-agenda-regular
                   text-center
-                  sm:text-left
+                  xl:text-left
                 "
               >
                 {testimonials[active].quote}
@@ -173,7 +173,7 @@ export const AnimatedTestimonials = ({
           </motion.div>
 
           {/* NAVIGATION */}
-          <div className="flex items-center justify-center md:justify-start gap-3 pt-12 md:pt-0">
+          <div className="flex items-center justify-center xl:justify-start gap-3 pt-12 xl:pt-0">
             {/* PREV */}
             <button
               onClick={() =>
@@ -186,7 +186,7 @@ export const AnimatedTestimonials = ({
                 ${
                   active === 0
                     ? "cursor-not-allowed bg-gray-100 text-gray-300"
-                    : "cursor-pointer bg-gray-200 text-gray-600 hover:bg-gray-300 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600"
+                    : "cursor-pointer bg-blue-500 text-white hover:bg-blue-600"
                 }
               `}
             >
@@ -204,8 +204,8 @@ export const AnimatedTestimonials = ({
                 flex h-10 w-10 items-center justify-center rounded-md transition
                 ${
                   active === len - 1
-                    ? "cursor-not-allowed bg-blue-200 text-white"
-                    : "cursor-pointer bg-blue-500 text-white hover:bg-blue-600 dark:bg-blue-400 dark:hover:bg-blue-500"
+                    ? "cursor-not-allowed bg-gray-100 text-gray-300"
+                    : "cursor-pointer bg-blue-500 text-white hover:bg-blue-600"
                 }
               `}
             >

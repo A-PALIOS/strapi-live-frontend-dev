@@ -113,6 +113,7 @@ import { WhatWeBelieve } from "@/components/blocks/WhatWeBelieve";
 import { Mission } from "@/components/blocks/Mission";
 import {AICardsBlock} from "@/components/blocks/AICardsBlock"
 import { UseCasesSection } from "./blocks/UseCasesSection";
+import { IntegratedTeamSection } from "./blocks/IntegratedTeamSection";
 import { CaseHighlight } from "./blocks/CaseHighlight";
 import { InfoBox } from "./blocks/InfoBox";
 import { CoverflowShowcase } from "@/components/blocks/CoverflowShowcase";
@@ -121,6 +122,7 @@ import DashboardSection2 from "./blocks/DashboardSection2";
 import DashboardSection3 from "./blocks/DashboardSection3";
 import DashboardSection4 from "./blocks/DashboardSection4";
 import DashboardSection5 from "./blocks/DashboardSection5";
+import { DashboardCmt } from "./blocks/DashboardCmt";
 import { StatementSection } from "./blocks/StatementSection";
 import { CompanyHighlights } from "./blocks/CompanyHighlights";
 import { AboutUsStatement } from "./blocks/AboutUsStatement";
@@ -255,6 +257,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       
     case "blocks.use-cases-section":
       return <UseCasesSection data={block} key={index} />;
+    case "blocks.integrated-team-section":
+      return <IntegratedTeamSection data={block} key={index} />;
     case "blocks.case-highlight":
       return <CaseHighlight data={block} key={index} />;
     case "blocks.company-highlights":
@@ -271,6 +275,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <DashboardSection4 {...block} key={index} />;
     case "blocks.dashboard-section5":
       return <DashboardSection5 {...block} key={index} />;
+    case "blocks.dashboard-cmt":
+      return <DashboardCmt {...block} key={index} />;
     case "blocks.sticky-menu": {
       const aboutInfoBlocks = allBlocks.filter(
         (b): b is Block & { __component: "blocks.about-info" } =>

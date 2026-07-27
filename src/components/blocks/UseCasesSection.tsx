@@ -22,6 +22,12 @@ export function UseCasesSection({ data }: { data: UseCasesSectionProps }) {
             {data.title}
           </h2>
 
+          {data.description ? (
+            <p className="mt-4 max-w-md text-white/70 font-agenda-regular text-lg leading-relaxed">
+              {data.description}
+            </p>
+          ) : null}
+
           <ul className="mt-6 space-y-3">
             {data.items?.map((item) => (
               <li key={item.id} className="flex items-start gap-3 text-white/85">
@@ -155,7 +161,7 @@ export function UseCasesSection({ data }: { data: UseCasesSectionProps }) {
 
         {/* Right */}
         <div className="relative">
-          <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+          <div className="relative aspect-[16/13] w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5">
             <StrapiImage
               src={img?.url}
               alt={img?.alternativeText || data?.title}

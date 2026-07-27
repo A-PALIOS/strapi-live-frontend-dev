@@ -90,7 +90,7 @@ const right = words.slice(1).join(" ");
               <span
                 className="
                   font-agenda-semibold
-    text-4xl sm:text-5xl md:text-7xl lg:text-[88px]
+    text-4xl sm:text-5xl md:text-7xl xl:text-[88px] lg:text-[72px]
     text-zinc-800 
     inline-flex items-baseline gap-2 sm:gap-3
                 "
@@ -101,7 +101,7 @@ const right = words.slice(1).join(" ");
                   aria-hidden="true"
                   viewBox="0 0 120 40"
                   className="
-                    hidden lg:block h-8 w-16 sm:h-12 sm:w-24 md:h-16 md:w-32 lg:h-20 lg:w-40
+                    hidden lg:block h-8 w-16 sm:h-12 sm:w-24 md:h-16 md:w-32 lg:h-30 lg:w-40
                     shrink-0 translate-y-4 sm:translate-y-6 md:translate-y-10 lg:translate-y-12
                   "
                   fill="none"
@@ -122,7 +122,7 @@ const right = words.slice(1).join(" ");
               {/* Right word drops to next line naturally, with responsive size */}
               <span className="font-agenda-semibold
     mt-0 md:mt-2
-    text-4xl sm:text-5xl md:text-7xl lg:text-[88px]
+    text-4xl sm:text-5xl md:text-7xl xl:text-[88px] lg:text-[72px]
     text-gray-900
     text-center md:text-left
     ml-2 md:ml-0" style={{ letterSpacing: "clamp(-2px, -0.5vw, -6px)" }}>

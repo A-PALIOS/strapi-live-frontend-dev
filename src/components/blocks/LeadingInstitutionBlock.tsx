@@ -45,7 +45,7 @@ export function LeadingInstitutionBlock({
                   href={cta.href}
                   target={cta.isExternal ? "_blank" : "_self"}
                   rel={cta.isExternal ? "noreferrer" : undefined}
-                  className="group inline-flex items-center gap-2 font-agenda-regular font-normal uppercase leading-none tracking-[-0.2px] text-[#221D1D] transition hover:text-[#1E9BFB] lg:hidden"
+                  className="group inline-flex items-center gap-2 font-agenda-regular font-normal uppercase leading-none tracking-[-0.2px] text-[#221D1D] transition hover:text-[#1E9BFB] xl:hidden"
                 >
                   <span className="text-[20px] md:text-[24px]">{cta.text}</span>
                   <svg
@@ -72,8 +72,8 @@ export function LeadingInstitutionBlock({
         </>
       )}
 
-      <div className="mt-8 flex flex-col gap-6 md:mt-10 md:gap-8 lg:flex-row lg:items-stretch lg:justify-between lg:gap-14">
-        <div className="w-full text-center uppercase md:text-left lg:w-1/2 tracking-[-1.3px] sm:tracking-[-1.8px] md:tracking-[-2px] lg:tracking-[-2.4px]">
+      <div className="mt-8 flex flex-col gap-6 md:mt-10 md:gap-8 xl:flex-row lg:items-stretch lg:justify-between lg:gap-14">
+        <div className="w-full text-center lg:text-center xl:text-left uppercase md:text-left xl:w-1/2 tracking-[-1.3px] sm:tracking-[-1.8px] md:tracking-[-2px] lg:tracking-[-2.4px]">
           {beforeDiff && (
             <span className="block font-agenda-medium text-[28px] font-extralight leading-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-7xl">
               {beforeDiff}
@@ -88,12 +88,12 @@ export function LeadingInstitutionBlock({
           </span>
         </div>
 
-        <div className="w-full flex flex-col lg:w-1/2">
+        <div className="w-full flex flex-col xl:w-1/2">
           <div>
             {descLines.map((line, i) => (
               <p
                 key={i}
-                className="mx-auto mb-1 max-w-[457px] text-center font-agenda-regular text-base leading-tight text-[21px] text-[#8B8B8B] last:mb-0 tracking-[-1.1px]  sm:text-base md:mx-0 md:text-left md:text-xl lg:text-3xl"
+                className="mx-auto mb-1 lg:px-30 xl:px-0 max-w-[457px] xl:text-left lg:max-w-[1900px] xl:max-w-[457px] text-center lg:text-center font-agenda-regular text-base leading-tight text-[21px] text-slate-950 last:mb-0 tracking-[-1.1px]  sm:text-base md:mx-0 md:text-left md:text-xl lg:text-[32px] xl:text-3xl"
               >
                 {line}
               </p>
@@ -102,7 +102,7 @@ export function LeadingInstitutionBlock({
 
           {/* Desktop CTA */}
           {cta && (
-            <div className="mt-3 hidden justify-center md:mt-14 md:justify-start lg:flex">
+            <div className="mt-3 hidden justify-center md:mt-14 md:justify-start xl:flex">
               <Link
                 href={cta.href}
                 target={cta.isExternal ? "_blank" : "_self"}

@@ -34,7 +34,7 @@ export function LinkListAbout({
             {heading ? (
               <span
                 style={{ letterSpacing: "-1.6px" }}
-                className="font-agenda text-[20px] font-normal leading-[24px] uppercase text-[#FEFEFE] md:text-[28px] lg:text-[32px]"
+                className="font-agenda-medium text-[20px] font-normal leading-[24px] uppercase text-[#FEFEFE] md:text-[28px] lg:text-[32px]"
               >
                 {heading}
               </span>
@@ -46,7 +46,7 @@ export function LinkListAbout({
                 target={cta.isExternal ? "_blank" : "_self"}
                 rel={cta.isExternal ? "noreferrer" : undefined}
                 style={{ lineHeight: "24px", letterSpacing: "-1.2px" }}
-                className="group inline-flex items-center gap-2 font-agenda text-[14px] font-normal uppercase text-[#FEFEFE] transition hover:opacity-80 md:text-[18px] lg:text-[24px]"
+                className="group inline-flex items-center gap-2 font-agenda-regular text-[14px] font-normal uppercase text-[#FEFEFE] transition hover:opacity-80 md:text-[18px] lg:text-[24px]"
               >
                 <span>{cta.text}</span>
                 <svg
@@ -56,7 +56,7 @@ export function LinkListAbout({
                   strokeWidth="1.8"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  className="h-7 w-7 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   aria-hidden="true"
                 >
                   <path d="M7 17L17 7M17 7H7M17 7V17" />
@@ -95,7 +95,7 @@ export function LinkListAbout({
                     strokeWidth="1.8"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="h-5 w-5 shrink-0 text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                    className="h-7 w-7 shrink-0 text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
                     aria-hidden="true"
                   >
                     <path d="M7 17L17 7M17 7H7M17 7V17" />

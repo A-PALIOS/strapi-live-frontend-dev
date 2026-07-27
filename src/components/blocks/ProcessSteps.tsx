@@ -146,7 +146,7 @@ export function ProcessSteps({
                         text-[28px] leading-[1.05] tracking-[-0.05em]
                         text-[#05192D]
                         transition-colors duration-300
-                        sm:text-[32px] lg:text-[46px]
+                        sm:text-[32px] lg:text-[40px]
                       "
                     >
                       {step.title}

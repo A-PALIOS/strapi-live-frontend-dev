@@ -9,25 +9,25 @@ export function NextProject(block: NextProjectBlock) {
   const isExternal = block.cta?.isExternal;
 
   const content = (
-    <section className="flex flex-col md:flex-row w-full items-center justify-center gap-4 border-t border-[#626262] px-6 py-10 transition  md:px-10 lg:px-16 xl:px-20">
-      <h2 className="text-center md:text-left text-[64px] font-agenda-regular uppercase tracking-wide text-[#2f3a42]">
-        {block.cta?.text || "CONTINUE TO NEXT PROJECT"}
-      </h2>
-      
-      <div className="relative h-[108px] w-[235px] overflow-hidden">
-        <Link href={href} className="group block">
-        <StrapiImage
-          src={block.Image.url}
-          alt={block.Image.alternativeText || "Next project"}
-          fill
-          className="object-cover"
-        />
-        </Link>
-      </div>
+    <section className="w-full border-t border-[#626262] px-6 py-8 lg:py-10 md:px-10 lg:px-16 xl:px-20 lg:flex lg:justify-center">
+      <Link href={href} className="flex flex-row items-center justify-between lg:justify-start gap-2 sm:gap-4 lg:gap-4">
+        <h2 className="text-[28px] sm:text-[40px] md:text-[52px] lg:text-[64px] font-agenda-regular uppercase tracking-wide text-[#2f3a42] leading-tight">
+          {block.cta?.text || "CONTINUE TO NEXT PROJECT"}
+        </h2>
 
-      <span className="text-[72px] leading-none text-black transition-transform group-hover:translate-x-2">
-        →
-      </span>
+        <div className="relative h-[60px] w-[130px] sm:h-[80px] sm:w-[175px] md:h-[108px] md:w-[235px] shrink-0 overflow-hidden">
+          <StrapiImage
+            src={block.Image.url}
+            alt={block.Image.alternativeText || "Next project"}
+            fill
+            className="object-cover"
+          />
+        </div>
+
+        <span className="text-[36px] sm:text-[52px] md:text-[72px] leading-none text-black transition-transform group-hover:translate-x-2 shrink-0">
+          →
+        </span>
+      </Link>
       
     </section>
   );

@@ -27,6 +27,12 @@ export function Header({ data }: HeaderProps) {
   const [onDark, setOnDark] = useState(false);
 
   useEffect(() => {
+    const header = document.getElementById("site-header");
+    if (header) {
+      header.style.transform = "";
+      header.style.transition = "";
+    }
+
     let raf = 0;
 
     const calc = () => {
@@ -95,17 +101,17 @@ export function Header({ data }: HeaderProps) {
           : "fixed top-0 left-0 bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Glassy nav container */}
         <div
           ref={headerRef}
           className={`
-    w-full flex items-center justify-between gap-6 rounded-2xl px-5 py-3
+    w-full flex items-center justify-between gap-6 rounded-2xl px-5 py-3 xl:mt-[20px]
     border shadow-[0_8px_24px_rgba(0,0,0,0.15),inset_0_1px_0_rgba(255,255,255,0.25)]
     backdrop-blur-xl backdrop-saturate-150
     ${onDark ? "bg-black/20 border-white/20" : "bg-white/10 border-white/20"}
   `}
-          style={{ marginTop: 20 }}
+          
         >
           {/* Logo */}
           <NavLink
@@ -173,10 +179,11 @@ export function Header({ data }: HeaderProps) {
                     fontStyle: "normal",
                     fontSize: 18,
                   }}
+                  className="cursor-pointer"
                 >
                   {cta.text}
                 </span>
-                <span className="flex items-center justify-center w-7 h-7 bg-white rounded-md">
+                <span className="flex items-center justify-center w-7 h-7 bg-white rounded-md cursor-pointer">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-4 h-4 text-[#1E9BFB]"

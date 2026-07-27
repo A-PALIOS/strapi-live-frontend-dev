@@ -30,12 +30,12 @@ export function RelevantProjects({
         isBlack ? " bg-black" : ""
       }`}
     >
-      {/* <div>
+      <div>
         <div className="mb-6 flex items-start justify-between gap-4">
           <div>
             {eyebrow ? (
               <p
-                className={`text-[12px] font-medium uppercase tracking-[0.08em] ${
+                className={`text-[12px] md:text-[32px] font-agenda-medium uppercase tracking-[0.08em] ${
                   isBlack ? "text-white" : "text-[#1f1f1f]"
                 }`}
               >
@@ -49,12 +49,13 @@ export function RelevantProjects({
               href={cta.href}
               target={cta.isExternal ? "_blank" : undefined}
               rel={cta.isExternal ? "noopener noreferrer" : undefined}
-              className={`group inline-flex items-center gap-2 text-[13px] ${
+              className={`group inline-flex items-center gap-2 text-[13px]  md:text-[24px]${
                 isBlack ? "text-white" : "text-[#1f1f1f]"
               }`}
             >
-              <span>{cta.text}</span>
-              <span className="flex h-4 w-4 items-center justify-center bg-[#f08a24] text-[10px] text-white transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+              <span className={`md:text-[24px] text-[12px] font-agenda-regular ${
+                isBlack ? "text-white" : "text-[#1f1f1f]"}`}>{cta.text}</span>
+              <span className="flex h-7 w-7 items-center justify-center bg-[#f08a24] text-[24px] text-white transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
                 ↗
               </span>
             </Link>
@@ -101,7 +102,7 @@ export function RelevantProjects({
                     ) : null}
                   </div>
 
-                  <div className="max-w-[330px] translate-y-8 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                  <div className="-mx-4 md:-mx-5 -mb-4 md:-mb-5 translate-y-8 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 group-hover:bg-black/40 px-4 md:px-5 pb-4 md:pb-5">
                     {item.title ? (
                       <h3 className="mb-3 text-[22px] font-medium uppercase tracking-[-0.03em] text-white md:text-[24px]">
                         {item.title}
@@ -109,11 +110,11 @@ export function RelevantProjects({
                     ) : null}
 
                     {!!item.tags?.length && (
-                      <div className="mb-4 flex flex-wrap gap-2">
+                      <div className="mb-4 flex gap-2">
                         {item.tags.map((tag) => (
                           <span
                             key={tag.id}
-                            className="rounded-full border border-white/55 px-3 py-1 text-[11px] leading-none text-white"
+                            className="rounded-lg border border-white/30 px-7 py-3 text-[15px] leading-none text-white"
                           >
                             {tag.label}
                           </span>
@@ -122,7 +123,7 @@ export function RelevantProjects({
                     )}
 
                     {item.description ? (
-                      <p className="max-w-[300px] text-[14px] leading-[1.45] text-white/95">
+                      <p className=" text-[24px] leading-[1.45] text-white/95">
                         {item.description}
                       </p>
                     ) : null}
@@ -132,7 +133,7 @@ export function RelevantProjects({
             );
           })}
         </div>
-      </div> */}
+      </div>
     </section>
   );
 }

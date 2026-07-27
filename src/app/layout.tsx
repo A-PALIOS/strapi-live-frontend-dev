@@ -10,6 +10,7 @@ import { Footer } from "@/components/layout/Footer";
 import { getGlobalSettings } from "@/data/loaders";
 import { NavProgressProvider } from '../components/NavProgressProvider';
 import DapperTransition from '../components/DapperTransition';
+import { CookieConsent } from '@/components/ui/CookieConsent';
 // import { StickyMenu } from "@/components/StickyMenu";
 
 const roboto = Roboto({
@@ -81,6 +82,7 @@ export default async function RootLayout({
         </main>
         </NavProgressProvider>
         <Footer data={footer} />
+        <CookieConsent />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-X2Q6YHTTWW"
           strategy="afterInteractive"

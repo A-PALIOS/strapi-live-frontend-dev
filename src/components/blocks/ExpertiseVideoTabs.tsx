@@ -33,7 +33,7 @@ export function ExpertiseVideoTabs({
           "linear-gradient(25deg, #947560 0%, #6f7176 25%, #4f6e85 50%, #2f6d9d 100%)",
       }}
     >
-      <div className="relative grid min-h-screen w-full grid-cols-1 grid-rows-[auto_1fr] md:grid-cols-2">
+      <div className="relative grid min-h-screen w-full grid-cols-1 grid-rows-[auto_1fr] xl:grid-cols-2">
         {/* EYEBROW ROW — spans both columns, z-10 so it sits above the video */}
         {Eyebrow ? (
           <div className="relative z-10 col-span-1 md:col-span-2">
@@ -66,11 +66,11 @@ export function ExpertiseVideoTabs({
                     <button
                       type="button"
                       onClick={() => setActiveIndex(index)}
-                      className="group flex w-full items-start justify-between gap-4 text-left"
+                      className="group flex w-full cursor-pointer items-start justify-between gap-4 text-left"
                     >
                       <h3
                         style={{ letterSpacing: "-1.2px" }}
-                        className="font-agenda-medium text-[18px] uppercase leading-normal tracking-[-0.05em] text-white whitespace-nowrap md:text-[30px]"
+                        className="font-agenda-medium text-[18px] uppercase leading-normal tracking-[-0.05em] text-white whitespace-nowrap md:text-[30px] lg:text-[32px]"
                       >
                         {item.title}
                       </h3>
@@ -93,7 +93,7 @@ export function ExpertiseVideoTabs({
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             className={[
-                              "h-5 w-5 shrink-0 transition-transform duration-300",
+                              "h-7 w-7 shrink-0 transition-transform duration-300",
                               isActive ? "rotate-90" : "rotate-0",
                             ].join(" ")}
                             aria-hidden="true"
@@ -105,7 +105,7 @@ export function ExpertiseVideoTabs({
                     </button>
 
                     {isActive && item.description ? (
-                      <p className="mt-5 font-agenda-medium md:text-[32px] sm:text-[24px] font-medium leading-[1.2] tracking-[-0.05em] text-[#FEFEFE]">
+                      <p className="mt-5 font-agenda-medium md:text-[24px] sm:text-[24px] font-medium leading-[1.2] tracking-[-0.05em] text-[#FEFEFE]">
                         {item.description}
                       </p>
                     ) : null}
@@ -117,11 +117,11 @@ export function ExpertiseVideoTabs({
         </div>
 
         {/* RIGHT COLUMN placeholder — keeps the grid slot so left doesn't expand */}
-        <div className="hidden md:block" style={{ backgroundColor: "white" }} />
+        <div className="hidden xl:block" style={{ backgroundColor: "white" }} />
 
         {/* RIGHT VIDEO — absolutely positioned from section top, shorter than full height */}
         <div
-          className="absolute right-0 top-0 hidden w-1/2 overflow-hidden lg:block"
+          className="absolute right-0 top-0 hidden w-1/2 overflow-hidden xl:block"
           style={{ height: "calc(100% - 120px)", borderRadius: "0 0 16px 0" }}
         >
           {activeItem?.video?.url ? (

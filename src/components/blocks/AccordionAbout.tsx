@@ -51,12 +51,12 @@ export function AccordionAbout({
         >
           {/* Top bar */}
           <div className="flex items-center justify-between gap-4">
-            <span style={{ letterSpacing: "-1.6px" }} className="font-agenda text-[20px] font-normal leading-[24px] uppercase tracking-[-0.05em] text-[#FEFEFE] md:text-[28px] lg:text-[32px]">
+            <span style={{ letterSpacing: "-1.6px" }} className="font-agenda-medium text-[20px] leading-[24px] uppercase tracking-[-0.05em] text-[#FEFEFE] md:text-[28px] lg:text-[32px]">
               {heading}
             </span>
 
             {cta && (
-              <a style={{ lineHeight: "24px", letterSpacing: "-1.2px" }} href={cta.href} target={cta.isExternal ? "_blank" : "_self"} rel={cta.isExternal ? "noreferrer" : undefined} className="group inline-flex items-center gap-2 font-agenda text-[14px] font-normal leading-[24px] uppercase tracking-[-0.05em] text-[#FEFEFE] transition hover:opacity-80 md:text-[18px] lg:text-[24px]"
+              <a style={{ lineHeight: "24px", letterSpacing: "-1.2px" }} href={cta.href} target={cta.isExternal ? "_blank" : "_self"} rel={cta.isExternal ? "noreferrer" : undefined} className="group inline-flex items-center gap-2 font-agenda-regular text-[14px] leading-[24px] uppercase tracking-[-0.05em] text-[#FEFEFE] transition hover:opacity-80 md:text-[18px] lg:text-[24px]"
               >
                 <span>{cta.text}</span>
                 <svg
@@ -66,7 +66,7 @@ export function AccordionAbout({
                   strokeWidth="1.8"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  className="h-7 w-7 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   aria-hidden="true"
                 >
                   <path d="M7 17L17 7M17 7H7M17 7V17" />
@@ -111,7 +111,7 @@ export function AccordionAbout({
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       className={[
-                        "h-5 w-5 shrink-0 text-white/90 transition-transform duration-300",
+                        "h-7 w-7 shrink-0 text-white/90 transition-transform duration-300",
                         isOpen ? "rotate-90" : "rotate-0",
                       ].join(" ")}
                       aria-hidden="true"

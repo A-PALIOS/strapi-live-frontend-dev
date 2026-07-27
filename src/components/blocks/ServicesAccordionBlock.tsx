@@ -24,16 +24,14 @@ export function ServicesAccordionBlock({
     <section id="services" data-header="dark" className="relative">
       {/* Background */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <StrapiVideo
-          className="w-full h-full object-cover object-center md:object-[55%_center] lg:object-center opacity-80"
-          src={image?.url || ""}
-          controls={false}
-          autoPlay
-          loop
-          muted
+        <StrapiImage
+          src={image.url}
+          alt={image.alternativeText || "Background"}
+          className="w-full h-full object-cover"
+          width={1920}
+          height={1080}
         />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,15,29,0.12)_0%,rgba(0,15,29,0.12)_100%),linear-gradient(90deg,rgba(8,50,85,0.45)_0%,rgba(30,90,140,0.38)_45%,rgba(126,69,30,0.18)_65%,rgba(8,50,85,0.42)_100%)]
-" />
+        <div className="absolute inset-0" />
       </div>
 
       <div className="w-full px-6 md:px-10 lg:px-16 xl:px-20 py-16 md:py-20 text-white">
@@ -59,7 +57,7 @@ export function ServicesAccordionBlock({
                   strokeWidth="1.8"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  className="h-7 w-7 shrink-0 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   aria-hidden="true"
                 >
                   <path d="M7 17L17 7M17 7H7M17 7V17" />
@@ -89,23 +87,54 @@ export function ServicesAccordionBlock({
                 >
                   <div className="flex items-center justify-between gap-4 py-2 cursor-pointer">
                     {/* Left: 01 — Title */}
-                    <div className="flex min-w-0 items-baseline gap-3 sm:gap-4">
-                      <span className={`shrink-0 font-ivypresto-light text-2xl sm:text-3xl md:text-5xl leading-none ${isOpen ? "text-blue-400" : "text-white"}`}>
-                        {displayIndex}
-                      </span>
-                      <span className={`shrink-0 text-xl md:text-5xl leading-none ${isOpen ? "text-blue-400" : "text-white"}`}>—</span>
-                      <span
-                        className={[
-                          "text-[23px] sm:text-2xl md:text-5xl md:tracking-[-2.2px]",
-                          "font-agenda-medium",
-                          "uppercase",
-                          isOpen ? "text-blue-400" : "text-white",
-                        ].join(" ")}
-                        title={item.title}
-                      >
-                        {item.title}
-                      </span>
-                    </div>
+<div className="min-w-0 flex-1">
+  {/* Mobile / tablet */}
+  <span
+    className={[
+      "block lg:hidden",
+      "font-agenda-medium uppercase",
+      "text-[23px] sm:text-2xl leading-[1.05]",
+      "break-words whitespace-normal",
+      isOpen ? "text-blue-400" : "text-white",
+    ].join(" ")}
+    title={item.title}
+  >
+    <span className="font-ivypresto-light">{displayIndex}</span>
+    <span className="mx-3">—</span>
+    {item.title}
+  </span>
+
+  {/* Desktop */}
+  <div className="hidden lg:flex min-w-0 items-baseline gap-3 sm:gap-4">
+    <span
+      className={`shrink-0 font-ivypresto-light text-2xl sm:text-3xl xl:text-5xl lg:text-[32px] leading-none ${
+        isOpen ? "text-blue-400" : "text-white"
+      }`}
+    >
+      {displayIndex}
+    </span>
+
+    <span
+      className={`shrink-0 text-xl xl:text-5xl lg:text-[32px] leading-none ${
+        isOpen ? "text-blue-400" : "text-white"
+      }`}
+    >
+      —
+    </span>
+
+    <span
+      className={[
+        "text-[23px] sm:text-2xl xl:text-5xl lg:text-[32px] md:tracking-[-2.2px]",
+        "font-agenda-medium",
+        "uppercase",
+        isOpen ? "text-blue-400" : "text-white",
+      ].join(" ")}
+      title={item.title}
+    >
+      {item.title}
+    </span>
+  </div>
+</div>
 
                     {/* Right: plus/minus circle */}
                     <div
@@ -132,14 +161,14 @@ export function ServicesAccordionBlock({
                         exit={{ height: 0, opacity: 0 }}
                         transition={transition}
                         style={{ overflow: "hidden" }}
-                        className="pl-[0rem] sm:pl-[5.25rem] md:pl-[8.5rem] lg:pl-[5.25rem] pr-1"
+                        className="pl-[0rem] sm:pl-[4.25rem] md:pl-[4.5rem] xl:pl-[5.25rem] lg:pl-[6.00rem] pr-1"
                       >
                         <motion.p
                           initial={{ y: 6, opacity: 0 }}
                           animate={{ y: 0, opacity: 1 }}
                           exit={{ y: 6, opacity: 0 }}
                           transition={transition}
-                          className="font-agenda-light xl:ml-8  text-[19px] sm:text-[24px] md:text-4xl md:leading-10 sm:leading-4 text-white py-3 md:tracking-[-2px]"
+                          className="font-agenda-light xl:ml-8  text-[19px] sm:text-[24px] lg:text-[24px] xl:text-4xl md:leading-8 sm:leading-6 text-white py-3 xl:tracking-[-2px] lg:tracking-[-1.2px]"
                         >
                           {item.description}
                         </motion.p>
