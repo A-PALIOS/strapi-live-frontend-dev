@@ -1177,12 +1177,6 @@ export function HeroSectionDigitalWeb({
   const [firstWord, ...restWords] = (heading ?? "").split(" ");
   const rest = restWords.join(" ");
 
-  // ── "dashboard" variant heading split — last two words get the gradient ──
-  const headingWords = (heading ?? "").trim().split(" ").filter(Boolean);
-  const highlightCount = Math.min(2, headingWords.length);
-  const dashboardPlain = headingWords.slice(0, headingWords.length - highlightCount).join(" ");
-  const dashboardHighlight = headingWords.slice(headingWords.length - highlightCount).join(" ");
-
   // ── "code" variant state ──
   const [hovered, setHovered] = useState(false);
 
@@ -1306,10 +1300,6 @@ export function HeroSectionDigitalWeb({
               </div>
             )}
 
-            <p className="mb-4 font-agenda-semibold text-sm uppercase tracking-[0.35em] text-indigo-300">
-              {author || "Dashboards"}
-            </p>
-
             <h1
               className="
                 whitespace-normal break-words font-agenda-medium
@@ -1318,18 +1308,8 @@ export function HeroSectionDigitalWeb({
                 md:text-[62px] lg:text-[68px]
               "
             >
-              {dashboardPlain && (
-                <>
-                  <BlurText text={dashboardPlain} delay={120} animateBy="words" direction="top" className="inline text-white" />{" "}
-                </>
-              )}
-              <BlurText
-                text={dashboardHighlight}
-                delay={180}
-                animateBy="words"
-                direction="top"
-                className="inline bg-gradient-to-r from-[#5B8CFF] to-[#8B6BFF] bg-clip-text text-blue-500"
-              />
+              <BlurText text={firstWord} delay={120} animateBy="words" direction="top" className="inline text-white" />{" "}
+              <BlurText text={rest} delay={180} animateBy="words" direction="top" className="inline text-white" />
             </h1>
 
             <p
@@ -1343,12 +1323,14 @@ export function HeroSectionDigitalWeb({
               <Link
                 href={cta.href}
                 target={cta.isExternal ? "_blank" : "_self"}
-                className="group mt-12 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#4F6BF6] to-[#7C4DFF] px-7 py-3.5 text-white shadow-lg shadow-blue-900/30 transition-transform duration-200 hover:-translate-y-0.5"
+                className="group mt-12 inline-flex items-center gap-3 rounded-full bg-[#2563eb] px-6 py-3 text-white transition-transform duration-200 hover:-translate-y-0.5"
               >
                 <span className="text-sm font-agenda-semibold md:text-base">{cta.text ?? "Discuss Your Dashboard Needs"}</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-4 w-4">
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
+                <span className="grid h-6 w-6 place-items-center rounded-md bg-white/15 transition-transform duration-200 group-hover:translate-x-0.5">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-3.5 w-3.5">
+                    <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />
+                  </svg>
+                </span>
               </Link>
             )}
           </div>
