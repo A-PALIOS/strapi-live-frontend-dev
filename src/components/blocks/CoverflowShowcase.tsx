@@ -22,28 +22,28 @@ const mediaUrl = (u?: string) => {
 
 const cards = [
   {
-    tag: "Smooth",
+    tag: "Economics",
     image:
       process.env.NEXT_PUBLIC_STRAPI_API_URL+"/uploads/swapimage1_61da3b189e.png",
-    alt: "Smooth digital experience",
+    alt: "Economics",
   },
   {
-    tag: "Customizable",
+    tag: "Environment",
     image:
       process.env.NEXT_PUBLIC_STRAPI_API_URL+"/uploads/swap2_7c7c3ec22c.png",
-    alt: "Customizable digital experience",
+    alt: "Environment",
   },
   {
-    tag: "Health Sec",
+    tag: "Health",
     image:
       process.env.NEXT_PUBLIC_STRAPI_API_URL+"/uploads/swap4_0c1b2adf9b.png",
     alt: "Reliable digital experience",
   },
   {
-    tag: "EU",
+    tag: "Management",
     image:
       process.env.NEXT_PUBLIC_STRAPI_API_URL+"/uploads/swap3_83c0c78a32.png",
-    alt: "Eu",
+    alt: "Management",
   },
 ];
 
