@@ -21,6 +21,69 @@ const BASE_SYSTEM_PROMPT =
   "4. Keep answers concise, professional, and friendly.\n" +
   "5. Always respond in the same language the user writes in (Greek or English).";
 
+// ─── Rate limiting & input guards ─────────────────────────────────────────────
+
+const RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute
+const RATE_LIMIT_MAX_REQUESTS = 10;  // max requests per IP per window
+const MAX_MESSAGES = 20;             // max messages in a conversation payload
+const MAX_TOTAL_CHARS = 6000;        // max combined chars across all messages
+const MAX_OUTPUT_TOKENS = 500;       // cap on completion length
+
+type ChatRole = "system" | "user" | "assistant";
+const VALID_ROLES: ChatRole[] = ["system", "user", "assistant"];
+
+// In-memory store: fine for a single PM2 instance.
+// If this app ever runs with multiple instances/load balancing, swap for Redis.
+const requestLog = new Map<string, number[]>();
+
+function getClientIp(req: NextRequest): string {
+  const forwarded = req.headers.get("x-forwarded-for");
+  if (forwarded) return forwarded.split(",")[0].trim();
+  return req.headers.get("x-real-ip") ?? "unknown";
+}
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const timestamps = requestLog.get(ip) ?? [];
+  const recent = timestamps.filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
+  recent.push(now);
+  requestLog.set(ip, recent);
+
+  // Periodic cleanup so the map doesn't grow forever
+  if (requestLog.size > 5000) {
+    for (const [key, times] of requestLog) {
+      if (times.every((t) => now - t > RATE_LIMIT_WINDOW_MS)) {
+        requestLog.delete(key);
+      }
+    }
+  }
+
+  return recent.length > RATE_LIMIT_MAX_REQUESTS;
+}
+
+function validateMessages(
+  messages: unknown
+): messages is { role: ChatRole; content: string }[] {
+  if (!Array.isArray(messages)) return false;
+  if (messages.length === 0 || messages.length > MAX_MESSAGES) return false;
+
+  let totalChars = 0;
+
+  for (const m of messages) {
+    if (
+      typeof m !== "object" ||
+      m === null ||
+      typeof (m as any).content !== "string" ||
+      !VALID_ROLES.includes((m as any).role)
+    ) {
+      return false;
+    }
+    totalChars += (m as any).content.length;
+  }
+
+  return totalChars <= MAX_TOTAL_CHARS;
+}
+
 // ─── Text extraction from Strapi blocks ───────────────────────────────────────
 
 function extractTextFromBlocks(blocks: any[]): string {
@@ -29,7 +92,6 @@ function extractTextFromBlocks(blocks: any[]): string {
   for (const block of blocks) {
     const texts: string[] = [];
 
-    // Single text fields common across block types
     if (block.heading)        texts.push(`Heading: ${block.heading}`);
     if (block.title)          texts.push(`Title: ${block.title}`);
     if (block.headline)       texts.push(`Headline: ${block.headline}`);
@@ -41,7 +103,6 @@ function extractTextFromBlocks(blocks: any[]): string {
     if (block.bodyPrimary)    texts.push(block.bodyPrimary);
     if (block.introText)      texts.push(block.introText);
 
-    // Items arrays (accordion, expertise, beliefs, use-cases, etc.)
     if (Array.isArray(block.items)) {
       for (const item of block.items) {
         const label = item.title ?? item.label ?? item.text ?? "";
@@ -50,21 +111,18 @@ function extractTextFromBlocks(blocks: any[]): string {
       }
     }
 
-    // Mission values
     if (Array.isArray(block.values)) {
       for (const v of block.values) {
         if (v.title) texts.push(`  • ${v.title}${v.body ? `: ${v.body}` : ""}`);
       }
     }
 
-    // Process steps
     if (Array.isArray(block.steps)) {
       for (const s of block.steps) {
         if (s.title) texts.push(`  • ${s.number ? s.number + ". " : ""}${s.title}${s.description ? `: ${s.description}` : ""}`);
       }
     }
 
-    // Team members
     if (Array.isArray(block.team_members)) {
       for (const m of block.team_members) {
         if (m.FullName) texts.push(`  • ${m.FullName}${m.JobTitle ? ` — ${m.JobTitle}` : ""}${m.Bio ? `: ${m.Bio}` : ""}`);
@@ -264,9 +322,19 @@ function matches(text: string, keywords: string[]): boolean {
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages } = await req.json();
+    const ip = getClientIp(req);
 
-    if (!Array.isArray(messages)) {
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        { error: "Too many requests. Please slow down and try again shortly." },
+        { status: 429 }
+      );
+    }
+
+    const body = await req.json();
+    const { messages } = body;
+
+    if (!validateMessages(messages)) {
       return NextResponse.json({ error: "Invalid messages" }, { status: 400 });
     }
 
@@ -277,7 +345,6 @@ export async function POST(req: NextRequest) {
     const needsAbout       = matches(text, ABOUT_KEYWORDS);
     const needsLeadership  = matches(text, LEADERSHIP_KEYWORDS);
 
-    // Fetch only what is needed, all in parallel
     const [insightsContext, servicesContext, aboutContext, leadershipPageContext, teamMembersContext] = await Promise.all([
       needsInsights   ? fetchInsights()                                                          : Promise.resolve(""),
       needsServices   ? fetchPages("services",               "CMT PROOPTIKI SERVICES")           : Promise.resolve(""),
@@ -292,6 +359,7 @@ export async function POST(req: NextRequest) {
 
     const response = await openai.chat.completions.create({
       model: "gpt-4.1-mini",
+      max_tokens: MAX_OUTPUT_TOKENS,
       messages: [
         { role: "system", content: systemPrompt },
         ...messages,
