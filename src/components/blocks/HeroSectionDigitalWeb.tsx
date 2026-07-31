@@ -845,6 +845,293 @@ function DataFlowParticles({ active }: { active: boolean }) {
   );
 }
 
+// ─── "pencil" variant — pencil sketches a UI wireframe on paper ─────────────
+
+function PencilSketchParticles({
+  active,
+  forming,
+}: {
+  active: boolean;
+  forming: boolean;
+}) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const formingRef = useRef(forming);
+
+  useEffect(() => {
+    formingRef.current = forming;
+  }, [forming]);
+
+  useEffect(() => {
+    if (!active) return;
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let frame = 0;
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let dpr = window.devicePixelRatio || 1;
+    let morph = 0;
+    let drawProgress = 0;
+
+    const rand = (min: number, max: number) => min + Math.random() * (max - min);
+
+    const resize = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      dpr = window.devicePixelRatio || 1;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    type Segment =
+      | { type: "line"; from: [number, number]; to: [number, number] }
+      | {
+          type: "curve";
+          from: [number, number];
+          cp1: [number, number];
+          cp2: [number, number];
+          to: [number, number];
+        };
+
+    function cubic(t: number, p0: number, p1: number, p2: number, p3: number) {
+      const u = 1 - t;
+      return u * u * u * p0 + 3 * u * u * t * p1 + 3 * u * t * t * p2 + t * t * t * p3;
+    }
+
+    function sampleSegment(segment: Segment, t: number) {
+      if (segment.type === "line") {
+        return {
+          x: segment.from[0] + (segment.to[0] - segment.from[0]) * t,
+          y: segment.from[1] + (segment.to[1] - segment.from[1]) * t,
+        };
+      }
+      return {
+        x: cubic(t, segment.from[0], segment.cp1[0], segment.cp2[0], segment.to[0]),
+        y: cubic(t, segment.from[1], segment.cp1[1], segment.cp2[1], segment.to[1]),
+      };
+    }
+
+    function sampleAt(segments: Segment[], t: number) {
+      const clamped = Math.min(0.999999, Math.max(0, t));
+      const index = Math.min(segments.length - 1, Math.floor(clamped * segments.length));
+      const localT = clamped * segments.length - index;
+      return sampleSegment(segments[index], localT);
+    }
+
+    // Paper: rectangle with a folded top-right corner, unit space 0..1
+    const fold = 0.09;
+    const paperSegments: Segment[] = [
+      { type: "line", from: [0, 0], to: [1 - fold, 0] },
+      { type: "line", from: [1 - fold, 0], to: [1, fold] },
+      { type: "line", from: [1, fold], to: [1, 1] },
+      { type: "line", from: [1, 1], to: [0, 1] },
+      { type: "line", from: [0, 1], to: [0, 0] },
+      { type: "line", from: [1 - fold, 0], to: [1 - fold, fold] },
+      { type: "line", from: [1 - fold, fold], to: [1, fold] },
+    ];
+
+    // Pencil silhouette, local space: x = length (0 eraser end .. 1 tip), y = thickness (0.5 centerline)
+    const pencilSegments: Segment[] = [
+      { type: "line", from: [0, 0.36], to: [0.78, 0.36] },
+      { type: "line", from: [0.78, 0.36], to: [1, 0.5] },
+      { type: "line", from: [1, 0.5], to: [0.78, 0.64] },
+      { type: "line", from: [0.78, 0.64], to: [0, 0.64] },
+      { type: "line", from: [0, 0.64], to: [0, 0.36] },
+      { type: "line", from: [0.1, 0.36], to: [0.1, 0.64] },
+      { type: "line", from: [0.19, 0.36], to: [0.19, 0.64] },
+      { type: "line", from: [0.87, 0.415], to: [0.87, 0.585] },
+    ];
+
+    // UI wireframe sketched onto the paper, unit space 0..1 (relative to paper)
+    const sketchSegments: Segment[] = [
+      { type: "line", from: [0.08, 0.1], to: [0.92, 0.1] },
+      { type: "line", from: [0.92, 0.1], to: [0.92, 0.88] },
+      { type: "line", from: [0.92, 0.88], to: [0.08, 0.88] },
+      { type: "line", from: [0.08, 0.88], to: [0.08, 0.1] },
+      { type: "line", from: [0.08, 0.24], to: [0.92, 0.24] },
+      { type: "line", from: [0.13, 0.17], to: [0.17, 0.17] },
+      { type: "line", from: [0.21, 0.17], to: [0.25, 0.17] },
+      { type: "line", from: [0.16, 0.34], to: [0.6, 0.34] },
+      { type: "line", from: [0.16, 0.42], to: [0.84, 0.42] },
+      { type: "line", from: [0.16, 0.5], to: [0.72, 0.5] },
+      { type: "line", from: [0.16, 0.58], to: [0.46, 0.58] },
+      { type: "line", from: [0.46, 0.58], to: [0.46, 0.76] },
+      { type: "line", from: [0.46, 0.76], to: [0.16, 0.76] },
+      { type: "line", from: [0.16, 0.76], to: [0.16, 0.58] },
+      { type: "line", from: [0.55, 0.66], to: [0.84, 0.66] },
+      { type: "line", from: [0.84, 0.66], to: [0.84, 0.78] },
+      { type: "line", from: [0.84, 0.78], to: [0.55, 0.78] },
+      { type: "line", from: [0.55, 0.78], to: [0.55, 0.66] },
+    ];
+
+    let paperOriginX = 0, paperOriginY = 0, paperW = 0, paperH = 0, pencilLen = 0, pencilThickness = 0;
+    const pencilAngle = 2.35;
+
+    const layout = () => {
+      const isMobile = width < 768;
+      const cx = width * 0.56;
+      const cy = height * 0.54;
+      paperW = isMobile ? 220 : 360;
+      paperH = isMobile ? 290 : 460;
+      paperOriginX = cx - paperW / 2;
+      paperOriginY = cy - paperH / 2;
+      pencilLen = paperH * 0.62;
+      pencilThickness = pencilLen * 0.1;
+    };
+
+    const doResize = () => { resize(); layout(); };
+    doResize();
+    window.addEventListener("resize", doResize);
+
+    const paperToWorld = (p: { x: number; y: number }) => ({
+      x: paperOriginX + p.x * paperW,
+      y: paperOriginY + p.y * paperH,
+    });
+
+    const pencilToWorld = (p: { x: number; y: number }, tipX: number, tipY: number) => {
+      const lx = (p.x - 1) * pencilLen;
+      const ly = (p.y - 0.5) * pencilThickness;
+      const cos = Math.cos(pencilAngle), sin = Math.sin(pencilAngle);
+      return { x: tipX + lx * cos - ly * sin, y: tipY + lx * sin + ly * cos };
+    };
+
+    const paperPts = Array.from({ length: 420 }, () => ({
+      t: Math.random(),
+      fx: Math.random(), fy: Math.random(),
+      vx: rand(-0.05, 0.05), vy: rand(-0.05, 0.05),
+      spreadX: rand(-2, 2), spreadY: rand(-2, 2),
+      size: rand(0.9, 1.8), alpha: rand(0.4, 0.85), seed: rand(0, 1000),
+    }));
+
+    const sketchPts = Array.from({ length: 520 }, () => ({
+      t: Math.random(),
+      fx: Math.random(), fy: Math.random(),
+      vx: rand(-0.05, 0.05), vy: rand(-0.05, 0.05),
+      spreadX: rand(-2.2, 2.2), spreadY: rand(-2.2, 2.2),
+      size: rand(0.9, 1.9), alpha: rand(0.55, 1), seed: rand(0, 1000),
+      reveal: 0,
+    }));
+
+    const pencilPts = Array.from({ length: 260 }, () => ({
+      t: Math.random(),
+      fx: Math.random(), fy: Math.random(),
+      vx: rand(-0.05, 0.05), vy: rand(-0.05, 0.05),
+      spreadX: rand(-1.4, 1.4), spreadY: rand(-1.4, 1.4),
+      size: rand(1, 2), alpha: rand(0.7, 1), seed: rand(0, 1000),
+    }));
+
+    const backgroundParticles = Array.from({ length: 900 }, () => ({
+      x: Math.random(), y: Math.random(),
+      vx: rand(-0.035, 0.035), vy: rand(-0.035, 0.035),
+      size: rand(0.4, 0.9), alpha: rand(0.16, 0.42), seed: rand(0, 1000),
+    }));
+
+    const draw = (time: number) => {
+      ctx.clearRect(0, 0, width, height);
+      morph += ((formingRef.current ? 1 : 0) - morph) * 0.07;
+      const readyToDraw = formingRef.current && morph > 0.82;
+      drawProgress = readyToDraw
+        ? Math.min(1, drawProgress + 0.0028)
+        : drawProgress + (0 - drawProgress) * 0.06;
+
+      backgroundParticles.forEach((p) => {
+        p.x += p.vx / width;
+        p.y += p.vy / height;
+        if (p.x < 0) p.x = 1; if (p.x > 1) p.x = 0;
+        if (p.y < 0) p.y = 1; if (p.y > 1) p.y = 0;
+        const twinkle = 0.5 + Math.sin(time * 0.002 + p.seed) * 0.3;
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(30, 155, 251, ${p.alpha * twinkle})`;
+        ctx.arc(p.x * width, p.y * height, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      paperPts.forEach((p) => {
+        p.fx += p.vx / width; p.fy += p.vy / height;
+        if (p.fx < 0) p.fx = 1; if (p.fx > 1) p.fx = 0;
+        if (p.fy < 0) p.fy = 1; if (p.fy > 1) p.fy = 0;
+
+        const target = paperToWorld(sampleAt(paperSegments, p.t));
+        const tx = target.x + p.spreadX, ty = target.y + p.spreadY;
+        const fx = p.fx * width + Math.sin(time * 0.0006 + p.seed) * 8;
+        const fy = p.fy * height + Math.cos(time * 0.0006 + p.seed) * 8;
+        const x = fx + (tx - fx) * morph;
+        const y = fy + (ty - fy) * morph;
+
+        const twinkle = 0.6 + Math.sin(time * 0.003 + p.seed) * 0.4;
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(226, 232, 240, ${p.alpha * twinkle * (0.4 + morph * 0.6)})`;
+        ctx.arc(x, y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      sketchPts.forEach((p) => {
+        p.fx += p.vx / width; p.fy += p.vy / height;
+        if (p.fx < 0) p.fx = 1; if (p.fx > 1) p.fx = 0;
+        if (p.fy < 0) p.fy = 1; if (p.fy > 1) p.fy = 0;
+
+        p.reveal += ((p.t <= drawProgress ? 1 : 0) - p.reveal) * 0.12;
+        const localMorph = morph * p.reveal;
+
+        const target = paperToWorld(sampleAt(sketchSegments, p.t));
+        const tx = target.x + p.spreadX, ty = target.y + p.spreadY;
+        const fx = p.fx * width + Math.sin(time * 0.0006 + p.seed) * 8;
+        const fy = p.fy * height + Math.cos(time * 0.0006 + p.seed) * 8;
+        const x = fx + (tx - fx) * localMorph;
+        const y = fy + (ty - fy) * localMorph;
+
+        const twinkle = 0.6 + Math.sin(time * 0.003 + p.seed) * 0.4;
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(56, 189, 248, ${p.alpha * twinkle * p.reveal})`;
+        ctx.arc(x, y, p.size + p.reveal * 0.4, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      const tipPoint = paperToWorld(sampleAt(sketchSegments, drawProgress));
+
+      pencilPts.forEach((p) => {
+        p.fx += p.vx / width; p.fy += p.vy / height;
+        if (p.fx < 0) p.fx = 1; if (p.fx > 1) p.fx = 0;
+        if (p.fy < 0) p.fy = 1; if (p.fy > 1) p.fy = 0;
+
+        const target = pencilToWorld(sampleAt(pencilSegments, p.t), tipPoint.x, tipPoint.y);
+        const tx = target.x + p.spreadX, ty = target.y + p.spreadY;
+        const fx = p.fx * width + Math.sin(time * 0.0006 + p.seed) * 8;
+        const fy = p.fy * height + Math.cos(time * 0.0006 + p.seed) * 8;
+        const x = fx + (tx - fx) * morph;
+        const y = fy + (ty - fy) * morph;
+
+        const twinkle = 0.65 + Math.sin(time * 0.003 + p.seed) * 0.35;
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(250, 204, 21, ${p.alpha * twinkle * (0.35 + morph * 0.65)})`;
+        ctx.arc(x, y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      frame = requestAnimationFrame(draw);
+    };
+
+    frame = requestAnimationFrame(draw);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", doResize);
+    };
+  }, [active]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="pointer-events-none absolute inset-0 h-full w-full"
+    />
+  );
+}
+
 // ─── "dashboard" variant — floating KPI cards + chart panel ─────────────────
 
 function DashboardHeroVisual({
@@ -1406,6 +1693,78 @@ export function HeroSectionDigitalWeb({
           {/* Right: flowing data wave — hidden on mobile, too dense/cramped to fit well below md */}
           <div className="relative hidden h-[480px] w-full md:block lg:h-[560px]">
             <DataFlowParticles active={showParticles} />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // ── "pencil" variant ──────────────────────────────────────────────────────
+  if (variant === "pencil") {
+    return (
+      <section
+        ref={ref as any}
+        id="heropage"
+        data-header="dark"
+        className="relative min-h-[100vh] overflow-hidden pt-32 md:pt-36 lg:pt-40"
+      >
+        <div className="absolute inset-0 -z-10 bg-black pointer-events-auto">
+          <div className="absolute inset-0 bg-black" />
+          <PencilSketchParticles active={showParticles} forming={ctaHovered} />
+          {darken && (
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/65" />
+          )}
+        </div>
+
+        <div className="pointer-events-none relative z-10 w-full px-6 py-16 md:px-10 md:py-20 lg:px-16 xl:px-20">
+          <div className="max-w-3xl text-white max-[1400px]:max-w-2xl max-[1024px]:max-w-xl">
+            {logo && (
+              <div className="mb-6 max-[1024px]:mb-5">
+                <StrapiImage
+                  src={logo.image.url}
+                  alt={logo.image.alternativeText || "Logo"}
+                  className="h-10 w-auto max-[1024px]:h-9 max-[767px]:h-8"
+                  width={120}
+                  height={120}
+                />
+              </div>
+            )}
+
+            <h1
+              className="
+                whitespace-normal break-words font-agenda-medium
+                text-[44px] leading-[0.95] tracking-[-0.055em]
+                [overflow-wrap:anywhere]
+                md:text-[62px] lg:text-[68px]
+              "
+            >
+              <BlurText text={firstWord} delay={120} animateBy="words" direction="top" className="inline text-white" />{" "}
+              <BlurText text={rest} delay={180} animateBy="words" direction="top" className="inline text-white" />
+            </h1>
+
+            <p
+              className="mt-6 max-w-[1000px] font-agenda-regular"
+              style={{ color: "#FFFFFF", fontSize: "clamp(20px, 2.8vw, 40px)", fontWeight: 400, lineHeight: "normal", letterSpacing: "-2px" }}
+            >
+              {subheader}
+            </p>
+
+            {cta && (
+              <Link
+                href={cta.href}
+                target={cta.isExternal ? "_blank" : "_self"}
+                onMouseEnter={() => setCtaHovered(true)}
+                onMouseLeave={() => setCtaHovered(false)}
+                className="pointer-events-auto group ml-auto mt-16 inline-flex items-center gap-3 text-slate-300 hover:text-white"
+              >
+                <span className="text-sm font-agenda-semibold md:text-base">{cta.text ?? "See Our Work"}</span>
+                <span className="mr-3 grid h-7 w-7 place-items-center rounded-md bg-[#5227FF] text-white transition-transform duration-200 group-hover:translate-y-0.5 sm:mr-6 md:h-8 md:w-8">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-4 w-4">
+                    <path d="M11 3h2v12.17l3.59-3.58L18 13l-6 6-6-6 1.41-1.41L11 15.17V3z" />
+                  </svg>
+                </span>
+              </Link>
+            )}
           </div>
         </div>
       </section>
