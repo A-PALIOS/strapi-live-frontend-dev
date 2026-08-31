@@ -2,9 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 const DOCS: Record<string, string> = {
   "privacy-policy":
-    "http://5.77.39.26:1337/uploads/Politiki_Dorodokias_gia_site_ver_1_e3e6f7a6cb.pdf",
+    "http://194.76.26.12:1337/uploads/Politiki_Dorodokias_gia_site_ver_1_e3e6f7a6cb.pdf",
   "quality-policy":
-    "http://5.77.39.26:1337/uploads/Politiki_Poiotitas_gia_site_ver3_1c0dec6f9e.pdf",
+    "http://194.76.26.12:1337/uploads/Politiki_Poiotitas_gia_site_ver3_1c0dec6f9e.pdf",
 };
 
 export async function GET(
