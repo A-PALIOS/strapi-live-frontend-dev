@@ -53,8 +53,8 @@ export function HeroSectionMain({
                 src={logo.image.url}
                 alt={logo.image.alternativeText || "Logo"}
                 className="h-10 w-auto hidden xl:block"
-                width={24}
-                height={24}
+                width={93}
+                height={40}
               />
             )}
             <span className="text-base text-white md:text-3xl font-agenda-medium uppercase">

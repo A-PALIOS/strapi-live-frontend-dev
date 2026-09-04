@@ -51,6 +51,7 @@ export function Card({
     alt={image.alternativeText || "No alternative text provided"}
     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
     fill
+    sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
   />
  
   {/* subtle image gradient so text stays readable */}
