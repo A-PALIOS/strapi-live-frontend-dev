@@ -36,27 +36,28 @@ import { notFound } from "next/navigation";
 import { ContentList } from "@/components/ContentList";
 import { BlogCard } from "@/components/BlogCard";
  
+export const revalidate = 60;
+
 async function loader() {
   const data = await getHomePage();
   if (!data) notFound();
   return { ...data.data };
 }
- 
+
 interface PageProps {
   searchParams: Promise<{ page?: string; query?: string; category?: string }>;
 }
- 
+
 export default async function HomeRoute({ searchParams }: PageProps) {
   const data = await loader();
-  const { page, query, category } = await searchParams;
   const blocks = data?.blocks || [];
- 
+
   const isHeader = (block: any) =>
     block.__component === "blocks.hero-section-main";
- 
+
   const headerBlocks = blocks.filter(isHeader);
   const contentBlocks = blocks.filter((block: any) => !isHeader(block));
- 
+
   return (
     <div>
       <BlockRenderer blocks={headerBlocks} searchParams={searchParams} />
@@ -66,8 +67,6 @@ export default async function HomeRoute({ searchParams }: PageProps) {
         component={BlogCard}
         showSearch
         showPagination
-        page={page}
-        query={query}
       />
       <BlockRenderer blocks={contentBlocks} searchParams={searchParams} />
     </div>
