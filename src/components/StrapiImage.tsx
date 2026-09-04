@@ -26,7 +26,7 @@ type StrapiImageProps =
     };
 
 export function StrapiImage(props: Readonly<StrapiImageProps>) {
-  const { src, alt, className, quality = 75, unoptimized = false, sizes } = props;
+  const { src, alt, className, quality = 85, unoptimized = false, sizes } = props;
   const imageUrl = getStrapiMedia(src);
 
   if (!imageUrl) return null;
