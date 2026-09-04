@@ -4,6 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { getContent } from "@/data/loaders";
 import { PaginationComponent } from "@/components/PaginationComponent";
+import { BlogCard } from "@/components/BlogCard";
 import type { ArticleProps } from "@/types";
 
 interface QueryContext {
@@ -17,7 +18,6 @@ interface QueryContext {
 export interface ContentListViewProps {
   headline: string;
   headlineAlignment: "center" | "right" | "left";
-  component: React.ComponentType<ArticleProps & { basePath: string }>;
   layout: "grid" | "vertical";
   showPagination?: boolean;
   queryContext: QueryContext;
@@ -30,7 +30,6 @@ export interface ContentListViewProps {
 function ContentListGrid({
   headline,
   headlineAlignment,
-  component: Component,
   layout,
   showPagination,
   basePath,
@@ -39,7 +38,7 @@ function ContentListGrid({
   loading,
 }: Pick<
   ContentListViewProps,
-  "headline" | "headlineAlignment" | "component" | "layout" | "showPagination"
+  "headline" | "headlineAlignment" | "layout" | "showPagination"
 > & {
   basePath: string;
   articles: ArticleProps[];
@@ -66,7 +65,11 @@ function ContentListGrid({
               </h3>
             )}
 
-            {showPagination && <PaginationComponent pageCount={pageCount} />}
+            {showPagination && (
+              <Suspense fallback={null}>
+                <PaginationComponent pageCount={pageCount} />
+              </Suspense>
+            )}
             <div
               className="mt-16 border-t border-[#dedede] -mx-6 md:-mx-10"
               style={{ borderColor: "#626262" }}
@@ -86,7 +89,11 @@ function ContentListGrid({
           )}
 
           <div className="flex translate-y-0 items-center gap-4">
-            {showPagination && <PaginationComponent pageCount={pageCount} />}
+            {showPagination && (
+              <Suspense fallback={null}>
+                <PaginationComponent pageCount={pageCount} />
+              </Suspense>
+            )}
           </div>
         </div>
       </div>
@@ -100,7 +107,7 @@ function ContentListGrid({
         }
       >
         {articles.map((article) => (
-          <Component key={article.documentId} {...article} basePath={basePath} />
+          <BlogCard key={article.documentId} {...article} basePath={basePath} />
         ))}
       </div>
     </section>
@@ -163,7 +170,6 @@ function ContentListViewInner(props: ContentListViewProps) {
     <ContentListGrid
       headline={props.headline}
       headlineAlignment={props.headlineAlignment}
-      component={props.component}
       layout={props.layout}
       showPagination={props.showPagination}
       basePath={queryContext.path}
@@ -181,7 +187,6 @@ export function ContentListView(props: ContentListViewProps) {
         <ContentListGrid
           headline={props.headline}
           headlineAlignment={props.headlineAlignment}
-          component={props.component}
           layout={props.layout}
           showPagination={props.showPagination}
           basePath={props.queryContext.path}

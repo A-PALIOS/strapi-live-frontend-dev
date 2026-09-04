@@ -49,7 +49,6 @@ export async function ContentList({
   featured,
   sector,
   topic,
-  component,
   headlineAlignment = "left",
   query,
   page,
@@ -71,7 +70,6 @@ export async function ContentList({
     <ContentListView
       headline={headline}
       headlineAlignment={headlineAlignment}
-      component={component}
       layout={layout}
       showPagination={showPagination}
       queryContext={{ path, featured, sector, topic, pageSize }}
