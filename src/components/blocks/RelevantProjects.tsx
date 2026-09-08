@@ -19,6 +19,9 @@ function getStrapiMediaUrl(url?: string | null) {
  *   32px pad  -> 5.556cqw   28px title -> 4.861cqw   24px body -> 4.167cqw
  *   18px tag  -> 3.125cqw   217px pill -> 37.674cqw  40px inset -> 6.944cqw
  *
+ * Panel: always visible on phones/tablets (< lg, no hover); hidden and
+ * revealed on hover from lg up.
+ *
  * The overlay panel is content-deterministic — 1 title line, a fixed-height
  * tag row and a 3-line description box are always reserved — so all cards
  * render the exact same panel height regardless of their copy.
@@ -131,7 +134,7 @@ export function RelevantProjects({
             ) : null}
 
             {/* Project Description — 2115:3837, revealed on hover / focus */}
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 flex translate-y-6 flex-col gap-[clamp(12px,5.556cqw,32px)] bg-black/40 p-[clamp(16px,5.556cqw,32px)] opacity-0 transition-all duration-500 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:pointer-events-auto group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
+            <div className="absolute inset-x-0 bottom-0 flex translate-y-0 flex-col gap-[clamp(12px,5.556cqw,32px)] bg-black/40 p-[clamp(16px,5.556cqw,32px)] opacity-100 transition-all duration-500 ease-out lg:pointer-events-none lg:translate-y-6 lg:opacity-0 lg:group-hover:pointer-events-auto lg:group-hover:translate-y-0 lg:group-hover:opacity-100 lg:group-focus-visible:pointer-events-auto lg:group-focus-visible:translate-y-0 lg:group-focus-visible:opacity-100">
               <h3 className="line-clamp-1 font-agenda-medium text-[clamp(17px,4.861cqw,28px)] uppercase leading-[1.15] text-white">
                 {item.title}
               </h3>
