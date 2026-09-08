@@ -248,6 +248,7 @@ export default async function SingleBlogRoute({
               showPagination
               layout="vertical"
               page={page}
+              excludeSlug={slug}
             />
           </div>
         </div>

@@ -520,7 +520,8 @@ export async function getContent(
   page?: string,
   sector?: string,
   topic?: string,
-  pageSize?: number
+  pageSize?: number,
+  excludeSlug?: string
 ) {
   const url = new URL(path, BASE_URL);
 
@@ -549,6 +550,7 @@ export async function getContent(
             },
           },
         }),
+        ...(excludeSlug && { slug: { $ne: excludeSlug } }),
       },
       pagination: {
         pageSize: pageSize ?? BLOG_PAGE_SIZE,

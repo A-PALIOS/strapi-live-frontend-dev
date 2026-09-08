@@ -16,6 +16,7 @@ interface ContentListProps {
   showPagination?: boolean;
   layout?: "grid" | "vertical";
   pageSize?: number;
+  excludeSlug?: string;
 }
 
 async function loader(
@@ -25,7 +26,8 @@ async function loader(
   page?: string,
   sector?: string,
   topic?: string,
-  pageSize?: number
+  pageSize?: number,
+  excludeSlug?: string
 ) {
   const { data, meta } = await getContent(
     path,
@@ -34,7 +36,8 @@ async function loader(
     page,
     sector,
     topic,
-    pageSize
+    pageSize,
+    excludeSlug
   );
 
   return {
@@ -55,6 +58,7 @@ export async function ContentList({
   showPagination,
   layout = "grid",
   pageSize,
+  excludeSlug,
 }: Readonly<ContentListProps>) {
   const { articles, pageCount } = await loader(
     path,
@@ -63,7 +67,8 @@ export async function ContentList({
     page,
     sector,
     topic,
-    pageSize
+    pageSize,
+    excludeSlug
   );
 
   return (
@@ -72,7 +77,7 @@ export async function ContentList({
       headlineAlignment={headlineAlignment}
       layout={layout}
       showPagination={showPagination}
-      queryContext={{ path, featured, sector, topic, pageSize }}
+      queryContext={{ path, featured, sector, topic, pageSize, excludeSlug }}
       initialArticles={articles}
       initialPageCount={pageCount}
       defaultPage={page ?? "1"}

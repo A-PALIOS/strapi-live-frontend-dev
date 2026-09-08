@@ -13,6 +13,7 @@ interface QueryContext {
   sector?: string;
   topic?: string;
   pageSize?: number;
+  excludeSlug?: string;
 }
 
 export interface ContentListViewProps {
@@ -149,7 +150,8 @@ function ContentListViewInner(props: ContentListViewProps) {
       page,
       queryContext.sector,
       queryContext.topic,
-      queryContext.pageSize
+      queryContext.pageSize,
+      queryContext.excludeSlug
     )
       .then(({ data, meta }) => {
         if (cancelled) return;
