@@ -28,6 +28,13 @@
   height: 100%;
   z-index: 1;
   display: block;
+  /* Without this, a touch-drag on the canvas is claimed by the browser as a
+     page scroll: it fires pointercancel and stops sending pointermove, so the
+     shape can't be dragged on phones/tablets. `pan-y` keeps vertical scrolling
+     working (important — on mobile the shape fills a full-width square) while
+     handing horizontal drags to the canvas, which is the axis that rotates the
+     shape and switches stages. */
+  touch-action: pan-y;
   cursor: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MiIgaGVpZ2h0PSI1MiIgdmlld0JveD0iMCAwIDEyMCAxMjAiPgo8cGF0aCBkPSJNIDIyLjQxIDQ2LjMyIEEgNDAgNDAgMCAwIDEgOTcuNTkgNDYuMzIiCiAgICAgIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtZGFzaGFycmF5PSI3IDgiLz4KPHBhdGggZD0iTSA4Ni40MiAzNi41NSBMIDk3LjU5IDQ2LjMyIEwgOTkuODYgMzEuNjYiCiAgICAgIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik0gOTcuNTkgNzMuNjggQSA0MCA0MCAwIDAgMSAyMi40MSA3My42OCIKICAgICAgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1kYXNoYXJyYXk9IjcgOCIvPgo8cGF0aCBkPSJNIDMzLjU4IDgzLjQ1IEwgMjIuNDEgNzMuNjggTCAyMC4xNCA4OC4zNCIKICAgICAgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+') 26 26, grab;
 }
 
