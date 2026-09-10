@@ -2,6 +2,21 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+
+/* Devices that can actually hover with a real pointer. Use this to gate any
+   hover-reveal, so touch devices — including tablets 1024px and wider, which
+   otherwise match lg: — get the revealed state permanently instead of content
+   they can never trigger. */
+@custom-variant can-hover (@media (hover: hover) and (pointer: fine));
+
+/* The tablet range only: 768px up to 1023px, and at least 600px tall.
+   Plain `md:` also catches a phone held in landscape — those are ~667-932px
+   wide but only ~390-430px tall — which is how phones end up with multi-column
+   grids. Every tablet clears 600px even in landscape, so the height floor
+   separates the two. Bounded at the top because Tailwind orders a custom
+   variant after `lg:`, so an open-ended one would override lg: utilities on
+   desktop. Uses max-width rather than range syntax for older Safari. */
+@custom-variant tablet (@media (min-width: 48rem) and (max-width: 63.9375rem) and (min-height: 37.5rem));
 html {
   scroll-behavior: smooth;
 }

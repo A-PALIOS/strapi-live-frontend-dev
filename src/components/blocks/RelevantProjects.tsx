@@ -19,8 +19,10 @@ function getStrapiMediaUrl(url?: string | null) {
  *   32px pad  -> 5.556cqw   28px title -> 4.861cqw   24px body -> 4.167cqw
  *   18px tag  -> 3.125cqw   217px pill -> 37.674cqw  40px inset -> 6.944cqw
  *
- * Panel: always visible on phones/tablets (< lg, no hover); hidden and
- * revealed on hover from lg up.
+ * Panel: always visible on any device that cannot hover (phones, tablets —
+ * including tablets 1024px+, which match lg: on width but never fire hover);
+ * hidden and revealed on hover from lg up on real pointers. See the `can-hover`
+ * and `tablet` variants in globals.css.
  *
  * The overlay panel is content-deterministic — 1 title line, a fixed-height
  * tag row and a 3-line description box are always reserved — so all cards
@@ -94,8 +96,11 @@ export function RelevantProjects({
         ) : null}
       </div>
 
-      {/* Frame 34676 — 2115:3835 (flush cards, no gutter) */}
-      <div className="mt-6 grid grid-cols-1 gap-0 md:grid-cols-2 lg:grid-cols-3 xl:mt-[38px]">
+      {/* Frame 34676 — 2115:3835 (flush cards, no gutter)
+          One card per row on phones in either orientation: the `tablet`
+          variant adds a height floor to md's width, so a landscape phone stays
+          single-column instead of matching md: on width alone. */}
+      <div className="mt-6 grid grid-cols-1 gap-0 tablet:grid-cols-2 lg:grid-cols-3 xl:mt-[38px]">
         {projects.map((item) => (
           <Link
             key={item.id}
@@ -111,7 +116,7 @@ export function RelevantProjects({
                   "Project image"
                 }
                 fill
-                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                sizes="(min-width: 1024px) 33vw, (min-width: 768px) and (min-height: 600px) 50vw, 100vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
               />
             ) : null}
@@ -133,8 +138,11 @@ export function RelevantProjects({
               </div>
             ) : null}
 
-            {/* Project Description — 2115:3837, revealed on hover / focus */}
-            <div className="absolute inset-x-0 bottom-0 flex translate-y-0 flex-col gap-[clamp(12px,5.556cqw,32px)] bg-black/40 p-[clamp(16px,5.556cqw,32px)] opacity-100 transition-all duration-500 ease-out lg:pointer-events-none lg:translate-y-6 lg:opacity-0 lg:group-hover:pointer-events-auto lg:group-hover:translate-y-0 lg:group-hover:opacity-100 lg:group-focus-visible:pointer-events-auto lg:group-focus-visible:translate-y-0 lg:group-focus-visible:opacity-100">
+            {/* Project Description — 2115:3837, revealed on hover / focus.
+                The hover-reveal is gated on `can-hover` as well as lg, so touch
+                devices keep the panel permanently visible — a tablet at 1024px+
+                matches lg but can never fire the hover that would reveal it. */}
+            <div className="absolute inset-x-0 bottom-0 flex translate-y-0 flex-col gap-[clamp(12px,5.556cqw,32px)] bg-black/40 p-[clamp(16px,5.556cqw,32px)] opacity-100 transition-all duration-500 ease-out lg:can-hover:pointer-events-none lg:can-hover:translate-y-6 lg:can-hover:opacity-0 lg:can-hover:group-hover:pointer-events-auto lg:can-hover:group-hover:translate-y-0 lg:can-hover:group-hover:opacity-100 lg:can-hover:group-focus-visible:pointer-events-auto lg:can-hover:group-focus-visible:translate-y-0 lg:can-hover:group-focus-visible:opacity-100">
               <h3 className="line-clamp-1 font-agenda-medium text-[clamp(17px,4.861cqw,28px)] uppercase leading-[1.15] text-white">
                 {item.title}
               </h3>
