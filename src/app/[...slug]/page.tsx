@@ -11,6 +11,18 @@ async function loader(slugSegments: string[]) {
     !Array.isArray(response.data) ||
     response.data.length === 0
   ) {
+    // Say WHICH of the two very different causes produced this 404:
+    //  - "request failed"  -> Strapi rejected/failed the query (see the
+    //                         [fetchAPI] line above for the reason)
+    //  - "no matching page" -> the query was fine; Strapi has no Page with
+    //                         this slug/parent combination (or it's unpublished)
+    const reason =
+      response && typeof response.status === "number" && !response.data
+        ? `request failed (HTTP ${response.status})`
+        : "no matching page in Strapi (wrong slug/parent, or not published)";
+    console.error(
+      `[page 404] /${slugSegments.join("/")} -> ${reason}`
+    );
     notFound();
   }
 

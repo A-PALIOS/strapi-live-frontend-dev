@@ -325,6 +325,7 @@ export interface ArticleProps {
 
 
 type ComponentType ="blocks.hero-section-main" | "blocks.hero-section" 
+| "blocks.hero-section3-d" 
 | "blocks.hero-section-digital" 
 | "blocks.hero-section-digital-web"
 | "blocks.info-block" | "blocks.moving-text" 
@@ -392,7 +393,7 @@ interface Base<
   data?: D;
 }
 
-export type Block = HeroSectionMainProps | HeroSectionProps
+export type Block = HeroSectionMainProps | HeroSectionProps | HeroSection3DProps
  | HeroSectionDigitalProps | HeroSectionDigitalCardsProps | HeroSectionDigitalWebProps
 | HeroSectionServiceProps | InfoBlockProps | MovingTextProps | MilestonesBlockProps
  | VerticalAccordionBlockProps | ServicesAccordionBlockProps | AccordionAboutBlockProps | LinkListAboutBlockProps
@@ -460,6 +461,24 @@ export interface HeroSectionProps extends Base<"blocks.hero-section"> {
   darken?: boolean;
     headingWidth?: "min-content" | "balance" | null;
 
+}
+
+/** One narrative stage of the 3D hero (Strapi repeatable component). */
+export type HeroStage3D = {
+  id: number;
+  number?: string | null;
+  eyebrow?: string | null;
+  headline?: string | null;
+  sub?: string | null;
+};
+
+export interface HeroSection3DProps extends Base<"blocks.hero-section3-d"> {
+  theme?: "black" | "white" | null;
+  heading?: string | null;
+  subheader?: string | null;
+  /** ms between automatic stage changes; ImpactBanner defaults to 4200 */
+  autoAdvanceMs?: number | null;
+  stages?: HeroStage3D[];
 }
 
 export interface HeroSectionServiceProps extends Base<"blocks.hero-section-services"> {

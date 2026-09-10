@@ -482,7 +482,28 @@ const pageBlocksPopulate = {
   },
 };
 
-const pageBySlugQuery = (slugSegments: string[]) => {
+/**
+ * Blocks whose Strapi component may not exist yet.
+ *
+ * Strapi validates every key under populate[blocks][on] against the Page
+ * dynamic zone and rejects the WHOLE query with a 400 if one is unknown — which
+ * surfaces as a 404 on every page. So these are sent as a best effort: if
+ * Strapi rejects them, getPageBySlug retries without them and the rest of the
+ * site keeps working. Move an entry into pageBlocksPopulate once its component
+ * is live in Strapi and you want the query to fail loudly instead.
+ */
+const optionalPageBlocksPopulate = {
+  "blocks.hero-section3-d": {
+    populate: {
+      stages: true,
+    },
+  },
+};
+
+const pageBySlugQuery = (
+  slugSegments: string[],
+  includeOptionalBlocks = true
+) => {
   const lastSegment = slugSegments[slugSegments.length - 1];
   const parentSegments = slugSegments.slice(0, -1);
 
@@ -499,7 +520,12 @@ const pageBySlugQuery = (slugSegments: string[]) => {
           fields: ["slug"],
         },
         secondary_menus: secondaryMenusPopulate,
-        blocks: pageBlocksPopulate,
+        blocks: {
+          on: {
+            ...(includeOptionalBlocks ? optionalPageBlocksPopulate : {}),
+            ...pageBlocksPopulate.on,
+          },
+        },
       },
     },
     { encodeValuesOnly: true }
@@ -507,10 +533,28 @@ const pageBySlugQuery = (slugSegments: string[]) => {
 };
 
 export async function getPageBySlug(slugSegments: string[]) {
-  const url = new URL("/api/pages", BASE_URL);
-  url.search = pageBySlugQuery(slugSegments);
+  const request = async (includeOptionalBlocks: boolean) => {
+    const url = new URL("/api/pages", BASE_URL);
+    url.search = pageBySlugQuery(slugSegments, includeOptionalBlocks);
+    return fetchAPI(url.href, { method: "GET" });
+  };
 
-  return fetchAPI(url.href, { method: "GET" });
+  const response = await request(true);
+
+  // A 400 here means Strapi refused a key in populate[blocks][on] — almost
+  // always a component listed in optionalPageBlocksPopulate that hasn't been
+  // created in the CMS yet. Retry without them so the page still renders
+  // instead of turning into a 404.
+  if (response && !response.data && response.status === 400) {
+    console.warn(
+      "[getPageBySlug] Strapi rejected the optional block populate " +
+        `(${Object.keys(optionalPageBlocksPopulate).join(", ")}). ` +
+        "Retrying without it — create the component in Strapi to enable it."
+    );
+    return request(false);
+  }
+
+  return response;
 }
 
 export async function getContent(

@@ -1,6 +1,7 @@
 // import type { Block } from "@/types";
 
 // import { HeroSection } from "@/components/blocks/HeroSection";
+import { HeroSection3D } from "@/components/blocks/HeroSection3D";
 // import { InfoBlock } from "@/components/blocks/InfoBlock";
 // import {MilestoneBlock} from "@/components/blocks/MilestoneBlock";
 // import {VerticalAccordionBlock} from "@/components/blocks/VerticalAccordionBlock";
@@ -159,6 +160,8 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
       return <HeroSectionMain {...block} key={index} />;
     case "blocks.hero-section":
       return <HeroSection {...block} key={index} />;
+    case "blocks.hero-section3-d":
+      return <HeroSection3D {...block} key={index} />;
     case "blocks.hero-section-services":
       return <HeroSectionServiceBlock {...block} key={index} />
      case "blocks.hero-section-digital":

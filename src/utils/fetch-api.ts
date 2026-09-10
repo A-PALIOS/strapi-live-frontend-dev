@@ -34,6 +34,19 @@ export async function fetchAPI(url: string, options: FetchAPIOptions) {
       console.log("Response OK:", response);
       return await response.json();
     } else {
+      // Surface WHY the request failed. Without this a Strapi 400 (e.g. an
+      // unknown component key under populate[blocks][on]) is indistinguishable
+      // from "no such page": callers only see a missing `data` and call
+      // notFound(), so the browser shows a clean 404 and the real cause is lost.
+      let details = "";
+      try {
+        details = (await response.text()).slice(0, 800);
+      } catch {
+        details = "<no response body>";
+      }
+      console.error(
+        `[fetchAPI] ${method} ${response.status} ${response.statusText}\n  url: ${url}\n  body: ${details}`
+      );
       return { status: response.status, statusText: response.statusText };
     }
   } catch (error) {

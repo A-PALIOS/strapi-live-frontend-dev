@@ -2,6 +2,7 @@ import Link from "next/link";
 import { StrapiImage } from "../StrapiImage";
 import type { HeroSectionProps } from "@/types";
 import IntegrationsSection from "./IntegrationsSection";
+import ImpactBanner from "./ImpactBanner";
 
 export function HeroSection({
   heading,
@@ -123,19 +124,19 @@ export function HeroSection({
 )}
         </div>
 
-        {/* Hero image */}
-        {image?.url && (
+        {/* Hero image — falls back to the interactive ImpactBanner when no image is set */}
+        {image?.url ? (
           <div className="mt-14 md:mt-16 ">
             <div className={
             `relative overflow-hidden rounded-2xl
             ${theme==="black" ?
-              
+
               "self-stretch  bg-gradient-to-l from-sky-900 via-sky-950 to-slate-950 rounded-lg shadow-[0px_0px_40px_0px_rgba(26,146,236,0.50)] outline outline-1 outline-offset-[-1px] outline-neutral-400 inline-flex justify-start items-center gap-2"
               :"rounded-lg inline-flex justify-start items-center gap-2"
             }
-            
-            `       
-            
+
+            `
+
             }>
               <StrapiImage
                 src={image.url}
@@ -147,6 +148,24 @@ export function HeroSection({
 
               {darken && (
                 <div className="absolute inset-0 bg-black/20" />
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className="mt-14 md:mt-16 ">
+            <div className={
+            `relative overflow-hidden rounded-2xl block w-full
+            ${theme==="black" ?
+              "bg-gradient-to-l from-sky-900 via-sky-950 to-slate-950 rounded-lg shadow-[0px_0px_40px_0px_rgba(26,146,236,0.50)] outline outline-1 outline-offset-[-1px] outline-neutral-400"
+              :"rounded-lg"
+            }
+            `
+            }>
+              {/* Sizes itself: 1728:715 on desktop, stacked/auto-height below 760px */}
+              <ImpactBanner />
+
+              {darken && (
+                <div className="absolute inset-0 bg-black/20 pointer-events-none" />
               )}
             </div>
           </div>
