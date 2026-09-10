@@ -1,24 +1,55 @@
 import type { HeroSection3DProps } from "@/types";
 import ImpactBanner, { type Stage } from "./ImpactBanner";
+import ImpactBannerSection2 from "./ImpactBannerSection2";
+import ImpactBannerSection3 from "./ImpactBannerSection3";
 
 /**
  * HeroSection3D — Strapi block `blocks.hero-section-3d`.
  *
  * A thin wrapper: it owns the section chrome (padding, theme, the
  * `data-header` hint the site header reads for light/dark nav) and hands the
- * editable copy to ImpactBanner, which owns the 3D shape and the stage
- * animation. When no stages are entered in Strapi, ImpactBanner falls back to
- * its built-in three, so the block never renders empty.
+ * editable copy to one of the banner components, which own the 3D shape and
+ * the stage animation.
+ *
+ * `variant` picks the shape, so the same block can be reused on different
+ * pages with a different visual identity:
+ *   - "system" (default) -> ImpactBanner: single icosahedron, dark navy
+ *   - "impact"           -> ImpactBannerSection2: geodesic orb + orbit rings,
+ *                           bright blue
+ *   - "sustain"          -> ImpactBannerSection3: torus knot (one continuous
+ *                           loop), orange
+ *
+ * They all take the same `stages` shape and each falls back to its own
+ * built-in copy when Strapi has none, so the block never renders empty.
+ *
+ * To add a shape later: build the banner component and add one entry to
+ * BANNER_BY_VARIANT below, plus the value in Strapi's `variant` enum and in
+ * HeroSection3DProps.
  */
+
+const BANNER_BY_VARIANT = {
+  system: ImpactBanner,
+  impact: ImpactBannerSection2,
+  sustain: ImpactBannerSection3,
+} as const;
+
+type BannerVariant = keyof typeof BANNER_BY_VARIANT;
 export function HeroSection3D({
   heading,
   subheader,
   stages,
   autoAdvanceMs,
   theme,
+  variant,
 }: Readonly<HeroSection3DProps>) {
   const isDark = theme === "black";
   const navbarColor = isDark ? "dark" : "light";
+
+  // Falls back to the icosahedron if Strapi ever sends a variant this build
+  // doesn't know about (e.g. a value added to the enum before the code ships),
+  // rather than crashing the page on an undefined component.
+  const Banner =
+    BANNER_BY_VARIANT[(variant ?? "system") as BannerVariant] ?? ImpactBanner;
 
   // Strapi rows carry an `id` and possibly nulls — normalise to the shape
   // ImpactBanner expects and drop anything the editor left entirely blank.
@@ -75,7 +106,7 @@ export function HeroSection3D({
 
         <div className={heading || subheader ? "mt-14 md:mt-16" : ""}>
           <div className="relative block w-full overflow-hidden rounded-lg">
-            <ImpactBanner
+            <Banner
               stages={bannerStages}
               autoAdvanceMs={autoAdvanceMs ?? undefined}
             />
