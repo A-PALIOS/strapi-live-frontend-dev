@@ -84,7 +84,10 @@
   font-weight: 500;
   font-size: calc(64px * var(--scale));
   line-height: 1.15;
-  white-space: nowrap;
+  /* wraps rather than running under the shape: 1000px is the room between
+     the text panel and the shape's left edge in design units */
+  white-space: normal;
+  max-width: calc(1000px * var(--scale));
   margin: 0 0 calc(2px * var(--scale)) 0;
 }
 
@@ -94,8 +97,8 @@
   font-weight: 400;
   font-size: calc(33px * var(--scale));
   line-height: 1.25;
-  white-space: nowrap;
-  max-width: calc(1250px * var(--scale));
+  white-space: normal;
+  max-width: calc(1000px * var(--scale));
   min-height: calc(84px * var(--scale));
   margin: 0;
 }
@@ -206,6 +209,81 @@
   .stageDot {
     width: 9px;
     height: 9px;
+  }
+}
+
+/* ============ SHORT LANDSCAPE (phones held sideways, ~320-520px tall) ========
+   These viewports are wider than 760px, so without this block they fell through
+   to the desktop treatment at --scale 0.49 — a legible-but-tiny miniature (16px
+   sub, 5px dots). Here the side-by-side geometry is kept (stacking a full-width
+   square shape into a 390px-tall viewport would be far worse) but the type is
+   set in fixed px instead of scaled, and the headline is allowed to wrap inside
+   a column that stops short of the shape. */
+@media (orientation: landscape) and (max-height: 520px) {
+  .banner {
+    /* undo the mobile stack for narrow-but-landscape phones */
+    display: block;
+    aspect-ratio: 1728 / 715;
+    height: auto;
+  }
+  .shapeStage {
+    position: absolute;
+    inset: 0;
+    width: auto;
+    aspect-ratio: auto;
+    order: initial;
+  }
+  .divider {
+    display: block;
+    top: 84px;
+    left: 24px;
+    right: 24px;
+  }
+  .textPanel {
+    position: absolute;
+    left: 24px;
+    top: 22px;
+    /* stops short of the shape on the right, so the wrapped headline can't
+       collide with it at any of these widths */
+    width: 52%;
+    padding: 0;
+    box-sizing: border-box;
+    order: initial;
+  }
+  .stageNumber {
+    font-size: 48px;
+    margin: 0 0 14px 0;
+  }
+  .eyebrow {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+  .headline {
+    font-size: 24px;
+    line-height: 1.15;
+    white-space: normal;
+    margin: 0 0 4px 0;
+    /* fixed 2-line box so every stage is the same height and the dots don't
+       jump as the copy changes */
+    height: 56px;
+    overflow: hidden;
+  }
+  .sub {
+    font-size: 14px;
+    line-height: 1.35;
+    white-space: normal;
+    max-width: 100%;
+    min-height: 0;
+    height: 38px;
+    overflow: hidden;
+  }
+  .stageDots {
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .stageDot {
+    width: 8px;
+    height: 8px;
   }
 }
 

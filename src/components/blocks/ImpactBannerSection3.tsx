@@ -398,12 +398,20 @@ export default function ImpactBannerSection3({
     // the text's right edge and the banner's right edge. Mobile switches to
     // a roughly square shape area with no side text to dodge, so the shape
     // just centers.
-    const MOBILE_QUERY = window.matchMedia('(max-width: 760px)');
+    // Mirrors the CSS exactly: the layout only stacks when the viewport is
+    // narrow AND not a short landscape one. A 720x360 phone matches the narrow
+    // query but keeps the side-by-side layout, so the shape must stay right.
+    const NARROW_QUERY = window.matchMedia('(max-width: 760px)');
+    const SHORT_LANDSCAPE_QUERY = window.matchMedia(
+      '(orientation: landscape) and (max-height: 520px)'
+    );
     function applyShapePosition() {
-      shapeGroup.position.x = MOBILE_QUERY.matches ? 0 : 5.0;
+      const stacked = NARROW_QUERY.matches && !SHORT_LANDSCAPE_QUERY.matches;
+      shapeGroup.position.x = stacked ? 0 : 5.0;
     }
     applyShapePosition();
-    MOBILE_QUERY.addEventListener('change', applyShapePosition);
+    NARROW_QUERY.addEventListener('change', applyShapePosition);
+    SHORT_LANDSCAPE_QUERY.addEventListener('change', applyShapePosition);
 
     function resizeRendererToStage() {
       const w = shapeStageEl.clientWidth;
@@ -731,7 +739,8 @@ export default function ImpactBannerSection3({
       timeouts.forEach(clearTimeout);
       window.removeEventListener('resize', updateScaleVar);
       wrapResizeObserver.disconnect();
-      MOBILE_QUERY.removeEventListener('change', applyShapePosition);
+      NARROW_QUERY.removeEventListener('change', applyShapePosition);
+      SHORT_LANDSCAPE_QUERY.removeEventListener('change', applyShapePosition);
       stageResizeObserver.disconnect();
       canvas.removeEventListener('pointerdown', handlePointerDown);
       canvas.removeEventListener('pointermove', handlePointerMove);
