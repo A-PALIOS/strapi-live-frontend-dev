@@ -2,6 +2,7 @@ import type { HeroSection3DProps } from "@/types";
 import ImpactBanner, { type Stage } from "./ImpactBanner";
 import ImpactBannerSection2 from "./ImpactBannerSection2";
 import ImpactBannerSection3 from "./ImpactBannerSection3";
+import StrategicPlanningBanner from "./StrategicPlanningBanner";
 
 /**
  * HeroSection3D — Strapi block `blocks.hero-section-3d`.
@@ -18,6 +19,10 @@ import ImpactBannerSection3 from "./ImpactBannerSection3";
  *                           bright blue
  *   - "sustain"          -> ImpactBannerSection3: torus knot (one continuous
  *                           loop), orange
+ *   - "strategy"         -> StrategicPlanningBanner: staircase climbing to a
+ *                           goal, scroll-triggered formation loop. This one
+ *                           has no rotating stages — it uses only the FIRST
+ *                           stage as its tagline (headline + sub).
  *
  * They all take the same `stages` shape and each falls back to its own
  * built-in copy when Strapi has none, so the block never renders empty.
@@ -31,6 +36,7 @@ const BANNER_BY_VARIANT = {
   system: ImpactBanner,
   impact: ImpactBannerSection2,
   sustain: ImpactBannerSection3,
+  strategy: StrategicPlanningBanner,
 } as const;
 
 type BannerVariant = keyof typeof BANNER_BY_VARIANT;
