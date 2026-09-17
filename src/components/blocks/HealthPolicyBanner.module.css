@@ -1,0 +1,152 @@
+.bannerWrap {
+  width: 100%;
+  max-width: 1728px;
+  border-radius: inherit;
+}
+
+.banner {
+  width: 100%;
+  aspect-ratio: 1728 / 600;
+  container-type: inline-size;
+  position: relative;
+  background: linear-gradient(120deg, #001a2c 15%, #005692 100%);
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 1;
+  /* `none` would trap vertical scrolling anywhere over the canvas — and on a
+     small portrait phone this banner is a full 100svh tall, so a whole screen
+     of page would be unscrollable. `pan-y` keeps page scrolling while giving
+     horizontal drags to the shape, matching the other variants. */
+  touch-action: pan-y;
+  cursor:
+    url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MiIgaGVpZ2h0PSI1MiIgdmlld0JveD0iMCAwIDEyMCAxMjAiPgo8cGF0aCBkPSJNIDIyLjQxIDQ2LjMyIEEgNDAgNDAgMCAwIDEgOTcuNTkgNDYuMzIiCiAgICAgIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtZGFzaGFycmF5PSI3IDgiLz4KPHBhdGggZD0iTSA4Ni40MiAzNi41NSBMIDk3LjU5IDQ2LjMyIEwgOTkuODYgMzEuNjYiCiAgICAgIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGQ9Ik0gOTcuNTkgNzMuNjggQSA0MCA0MCAwIDAgMSAyMi40MSA3My42OCIKICAgICAgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1kYXNoYXJyYXk9IjcgOCIvPgo8cGF0aCBkPSJNIDMzLjU4IDgzLjQ1IEwgMjIuNDEgNzMuNjggTCAyMC4xNCA4OC4zNCIKICAgICAgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPC9zdmc+')
+      26 26,
+    grab;
+}
+
+.tagline {
+  position: absolute;
+  right: 6%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  max-width: 38cqw;
+  pointer-events: none;
+}
+
+/* sizes are expressed relative to the banner's own width (cqw) so the text
+   scales down with the banner instead of overflowing it at narrow widths.
+   3.93cqw == 68px at the 1728px design width, 1.62cqw == 28px. */
+.tagline h2 {
+  margin: 0 0 0.6cqw 0;
+  color: #fff;
+  font-family: "agenda", sans-serif;
+  font-weight: 500;
+  font-size: clamp(24px, 3.93cqw, 68px);
+  line-height: 1.15;
+  /* measured: the line is 9.0em wide in Agenda, i.e. 35.5cqw at 3.93cqw
+     type — the 38cqw max-width above leaves it a small margin */
+  white-space: nowrap;
+}
+
+.tagline p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: "agenda", sans-serif;
+  font-weight: 400;
+  font-size: clamp(14px, 1.62cqw, 28px);
+  line-height: 1.4;
+}
+
+@media (max-width: 1024px) and (orientation: portrait) {
+  .banner {
+    /* tablets: square. 3/4 here turned a 760px-wide window into a
+       ~950px-tall banner — see the phone override further down */
+    aspect-ratio: 1 / 1;
+  }
+  .tagline {
+    right: 0;
+    left: 0;
+    top: 6%;
+    bottom: auto;
+    transform: none;
+    max-width: 100%;
+    width: 100%;
+    padding: 0 24px;
+    text-align: center;
+    background: none;
+    border-radius: 0;
+  }
+  .tagline h2 {
+    font-size: clamp(24px, 6.6cqw, 54px);
+    white-space: normal;
+  }
+  .tagline p {
+    font-size: clamp(15px, 3.4cqw, 28px);
+  }
+}
+
+/* narrow landscape (phones/small tablets turned sideways) keeps the wide
+   desktop-style layout. It needs no font overrides: every landscape width
+   shares one aspect-ratio, so the cqw sizes above already scale continuously.
+   The old px overrides here jumped the heading 39px -> 27px at exactly 900px. */
+@media (max-width: 900px) and (orientation: landscape) {
+  .tagline {
+    max-width: 42cqw;
+  }
+}
+
+/* phones held upright: the frame goes taller again, since there is no
+   width to spare for the shape beside the text */
+@media (max-width: 600px) and (orientation: portrait) {
+  .banner {
+    /* full-height hero. svh (small viewport height) is the stable value
+       on mobile — 100vh jumps as the browser's address bar hides */
+    aspect-ratio: auto;
+    height: 100vh;
+    height: 100svh;
+  }
+  /* the tablet rule's 6.6cqw lands at ~23px on a 343px-wide phone, i.e.
+     under its own clamp floor, so type stopped scaling entirely here.
+     cqw measures WIDTH, which misses that this tier is now full-height —
+     hence a steeper ramp and a higher floor rather than a shared rule */
+  .tagline h2 {
+    font-size: clamp(30px, 10cqw, 42px);
+  }
+  .tagline p {
+    font-size: clamp(16px, 5cqw, 21px);
+  }
+}
+
+.word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  /* the mask would otherwise crop descenders (g, y, p) — very visible at
+     the larger heading sizes; pad the box and pull the space back */
+  padding-bottom: 0.18em;
+  margin-bottom: -0.18em;
+}
+
+.word > span {
+  display: inline-block;
+  transform: translateY(110%);
+  opacity: 0;
+  transition:
+    transform 0.55s cubic-bezier(0.22, 0.9, 0.32, 1),
+    opacity 0.4s ease;
+}
+
+.revealed .word > span {
+  transform: translateY(0);
+  opacity: 1;
+}

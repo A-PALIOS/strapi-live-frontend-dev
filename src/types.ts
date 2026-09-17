@@ -481,8 +481,10 @@ export interface HeroSection3DProps extends Base<"blocks.hero-section3-d"> {
    *  - "sustain"            -> ImpactBannerSection3, torus knot, orange
    *  - "strategy"           -> StrategicPlanningBanner, ascending staircase to
    *                            a goal; uses only the FIRST stage as its tagline
+   *  - "policy"             -> HealthPolicyBanner, fan morphing into a cross;
+   *                            also uses only the FIRST stage as its tagline
    */
-  variant?: "system" | "impact" | "sustain" | "strategy" | null;
+  variant?: "system" | "impact" | "sustain" | "strategy" | "policy" | null;
   heading?: string | null;
   subheader?: string | null;
   /** ms between automatic stage changes; ImpactBanner defaults to 4200 */

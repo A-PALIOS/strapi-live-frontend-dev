@@ -3,6 +3,7 @@ import ImpactBanner, { type Stage } from "./ImpactBanner";
 import ImpactBannerSection2 from "./ImpactBannerSection2";
 import ImpactBannerSection3 from "./ImpactBannerSection3";
 import StrategicPlanningBanner from "./StrategicPlanningBanner";
+import HealthPolicyBanner from "./HealthPolicyBanner";
 
 /**
  * HeroSection3D — Strapi block `blocks.hero-section-3d`.
@@ -23,6 +24,9 @@ import StrategicPlanningBanner from "./StrategicPlanningBanner";
  *                           goal, scroll-triggered formation loop. This one
  *                           has no rotating stages — it uses only the FIRST
  *                           stage as its tagline (headline + sub).
+ *   - "policy"           -> HealthPolicyBanner: a fan of nodes morphing into a
+ *                           cross and back, scroll-triggered. Also tagline-only
+ *                           (first stage).
  *
  * They all take the same `stages` shape and each falls back to its own
  * built-in copy when Strapi has none, so the block never renders empty.
@@ -37,6 +41,7 @@ const BANNER_BY_VARIANT = {
   impact: ImpactBannerSection2,
   sustain: ImpactBannerSection3,
   strategy: StrategicPlanningBanner,
+  policy: HealthPolicyBanner,
 } as const;
 
 type BannerVariant = keyof typeof BANNER_BY_VARIANT;
