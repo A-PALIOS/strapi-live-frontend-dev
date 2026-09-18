@@ -1,5 +1,14 @@
 "use client";
 
+// ─────────────────────────────────────────────────────────────────────────────
+// ARCHIVED — NOT RENDERED ANYWHERE (deactivated 2026-09-18)
+//
+// This component is intact and kept for future use, but is no longer mounted.
+// Its former mount point is commented out in HeroSectionDigital.tsx, and the
+// /api/chat route it posts to is disabled (see src/app/api/chat/route.ts for
+// the reason and the checklist to fix before re-enabling).
+// ─────────────────────────────────────────────────────────────────────────────
+
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { Bot, Send, User, Sparkles, X } from "lucide-react";

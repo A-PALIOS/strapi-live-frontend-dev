@@ -1,3 +1,38 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// CHATBOT DEACTIVATED — 2026-09-18
+//
+// The Digital Assistant is switched off. This endpoint was publicly callable
+// and was being abused to drain the OpenAI budget: the per-IP rate limiter
+// trusted the client-supplied `x-forwarded-for` header, so any caller could
+// reset their own quota by sending a random value, and each accepted request
+// carried a ~12,500-token system prompt built from Strapi content.
+//
+// Hiding the widget alone does NOT stop this — the endpoint is hit directly
+// with curl — so the handler itself is disabled here.
+//
+// BEFORE RE-ENABLING, fix at minimum:
+//   1. Global daily request/token ceiling (not just per-IP).
+//   2. Derive the client IP from the proxy, not the raw XFF header
+//      (last entry with `proxy_add_x_forwarded_for`, or `cf-connecting-ip`).
+//   3. One fixed, cache-friendly system prompt instead of 16 keyword variants.
+//   4. Trim team bios out of the default context.
+//   5. Log `response.usage` per request for visibility.
+// Also set a hard monthly budget limit on the OpenAI account.
+//
+// The original implementation is preserved verbatim below for reference.
+// ─────────────────────────────────────────────────────────────────────────────
+
+import { NextResponse } from "next/server";
+
+export async function POST() {
+  return NextResponse.json(
+    { error: "The assistant is currently unavailable." },
+    { status: 503 }
+  );
+}
+
+/* ─── ARCHIVED IMPLEMENTATION (inactive) ──────────────────────────────────────
+
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import qs from "qs";
@@ -376,3 +411,4 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Failed to contact assistant" }, { status: 500 });
   }
 }
+──────────────────────────────────────────────────────────────────────────── */

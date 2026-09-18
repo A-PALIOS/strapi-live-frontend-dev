@@ -13,10 +13,14 @@ const Lanyard = dynamic(() => import("../Lanyard"), {
   ssr: false,
   loading: () => null,
 });
-const DigitalChatbot = dynamic(() => import("./DigitalChatbot"), {
-  ssr: false,
-  loading: () => null,
-});
+// CHATBOT DEACTIVATED — 2026-09-18. Kept for future re-enabling.
+// See src/app/api/chat/route.ts for why it was switched off and what must be
+// fixed first. Re-enable by uncommenting this import and the <DigitalChatbot />
+// usage below, then restoring the archived API route.
+// const DigitalChatbot = dynamic(() => import("./DigitalChatbot"), {
+//   ssr: false,
+//   loading: () => null,
+// });
 
 function useInView({
   threshold = 0,
@@ -253,11 +257,13 @@ export function HeroSectionDigital({
       {lanyardReady && (
         <>
           <Lanyard onRevealChange={setLanyardRevealed} />
+          {/* CHATBOT DEACTIVATED — 2026-09-18. Kept for future re-enabling.
           <DigitalChatbot
             isOpen={chatOpen}
             onOpen={() => setChatOpen(true)}
             onClose={() => setChatOpen(false)}
           />
+          */}
         </>
       )}
 

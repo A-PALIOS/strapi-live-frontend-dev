@@ -1,6 +1,6 @@
 "use client";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, LayoutGroup } from "motion/react";
+import React, { useCallback, useEffect, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 export const FlipWords = ({
@@ -30,69 +30,93 @@ export const FlipWords = ({
   }, [isAnimating, duration, startAnimation]);
 
   return (
-    <AnimatePresence
-      onExitComplete={() => {
-        setIsAnimating(false);
-      }}
-    >
-      <motion.div
-        initial={{
-          opacity: 0,
-          y: 10,
+    <span className="inline-grid align-baseline">
+      {/*
+        Invisible copies of every word, stacked in the same grid cell as the
+        animated word below (col-start-1 row-start-1). CSS Grid sizes the
+        cell to the widest item, so the box is always as wide as the widest
+        word regardless of which one is currently showing — this prevents
+        the surrounding headline from reflowing (and shifting) every time
+        the word cycles. Pure CSS, so it can't drift out of sync with the
+        real font metrics the way a one-off JS measurement could.
+      */}
+      {words.map((word) => (
+        <span
+          key={word}
+          aria-hidden="true"
+          className={cn(
+            "invisible pointer-events-none col-start-1 row-start-1 whitespace-nowrap px-2",
+            className
+          )}
+        >
+          {word}
+        </span>
+      ))}
+
+      <AnimatePresence
+        onExitComplete={() => {
+          setIsAnimating(false);
         }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-        transition={{
-          type: "spring",
-          stiffness: 100,
-          damping: 10,
-        }}
-        exit={{
-          opacity: 0,
-          y: -40,
-          x: 40,
-          filter: "blur(8px)",
-          scale: 2,
-          position: "absolute",
-        }}
-        className={cn(
-          "z-10 inline-block relative text-left text-neutral-900 dark:text-neutral-100 px-2",
-          className
-        )}
-        key={currentWord}
       >
-        {/* edit suggested by Sajal: https://x.com/DewanganSajal */}
-        {currentWord.split(" ").map((word, wordIndex) => (
-          <motion.span
-            key={word + wordIndex}
-            initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{
-              delay: wordIndex * 0.3,
-              duration: 0.3,
-            }}
-            className="inline-block whitespace-nowrap"
-          >
-            {word.split("").map((letter, letterIndex) => (
-              <motion.span
-                key={word + letterIndex}
-                initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{
-                  delay: wordIndex * 0.3 + letterIndex * 0.05,
-                  duration: 0.2,
-                }}
-                className="inline-block"
-              >
-                {letter}
-              </motion.span>
-            ))}
-            <span className="inline-block">&nbsp;</span>
-          </motion.span>
-        ))}
-      </motion.div>
-    </AnimatePresence>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 10,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 100,
+            damping: 10,
+          }}
+          exit={{
+            opacity: 0,
+            y: -40,
+            x: 40,
+            filter: "blur(8px)",
+            scale: 2,
+            position: "absolute",
+          }}
+          className={cn(
+            "z-10 col-start-1 row-start-1 inline-block relative text-left text-neutral-900 dark:text-neutral-100 px-2",
+            className
+          )}
+          key={currentWord}
+        >
+          {/* edit suggested by Sajal: https://x.com/DewanganSajal */}
+          {currentWord.split(" ").map((word, wordIndex) => (
+            <motion.span
+              key={word + wordIndex}
+              initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{
+                delay: wordIndex * 0.3,
+                duration: 0.3,
+              }}
+              className="inline-block whitespace-nowrap"
+            >
+              {word.split("").map((letter, letterIndex) => (
+                <motion.span
+                  key={word + letterIndex}
+                  initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  transition={{
+                    delay: wordIndex * 0.3 + letterIndex * 0.05,
+                    duration: 0.2,
+                  }}
+                  className="inline-block"
+                >
+                  {letter}
+                </motion.span>
+              ))}
+              <span className="inline-block">&nbsp;</span>
+            </motion.span>
+          ))}
+        </motion.div>
+      </AnimatePresence>
+    </span>
   );
 };
