@@ -25,10 +25,13 @@ export default async function Page({ params, searchParams }: PageProps) {
   return (
     <>
     <main>
+      {/* Key-project heroes show the whole image rather than a cropped
+          band: the artwork carries client logos near the edges. */}
       <BlockRenderer
         blocks={project.blocks || []}
         secondaryMenus={project.secondary_menus || []}
         searchParams={searchParams}
+        heroImageFit="contain"
       />
 
       

@@ -13,10 +13,21 @@ export function HeroSection({
   theme,
   darken = false,
     headingWidth,
+  imageFit = "cover",
 
 }: Readonly<HeroSectionProps>) {
     const useMinContentWidth = headingWidth === "min-content";
     const useBalance = headingWidth === "balance";
+
+    /* "contain" is used by the key-projects pages: their hero artwork carries
+       client logos close to the edges, which the default fixed-height
+       object-cover crop cuts off. Sizing the box from the image's real
+       width/height (Strapi sends both) shows the whole image with no crop and
+       no letterbox bars — the box simply takes the image's aspect ratio. */
+    const containImage = imageFit === "contain";
+    const heroImageLayout = containImage
+      ? "block w-full"
+      : "inline-flex justify-start items-center gap-2";
 
     const themes = {
     white: "bg-white/40 border-white/20 text-black",
@@ -131,19 +142,24 @@ export function HeroSection({
             `relative overflow-hidden rounded-2xl
             ${theme==="black" ?
 
-              "self-stretch  bg-gradient-to-l from-sky-900 via-sky-950 to-slate-950 rounded-lg shadow-[0px_0px_40px_0px_rgba(26,146,236,0.50)] outline outline-1 outline-offset-[-1px] outline-neutral-400 inline-flex justify-start items-center gap-2"
-              :"rounded-lg inline-flex justify-start items-center gap-2"
+              "self-stretch  bg-gradient-to-l from-sky-900 via-sky-950 to-slate-950 rounded-lg shadow-[0px_0px_40px_0px_rgba(26,146,236,0.50)] outline outline-1 outline-offset-[-1px] outline-neutral-400"
+              :"rounded-lg"
             }
-
+            ${heroImageLayout}
             `
 
             }>
               <StrapiImage
                 src={image.url}
                 alt={image.alternativeText || "Hero image"}
-                className="h-[360px] object-cover sm:h-[420px] lg:h-[576px]"
-                width={1728}
-                height={900}
+                className={
+                  containImage
+                    ? "w-full h-auto object-contain"
+                    : "h-[360px] object-cover sm:h-[420px] lg:h-[576px]"
+                }
+                width={containImage ? image.width ?? 1728 : 1728}
+                height={containImage ? image.height ?? 900 : 900}
+                sizes={containImage ? "100vw" : undefined}
               />
 
               {darken && (

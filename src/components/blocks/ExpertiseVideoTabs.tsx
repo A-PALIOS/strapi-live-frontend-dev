@@ -105,7 +105,7 @@ export function ExpertiseVideoTabs({
                     </button>
 
                     {isActive && item.description ? (
-                      <p className="mt-5 font-agenda-medium md:text-[24px] sm:text-[24px] font-medium leading-[1.2] tracking-[-0.05em] text-[#FEFEFE]">
+                      <p className="mt-5 font-agenda-regular md:text-[24px] sm:text-[24px] leading-[1.2] tracking-[-0.05em] text-[#FFFFFF]">
                         {item.description}
                       </p>
                     ) : null}
@@ -119,10 +119,29 @@ export function ExpertiseVideoTabs({
         {/* RIGHT COLUMN placeholder — keeps the grid slot so left doesn't expand */}
         <div className="hidden xl:block" style={{ backgroundColor: "white" }} />
 
-        {/* RIGHT VIDEO — absolutely positioned from section top, shorter than full height */}
+        {/* RIGHT VIDEO — absolutely positioned from section top, shorter than
+            full height.
+
+            Size comes straight from Figma (CMT_WEBSITE_NEW, node 2253:3503):
+            inside a 1920-wide section the photo is 960 x 1080 — exactly half
+            the width, and 1.125x that width tall, while the gradient column
+            beside it runs the full 1151.
+
+            Stating that as an aspect ratio rather than the old
+            `calc(100% - 120px)` is what makes it match: the old rule tied the
+            height to the section instead of to the design, and came out
+            960 tall at a 1920 viewport — 120px short. 960/1080 lands on the
+            Figma size to the pixel at 1920 and holds the same proportions at
+            every other width. maxHeight keeps it inside the section on short,
+            very wide screens, where 1.125 x half the viewport width would
+            otherwise be taller than the section itself. */}
         <div
           className="absolute right-0 top-0 hidden w-1/2 overflow-hidden xl:block"
-          style={{ height: "calc(100% - 120px)", borderRadius: "0 0 16px 0" }}
+          style={{
+            aspectRatio: "960 / 1080",
+            maxHeight: "100%",
+            borderRadius: "0 0 16px 0",
+          }}
         >
           {activeItem?.video?.url ? (
             <video

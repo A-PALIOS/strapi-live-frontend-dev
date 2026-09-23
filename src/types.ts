@@ -249,6 +249,11 @@ export interface ImageProps {
   documentId: string;
   url: string;
   alternativeText: string;
+  /** Strapi already returns these on every media field (`populate: true`);
+   *  declared here so a block can lay an image out at its true aspect ratio
+   *  instead of assuming one. */
+  width?: number;
+  height?: number;
 }
 
 export interface LogoProps {
@@ -461,6 +466,12 @@ export interface HeroSectionProps extends Base<"blocks.hero-section"> {
   darken?: boolean;
     headingWidth?: "min-content" | "balance" | null;
 
+  /** How the hero image fills its box. Not a Strapi field — the page route
+   *  sets it. "cover" (default) crops to a fixed hero height; "contain" shows
+   *  the whole image at its own aspect ratio, which the key-projects pages
+   *  need because their hero artwork has client logos near the edges that
+   *  cropping cuts off. See BlockRenderer's `heroImageFit`. */
+  imageFit?: "cover" | "contain";
 }
 
 /** One narrative stage of the 3D hero (Strapi repeatable component). */

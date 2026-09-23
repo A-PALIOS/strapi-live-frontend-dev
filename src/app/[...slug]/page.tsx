@@ -56,6 +56,9 @@ export default async function DynamicPageRoute({
       blocks={blocks}
       secondaryMenus={secondaryMenus}
       searchParams={searchParams}
+      // Only under /key-projects: show the whole hero image instead of a
+      // cropped band, so the client logos in the artwork stay visible.
+      heroImageFit={slugSegments[0] === "key-projects" ? "contain" : "cover"}
     />
   );
 }

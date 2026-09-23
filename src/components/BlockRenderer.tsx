@@ -153,13 +153,13 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
     page?: string;
     query?: string;
     category?: string;
-  }>) {
-    
+  }>, heroImageFit?: "cover" | "contain") {
+
   switch (block.__component) {
         case "blocks.hero-section-main":
       return <HeroSectionMain {...block} key={index} />;
     case "blocks.hero-section":
-      return <HeroSection {...block} key={index} />;
+      return <HeroSection {...block} key={index} imageFit={heroImageFit} />;
     case "blocks.hero-section3-d":
       return <HeroSection3D {...block} key={index} />;
     case "blocks.hero-section-services":
@@ -360,10 +360,14 @@ function blockRenderer(block: Block, index: number,allBlocks: Block[],secondaryM
   }
 }
 
-export function BlockRenderer({ blocks, secondaryMenus, searchParams }: { blocks: Block[],  secondaryMenus?: any[], searchParams: Promise<{
+export function BlockRenderer({ blocks, secondaryMenus, searchParams, heroImageFit }: { blocks: Block[],  secondaryMenus?: any[], searchParams: Promise<{
     page?: string;
     query?: string;
     category?: string;
-  }>; }) {
-  return blocks.map((block, index) => blockRenderer(block, index,blocks,secondaryMenus, searchParams));
+  }>;
+  /** How `blocks.hero-section` should fill its box on this route. Left unset
+   *  everywhere except the key-projects routes, which pass "contain" so the
+   *  client logos in their hero artwork aren't cropped off. */
+  heroImageFit?: "cover" | "contain"; }) {
+  return blocks.map((block, index) => blockRenderer(block, index,blocks,secondaryMenus, searchParams, heroImageFit));
 }
