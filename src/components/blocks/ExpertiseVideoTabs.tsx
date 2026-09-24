@@ -10,6 +10,41 @@ function getStrapiMediaUrl(url?: string | null) {
   return `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${url}`;
 }
 
+/* ------------------------------------------------------------------ *
+ * Fluid type and spacing
+ *
+ * The Figma board is a fixed 1920-wide canvas, so every size in it is
+ * really "this many px AT 1920". Hard-coding those px made the section
+ * break on a smaller laptop: at 1280 the 32px titles still measured 32px
+ * and, with `whitespace-nowrap`, "Funding & Programme Development" ran
+ * 60px past the right edge of its own card.
+ *
+ * Each value below is therefore expressed as its Figma size converted to
+ * vw (size / 1920 * 100), clamped so it stops growing past the design at
+ * wide viewports and stays legible at narrow ones. At exactly 1920 every
+ * one of them resolves to the Figma number.
+ * ------------------------------------------------------------------ */
+
+/** 32px at 1920 — section eyebrow and each tab title. */
+const TITLE_SIZE = "clamp(17px, 1.667vw, 32px)";
+/** 24px at 1920 — the open tab's body copy. */
+const BODY_SIZE = "clamp(14px, 1.25vw, 24px)";
+/** 80px at 1920 — left column side padding. */
+const COLUMN_PAD_X = "clamp(24px, 4.17vw, 80px)";
+/** 56px at 1920 — left column top/bottom padding. */
+const COLUMN_PAD_Y = "clamp(24px, 2.9vw, 56px)";
+/** 40px at 1920 — space above/below each tab row. */
+const ROW_PAD_Y = "clamp(16px, 2.1vw, 40px)";
+
+/** The photo is 1080 tall where the gradient column beside it is 1151
+ *  (Figma node 2253:3503), so it stops just short of the bottom. Stating
+ *  it as that ratio of the section keeps the relationship at any height —
+ *  unlike an aspect ratio, which stops tracking the section as soon as
+ *  the accordion grows taller than half the viewport width, leaving the
+ *  white gap. At 1920 with a 1151-tall section this is 960 x 1080: the
+ *  Figma size exactly. */
+const VIDEO_HEIGHT = "calc(100% * 1080 / 1151)";
+
 export function ExpertiseVideoTabs({
   Eyebrow,
   items,
@@ -38,8 +73,8 @@ export function ExpertiseVideoTabs({
         {Eyebrow ? (
           <div className="relative z-10 col-span-1 md:col-span-2">
             <p
-              style={{ letterSpacing: "-1.6px" }}
-              className="px-6 pt-8 pb-6 font-agenda-medium text-[32px] font-medium uppercase leading-normal text-white md:px-10 md:pt-10 lg:px-14 xl:px-20"
+              style={{ letterSpacing: "-0.05em", fontSize: TITLE_SIZE }}
+              className="px-6 pt-8 pb-6 font-agenda-medium font-medium uppercase leading-normal text-white md:px-10 md:pt-10 lg:px-14 xl:px-20"
             >
               {Eyebrow}
             </p>
@@ -48,7 +83,15 @@ export function ExpertiseVideoTabs({
         ) : null}
 
         {/* LEFT CONTENT */}
-        <div className="relative z-10 pl-8 pr-6 py-10 md:pl-[80px] md:pr-[80px] md:py-14">
+        <div
+          className="relative z-10"
+          style={{
+            paddingLeft: COLUMN_PAD_X,
+            paddingRight: COLUMN_PAD_X,
+            paddingTop: COLUMN_PAD_Y,
+            paddingBottom: COLUMN_PAD_Y,
+          }}
+        >
           <div className="flex h-full flex-col justify-center">
             <div className="rounded-[8px] border border-white p-4">
               {items.map((item, index) => {
@@ -59,18 +102,27 @@ export function ExpertiseVideoTabs({
                     key={item.id}
                     className={
                       index !== items.length - 1
-                        ? "border-b border-white/30 py-10"
-                        : "pt-10 pb-10"
+                        ? "border-b border-white/30"
+                        : ""
                     }
+                    style={{ paddingTop: ROW_PAD_Y, paddingBottom: ROW_PAD_Y }}
                   >
                     <button
                       type="button"
                       onClick={() => setActiveIndex(index)}
                       className="group flex w-full cursor-pointer items-start justify-between gap-4 text-left"
                     >
+                      {/* min-w-0 lets the title shrink inside the flex row;
+                          without it a long title pushes the arrow out of the
+                          card instead of wrapping. No `whitespace-nowrap`:
+                          that is what made "Funding & Programme Development"
+                          overflow on a small laptop. */}
                       <h3
-                        style={{ letterSpacing: "-1.2px" }}
-                        className="font-agenda-medium text-[18px] uppercase leading-normal tracking-[-0.05em] text-white whitespace-nowrap md:text-[30px] lg:text-[32px]"
+                        style={{
+                          letterSpacing: "-0.05em",
+                          fontSize: TITLE_SIZE,
+                        }}
+                        className="min-w-0 font-agenda-medium uppercase leading-normal text-white [overflow-wrap:anywhere]"
                       >
                         {item.title}
                       </h3>
@@ -105,7 +157,10 @@ export function ExpertiseVideoTabs({
                     </button>
 
                     {isActive && item.description ? (
-                      <p className="mt-5 font-agenda-regular md:text-[24px] sm:text-[24px] leading-[1.2] tracking-[-0.05em] text-[#FFFFFF]">
+                      <p
+                        style={{ fontSize: BODY_SIZE }}
+                        className="mt-5 font-agenda-regular leading-[1.2] tracking-[-0.05em] text-[#FFFFFF]"
+                      >
                         {item.description}
                       </p>
                     ) : null}
@@ -124,24 +179,12 @@ export function ExpertiseVideoTabs({
 
             Size comes straight from Figma (CMT_WEBSITE_NEW, node 2253:3503):
             inside a 1920-wide section the photo is 960 x 1080 — exactly half
-            the width, and 1.125x that width tall, while the gradient column
-            beside it runs the full 1151.
-
-            Stating that as an aspect ratio rather than the old
-            `calc(100% - 120px)` is what makes it match: the old rule tied the
-            height to the section instead of to the design, and came out
-            960 tall at a 1920 viewport — 120px short. 960/1080 lands on the
-            Figma size to the pixel at 1920 and holds the same proportions at
-            every other width. maxHeight keeps it inside the section on short,
-            very wide screens, where 1.125 x half the viewport width would
-            otherwise be taller than the section itself. */}
+            the width, sitting beside a gradient column that runs the full
+            1151. See VIDEO_HEIGHT for why that is expressed as a share of the
+            section rather than as an aspect ratio. */}
         <div
           className="absolute right-0 top-0 hidden w-1/2 overflow-hidden xl:block"
-          style={{
-            aspectRatio: "960 / 1080",
-            maxHeight: "100%",
-            borderRadius: "0 0 16px 0",
-          }}
+          style={{ height: VIDEO_HEIGHT, borderRadius: "0 0 16px 0" }}
         >
           {activeItem?.video?.url ? (
             <video
