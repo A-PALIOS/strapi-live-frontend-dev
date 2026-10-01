@@ -266,7 +266,10 @@ export interface FeaturedArticleProps extends Base<"blocks.featured-article"> {
   title: string;
   excerpt: string;
   link: LinkProps;
-  image: ImageProps;
+  /** Optional: the insights page reuses this component for the
+   *  article-of-the-day and resolves the picture via getOutImage(), which can
+   *  legitimately come back empty. The component already guards on it. */
+  image?: ImageProps | null;
   author: {
     name: string;
     imageAuthor?: ImageProps;
@@ -313,8 +316,16 @@ export interface ArticleProps {
   title: string;
   description?: string;
   slug: string;
+
+  /** The article's picture: used on the listing cards and as the hero inside
+   *  the article page. */
   image: ImageProps;
-  
+
+  /** Optional override used only where the article is promoted as a banner —
+   *  the article-of-the-day on the insights page, and the social preview.
+   *  Empty on most articles; read it through getOutImage(). */
+  OutImage?: ImageProps | null;
+
   author: string;
   imageAuthor?: {
     url: string;

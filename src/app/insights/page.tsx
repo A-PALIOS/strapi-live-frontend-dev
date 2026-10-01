@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { ContentList} from "@/components/ContentList"
 import { BlogCard } from "@/components/BlogCard";
 import CategoryFilter from "@/components/CategoryFilter";
+import { getOutImage } from "@/utils/article-images";
 
 // async function loader(slug: string) {
 //   const { data } = await getPageBySlug(slug);
@@ -37,7 +38,9 @@ export default async function BlogRoute({ searchParams }: PageProps) {
   id={featured.id}
   title={featured.title}
   excerpt={featured.description}
-  image={featured.image}
+  // The article-of-the-day banner is a promoted placement, so it uses the
+  // OutImage override when set, falling back to the article's normal image.
+  image={getOutImage(featured)}
     link={{ id:featured.id,href: `/insights/${featured.slug}`,text: "Read more" ,isExternal:false}}  
     author={{
     name: featured.author,

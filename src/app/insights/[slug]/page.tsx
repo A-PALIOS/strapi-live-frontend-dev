@@ -7,6 +7,7 @@
 // import { Card, type CardProps } from "@/components/Card";
 // import { ContentList } from "@/components/ContentList";
 // import { ArticleIntroSection } from "@/components/blocks/ArticleIntroSection";
+import { getOutImage } from "@/utils/article-images";
 
 
 // interface PageProps {
@@ -162,7 +163,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const articleUrl = `https://cmtprooptiki.gr/insights/${slug}`;
 
-  const imageUrl = getOgImageUrl(article.image?.url);
+  // Social previews promote the article, so they use the OutImage override
+  // when one is set, falling back to the article's normal image.
+  const socialImage = getOutImage(article);
+  const imageUrl = getOgImageUrl(socialImage?.url);
 
   return {
     metadataBase: new URL("https://cmtprooptiki.gr"),
@@ -182,7 +186,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: article.image?.alternativeText || title,
+          alt: socialImage?.alternativeText || title,
         },
       ],
     },
@@ -193,7 +197,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       images: [
         {
           url: imageUrl,
-          alt: article.image?.alternativeText || title,
+          alt: socialImage?.alternativeText || title,
         },
       ],
     },

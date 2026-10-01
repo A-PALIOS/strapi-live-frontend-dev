@@ -557,6 +557,40 @@ export async function getPageBySlug(slugSegments: string[]) {
   return response;
 }
 
+/**
+ * Article media populate.
+ *
+ * `image` is always there. `OutImage` is the optional banner override and
+ * exists only while that field is on the Article content type in Strapi —
+ * and naming a field Strapi does not have makes it reject the WHOLE query
+ * with `400 Invalid key OutImage`, which empties the insights listing (the
+ * same way an unknown block key once turned every page into a 404). So the
+ * query asks for it and falls back to `image` alone if Strapi refuses.
+ */
+const articleMediaPopulate = (includeNewMedia: boolean) =>
+  includeNewMedia ? { OutImage: media, image: media } : { image: media };
+
+/**
+ * Runs an article query, retrying without OutImage if Strapi rejects it.
+ * Takes a URL builder so the retry rebuilds the identical query minus that
+ * key.
+ */
+async function fetchArticles(
+  buildUrl: (includeNewArticleMedia: boolean) => string
+) {
+  const response = await fetchAPI(buildUrl(true), { method: "GET" });
+
+  if (response && !response.data && response.status === 400) {
+    console.warn(
+      "[articles] Strapi rejected OutImage in populate — it is not on the " +
+        "Article content type. Retrying with `image` alone."
+    );
+    return fetchAPI(buildUrl(false), { method: "GET" });
+  }
+
+  return response;
+}
+
 export async function getContent(
   path: string,
   featured?: boolean,
@@ -567,49 +601,52 @@ export async function getContent(
   pageSize?: number,
   excludeSlug?: string
 ) {
-  const url = new URL(path, BASE_URL);
+  const buildUrl = (includeNewArticleMedia: boolean) => {
+    const url = new URL(path, BASE_URL);
 
-  url.search = qs.stringify(
-    {
-      sort: ["createdAt:desc"],
-      filters: {
-        ...(query && {
-          $or: [
-            { title: { $containsi: query } },
-            { description: { $containsi: query } },
-          ],
-        }),
-        ...(featured && { featured: { $eq: featured } }),
-        ...(sector && {
-          sectors: {
-            name: {
-              $eq: sector,
+    url.search = qs.stringify(
+      {
+        sort: ["createdAt:desc"],
+        filters: {
+          ...(query && {
+            $or: [
+              { title: { $containsi: query } },
+              { description: { $containsi: query } },
+            ],
+          }),
+          ...(featured && { featured: { $eq: featured } }),
+          ...(sector && {
+            sectors: {
+              name: {
+                $eq: sector,
+              },
             },
-          },
-        }),
-        ...(topic && {
-          topics: {
-            name: {
-              $eq: topic,
+          }),
+          ...(topic && {
+            topics: {
+              name: {
+                $eq: topic,
+              },
             },
-          },
-        }),
-        ...(excludeSlug && { slug: { $ne: excludeSlug } }),
+          }),
+          ...(excludeSlug && { slug: { $ne: excludeSlug } }),
+        },
+        pagination: {
+          pageSize: pageSize ?? BLOG_PAGE_SIZE,
+          page: parseInt(page || "1"),
+        },
+        populate: {
+          ...articleMediaPopulate(includeNewArticleMedia),
+          imageAuthor: media,
+          sectors: true
+        },
       },
-      pagination: {
-        pageSize: pageSize ?? BLOG_PAGE_SIZE,
-        page: parseInt(page || "1"),
-      },
-      populate: {
-        image: media,
-        imageAuthor: media,
-        sectors: true
-      },
-    },
-    { encodeValuesOnly: true }
-  );
+      { encodeValuesOnly: true }
+    );
+    return url.href;
+  };
 
-  return fetchAPI(url.href, { method: "GET" });
+  return fetchArticles(buildUrl);
 }
 
 export async function getSectors(): Promise<{ id: number; name: string }[]> {
@@ -652,49 +689,52 @@ export async function getContent2(
   category?: string,
   sector?: string,
 ) {
-  const url = new URL(path, BASE_URL2);
+  const buildUrl = (includeNewArticleMedia: boolean) => {
+    const url = new URL(path, BASE_URL2);
 
-  url.search = qs.stringify(
-    {
-      sort: ["createdAt:desc"],
-      filters: {
-        ...(query && {
-          $or: [
-            { title: { $containsi: query } },
-            { description: { $containsi: query } },
-          ],
-        }),
-        ...(featured && { featured: { $eq: featured } }),
-        ...(category && {
-          categories: {
-            name: {
-              $eq: category,
+    url.search = qs.stringify(
+      {
+        sort: ["createdAt:desc"],
+        filters: {
+          ...(query && {
+            $or: [
+              { title: { $containsi: query } },
+              { description: { $containsi: query } },
+            ],
+          }),
+          ...(featured && { featured: { $eq: featured } }),
+          ...(category && {
+            categories: {
+              name: {
+                $eq: category,
+              },
             },
-          },
-        }),
-        ...(sector && {
-          sectors: {
-            name: {
-              $eq: sector,
+          }),
+          ...(sector && {
+            sectors: {
+              name: {
+                $eq: sector,
+              },
             },
-          },
-        }),
+          }),
+        },
+        pagination: {
+          pageSize: BLOG_PAGE_SIZE,
+          page: parseInt(page || "1"),
+        },
+        populate: {
+          ...articleMediaPopulate(includeNewArticleMedia),
+          imageAuthor: media,
+          categories: true,
+          sectors: true
+        },
       },
-      pagination: {
-        pageSize: BLOG_PAGE_SIZE,
-        page: parseInt(page || "1"),
-      },
-      populate: {
-        image: media,
-        imageAuthor: media,
-        categories: true,
-        sectors: true
-      },
-    },
-    { encodeValuesOnly: true }
-  );
+      { encodeValuesOnly: true }
+    );
+    return url.href;
+  };
 
-  return fetchAPI(url.href, { method: "GET" });
+  return fetchArticles(buildUrl);
 }
 
 export async function getCategories() {
@@ -782,50 +822,57 @@ const blogPopulate = {
 };
 
 export async function getContentBySlug(slug: string, path: string) {
-  const url = new URL(path, BASE_URL);
+  const buildUrl = (includeNewArticleMedia: boolean) => {
+    const url = new URL(path, BASE_URL);
 
-  url.search = qs.stringify(
-    {
-      filters: {
-        slug: {
-          $eq: slug,
+    url.search = qs.stringify(
+      {
+        filters: {
+          slug: {
+            $eq: slug,
+          },
+        },
+        populate: {
+          ...articleMediaPopulate(includeNewArticleMedia),
+          imageAuthor: media,
+          ...blogPopulate,
         },
       },
-      populate: {
-        image: media,
-        imageAuthor: media,
-        ...blogPopulate,
-      },
-    },
-    { encodeValuesOnly: true }
-  );
+      { encodeValuesOnly: true }
+    );
+    return url.href;
+  };
 
-  return fetchAPI(url.href, { method: "GET" });
+  return fetchArticles(buildUrl);
 }
 
 export async function getArticleOfTheDay() {
-  const url = new URL("/api/articles", BASE_URL);
+  const buildUrl = (includeNewArticleMedia: boolean) => {
+    const url = new URL("/api/articles", BASE_URL);
 
-  url.search = qs.stringify(
-    {
-      filters: {
-        articleOfTheDay: {
-          $eq: true,
+    url.search = qs.stringify(
+      {
+        filters: {
+          articleOfTheDay: {
+            $eq: true,
+          },
+        },
+        populate: {
+          ...articleMediaPopulate(includeNewArticleMedia),
+          imageAuthor: media,
+        },
+        sort: ["createdAt:desc"],
+        pagination: {
+          pageSize: 1,
         },
       },
-      populate: {
-        image: media,
-        imageAuthor: media,
-      },
-      sort: ["createdAt:desc"],
-      pagination: {
-        pageSize: 1,
-      },
-    },
-    { encodeValuesOnly: true }
-  );
+      { encodeValuesOnly: true }
+    );
 
-  const res = await fetchAPI(url.href, { method: "GET" });
+    return url.href;
+  };
+
+  const res = await fetchArticles(buildUrl);
 
   return res?.data?.[0];
 }
