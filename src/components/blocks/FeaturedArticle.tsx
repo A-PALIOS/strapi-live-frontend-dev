@@ -1,13 +1,45 @@
 "use client";
 
+import type { ReactNode } from "react";
+import Link from "next/link";
 import type { FeaturedArticleProps } from "@/types";
 import { StrapiImage } from "../StrapiImage";
+
+/**
+ * Makes the banner clickable when there is somewhere to go.
+ *
+ * The insights page passes `/insights/<slug>` for the article of the day. As a
+ * Strapi block this component can also be rendered with no link, so the
+ * wrapper degrades to a plain fragment rather than an anchor to nowhere.
+ *
+ * The whole card is the link, not just the <img>: the gradient and the text
+ * column are positioned `absolute inset-0` ON TOP of the image, so an anchor
+ * around the image alone would be covered by them and swallow most clicks.
+ */
+function BannerLink({
+  href,
+  label,
+  children,
+}: Readonly<{ href?: string; label?: string; children: ReactNode }>) {
+  if (!href) return <>{children}</>;
+
+  return (
+    <Link
+      href={href}
+      aria-label={label}
+      className="group block rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+    >
+      {children}
+    </Link>
+  );
+}
 
 export function FeaturedArticle({
   title,
   image,
   author,
   publishedAt,
+  link,
 }: Readonly<FeaturedArticleProps>) {
   return (
     <section className="w-full px-6 md:px-10 lg:px-16 xl:px-20 pt-32 pb-12 md:pt-36 md:pb-14 xl:pt-40 xl:pb-16">
@@ -38,7 +70,8 @@ export function FeaturedArticle({
         </p>
       </div>
 
-      {/* Article card */}
+      {/* Article card — the whole banner links through to the article */}
+      <BannerLink href={link?.href} label={title}>
       <article className="relative w-full rounded-lg overflow-hidden">
 
         {/* Background image */}
@@ -51,6 +84,7 @@ export function FeaturedArticle({
             className="
               w-full object-cover
               h-[380px] sm:h-[460px] md:h-[560px] lg:h-[640px] xl:h-[715px]
+              transition-transform duration-500 group-hover:scale-[1.02]
             "
           />
         )}
@@ -148,6 +182,7 @@ export function FeaturedArticle({
           </div>
         </div>
       </article>
+      </BannerLink>
     </section>
   );
 }
