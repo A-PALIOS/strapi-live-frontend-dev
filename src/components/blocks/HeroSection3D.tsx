@@ -5,6 +5,7 @@ import ImpactBannerSection3 from "./ImpactBannerSection3";
 import StrategicPlanningBanner from "./StrategicPlanningBanner";
 import HealthPolicyBanner from "./HealthPolicyBanner";
 import FeasibilityBanner from "./FeasibilityBanner";
+import ProjectDesignBanner from "./ProjectDesignBanner";
 
 /**
  * HeroSection3D — Strapi block `blocks.hero-section-3d`.
@@ -31,6 +32,9 @@ import FeasibilityBanner from "./FeasibilityBanner";
  *   - "feasibility"      -> FeasibilityBanner: five dashed scenario lines that
  *                           dim while one route draws itself to a goal ring,
  *                           scroll-triggered. Also tagline-only (first stage).
+ *   - "projects"         -> ProjectDesignBanner: a Gantt schedule filled in by
+ *                           a sweeping "today" line, scroll-triggered. Also
+ *                           tagline-only (first stage).
  *
  * They all take the same `stages` shape and each falls back to its own
  * built-in copy when Strapi has none, so the block never renders empty.
@@ -47,6 +51,7 @@ const BANNER_BY_VARIANT = {
   strategy: StrategicPlanningBanner,
   policy: HealthPolicyBanner,
   feasibility: FeasibilityBanner,
+  projects: ProjectDesignBanner,
 } as const;
 
 type BannerVariant = keyof typeof BANNER_BY_VARIANT;

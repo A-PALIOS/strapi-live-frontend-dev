@@ -508,6 +508,9 @@ export interface HeroSection3DProps extends Base<"blocks.hero-section3-d"> {
    *  - "feasibility"        -> FeasibilityBanner, five scenario lines resolving
    *                            into one route to a goal; also uses only the
    *                            FIRST stage as its tagline
+   *  - "projects"           -> ProjectDesignBanner, a Gantt schedule filled in
+   *                            by a sweeping "today" line; also uses only the
+   *                            FIRST stage as its tagline
    */
   variant?:
     | "system"
@@ -516,6 +519,7 @@ export interface HeroSection3DProps extends Base<"blocks.hero-section3-d"> {
     | "strategy"
     | "policy"
     | "feasibility"
+    | "projects"
     | null;
   heading?: string | null;
   subheader?: string | null;
