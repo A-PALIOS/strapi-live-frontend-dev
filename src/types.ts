@@ -505,13 +505,30 @@ export interface HeroSection3DProps extends Base<"blocks.hero-section3-d"> {
    *                            a goal; uses only the FIRST stage as its tagline
    *  - "policy"             -> HealthPolicyBanner, fan morphing into a cross;
    *                            also uses only the FIRST stage as its tagline
+   *  - "feasibility"        -> FeasibilityBanner, five scenario lines resolving
+   *                            into one route to a goal; also uses only the
+   *                            FIRST stage as its tagline
    */
-  variant?: "system" | "impact" | "sustain" | "strategy" | "policy" | null;
+  variant?:
+    | "system"
+    | "impact"
+    | "sustain"
+    | "strategy"
+    | "policy"
+    | "feasibility"
+    | null;
   heading?: string | null;
   subheader?: string | null;
   /** ms between automatic stage changes; ImpactBanner defaults to 4200 */
   autoAdvanceMs?: number | null;
   stages?: HeroStage3D[];
+  /**
+   * How the <h1> is sized, matching HeroSection and HeroSectionServiceBlock:
+   *  - absent        -> full width, wraps normally
+   *  - "min-content" -> the heading shrinks to its narrowest wrap
+   *  - "balance"     -> splits the heading at the first "&" onto two lines
+   */
+  headingWidth?: "min-content" | "balance" | null;
 }
 
 export interface HeroSectionServiceProps extends Base<"blocks.hero-section-services"> {

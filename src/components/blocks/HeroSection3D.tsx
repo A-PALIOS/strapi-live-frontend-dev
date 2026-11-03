@@ -4,6 +4,7 @@ import ImpactBannerSection2 from "./ImpactBannerSection2";
 import ImpactBannerSection3 from "./ImpactBannerSection3";
 import StrategicPlanningBanner from "./StrategicPlanningBanner";
 import HealthPolicyBanner from "./HealthPolicyBanner";
+import FeasibilityBanner from "./FeasibilityBanner";
 
 /**
  * HeroSection3D — Strapi block `blocks.hero-section-3d`.
@@ -27,6 +28,9 @@ import HealthPolicyBanner from "./HealthPolicyBanner";
  *   - "policy"           -> HealthPolicyBanner: a fan of nodes morphing into a
  *                           cross and back, scroll-triggered. Also tagline-only
  *                           (first stage).
+ *   - "feasibility"      -> FeasibilityBanner: five dashed scenario lines that
+ *                           dim while one route draws itself to a goal ring,
+ *                           scroll-triggered. Also tagline-only (first stage).
  *
  * They all take the same `stages` shape and each falls back to its own
  * built-in copy when Strapi has none, so the block never renders empty.
@@ -42,6 +46,7 @@ const BANNER_BY_VARIANT = {
   sustain: ImpactBannerSection3,
   strategy: StrategicPlanningBanner,
   policy: HealthPolicyBanner,
+  feasibility: FeasibilityBanner,
 } as const;
 
 type BannerVariant = keyof typeof BANNER_BY_VARIANT;
@@ -52,9 +57,16 @@ export function HeroSection3D({
   autoAdvanceMs,
   theme,
   variant,
+  headingWidth,
 }: Readonly<HeroSection3DProps>) {
   const isDark = theme === "black";
   const navbarColor = isDark ? "dark" : "light";
+
+  // Same two heading modes as HeroSection and HeroSectionServiceBlock:
+  // "min-content" shrinks the <h1> to its narrowest wrap, "balance" breaks it
+  // at the first "&" so an "X & Y" title sits on two deliberate lines.
+  const useMinContentWidth = headingWidth === "min-content";
+  const useBalance = headingWidth === "balance";
 
   // Falls back to the icosahedron if Strapi ever sends a variant this build
   // doesn't know about (e.g. a value added to the enum before the code ships),
@@ -84,18 +96,32 @@ export function HeroSection3D({
           <div className="max-w-6xl">
             {heading && (
               <h1
+                style={useMinContentWidth ? { width: "min-content" } : undefined}
                 className={`
                   text-[44px]
                   leading-[0.95]
                   tracking-[-0.055em]
+                  whitespace-normal
                   break-words
+                  [overflow-wrap:anywhere]
                   md:text-[62px]
                   lg:text-[68px]
                   font-agenda-medium
                   ${isDark ? "text-white" : ""}
+                  ${useMinContentWidth ? "w-auto" : "w-full"}
                 `}
               >
-                {heading}
+                {useBalance && heading.includes("&")
+                  ? (() => {
+                      const [before, ...rest] = heading.split("&");
+                      return (
+                        <>
+                          {before.trimEnd()} &<br />
+                          {rest.join("&").trimStart()}
+                        </>
+                      );
+                    })()
+                  : heading}
               </h1>
             )}
 
