@@ -7,6 +7,7 @@ import HealthPolicyBanner from "./HealthPolicyBanner";
 import FeasibilityBanner from "./FeasibilityBanner";
 import ProjectDesignBanner from "./ProjectDesignBanner";
 import CapacityBuildingBanner from "./CapacityBuildingBanner";
+import DigitalSolutionsBanner from "./DigitalSolutionsBanner";
 
 /**
  * HeroSection3D — Strapi block `blocks.hero-section-3d`.
@@ -39,6 +40,9 @@ import CapacityBuildingBanner from "./CapacityBuildingBanner";
  *   - "capacity"         -> CapacityBuildingBanner: concentric rings drawn one
  *                           by one from the centre outward, scroll-triggered.
  *                           Also tagline-only (first stage).
+ *   - "digital"          -> DigitalSolutionsBanner: a pointer-revealed dot
+ *                           field that resolves into six panels of service
+ *                           icons. Also tagline-only (first stage).
  *
  * They all take the same `stages` shape and each falls back to its own
  * built-in copy when Strapi has none, so the block never renders empty.
@@ -57,6 +61,7 @@ const BANNER_BY_VARIANT = {
   feasibility: FeasibilityBanner,
   projects: ProjectDesignBanner,
   capacity: CapacityBuildingBanner,
+  digital: DigitalSolutionsBanner,
 } as const;
 
 type BannerVariant = keyof typeof BANNER_BY_VARIANT;

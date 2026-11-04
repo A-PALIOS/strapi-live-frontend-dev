@@ -514,6 +514,9 @@ export interface HeroSection3DProps extends Base<"blocks.hero-section3-d"> {
    *  - "capacity"           -> CapacityBuildingBanner, concentric rings drawn
    *                            outward from the centre; also uses only the
    *                            FIRST stage as its tagline
+   *  - "digital"            -> DigitalSolutionsBanner, a dot field revealed by
+   *                            the pointer that resolves into service-icon
+   *                            panels; also uses only the FIRST stage
    */
   variant?:
     | "system"
@@ -524,6 +527,7 @@ export interface HeroSection3DProps extends Base<"blocks.hero-section3-d"> {
     | "feasibility"
     | "projects"
     | "capacity"
+    | "digital"
     | null;
   heading?: string | null;
   subheader?: string | null;
