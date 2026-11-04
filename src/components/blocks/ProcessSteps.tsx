@@ -43,7 +43,7 @@ export function ProcessSteps({
       className={
         isCompactImpact
           ? "w-full px-6 py-12 md:px-10 lg:px-16 xl:px-20"
-          : "w-full bg-white px-6 py-10 md:py-10 md:px-10 lg:px-16 xl:px-20"
+          : "w-full bg-[#F4F4F4] px-6 py-10 md:py-10 md:px-10 lg:px-16 xl:px-20"
       }
     >
       <div className="w-full">
@@ -86,12 +86,20 @@ export function ProcessSteps({
           </div>
         )}
 
-        <div className={isCompactImpact ? "rounded-[6px] bg-white p-6 md:p-10" : ""}>
+        {/* The grey sits on the cards block, not the section, so it begins
+            below the title. No negative margins: it stays inside the
+            section's own padding, leaving white down both sides, and its
+            own padding is the breathing room around the cards. */}
+        <div
+          className={
+            isCompactImpact ? "rounded-[6px] bg-[#F4F4F4] p-6 md:p-10" : ""
+          }
+        >
           <div
             className={
               isCompactImpact
                 ? `grid grid-cols-1 gap-[10px] sm:grid-cols-2 ${desktopCols}`
-                : `grid grid-cols-1 border-t border-l border-[#BDBDBD] sm:grid-cols-2 ${desktopCols}`
+                : `grid grid-cols-1 border-t border-l border-[#F4F4F4] sm:grid-cols-2 ${desktopCols}`
             }
           >
             {steps.map((step) => {
@@ -200,13 +208,15 @@ export function ProcessSteps({
               const cardClassName = isCompactImpact
                 ? `
                   group relative flex min-h-[150px] overflow-hidden
-                  bg-[#F4F4F4]
+                  bg-white
+                  border border-[#F4F4F4]
                   px-6 py-6
                   md:min-h-[170px] md:px-7 md:py-7
                 `
                 : `
                   group relative flex min-h-[360px] overflow-hidden
-                  border-r border-b border-[#BDBDBD]
+                  bg-white
+                  border-r border-b border-[#F4F4F4]
                   px-5 py-5
                   sm:min-h-[420px] sm:px-7 sm:py-7
                   lg:min-h-[480px] lg:px-8 lg:py-8
