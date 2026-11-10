@@ -1,0 +1,151 @@
+/* "Growing tiles" for the compact (key-project) ProcessSteps grid: hovering
+   a card widens it and lifts its whole row, the way the Expertise grid on
+   dapper.agency behaves.
+
+   Pure CSS, and nested flex rather than the grid this block used before --
+   flex-grow is what animates here, and a grid track cannot be transitioned
+   the same way.
+
+   Geometry comes from the Figma (node 1212:3335): two columns, three rows,
+   24px gutters on both axes. */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.card {
+  flex: 1 1 0;
+  min-width: 0;
+
+  /* Type sizes live here rather than in Tailwind utilities, so the hover
+     rule below can raise them by changing a variable. Left as utilities,
+     two single-class rules would fight over source order. */
+  --title-size: 22px;
+  --desc-size: 15px;
+  --desc-width: 330px;
+}
+
+.title {
+  font-size: var(--title-size);
+}
+
+.desc {
+  font-size: var(--desc-size);
+  max-width: var(--desc-width);
+}
+
+/* Pairs start at the same width the grid used before (sm), so tablets keep
+   the layout they have today. The growing behaviour is a separate question
+   and starts higher up. */
+@media (min-width: 40rem) {
+  .row {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 48rem) {
+  .card {
+    --title-size: 32px;
+    --desc-size: 24px;
+  }
+}
+
+@media (hover: hover) and (min-width: 992px) {
+  .panel {
+    --grow-width: 1.5;
+    --grow-height: 1.22;
+
+    /* The type grows on its own ratio, harder than the tile, because the
+       heading and the description are what the hover is actually for.
+       --grow-width is tied to it: the widened card has to be able to hold
+       the widened measure (see the .card:hover note below), so raising
+       --type-grow without raising --grow-width will start rewrapping the
+       paragraph. */
+    --type-grow: 1.25;
+
+    --hover-duration: 450ms;
+    --hover-ease: cubic-bezier(0.35, 1.5, 0.6, 1);
+
+    /* Rows can only share height against a definite one -- with an auto
+       height there is no free space for flex-grow to redistribute and the
+       vertical half of the effect silently does nothing.
+
+       --row-min is the floor that keeps a description from being clipped,
+       measured against the NARROWED card (the one beside the hovered one),
+       not the resting card. The panel is then sized so that even with one
+       row grown, the two that give way still clear that floor -- hence
+       (2 + --grow-height) rather than 3. Sizing it to 3 * --row-min would
+       leave zero slack and quietly kill the row animation.
+
+       Measured at the 992px floor, the tightest width the effect runs at:
+       a resting card needs 270px, and the hovered one needs 324px once the
+       type has grown. 284 and --grow-height 1.22 put the grown row at 347
+       and the rows that give way at 284 -- ~20px of slack on each, so a
+       longer description on another project page has somewhere to go. */
+    --row-min: 284px;
+    height: calc(var(--row-min) * (2 + var(--grow-height)) + 48px);
+  }
+
+  .row {
+    flex-basis: 0;
+    min-height: var(--row-min);
+    transition: flex-grow var(--hover-duration) var(--hover-ease);
+  }
+
+  .row:hover {
+    flex-grow: var(--grow-height);
+  }
+
+  .card {
+    transition: flex-grow var(--hover-duration) var(--hover-ease);
+  }
+
+  .card:hover {
+    flex-grow: var(--grow-width);
+  }
+
+  /* Both type sizes grow together, on --type-grow, so the type reads as part
+     of the tile opening rather than a second, separate animation.
+     leading-[1] / leading-[1.15] mean the line boxes grow with them.
+
+     The description's max-width is scaled by that same ratio, which is what
+     keeps this safe: grow the font alone and the text rewraps onto an extra
+     line, adding ~60px to a card whose row only gained ~54px. Scaling the
+     measure with the type holds the line count steady, so the paragraph
+     gets exactly --type-grow taller and nothing is pushed out. The widened
+     card has room for it -- 420px of content box at the 992px floor,
+     against a 412px measure. That margin is the thinnest part of the whole
+     arrangement; if a future copy change does overflow it, the paragraph
+     takes one more line and the row still has ~27px of slack to absorb it. */
+  .card:hover {
+    --title-size: calc(32px * var(--type-grow));
+    --desc-size: calc(24px * var(--type-grow));
+    --desc-width: calc(330px * var(--type-grow));
+  }
+
+  .title,
+  .desc {
+    transition:
+      font-size var(--hover-duration) var(--hover-ease),
+      max-width var(--hover-duration) var(--hover-ease);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row,
+  .card,
+  .title,
+  .desc {
+    transition: none;
+  }
+}

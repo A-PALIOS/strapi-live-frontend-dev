@@ -58,6 +58,8 @@ export interface ProcessStepItem {
   title: string;
   description: string;
   linkUrl: string;
+  /** Optional per-card icon (Figma "Title Row"). Null until one is picked. */
+  icon?: StrapiMedia | null;
 }
 
 export interface ImpactLinkItem {

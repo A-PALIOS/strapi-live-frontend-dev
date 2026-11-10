@@ -392,7 +392,11 @@ const pageBlocksPopulate = {
     },
     "blocks.process-steps": {
       populate: {
-        steps: true,
+        steps: {
+          populate: {
+            icon: media,
+          },
+        },
       },
     },
 
