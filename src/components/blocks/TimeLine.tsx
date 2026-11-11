@@ -128,6 +128,7 @@ export function TimeLine({ title, content, heading, items }: Readonly<TimeLinePr
     
       intro={<ReactMarkdown>{content || ""}</ReactMarkdown>}
       items={uiItems}
+      showYearFilters
     />
   );
 }

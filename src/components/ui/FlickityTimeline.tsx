@@ -28,6 +28,14 @@ export type FlickityTimelineProps = {
   options?: Record<string, any>;
   className?: string;
   size?: "sm" | "md" | "lg";
+  /**
+   * Shows a row of year buttons that glide the timeline to that year.
+   * The buttons are read from the items themselves -- one per year that
+   * has a cell, in order -- so a year added in Strapi gets its button with
+   * no code change, and a year with no entry never becomes a button that
+   * goes nowhere.
+   */
+  showYearFilters?: boolean;
 };
 
 export default function FlickityTimeline({
@@ -38,6 +46,7 @@ export default function FlickityTimeline({
   options,
   className,
   size,
+  showYearFilters = false,
 }: FlickityTimelineProps) {
   const flktyRef = useRef<any>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
@@ -129,6 +138,45 @@ const next = () => {
 
 const atStart = selectedIndex <= 0;
 const atEnd = selectedIndex >= Math.max(0, items.length - 1);
+
+  // Where each year starts, and which year every cell belongs to. A cell
+  // without a year continues the one before it (a second photo from 2023
+  // is still 2023), which is what lets the active button follow the slider
+  // through the in-between cells instead of going blank on them.
+  const { yearStarts, yearOfIndex } = useMemo(() => {
+    const starts = new Map<number, number>();
+    const byIndex: (number | null)[] = [];
+    let current: number | null = null;
+    items.forEach((item, i) => {
+      const y = item.year === undefined || item.year === "" ? NaN : Number(item.year);
+      if (Number.isFinite(y)) {
+        current = y;
+        if (!starts.has(y)) starts.set(y, i);
+      }
+      byIndex.push(current);
+    });
+    return { yearStarts: starts, yearOfIndex: byIndex };
+  }, [items]);
+
+  const yearFilters = useMemo(
+    () => (showYearFilters ? [...yearStarts.keys()].sort((a, b) => a - b) : []),
+    [yearStarts, showYearFilters]
+  );
+
+  const activeYear = yearOfIndex[selectedIndex] ?? null;
+
+  // Phones lay the years out as a grid with every button on screen. Rows
+  // of at most four, balanced so the last row is never a lone straggler:
+  // 8 years -> 4 + 4, 9 -> 3 + 3 + 3, 10 -> 4 + 4 + 2.
+  const yearCols = Math.ceil(yearFilters.length / Math.ceil(yearFilters.length / 4 || 1)) || 1;
+
+  const goToYear = (year: number) => {
+    const index = yearStarts.get(year);
+    const inst = getFlickityInstance();
+    if (index === undefined || !inst) return;
+    inst.select?.(index);
+    requestAnimationFrame(updateSelectedIndex);
+  };
 
   const openLightbox = (payload?: LightboxImage) => {
     if (!payload?.src) return;
@@ -294,11 +342,44 @@ const atEnd = selectedIndex >= Math.max(0, items.length - 1);
 </div>
         </div>
 
+        {yearFilters.length > 0 && (
+          <nav
+            className="timeline__years"
+            aria-label="Jump to year"
+            style={{ "--year-cols": yearCols } as React.CSSProperties}
+          >
+            {yearFilters.map((year) => {
+              const isActive = year === activeYear;
+              return (
+                <button
+                  key={year}
+                  type="button"
+                  className={`timeline__year${isActive ? " is-active" : ""}`}
+                  aria-current={isActive ? "true" : undefined}
+                  onClick={() => goToYear(year)}
+                >
+                  {year}
+                </button>
+              );
+            })}
+          </nav>
+        )}
+
         <div className="flickity-collection" ref={listRef} tabIndex={0}>
           <Flickity
             className="flickity-list"
             options={flickityOptions}
-            flickityRef={(c: any) => (flktyRef.current = c?.data ? c.data : c)}
+            flickityRef={(c: any) => {
+              flktyRef.current = c?.data ? c.data : c;
+              // Flickity arrives asynchronously (react-flickity-component
+              // imports it inside an async componentDidMount), well after
+              // the 50ms effect above has looked for it and found nothing --
+              // so that effect never attaches a listener, and a drag or swipe
+              // left the year buttons (and the arrows' disabled state)
+              // showing the old position. This callback runs once, with the
+              // real instance, so the listener goes on here.
+              c?.on?.("select", () => setSelectedIndex(c.selectedIndex ?? 0));
+            }}
             elementType="div"
           >
             {items.map((item) => {
@@ -685,6 +766,104 @@ const atEnd = selectedIndex >= Math.max(0, items.length - 1);
   box-shadow:
     0 4px 12px rgba(0, 0, 0, 0.04),
     inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+/* Year buttons: same glass treatment as the arrows, and the timeline's
+   own marker blue for the active year, so they read as one control set. */
+.timeline__years {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.timeline__year {
+  flex: 0 0 auto;
+  min-height: 40px;
+  min-width: 64px;
+  padding: 8px 16px;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #111;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.timeline__year:hover:not(.is-active) {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.timeline__year:active {
+  transform: translateY(0);
+}
+
+.timeline__year:focus-visible {
+  outline: 2px solid #2da5d1;
+  outline-offset: 2px;
+}
+
+.timeline__year.is-active {
+  background: #2da5d1;
+  border-color: #2da5d1;
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(45, 165, 209, 0.35);
+}
+
+/* Below md every year stays on screen -- no sideways scrolling. The
+   buttons become an even grid (column count set inline from the number
+   of years), each cell capped at 96px so a short list doesn't turn into
+   a few very wide buttons. On a 375px phone that is 4 x 77px cells; on
+   the narrowest 320px phones, 4 x 63px, still comfortable to tap. */
+@media (max-width: 767px) {
+  .timeline__years {
+    display: grid;
+    grid-template-columns: repeat(var(--year-cols, 4), minmax(0, 96px));
+  }
+
+  .timeline__year {
+    min-width: 0;
+    padding-inline: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .timeline__years {
+    gap: 6px;
+    margin-top: 20px;
+  }
+
+  .timeline__year {
+    min-height: 36px;
+    padding-block: 7px;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline__year {
+    transition: none;
+  }
 }
 
 .arrow-minimal__svg {
