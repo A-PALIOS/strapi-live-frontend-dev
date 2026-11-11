@@ -29,10 +29,18 @@ export function ProcessSteps({
   title,
   steps,
   variant = "default",
+  background,
 }: Readonly<Props>) {
   if (!steps?.length) return null;
 
   const isCompactImpact = variant === "compactImpact";
+
+  // Per-block choice from Strapi. White drops the grey (the section's in the
+  // default layout, the inset panel's in the compact one). The card borders
+  // then go a step darker: #F4F4F4 on white is close to invisible, and the
+  // cards would lose their outline.
+  const isWhite = background === "white";
+  const cardBorder = isWhite ? "border-[#E5E5E5]" : "border-[#F4F4F4]";
 
   const desktopCols = isCompactImpact
     ? "lg:grid-cols-2"
@@ -193,14 +201,14 @@ export function ProcessSteps({
         ${styles.card}
         group relative flex min-h-[150px] overflow-hidden
         bg-white
-        border border-[#F4F4F4]
+        border ${cardBorder}
         px-6 py-6
         md:min-h-[170px] md:px-7 md:py-7
       `
       : `
         group relative flex min-h-[360px] overflow-hidden
         bg-white
-        border-r border-b border-[#F4F4F4]
+        border-r border-b ${cardBorder}
         px-5 py-5
         sm:min-h-[420px] sm:px-7 sm:py-7
         lg:min-h-[480px] lg:px-8 lg:py-8
@@ -245,7 +253,7 @@ export function ProcessSteps({
       className={
         isCompactImpact
           ? "w-full px-6 py-12 md:px-10 lg:px-16 xl:px-20"
-          : "w-full bg-[#F4F4F4] px-6 py-10 md:py-10 md:px-10 lg:px-16 xl:px-20"
+          : `w-full ${isWhite ? "bg-white" : "bg-[#F4F4F4]"} px-6 py-10 md:py-10 md:px-10 lg:px-16 xl:px-20`
       }
     >
       <div className="w-full">
@@ -294,7 +302,9 @@ export function ProcessSteps({
             own padding is the breathing room around the cards. */}
         <div
           className={
-            isCompactImpact ? "rounded-[6px] bg-[#F4F4F4] p-6 md:p-10" : ""
+            // On white there is no panel to pad, so the cards line up with
+            // the heading's left edge instead of sitting 40px in from it.
+            isCompactImpact && !isWhite ? "rounded-[6px] bg-[#F4F4F4] p-6 md:p-10" : ""
           }
         >
           {isCompactImpact ? (
@@ -309,7 +319,7 @@ export function ProcessSteps({
             </div>
           ) : (
             <div
-              className={`grid grid-cols-1 border-t border-l border-[#F4F4F4] sm:grid-cols-2 ${desktopCols}`}
+              className={`grid grid-cols-1 border-t border-l ${cardBorder} sm:grid-cols-2 ${desktopCols}`}
             >
               {steps.map(renderStep)}
             </div>

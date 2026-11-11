@@ -119,6 +119,8 @@ export interface ProcessStepsBlockProps extends Base <"blocks.process-steps"> {
   title?: string | null;
   steps: ProcessStepItem[];
   variant?: "default" | "compactImpact";
+  /** Strapi enum on the block. Empty / missing means grey, as before. */
+  background?: "grey" | "white" | null;
 }
 
 export interface StrapiMedia {
