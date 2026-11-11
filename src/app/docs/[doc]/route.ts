@@ -1,10 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const DOCS_BASE_URL = process.env.STRAPI_DOCS_URL;
+// STRAPI_DOCS_URL on the server; locally .env only has STRAPI_API_URL (the
+// same Strapi), so fall back to it rather than answering 500 in dev.
+const DOCS_BASE_URL = process.env.STRAPI_DOCS_URL ?? process.env.STRAPI_API_URL;
 
+// Every public PDF, by the name it is served under. Each one answers at
+//   /docs/<key>              (the footer's policy links use these)
+//   /<key>.pdf               (root links, via the rewrite in next.config.ts)
+// Value: the file's link from Strapi -> Media Library -> the PDF -> copy link.
+// Only what is listed here is reachable; any other name is a 404.
+// Keep keys in Latin letters / digits / - _ (Greeklish is fine), since the
+// key is what appears in the URL.
 const DOCS: Record<string, string> = {
   "privacy-policy": `${DOCS_BASE_URL}/uploads/Politiki_Dorodokias_gia_site_ver_1_e3e6f7a6cb.pdf`,
   "quality-policy": `${DOCS_BASE_URL}/uploads/Politiki_Poiotitas_gia_site_ver3_1c0dec6f9e.pdf`,
+
+  // -> https://cmtprooptiki.gr/Onoma_Arxeiou.pdf
+  //    Uncomment and replace the /uploads/... part with the link from Strapi.
+  // "Onoma_Arxeiou": `${DOCS_BASE_URL}/uploads/Onoma_Arxeiou_REPLACE_ME.pdf`,
 };
 
 export async function GET(
@@ -27,10 +40,17 @@ export async function GET(
   }
 
   const body = await upstream.arrayBuffer();
+
+  // Plain filename= must be ASCII (a Greek character there makes the header
+  // invalid and the response fails); filename* carries the real name for
+  // browsers that read it, which is all current ones.
+  const filename = `${doc}.pdf`;
+  const asciiName = filename.replace(/[^\x20-\x7E]|"/g, "_");
+
   return new NextResponse(body, {
     headers: {
       "Content-Type": "application/pdf",
-      "Content-Disposition": `inline; filename="${doc}.pdf"`,
+      "Content-Disposition": `inline; filename="${asciiName}"; filename*=UTF-8''${encodeURIComponent(filename)}`,
       "Cache-Control": "public, max-age=3600",
     },
   });

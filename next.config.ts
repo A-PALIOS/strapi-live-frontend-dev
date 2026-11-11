@@ -54,6 +54,22 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Root-level PDF links: cmtprooptiki.gr/<name>.pdf is served by the
+  // existing /docs/[doc] route, which only knows the files listed in it --
+  // anything else is a 404, so nothing else in the Media Library is exposed.
+  // beforeFiles so the [...slug] page route never sees these paths. The
+  // pattern only takes a single path segment ending in .pdf: /our-journey,
+  // /about-us/x.pdf and /x.pdf.exe are all left alone.
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: "/:doc([^/]+)\\.pdf",
+          destination: "/docs/:doc",
+        },
+      ],
+    };
+  },
   async redirects() {
     return [
       {
