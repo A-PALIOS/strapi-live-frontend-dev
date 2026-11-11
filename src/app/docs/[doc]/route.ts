@@ -17,7 +17,8 @@ const DOCS: Record<string, string> = {
 
   // -> https://cmtprooptiki.gr/Onoma_Arxeiou.pdf
   //    Uncomment and replace the /uploads/... part with the link from Strapi.
-  "5th_Forum_Review_and_Conclusions_EN": `${DOCS_BASE_URL}/uploads/5th_Forum_Review_and_Conclusions_EN.pdf`,
+  "5th_Forum_Review_and_Conclusions_EN": `${DOCS_BASE_URL}/uploads/5th_Forum_Review_and_Conclusions_EN_29e8d677dd.pdf
+`,
 };
 
 export async function GET(
